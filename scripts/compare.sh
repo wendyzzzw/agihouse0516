@@ -1,12 +1,13 @@
 #!/bin/bash
 # Run all 5 topologies with N seeds each, print spread table.
+# Ticks come from the default YAML simulation.
 set -euo pipefail
 cd "$(dirname "$0")/../backend"
 SEEDS="${1:-10}"
 python3 - <<EOF
 from app import compare
 import json
-r = compare(seeds=${SEEDS}, ticks=55)
+r = compare(seeds=${SEEDS})
 print(f"=== Topology comparison ({${SEEDS}} seeds each) ===")
 print(f"{'topology':>16}  {'mean_price':>12}  {'sat':>6}  {'missed':>7}  {'overpay':>10}")
 for t, v in r.items():

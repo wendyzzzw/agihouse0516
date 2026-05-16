@@ -1,530 +1,667 @@
 {
+  "config": {
+    "path": "flight_booking.yaml",
+    "simulation_id": "flight_booking",
+    "override_topology": "isolated"
+  },
   "topology": "isolated",
   "seed": 42,
   "ticks": 55,
   "llm_mode": "rule",
   "summary": {
-    "avg_price": 309.6,
-    "by_profile": {
-      "budget": 308.3,
-      "family": 310.7,
-      "investor": 304.0,
-      "flexible": 327.0
+    "avg_price": 301.1,
+    "by_archetype": {
+      "patient_value_buyer": 281.2,
+      "must_have_buyer": 330.0,
+      "arbitrage_buyer": 283.0
     },
     "n_bought": 10,
     "n_missed": 5,
-    "avg_satisfaction": 61.1,
+    "avg_satisfaction": 67.9,
     "total_messages": 0
   },
   "prices_over_time": [
     {
       "turn": 1,
       "a": 364,
-      "b": 338,
       "inv_a": 6,
+      "b": 338,
       "inv_b": 3
     },
     {
       "turn": 2,
       "a": 364,
-      "b": 362,
       "inv_a": 6,
+      "b": 338,
       "inv_b": 3
     },
     {
       "turn": 3,
       "a": 364,
-      "b": 364,
       "inv_a": 6,
+      "b": 338,
       "inv_b": 3
     },
     {
       "turn": 4,
       "a": 364,
-      "b": 364,
       "inv_a": 6,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 5,
       "a": 364,
-      "b": 364,
       "inv_a": 6,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 6,
       "a": 364,
-      "b": 364,
       "inv_a": 6,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 7,
       "a": 364,
-      "b": 364,
       "inv_a": 6,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 8,
       "a": 364,
-      "b": 364,
       "inv_a": 6,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 9,
       "a": 349,
-      "b": 364,
       "inv_a": 6,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 10,
       "a": 335,
-      "b": 364,
       "inv_a": 6,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 11,
       "a": 322,
-      "b": 364,
-      "inv_a": 6,
-      "inv_b": 3
+      "inv_a": 4,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 12,
-      "a": 309,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 13,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 14,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 15,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 16,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 17,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 18,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 19,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 20,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 21,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 22,
-      "a": 318,
-      "b": 364,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 23,
-      "a": 318,
-      "b": 349,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 24,
-      "a": 318,
-      "b": 335,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 25,
-      "a": 318,
-      "b": 322,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 26,
-      "a": 318,
-      "b": 309,
+      "a": 332,
       "inv_a": 4,
-      "inv_b": 3
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 27,
-      "a": 306,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 318,
+      "inv_a": 4,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 28,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 306,
+      "inv_a": 3,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 29,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 315,
+      "inv_a": 3,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 30,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 315,
+      "inv_a": 3,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 31,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 315,
+      "inv_a": 3,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 32,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 315,
+      "inv_a": 3,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 33,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 315,
+      "inv_a": 3,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 34,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 315,
+      "inv_a": 3,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 35,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 315,
+      "inv_a": 3,
+      "b": 338,
+      "inv_b": 2
     },
     {
       "turn": 36,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 302,
+      "inv_a": 3,
+      "b": 324,
+      "inv_b": 2
     },
     {
       "turn": 37,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 290,
+      "inv_a": 1,
+      "b": 312,
+      "inv_b": 2
     },
     {
       "turn": 38,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 299,
+      "inv_a": 1,
+      "b": 299,
+      "inv_b": 2
     },
     {
       "turn": 39,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
-      "inv_b": 0
+      "a": 299,
+      "inv_a": 1,
+      "b": 287,
+      "inv_b": 2
     },
     {
       "turn": 40,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
+      "a": 299,
+      "inv_a": 1,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 41,
-      "a": 327,
-      "b": 297,
-      "inv_a": 2,
+      "a": 299,
+      "inv_a": 1,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 42,
-      "a": 327,
-      "b": 297,
+      "a": 299,
       "inv_a": 1,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 43,
-      "a": 337,
-      "b": 297,
+      "a": 299,
       "inv_a": 1,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 44,
-      "a": 337,
-      "b": 297,
+      "a": 299,
       "inv_a": 1,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 45,
-      "a": 337,
-      "b": 297,
+      "a": 299,
       "inv_a": 1,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 46,
-      "a": 337,
-      "b": 297,
+      "a": 299,
       "inv_a": 1,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 47,
-      "a": 310,
-      "b": 297,
-      "inv_a": 0,
+      "a": 275,
+      "inv_a": 1,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 48,
-      "a": 310,
-      "b": 297,
+      "a": 253,
       "inv_a": 0,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 49,
-      "a": 310,
-      "b": 297,
+      "a": 253,
       "inv_a": 0,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 50,
-      "a": 310,
-      "b": 297,
+      "a": 253,
       "inv_a": 0,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 51,
-      "a": 310,
-      "b": 297,
+      "a": 253,
       "inv_a": 0,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 52,
-      "a": 310,
-      "b": 297,
+      "a": 253,
       "inv_a": 0,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 53,
-      "a": 310,
-      "b": 297,
+      "a": 253,
       "inv_a": 0,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 54,
-      "a": 310,
-      "b": 297,
+      "a": 253,
       "inv_a": 0,
+      "b": 276,
       "inv_b": 0
     },
     {
       "turn": 55,
-      "a": 310,
-      "b": 297,
+      "a": 253,
       "inv_a": 0,
+      "b": 276,
       "inv_b": 0
     }
   ],
   "events": [
     {
-      "from": "I",
+      "from": "buyer_10",
+      "letter": "J",
       "to": null,
-      "msg": "BOUGHT from Airline_B at $338 (family, 60% sat)",
+      "msg": "BOUGHT from Airline_B at $338 (must_have_buyer, 79% sat)",
       "cls": "log-buy",
-      "letter": "I",
       "price": 338,
-      "sat": 60,
+      "sat": 79,
       "turn": 1
     },
     {
-      "from": "M",
-      "to": null,
-      "msg": "BOUGHT from Airline_A at $309 (investor, 72% sat)",
-      "cls": "log-buy",
-      "letter": "M",
-      "price": 309,
-      "sat": 72,
-      "turn": 12
-    },
-    {
-      "from": "D",
-      "to": null,
-      "msg": "BOUGHT from Airline_A at $309 (budget, 67% sat)",
-      "cls": "log-buy",
-      "letter": "D",
-      "price": 309,
-      "sat": 67,
-      "turn": 12
-    },
-    {
-      "from": "G",
-      "to": null,
-      "msg": "BOUGHT from Airline_B at $297 (family, 54% sat)",
-      "cls": "log-buy",
-      "letter": "G",
-      "price": 297,
-      "sat": 54,
-      "turn": 27
-    },
-    {
-      "from": "H",
-      "to": null,
-      "msg": "BOUGHT from Airline_B at $297 (family, 50% sat)",
-      "cls": "log-buy",
+      "from": "buyer_8",
       "letter": "H",
-      "price": 297,
-      "sat": 50,
-      "turn": 27
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $338 (must_have_buyer, 79% sat)",
+      "cls": "log-buy",
+      "price": 338,
+      "sat": 79,
+      "turn": 4
     },
     {
-      "from": "L",
+      "from": "buyer_7",
+      "letter": "G",
       "to": null,
-      "msg": "BOUGHT from Airline_B at $297 (investor, 71% sat)",
+      "msg": "BOUGHT from Airline_A at $322 (must_have_buyer, 79% sat)",
       "cls": "log-buy",
-      "letter": "L",
-      "price": 297,
-      "sat": 71,
-      "turn": 27
+      "price": 322,
+      "sat": 79,
+      "turn": 11
     },
     {
-      "from": "K",
+      "from": "buyer_9",
+      "letter": "I",
       "to": null,
-      "msg": "BOUGHT from Airline_A at $306 (investor, 66% sat)",
+      "msg": "BOUGHT from Airline_A at $322 (must_have_buyer, 78% sat)",
       "cls": "log-buy",
+      "price": 322,
+      "sat": 78,
+      "turn": 11
+    },
+    {
+      "from": "buyer_5",
+      "letter": "E",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $306 (patient_value_buyer, 61% sat)",
+      "cls": "log-buy",
+      "price": 306,
+      "sat": 61,
+      "turn": 28
+    },
+    {
+      "from": "buyer_13",
+      "letter": "M",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $290 (arbitrage_buyer, 60% sat)",
+      "cls": "log-buy",
+      "price": 290,
+      "sat": 60,
+      "turn": 37
+    },
+    {
+      "from": "buyer_3",
+      "letter": "C",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $290 (patient_value_buyer, 61% sat)",
+      "cls": "log-buy",
+      "price": 290,
+      "sat": 61,
+      "turn": 37
+    },
+    {
+      "from": "buyer_11",
       "letter": "K",
-      "price": 306,
-      "sat": 66,
-      "turn": 27
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $276 (arbitrage_buyer, 61% sat)",
+      "cls": "log-buy",
+      "price": 276,
+      "sat": 61,
+      "turn": 40
     },
     {
-      "from": "A",
-      "to": null,
-      "msg": "BOUGHT from Airline_A at $306 (budget, 65% sat)",
-      "cls": "log-buy",
+      "from": "buyer_1",
       "letter": "A",
-      "price": 306,
-      "sat": 65,
-      "turn": 27
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $276 (patient_value_buyer, 61% sat)",
+      "cls": "log-buy",
+      "price": 276,
+      "sat": 61,
+      "turn": 40
     },
     {
-      "from": "N",
+      "from": "buyer_4",
+      "letter": "D",
       "to": null,
-      "msg": "BOUGHT from Airline_A at $327 (flexible, 56% sat)",
+      "msg": "BOUGHT from Airline_A at $253 (patient_value_buyer, 60% sat)",
       "cls": "log-buy",
-      "letter": "N",
-      "price": 327,
-      "sat": 56,
-      "turn": 42
-    },
-    {
-      "from": "F",
-      "to": null,
-      "msg": "BOUGHT from Airline_A at $310 (budget, 50% sat)",
-      "cls": "log-buy",
-      "letter": "F",
-      "price": 310,
-      "sat": 50,
-      "turn": 47
+      "price": 253,
+      "sat": 60,
+      "turn": 48
     }
   ],
   "agents": {
-    "A": {
-      "id": "A",
-      "profile": "budget",
+    "buyer_1": {
+      "id": "buyer_1",
+      "letter": "A",
+      "archetype": "patient_value_buyer",
       "persona": {
-        "profile": "budget",
-        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
-        "traits": {
-          "patience": 0.85,
-          "risk_aversion": 0.7,
-          "social": 0.5,
-          "honesty": 0.85
-        }
+        "archetype": "patient_value_buyer",
+        "role": "buyer",
+        "description": "Waits for attractive prices and is happy to walk away. Frugal, hates overpaying. Long horizon."
       },
-      "budget": 361,
+      "budget": 320,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 280,
+        "max_quantity": 1
+      },
+      "items_owned": 1,
+      "target_items": 1,
+      "bought": true,
+      "purchase_price": 276,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 61,
+      "ticks_waited": 39,
+      "messages_sent": 0,
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_B": {
+          "last_price": 276,
+          "turn": 40,
+          "source": "self"
+        }
+      }
+    },
+    "buyer_2": {
+      "id": "buyer_2",
+      "letter": "B",
+      "archetype": "patient_value_buyer",
+      "persona": {
+        "archetype": "patient_value_buyer",
+        "role": "buyer",
+        "description": "Waits for attractive prices and is happy to walk away. Frugal, hates overpaying. Long horizon."
+      },
+      "budget": 305,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 265,
+        "max_quantity": 1
+      },
+      "items_owned": 0,
+      "target_items": 1,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 55,
+      "messages_sent": 0,
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {}
+    },
+    "buyer_3": {
+      "id": "buyer_3",
+      "letter": "C",
+      "archetype": "patient_value_buyer",
+      "persona": {
+        "archetype": "patient_value_buyer",
+        "role": "buyer",
+        "description": "Waits for attractive prices and is happy to walk away. Frugal, hates overpaying. Long horizon."
+      },
+      "budget": 340,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 295,
+        "max_quantity": 1
+      },
+      "items_owned": 1,
+      "target_items": 1,
+      "bought": true,
+      "purchase_price": 290,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 61,
+      "ticks_waited": 36,
+      "messages_sent": 0,
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_A": {
+          "last_price": 290,
+          "turn": 37,
+          "source": "self"
+        }
+      }
+    },
+    "buyer_4": {
+      "id": "buyer_4",
+      "letter": "D",
+      "archetype": "patient_value_buyer",
+      "persona": {
+        "archetype": "patient_value_buyer",
+        "role": "buyer",
+        "description": "Waits for attractive prices and is happy to walk away. Frugal, hates overpaying. Long horizon."
+      },
+      "budget": 295,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 255,
+        "max_quantity": 1
+      },
+      "items_owned": 1,
+      "target_items": 1,
+      "bought": true,
+      "purchase_price": 253,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 60,
+      "ticks_waited": 47,
+      "messages_sent": 0,
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_A": {
+          "last_price": 253,
+          "turn": 48,
+          "source": "self"
+        }
+      }
+    },
+    "buyer_5": {
+      "id": "buyer_5",
+      "letter": "E",
+      "archetype": "patient_value_buyer",
+      "persona": {
+        "archetype": "patient_value_buyer",
+        "role": "buyer",
+        "description": "Waits for attractive prices and is happy to walk away. Frugal, hates overpaying. Long horizon."
+      },
+      "budget": 360,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 310,
+        "max_quantity": 1
+      },
+      "items_owned": 1,
+      "target_items": 1,
       "bought": true,
       "purchase_price": 306,
       "purchase_seller": "Airline_A",
-      "satisfaction": 65,
-      "ticks_waited": 26,
+      "satisfaction": 61,
+      "ticks_waited": 27,
       "messages_sent": 0,
       "messages_received": 0,
       "inbox": [],
@@ -532,25 +669,28 @@
       "beliefs": {
         "Airline_A": {
           "last_price": 306,
-          "turn": 27,
+          "turn": 28,
           "source": "self"
         }
       }
     },
-    "B": {
-      "id": "B",
-      "profile": "budget",
+    "buyer_6": {
+      "id": "buyer_6",
+      "letter": "F",
+      "archetype": "patient_value_buyer",
       "persona": {
-        "profile": "budget",
-        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
-        "traits": {
-          "patience": 0.85,
-          "risk_aversion": 0.7,
-          "social": 0.5,
-          "honesty": 0.85
-        }
+        "archetype": "patient_value_buyer",
+        "role": "buyer",
+        "description": "Waits for attractive prices and is happy to walk away. Frugal, hates overpaying. Long horizon."
       },
-      "budget": 294,
+      "budget": 285,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 245,
+        "max_quantity": 1
+      },
+      "items_owned": 0,
+      "target_items": 1,
       "bought": false,
       "purchase_price": null,
       "purchase_seller": null,
@@ -562,198 +702,129 @@
       "outbox": [],
       "beliefs": {}
     },
-    "C": {
-      "id": "C",
-      "profile": "budget",
+    "buyer_7": {
+      "id": "buyer_7",
+      "letter": "G",
+      "archetype": "must_have_buyer",
       "persona": {
-        "profile": "budget",
-        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
-        "traits": {
-          "patience": 0.85,
-          "risk_aversion": 0.7,
-          "social": 0.5,
-          "honesty": 0.85
-        }
+        "archetype": "must_have_buyer",
+        "role": "buyer",
+        "description": "Needs to buy a required quantity within a fixed timeframe and becomes progressively more flexible as the deadline approaches."
       },
-      "budget": 283,
-      "bought": false,
-      "purchase_price": null,
-      "purchase_seller": null,
-      "satisfaction": null,
-      "ticks_waited": 55,
-      "messages_sent": 0,
-      "messages_received": 0,
-      "inbox": [],
-      "outbox": [],
-      "beliefs": {}
-    },
-    "D": {
-      "id": "D",
-      "profile": "budget",
-      "persona": {
-        "profile": "budget",
-        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
-        "traits": {
-          "patience": 0.85,
-          "risk_aversion": 0.7,
-          "social": 0.5,
-          "honesty": 0.85
-        }
+      "budget": 380,
+      "goal": {
+        "type": "must_buy_quantity",
+        "quantity": 1,
+        "max_price_per_item": 380
       },
-      "budget": 374,
+      "items_owned": 1,
+      "target_items": 1,
       "bought": true,
-      "purchase_price": 309,
+      "purchase_price": 322,
       "purchase_seller": "Airline_A",
-      "satisfaction": 67,
-      "ticks_waited": 11,
+      "satisfaction": 79,
+      "ticks_waited": 10,
       "messages_sent": 0,
       "messages_received": 0,
       "inbox": [],
       "outbox": [],
       "beliefs": {
         "Airline_A": {
-          "last_price": 309,
-          "turn": 12,
+          "last_price": 322,
+          "turn": 11,
           "source": "self"
         }
       }
     },
-    "E": {
-      "id": "E",
-      "profile": "budget",
+    "buyer_8": {
+      "id": "buyer_8",
+      "letter": "H",
+      "archetype": "must_have_buyer",
       "persona": {
-        "profile": "budget",
-        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
-        "traits": {
-          "patience": 0.85,
-          "risk_aversion": 0.7,
-          "social": 0.5,
-          "honesty": 0.85
-        }
+        "archetype": "must_have_buyer",
+        "role": "buyer",
+        "description": "Needs to buy a required quantity within a fixed timeframe and becomes progressively more flexible as the deadline approaches."
       },
-      "budget": 315,
-      "bought": false,
-      "purchase_price": null,
-      "purchase_seller": null,
-      "satisfaction": null,
-      "ticks_waited": 55,
-      "messages_sent": 0,
-      "messages_received": 0,
-      "inbox": [],
-      "outbox": [],
-      "beliefs": {}
-    },
-    "F": {
-      "id": "F",
-      "profile": "budget",
-      "persona": {
-        "profile": "budget",
-        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
-        "traits": {
-          "patience": 0.85,
-          "risk_aversion": 0.7,
-          "social": 0.5,
-          "honesty": 0.85
-        }
+      "budget": 395,
+      "goal": {
+        "type": "must_buy_quantity",
+        "quantity": 1,
+        "max_price_per_item": 395
       },
-      "budget": 311,
-      "bought": true,
-      "purchase_price": 310,
-      "purchase_seller": "Airline_A",
-      "satisfaction": 50,
-      "ticks_waited": 46,
-      "messages_sent": 0,
-      "messages_received": 0,
-      "inbox": [],
-      "outbox": [],
-      "beliefs": {
-        "Airline_A": {
-          "last_price": 310,
-          "turn": 47,
-          "source": "self"
-        }
-      }
-    },
-    "G": {
-      "id": "G",
-      "profile": "family",
-      "persona": {
-        "profile": "family",
-        "description": "Family of four needing tickets for a fixed date. Time-pressured. Will pay close to budget to secure seats.",
-        "traits": {
-          "patience": 0.25,
-          "risk_aversion": 0.4,
-          "social": 0.2,
-          "honesty": 0.9
-        }
-      },
-      "budget": 308,
-      "bought": true,
-      "purchase_price": 297,
-      "purchase_seller": "Airline_B",
-      "satisfaction": 54,
-      "ticks_waited": 26,
-      "messages_sent": 0,
-      "messages_received": 0,
-      "inbox": [],
-      "outbox": [],
-      "beliefs": {
-        "Airline_B": {
-          "last_price": 297,
-          "turn": 27,
-          "source": "self"
-        }
-      }
-    },
-    "H": {
-      "id": "H",
-      "profile": "family",
-      "persona": {
-        "profile": "family",
-        "description": "Family of four needing tickets for a fixed date. Time-pressured. Will pay close to budget to secure seats.",
-        "traits": {
-          "patience": 0.25,
-          "risk_aversion": 0.4,
-          "social": 0.2,
-          "honesty": 0.9
-        }
-      },
-      "budget": 297,
-      "bought": true,
-      "purchase_price": 297,
-      "purchase_seller": "Airline_B",
-      "satisfaction": 50,
-      "ticks_waited": 26,
-      "messages_sent": 0,
-      "messages_received": 0,
-      "inbox": [],
-      "outbox": [],
-      "beliefs": {
-        "Airline_B": {
-          "last_price": 297,
-          "turn": 27,
-          "source": "self"
-        }
-      }
-    },
-    "I": {
-      "id": "I",
-      "profile": "family",
-      "persona": {
-        "profile": "family",
-        "description": "Family of four needing tickets for a fixed date. Time-pressured. Will pay close to budget to secure seats.",
-        "traits": {
-          "patience": 0.25,
-          "risk_aversion": 0.4,
-          "social": 0.2,
-          "honesty": 0.9
-        }
-      },
-      "budget": 374,
+      "items_owned": 1,
+      "target_items": 1,
       "bought": true,
       "purchase_price": 338,
       "purchase_seller": "Airline_B",
-      "satisfaction": 60,
+      "satisfaction": 79,
+      "ticks_waited": 3,
+      "messages_sent": 0,
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_B": {
+          "last_price": 338,
+          "turn": 4,
+          "source": "self"
+        }
+      }
+    },
+    "buyer_9": {
+      "id": "buyer_9",
+      "letter": "I",
+      "archetype": "must_have_buyer",
+      "persona": {
+        "archetype": "must_have_buyer",
+        "role": "buyer",
+        "description": "Needs to buy a required quantity within a fixed timeframe and becomes progressively more flexible as the deadline approaches."
+      },
+      "budget": 370,
+      "goal": {
+        "type": "must_buy_quantity",
+        "quantity": 1,
+        "max_price_per_item": 370
+      },
+      "items_owned": 1,
+      "target_items": 1,
+      "bought": true,
+      "purchase_price": 322,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 78,
+      "ticks_waited": 10,
+      "messages_sent": 0,
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_A": {
+          "last_price": 322,
+          "turn": 11,
+          "source": "self"
+        }
+      }
+    },
+    "buyer_10": {
+      "id": "buyer_10",
+      "letter": "J",
+      "archetype": "must_have_buyer",
+      "persona": {
+        "archetype": "must_have_buyer",
+        "role": "buyer",
+        "description": "Needs to buy a required quantity within a fixed timeframe and becomes progressively more flexible as the deadline approaches."
+      },
+      "budget": 400,
+      "goal": {
+        "type": "must_buy_quantity",
+        "quantity": 1,
+        "max_price_per_item": 400
+      },
+      "items_owned": 1,
+      "target_items": 1,
+      "bought": true,
+      "purchase_price": 338,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 79,
       "ticks_waited": 0,
       "messages_sent": 0,
       "messages_received": 0,
@@ -767,20 +838,57 @@
         }
       }
     },
-    "J": {
-      "id": "J",
-      "profile": "family",
+    "buyer_11": {
+      "id": "buyer_11",
+      "letter": "K",
+      "archetype": "arbitrage_buyer",
       "persona": {
-        "profile": "family",
-        "description": "Family of four needing tickets for a fixed date. Time-pressured. Will pay close to budget to secure seats.",
-        "traits": {
-          "patience": 0.25,
-          "risk_aversion": 0.4,
-          "social": 0.2,
-          "honesty": 0.9
-        }
+        "archetype": "arbitrage_buyer",
+        "role": "buyer",
+        "description": "Buys only when prices seem unusually favorable relative to the market-wide signal. Calculating, info-hungry, may bluff."
       },
-      "budget": 293,
+      "budget": 350,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 280,
+        "max_quantity": 1
+      },
+      "items_owned": 1,
+      "target_items": 1,
+      "bought": true,
+      "purchase_price": 276,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 61,
+      "ticks_waited": 39,
+      "messages_sent": 0,
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_B": {
+          "last_price": 276,
+          "turn": 40,
+          "source": "self"
+        }
+      }
+    },
+    "buyer_12": {
+      "id": "buyer_12",
+      "letter": "L",
+      "archetype": "arbitrage_buyer",
+      "persona": {
+        "archetype": "arbitrage_buyer",
+        "role": "buyer",
+        "description": "Buys only when prices seem unusually favorable relative to the market-wide signal. Calculating, info-hungry, may bluff."
+      },
+      "budget": 330,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 265,
+        "max_quantity": 1
+      },
+      "items_owned": 0,
+      "target_items": 1,
       "bought": false,
       "purchase_price": null,
       "purchase_seller": null,
@@ -792,144 +900,85 @@
       "outbox": [],
       "beliefs": {}
     },
-    "K": {
-      "id": "K",
-      "profile": "investor",
+    "buyer_13": {
+      "id": "buyer_13",
+      "letter": "M",
+      "archetype": "arbitrage_buyer",
       "persona": {
-        "profile": "investor",
-        "description": "Sophisticated trader hunting arbitrage. Calculating, info-hungry, only buys clear deals. May bluff.",
-        "traits": {
-          "patience": 0.6,
-          "risk_aversion": 0.5,
-          "social": 0.7,
-          "honesty": 0.6
-        }
+        "archetype": "arbitrage_buyer",
+        "role": "buyer",
+        "description": "Buys only when prices seem unusually favorable relative to the market-wide signal. Calculating, info-hungry, may bluff."
       },
-      "budget": 366,
+      "budget": 365,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 290,
+        "max_quantity": 1
+      },
+      "items_owned": 1,
+      "target_items": 1,
       "bought": true,
-      "purchase_price": 306,
+      "purchase_price": 290,
       "purchase_seller": "Airline_A",
-      "satisfaction": 66,
-      "ticks_waited": 26,
+      "satisfaction": 60,
+      "ticks_waited": 36,
       "messages_sent": 0,
       "messages_received": 0,
       "inbox": [],
       "outbox": [],
       "beliefs": {
         "Airline_A": {
-          "last_price": 306,
-          "turn": 27,
+          "last_price": 290,
+          "turn": 37,
           "source": "self"
         }
       }
     },
-    "L": {
-      "id": "L",
-      "profile": "investor",
+    "buyer_14": {
+      "id": "buyer_14",
+      "letter": "N",
+      "archetype": "contrarian_buyer",
       "persona": {
-        "profile": "investor",
-        "description": "Sophisticated trader hunting arbitrage. Calculating, info-hungry, only buys clear deals. May bluff.",
-        "traits": {
-          "patience": 0.6,
-          "risk_aversion": 0.5,
-          "social": 0.7,
-          "honesty": 0.6
-        }
+        "archetype": "contrarian_buyer",
+        "role": "buyer",
+        "description": "Avoids consensus picks and looks for overlooked deals. Extreme patience, opportunistic."
       },
-      "budget": 374,
-      "bought": true,
-      "purchase_price": 297,
-      "purchase_seller": "Airline_B",
-      "satisfaction": 71,
-      "ticks_waited": 26,
+      "budget": 310,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 250,
+        "max_quantity": 1
+      },
+      "items_owned": 0,
+      "target_items": 1,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 55,
       "messages_sent": 0,
       "messages_received": 0,
       "inbox": [],
       "outbox": [],
-      "beliefs": {
-        "Airline_B": {
-          "last_price": 297,
-          "turn": 27,
-          "source": "self"
-        }
-      }
+      "beliefs": {}
     },
-    "M": {
-      "id": "M",
-      "profile": "investor",
+    "buyer_15": {
+      "id": "buyer_15",
+      "letter": "O",
+      "archetype": "contrarian_buyer",
       "persona": {
-        "profile": "investor",
-        "description": "Sophisticated trader hunting arbitrage. Calculating, info-hungry, only buys clear deals. May bluff.",
-        "traits": {
-          "patience": 0.6,
-          "risk_aversion": 0.5,
-          "social": 0.7,
-          "honesty": 0.6
-        }
+        "archetype": "contrarian_buyer",
+        "role": "buyer",
+        "description": "Avoids consensus picks and looks for overlooked deals. Extreme patience, opportunistic."
       },
-      "budget": 394,
-      "bought": true,
-      "purchase_price": 309,
-      "purchase_seller": "Airline_A",
-      "satisfaction": 72,
-      "ticks_waited": 11,
-      "messages_sent": 0,
-      "messages_received": 0,
-      "inbox": [],
-      "outbox": [],
-      "beliefs": {
-        "Airline_A": {
-          "last_price": 309,
-          "turn": 12,
-          "source": "self"
-        }
-      }
-    },
-    "N": {
-      "id": "N",
-      "profile": "flexible",
-      "persona": {
-        "profile": "flexible",
-        "description": "Digital nomad with no fixed schedule. Extreme patience, opportunistic, will wait for fire-sale prices.",
-        "traits": {
-          "patience": 0.95,
-          "risk_aversion": 0.3,
-          "social": 0.5,
-          "honesty": 0.8
-        }
+      "budget": 295,
+      "goal": {
+        "type": "buy_if_below_price",
+        "max_price_per_item": 240,
+        "max_quantity": 1
       },
-      "budget": 349,
-      "bought": true,
-      "purchase_price": 327,
-      "purchase_seller": "Airline_A",
-      "satisfaction": 56,
-      "ticks_waited": 41,
-      "messages_sent": 0,
-      "messages_received": 0,
-      "inbox": [],
-      "outbox": [],
-      "beliefs": {
-        "Airline_A": {
-          "last_price": 327,
-          "turn": 42,
-          "source": "self"
-        }
-      }
-    },
-    "O": {
-      "id": "O",
-      "profile": "flexible",
-      "persona": {
-        "profile": "flexible",
-        "description": "Digital nomad with no fixed schedule. Extreme patience, opportunistic, will wait for fire-sale prices.",
-        "traits": {
-          "patience": 0.95,
-          "risk_aversion": 0.3,
-          "social": 0.5,
-          "honesty": 0.8
-        }
-      },
-      "budget": 291,
+      "items_owned": 0,
+      "target_items": 1,
       "bought": false,
       "purchase_price": null,
       "purchase_seller": null,
@@ -944,343 +993,355 @@
   },
   "sellers": {
     "Airline_A": {
+      "id": "Airline_A",
       "name": "Airline_A",
-      "base_price": 280,
-      "final_price": 310,
+      "archetype": "anchoring_negotiator",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "starting_price": 364,
+      "final_price": 253,
+      "min_price": 182,
       "initial_inventory": 6,
       "final_inventory": 0
     },
     "Airline_B": {
+      "id": "Airline_B",
       "name": "Airline_B",
-      "base_price": 260,
-      "final_price": 297,
+      "archetype": "clearance_specialist",
+      "goal": {
+        "type": "sell_all"
+      },
+      "starting_price": 338,
+      "final_price": 276,
+      "min_price": 169,
       "initial_inventory": 4,
       "final_inventory": 0
     }
   },
   "comm_matrix": {
-    "A": {
-      "A": false,
-      "Airline_A": true,
-      "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
-    },
     "Airline_A": {
-      "A": true,
       "Airline_A": false,
       "Airline_B": false,
-      "B": true,
-      "C": true,
-      "D": true,
-      "E": true,
-      "F": true,
-      "G": true,
-      "H": true,
-      "I": true,
-      "J": true,
-      "K": true,
-      "L": true,
-      "M": true,
-      "N": true,
-      "O": true
+      "buyer_1": true,
+      "buyer_10": true,
+      "buyer_11": true,
+      "buyer_12": true,
+      "buyer_13": true,
+      "buyer_14": true,
+      "buyer_15": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "buyer_9": true
     },
     "Airline_B": {
-      "A": true,
       "Airline_A": false,
       "Airline_B": false,
-      "B": true,
-      "C": true,
-      "D": true,
-      "E": true,
-      "F": true,
-      "G": true,
-      "H": true,
-      "I": true,
-      "J": true,
-      "K": true,
-      "L": true,
-      "M": true,
-      "N": true,
-      "O": true
+      "buyer_1": true,
+      "buyer_10": true,
+      "buyer_11": true,
+      "buyer_12": true,
+      "buyer_13": true,
+      "buyer_14": true,
+      "buyer_15": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "buyer_9": true
     },
-    "B": {
-      "A": false,
+    "buyer_1": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "C": {
-      "A": false,
+    "buyer_10": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "D": {
-      "A": false,
+    "buyer_11": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "E": {
-      "A": false,
+    "buyer_12": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "F": {
-      "A": false,
+    "buyer_13": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "G": {
-      "A": false,
+    "buyer_14": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "H": {
-      "A": false,
+    "buyer_15": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "I": {
-      "A": false,
+    "buyer_2": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "J": {
-      "A": false,
+    "buyer_3": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "K": {
-      "A": false,
+    "buyer_4": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "L": {
-      "A": false,
+    "buyer_5": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "M": {
-      "A": false,
+    "buyer_6": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "N": {
-      "A": false,
+    "buyer_7": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     },
-    "O": {
-      "A": false,
+    "buyer_8": {
       "Airline_A": true,
       "Airline_B": true,
-      "B": false,
-      "C": false,
-      "D": false,
-      "E": false,
-      "F": false,
-      "G": false,
-      "H": false,
-      "I": false,
-      "J": false,
-      "K": false,
-      "L": false,
-      "M": false,
-      "N": false,
-      "O": false
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
+    },
+    "buyer_9": {
+      "Airline_A": true,
+      "Airline_B": true,
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_13": false,
+      "buyer_14": false,
+      "buyer_15": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false
     }
   },
   "conversations": {}

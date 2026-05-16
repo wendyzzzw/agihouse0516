@@ -1,0 +1,170 @@
+# Flight-booking simulation — written to match the schema in test_config.yaml.
+# 15 buyers + 2 sellers (Airline_A, Airline_B), 10 total seats. The frontend
+# (demo.html) selects topology via its top-row buttons; the CLI flag
+# --topology overrides simulation.topology.generator.buyer_buyer_edges
+# at runtime so all 5 topologies share the same buyer/seller setup.
+
+config_version: 1
+
+global_defaults:
+  one_item_type: true
+  llm_name: claude-haiku-4-5
+  max_messages_per_round: 3
+  price_tick: 1
+  transaction_rule: seller_accepts_offer
+
+archetypes:
+  sellers:
+    anchoring_negotiator: >
+      Starts with a high asking price to anchor buyers. Makes slow concessions
+      as the simulation progresses.
+    clearance_specialist: >
+      Steadily lowers prices each round to clear inventory. Will accept
+      reasonable offers even below listing if seats remain unsold.
+
+  buyers:
+    patient_value_buyer: >
+      Waits for attractive prices and is happy to walk away. Frugal,
+      hates overpaying. Long horizon.
+    must_have_buyer: >
+      Needs to buy a required quantity within a fixed timeframe and becomes
+      progressively more flexible as the deadline approaches.
+    arbitrage_buyer: >
+      Buys only when prices seem unusually favorable relative to the
+      market-wide signal. Calculating, info-hungry, may bluff.
+    contrarian_buyer: >
+      Avoids consensus picks and looks for overlooked deals. Extreme
+      patience, opportunistic.
+
+simulations:
+  - id: flight_booking
+    summary: >
+      15 buyers compete for 10 airline seats across two carriers. Used as the
+      AgentArena flagship demo. The same buyer/seller list is rerun with each
+      of 5 buyer-buyer topologies to show how connectivity affects price.
+
+    settings:
+      max_rounds: 55
+      num_sellers: 2
+      num_buyers: 15
+
+    market_rules:
+      pricing: negotiated
+      allow_negotiation: true
+      allow_buyer_coalitions: true
+      allow_seller_collusion: false
+      allow_price_info_sharing: true
+
+    topology:
+      input_type: generated
+      compile_to: adjacency_matrix
+      directed: false
+      generator:
+        seller_buyer_edges: complete_bipartite
+        seller_seller_edges: none
+        buyer_buyer_edges:
+          type: small_world          # isolated | clustered | small_world | hub_spoke | fully_connected
+          cluster_size: 5
+          long_range_edges: 3
+
+    sellers:
+      - id: Airline_A
+        archetype: anchoring_negotiator
+        inventory: 6
+        starting_price: 364
+        min_price: 182
+        goal: { type: highest_revenue }
+
+      - id: Airline_B
+        archetype: clearance_specialist
+        inventory: 4
+        starting_price: 338
+        min_price: 169
+        goal: { type: sell_all }
+
+    buyers:
+      # 6 patient_value_buyer ─────────────────────────────────────────────
+      - { id: buyer_1,  archetype: patient_value_buyer, budget: 320,
+          goal: { type: buy_if_below_price, max_price_per_item: 280, max_quantity: 1 } }
+      - { id: buyer_2,  archetype: patient_value_buyer, budget: 305,
+          goal: { type: buy_if_below_price, max_price_per_item: 265, max_quantity: 1 } }
+      - { id: buyer_3,  archetype: patient_value_buyer, budget: 340,
+          goal: { type: buy_if_below_price, max_price_per_item: 295, max_quantity: 1 } }
+      - { id: buyer_4,  archetype: patient_value_buyer, budget: 295,
+          goal: { type: buy_if_below_price, max_price_per_item: 255, max_quantity: 1 } }
+      - { id: buyer_5,  archetype: patient_value_buyer, budget: 360,
+          goal: { type: buy_if_below_price, max_price_per_item: 310, max_quantity: 1 } }
+      - { id: buyer_6,  archetype: patient_value_buyer, budget: 285,
+          goal: { type: buy_if_below_price, max_price_per_item: 245, max_quantity: 1 } }
+      # 4 must_have_buyer ─────────────────────────────────────────────────
+      - { id: buyer_7,  archetype: must_have_buyer, budget: 380,
+          goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 380 } }
+      - { id: buyer_8,  archetype: must_have_buyer, budget: 395,
+          goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 395 } }
+      - { id: buyer_9,  archetype: must_have_buyer, budget: 370,
+          goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 370 } }
+      - { id: buyer_10, archetype: must_have_buyer, budget: 400,
+          goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 400 } }
+      # 3 arbitrage_buyer ─────────────────────────────────────────────────
+      - { id: buyer_11, archetype: arbitrage_buyer, budget: 350,
+          goal: { type: buy_if_below_price, max_price_per_item: 280, max_quantity: 1 } }
+      - { id: buyer_12, archetype: arbitrage_buyer, budget: 330,
+          goal: { type: buy_if_below_price, max_price_per_item: 265, max_quantity: 1 } }
+      - { id: buyer_13, archetype: arbitrage_buyer, budget: 365,
+          goal: { type: buy_if_below_price, max_price_per_item: 290, max_quantity: 1 } }
+      # 2 contrarian_buyer ────────────────────────────────────────────────
+      - { id: buyer_14, archetype: contrarian_buyer, budget: 310,
+          goal: { type: buy_if_below_price, max_price_per_item: 250, max_quantity: 1 } }
+      - { id: buyer_15, archetype: contrarian_buyer, budget: 295,
+          goal: { type: buy_if_below_price, max_price_per_item: 240, max_quantity: 1 } }
+
+    pricing:
+      # Seller-side yield-management coefficients (Seller.update_price).
+      behind_pace_threshold: 0.15
+      ahead_pace_threshold: 0.15
+      behind_discount: 0.96
+      ahead_raise: 1.04
+      endgame_time_left: 0.15
+      endgame_discount: 0.92
+      demand_pulse_ratio: 0.20
+      demand_pulse_raise: 1.03
+
+    llm:
+      model: haiku
+      timeout_seconds: 60
+      cwd: /tmp
+      disallowed_tools:
+        - Bash
+        - Edit
+        - Read
+        - Write
+        - Grep
+        - Glob
+        - TodoWrite
+        - TaskCreate
+        - WebFetch
+        - WebSearch
+        - Task
+        - Agent
+        - NotebookEdit
+        - Skill
+
+output:
+  record_messages: true
+  record_offers: true
+  record_transactions: true
+  record_private_state: true
+  record_compiled_adjacency_matrix: true
+
+metrics:
+  - total_items_sold
+  - total_revenue
+  - average_sale_price
+  - unsold_inventory
+  - buyer_goal_completion_rate
+  - seller_goal_completion_rate
+  - number_of_failed_negotiations
+  - number_of_coalitions_formed
+  - price_dispersion
+  - final_buyer_surplus
+  - final_seller_revenue
