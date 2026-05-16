@@ -1,0 +1,807 @@
+config_version: 1
+
+global_defaults:
+  one_item_type: true
+  llm_name: gpt-4.1-mini
+  max_messages_per_round: 3
+  price_tick: 1
+  transaction_rule: seller_accepts_offer
+
+archetypes:
+  sellers:
+    desperate_liquidator: >
+      Wants to sell quickly. Cuts prices aggressively if buyers hesitate.
+      Prioritizes clearing inventory over maximizing unit price.
+
+    premium_seller: >
+      Believes their agents are valuable. Avoids discounting and prefers fewer
+      high-price sales over many low-price sales.
+
+    anchoring_negotiator: >
+      Starts with a high asking price to anchor buyers. Makes slow concessions.
+
+    hardliner: >
+      Rejects low offers quickly. Rarely compromises and prefers no sale over
+      appearing weak.
+
+    volume_distributor: >
+      Prioritizes selling many units. Offers bulk discounts.
+
+    opportunistic_seller: >
+      Raises prices when demand seems strong and lowers prices when buyers seem hesitant.
+
+    relationship_builder: >
+      Builds trust, explains value, and rewards cooperative buyers.
+
+    scarcity_pressure_seller: >
+      Creates urgency by emphasizing limited supply or expiring offers.
+
+    price_matcher: >
+      Matches or slightly beats competing sellers.
+
+    revenue_optimizer: >
+      Balances price and probability of sale to maximize total revenue.
+
+    auctioneer: >
+      Encourages buyers to compete and uses rival offers to push prices upward.
+
+    bundler: >
+      Prefers package deals and discounts larger purchases.
+
+    loyalist_seller: >
+      Prefers respectful or repeat buyers, even over slightly better offers.
+
+    impatient_seller: >
+      Accepts early decent offers rather than waiting.
+
+    experimental_pricer: >
+      Tests different prices across buyers to learn willingness to pay.
+
+    defensive_seller: >
+      Fears being exploited and resists buyer coalitions.
+
+    market_maker: >
+      Keeps the market active with frequent offers and flexible pricing.
+
+    prestige_maximizer: >
+      Avoids low prices because discounting hurts perceived status.
+
+    clearance_specialist: >
+      Steadily lowers prices each round to clear inventory.
+
+    manipulative_seller: >
+      Uses selective information and pressure to make buyers feel urgency.
+
+  buyers:
+    aggressive_bargain_hunter: >
+      Opens with low offers and pushes hard for the lowest price.
+
+    patient_value_buyer: >
+      Waits for attractive prices and is happy to walk away.
+
+    must_have_buyer: >
+      Needs to buy a required quantity and becomes more flexible over time.
+
+    budget_constrained_buyer: >
+      Has limited money and strongly prefers cheap deals.
+
+    quality_believer: >
+      Interprets higher prices as possible signs of quality.
+
+    skeptical_buyer: >
+      Distrusts sellers and demands justification.
+
+    impulsive_buyer: >
+      Acts quickly and dislikes long negotiations.
+
+    coalition_organizer: >
+      Coordinates with other buyers and shares price information.
+
+    free_rider: >
+      Benefits from buyer coordination but contributes little.
+
+    loyal_buyer: >
+      Prefers trusted or cooperative sellers.
+
+    competitive_buyer: >
+      Wants to beat other buyers to good deals.
+
+    last_minute_buyer: >
+      Waits until late rounds, hoping sellers become desperate.
+
+    early_lock_in_buyer: >
+      Wants certainty and buys early.
+
+    bulk_discount_hunter: >
+      Prefers buying many units in exchange for lower unit prices.
+
+    price_ceiling_buyer: >
+      Refuses to buy above a strict maximum price.
+
+    information_broker: >
+      Talks to many agents and uses market knowledge to negotiate.
+
+    spiteful_buyer: >
+      Rejects sellers who seem unfair, even if the deal is acceptable.
+
+    cooperative_fair_buyer: >
+      Wants a reasonable deal that works for both sides.
+
+    manipulative_buyer: >
+      Pretends to have alternatives and pressures sellers.
+
+    arbitrage_buyer: >
+      Buys only when prices seem unusually favorable.
+
+    anxious_buyer: >
+      Worries about missing out and may overpay.
+
+    researcher_buyer: >
+      Gathers information before acting.
+
+    contrarian_buyer: >
+      Avoids popular sellers and looks for overlooked deals.
+
+    prestige_buyer: >
+      Prefers high-status sellers and exclusive-feeling offers.
+
+    silent_sniper: >
+      Watches quietly, then makes precise offers when sellers seem vulnerable.
+
+    social_proof_buyer: >
+      Is influenced by what other buyers seem interested in.
+
+    fairness_enforcer: >
+      Punishes deceptive or unfair sellers by refusing to buy.
+
+    deadline_driven_buyer: >
+      Becomes more urgent as the final round approaches.
+
+    experimental_buyer: >
+      Tests different tactics and adapts.
+
+    whale_buyer: >
+      Has a large budget and uses purchasing power to demand favorable terms.
+
+simulations:
+  - id: open_bazaar
+    summary: >
+      Every buyer can talk to every seller. Buyers cannot talk to buyers, and
+      sellers cannot talk to sellers. This tests basic bilateral negotiation.
+
+    settings:
+      max_rounds: 6
+      num_sellers: 4
+      num_buyers: 8
+
+    market_rules:
+      pricing: negotiated
+      allow_negotiation: true
+      allow_buyer_coalitions: false
+      allow_seller_collusion: false
+
+    topology:
+      input_type: generated
+      compile_to: adjacency_matrix
+      generator:
+        seller_buyer_edges: complete_bipartite
+        buyer_buyer_edges: none
+        seller_seller_edges: none
+        directed: true
+
+    sellers:
+      - id: seller_1
+        archetype: premium_seller
+        inventory: 3
+        starting_price: 140
+        min_price: 90
+        goal: { type: highest_revenue }
+
+      - id: seller_2
+        archetype: desperate_liquidator
+        inventory: 5
+        starting_price: 100
+        min_price: 55
+        goal: { type: sell_all }
+
+      - id: seller_3
+        archetype: anchoring_negotiator
+        inventory: 4
+        starting_price: 130
+        min_price: 75
+        goal: { type: highest_revenue }
+
+      - id: seller_4
+        archetype: volume_distributor
+        inventory: 7
+        starting_price: 95
+        min_price: 50
+        goal:
+          type: min_revenue
+          min_revenue: 450
+
+    buyers:
+      - id: buyer_1
+        archetype: aggressive_bargain_hunter
+        budget: 220
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 95 }
+
+      - id: buyer_2
+        archetype: patient_value_buyer
+        budget: 180
+        goal: { type: buy_if_below_price, max_price_per_item: 70, max_quantity: 2 }
+
+      - id: buyer_3
+        archetype: early_lock_in_buyer
+        budget: 280
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 115 }
+
+      - id: buyer_4
+        archetype: skeptical_buyer
+        budget: 160
+        goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 85 }
+
+      - id: buyer_5
+        archetype: competitive_buyer
+        budget: 240
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 110 }
+
+      - id: buyer_6
+        archetype: bulk_discount_hunter
+        budget: 360
+        goal: { type: must_buy_quantity, quantity: 4, max_price_per_item: 90 }
+
+      - id: buyer_7
+        archetype: loyal_buyer
+        budget: 200
+        goal: { type: buy_if_below_price, max_price_per_item: 100, max_quantity: 2 }
+
+      - id: buyer_8
+        archetype: last_minute_buyer
+        budget: 190
+        goal: { type: buy_if_below_price, max_price_per_item: 80, max_quantity: 2 }
+
+  - id: posted_price_market
+    summary: >
+      Sellers post prices to a public board. Buyers can buy or skip, but there is
+      no direct negotiation. This tests pricing strategy without conversation.
+
+    settings:
+      max_rounds: 5
+      num_sellers: 5
+      num_buyers: 10
+      max_messages_per_round: 1
+
+    market_rules:
+      pricing: posted_price
+      allow_negotiation: false
+      allow_buyer_coalitions: false
+      allow_seller_collusion: false
+      public_board: true
+      transaction_rule: buyer_accepts_listed_price
+      price_update_rule: sellers_may_change_price_each_round
+
+    topology:
+      input_type: generated
+      compile_to: adjacency_matrix
+      generator:
+        seller_buyer_edges: none
+        buyer_buyer_edges: none
+        seller_seller_edges: none
+        public_board: true
+        directed: true
+
+    sellers:
+      - id: seller_1
+        archetype: premium_seller
+        inventory: 3
+        starting_price: 150
+        min_price: 100
+        goal: { type: highest_revenue }
+
+      - id: seller_2
+        archetype: clearance_specialist
+        inventory: 6
+        starting_price: 105
+        min_price: 50
+        goal: { type: sell_all }
+
+      - id: seller_3
+        archetype: experimental_pricer
+        inventory: 4
+        starting_price: 120
+        min_price: 65
+        goal: { type: highest_revenue }
+
+      - id: seller_4
+        archetype: price_matcher
+        inventory: 5
+        starting_price: 100
+        min_price: 60
+        goal: { type: min_revenue, min_revenue: 350 }
+
+      - id: seller_5
+        archetype: market_maker
+        inventory: 8
+        starting_price: 90
+        min_price: 45
+        goal: { type: sell_all }
+
+    buyers:
+      - id: buyer_1
+        archetype: price_ceiling_buyer
+        budget: 160
+        goal: { type: buy_if_below_price, max_price_per_item: 80, max_quantity: 2 }
+
+      - id: buyer_2
+        archetype: quality_believer
+        budget: 260
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 130 }
+
+      - id: buyer_3
+        archetype: impulsive_buyer
+        budget: 180
+        goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 110 }
+
+      - id: buyer_4
+        archetype: patient_value_buyer
+        budget: 200
+        goal: { type: buy_if_below_price, max_price_per_item: 70, max_quantity: 2 }
+
+      - id: buyer_5
+        archetype: anxious_buyer
+        budget: 220
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 120 }
+
+      - id: buyer_6
+        archetype: prestige_buyer
+        budget: 300
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 150 }
+
+      - id: buyer_7
+        archetype: budget_constrained_buyer
+        budget: 120
+        goal: { type: buy_if_below_price, max_price_per_item: 60, max_quantity: 2 }
+
+      - id: buyer_8
+        archetype: must_have_buyer
+        budget: 230
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 115 }
+
+      - id: buyer_9
+        archetype: arbitrage_buyer
+        budget: 180
+        goal: { type: buy_if_below_price, max_price_per_item: 75, max_quantity: 2 }
+
+      - id: buyer_10
+        archetype: social_proof_buyer
+        budget: 210
+        goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 120 }
+
+  - id: buyer_coalition_market
+    summary: >
+      Buyers can talk to each other and form coalitions, while sellers are
+      isolated from other sellers. This tests collective bargaining.
+
+    settings:
+      max_rounds: 7
+      num_sellers: 3
+      num_buyers: 12
+      max_messages_per_round: 4
+
+    market_rules:
+      pricing: negotiated
+      allow_negotiation: true
+      allow_buyer_coalitions: true
+      allow_seller_collusion: false
+      allow_joint_offers: true
+      allow_price_info_sharing: true
+
+    topology:
+      input_type: generated
+      compile_to: adjacency_matrix
+      generator:
+        seller_buyer_edges: complete_bipartite
+        seller_seller_edges: none
+        buyer_buyer_edges:
+          type: clustered
+          clusters:
+            - [buyer_1, buyer_2, buyer_3, buyer_4]
+            - [buyer_5, buyer_6, buyer_7, buyer_8]
+            - [buyer_9, buyer_10, buyer_11, buyer_12]
+          bridge_edges:
+            - [buyer_3, buyer_6]
+            - [buyer_8, buyer_10]
+            - [buyer_4, buyer_12]
+        directed: true
+
+    sellers:
+      - id: seller_1
+        archetype: defensive_seller
+        inventory: 6
+        starting_price: 115
+        min_price: 65
+        goal: { type: highest_revenue }
+
+      - id: seller_2
+        archetype: volume_distributor
+        inventory: 9
+        starting_price: 95
+        min_price: 50
+        goal: { type: sell_all }
+
+      - id: seller_3
+        archetype: scarcity_pressure_seller
+        inventory: 4
+        starting_price: 130
+        min_price: 80
+        goal: { type: highest_revenue }
+
+    buyers:
+      - id: buyer_1
+        archetype: coalition_organizer
+        budget: 220
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 90 }
+
+      - id: buyer_2
+        archetype: cooperative_fair_buyer
+        budget: 180
+        goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 95 }
+
+      - id: buyer_3
+        archetype: information_broker
+        budget: 160
+        goal: { type: buy_if_below_price, max_price_per_item: 75, max_quantity: 1 }
+
+      - id: buyer_4
+        archetype: free_rider
+        budget: 170
+        goal: { type: buy_if_below_price, max_price_per_item: 70, max_quantity: 2 }
+
+      - id: buyer_5
+        archetype: aggressive_bargain_hunter
+        budget: 200
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 85 }
+
+      - id: buyer_6
+        archetype: patient_value_buyer
+        budget: 180
+        goal: { type: buy_if_below_price, max_price_per_item: 70, max_quantity: 2 }
+
+      - id: buyer_7
+        archetype: fairness_enforcer
+        budget: 190
+        goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 90 }
+
+      - id: buyer_8
+        archetype: bulk_discount_hunter
+        budget: 360
+        goal: { type: must_buy_quantity, quantity: 4, max_price_per_item: 80 }
+
+      - id: buyer_9
+        archetype: skeptical_buyer
+        budget: 150
+        goal: { type: buy_if_below_price, max_price_per_item: 75, max_quantity: 1 }
+
+      - id: buyer_10
+        archetype: deadline_driven_buyer
+        budget: 220
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 100 }
+
+      - id: buyer_11
+        archetype: manipulative_buyer
+        budget: 200
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 85 }
+
+      - id: buyer_12
+        archetype: contrarian_buyer
+        budget: 180
+        goal: { type: buy_if_below_price, max_price_per_item: 80, max_quantity: 2 }
+
+  - id: seller_cartel_market
+    summary: >
+      Sellers can talk to each other, but buyers cannot coordinate. This tests
+      whether sellers can maintain high prices or divide the market.
+
+    settings:
+      max_rounds: 7
+      num_sellers: 6
+      num_buyers: 8
+      max_messages_per_round: 4
+
+    market_rules:
+      pricing: negotiated
+      allow_negotiation: true
+      allow_buyer_coalitions: false
+      allow_seller_collusion: true
+      allow_price_floor_agreements: true
+      allow_market_division: true
+
+    topology:
+      input_type: generated
+      compile_to: adjacency_matrix
+      generator:
+        seller_buyer_edges: complete_bipartite
+        seller_seller_edges: complete
+        buyer_buyer_edges: none
+        directed: true
+
+    sellers:
+      - id: seller_1
+        archetype: premium_seller
+        inventory: 3
+        starting_price: 145
+        min_price: 90
+        goal: { type: highest_revenue }
+
+      - id: seller_2
+        archetype: price_matcher
+        inventory: 4
+        starting_price: 120
+        min_price: 70
+        goal: { type: highest_revenue }
+
+      - id: seller_3
+        archetype: revenue_optimizer
+        inventory: 5
+        starting_price: 125
+        min_price: 75
+        goal: { type: min_revenue, min_revenue: 450 }
+
+      - id: seller_4
+        archetype: hardliner
+        inventory: 3
+        starting_price: 135
+        min_price: 85
+        goal: { type: highest_revenue }
+
+      - id: seller_5
+        archetype: auctioneer
+        inventory: 4
+        starting_price: 115
+        min_price: 65
+        goal: { type: highest_revenue }
+
+      - id: seller_6
+        archetype: manipulative_seller
+        inventory: 5
+        starting_price: 130
+        min_price: 70
+        goal: { type: min_revenue, min_revenue: 500 }
+
+    buyers:
+      - id: buyer_1
+        archetype: price_ceiling_buyer
+        budget: 180
+        goal: { type: buy_if_below_price, max_price_per_item: 85, max_quantity: 2 }
+
+      - id: buyer_2
+        archetype: must_have_buyer
+        budget: 260
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 120 }
+
+      - id: buyer_3
+        archetype: aggressive_bargain_hunter
+        budget: 220
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 95 }
+
+      - id: buyer_4
+        archetype: quality_believer
+        budget: 300
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 140 }
+
+      - id: buyer_5
+        archetype: skeptical_buyer
+        budget: 170
+        goal: { type: buy_if_below_price, max_price_per_item: 80, max_quantity: 1 }
+
+      - id: buyer_6
+        archetype: early_lock_in_buyer
+        budget: 240
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 115 }
+
+      - id: buyer_7
+        archetype: spiteful_buyer
+        budget: 190
+        goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 100 }
+
+      - id: buyer_8
+        archetype: last_minute_buyer
+        budget: 210
+        goal: { type: buy_if_below_price, max_price_per_item: 90, max_quantity: 2 }
+
+  - id: sparse_local_market
+    summary: >
+      A fragmented local market. Buyers can only reach nearby sellers, so some
+      sellers have local monopoly power while others face competition.
+
+    settings:
+      max_rounds: 8
+      num_sellers: 5
+      num_buyers: 15
+
+    market_rules:
+      pricing: negotiated
+      allow_negotiation: true
+      allow_buyer_coalitions: true
+      allow_seller_collusion: false
+      allow_price_info_sharing: true
+
+    topology:
+      input_type: edge_list
+      compile_to: adjacency_matrix
+      directed: false
+      edges:
+        seller_buyer:
+          - [seller_1, buyer_1]
+          - [seller_1, buyer_2]
+          - [seller_1, buyer_3]
+          - [seller_1, buyer_4]
+
+          - [seller_2, buyer_3]
+          - [seller_2, buyer_4]
+          - [seller_2, buyer_5]
+          - [seller_2, buyer_6]
+          - [seller_2, buyer_7]
+
+          - [seller_3, buyer_6]
+          - [seller_3, buyer_7]
+          - [seller_3, buyer_8]
+          - [seller_3, buyer_9]
+          - [seller_3, buyer_10]
+
+          - [seller_4, buyer_10]
+          - [seller_4, buyer_11]
+          - [seller_4, buyer_12]
+          - [seller_4, buyer_13]
+
+          - [seller_5, buyer_13]
+          - [seller_5, buyer_14]
+          - [seller_5, buyer_15]
+          - [seller_5, buyer_1]
+
+        buyer_buyer:
+          - [buyer_1, buyer_2]
+          - [buyer_2, buyer_3]
+          - [buyer_4, buyer_5]
+          - [buyer_6, buyer_7]
+          - [buyer_7, buyer_8]
+          - [buyer_9, buyer_10]
+          - [buyer_11, buyer_12]
+          - [buyer_13, buyer_14]
+          - [buyer_14, buyer_15]
+          - [buyer_5, buyer_10]
+
+        seller_seller: []
+
+    sellers:
+      - id: seller_1
+        archetype: scarcity_pressure_seller
+        inventory: 4
+        starting_price: 130
+        min_price: 80
+        goal: { type: highest_revenue }
+
+      - id: seller_2
+        archetype: relationship_builder
+        inventory: 5
+        starting_price: 105
+        min_price: 60
+        goal: { type: min_revenue, min_revenue: 400 }
+
+      - id: seller_3
+        archetype: market_maker
+        inventory: 7
+        starting_price: 95
+        min_price: 50
+        goal: { type: sell_all }
+
+      - id: seller_4
+        archetype: defensive_seller
+        inventory: 4
+        starting_price: 120
+        min_price: 70
+        goal: { type: highest_revenue }
+
+      - id: seller_5
+        archetype: clearance_specialist
+        inventory: 6
+        starting_price: 90
+        min_price: 45
+        goal: { type: sell_all }
+
+    buyers:
+      - id: buyer_1
+        archetype: anxious_buyer
+        budget: 220
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 120 }
+
+      - id: buyer_2
+        archetype: budget_constrained_buyer
+        budget: 120
+        goal: { type: buy_if_below_price, max_price_per_item: 65, max_quantity: 1 }
+
+      - id: buyer_3
+        archetype: information_broker
+        budget: 180
+        goal: { type: buy_if_below_price, max_price_per_item: 80, max_quantity: 2 }
+
+      - id: buyer_4
+        archetype: loyal_buyer
+        budget: 210
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 105 }
+
+      - id: buyer_5
+        archetype: manipulative_buyer
+        budget: 190
+        goal: { type: buy_if_below_price, max_price_per_item: 85, max_quantity: 2 }
+
+      - id: buyer_6
+        archetype: coalition_organizer
+        budget: 230
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 90 }
+
+      - id: buyer_7
+        archetype: free_rider
+        budget: 170
+        goal: { type: buy_if_below_price, max_price_per_item: 75, max_quantity: 1 }
+
+      - id: buyer_8
+        archetype: cooperative_fair_buyer
+        budget: 200
+        goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 95 }
+
+      - id: buyer_9
+        archetype: silent_sniper
+        budget: 190
+        goal: { type: buy_if_below_price, max_price_per_item: 80, max_quantity: 2 }
+
+      - id: buyer_10
+        archetype: researcher_buyer
+        budget: 210
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 100 }
+
+      - id: buyer_11
+        archetype: price_ceiling_buyer
+        budget: 150
+        goal: { type: buy_if_below_price, max_price_per_item: 70, max_quantity: 1 }
+
+      - id: buyer_12
+        archetype: deadline_driven_buyer
+        budget: 230
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 105 }
+
+      - id: buyer_13
+        archetype: competitive_buyer
+        budget: 260
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 115 }
+
+      - id: buyer_14
+        archetype: contrarian_buyer
+        budget: 180
+        goal: { type: buy_if_below_price, max_price_per_item: 85, max_quantity: 2 }
+
+      - id: buyer_15
+        archetype: must_have_buyer
+        budget: 250
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 110 }
+
+output:
+  record_messages: true
+  record_offers: true
+  record_transactions: true
+  record_private_state: true
+  record_compiled_adjacency_matrix: true
+
+metrics:
+  - total_items_sold
+  - total_revenue
+  - average_sale_price
+  - unsold_inventory
+  - buyer_goal_completion_rate
+  - seller_goal_completion_rate
+  - number_of_failed_negotiations
+  - number_of_coalitions_formed
+  - price_dispersion
+  - final_buyer_surplus
+  - final_seller_revenue
