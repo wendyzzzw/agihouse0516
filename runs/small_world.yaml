@@ -17,9 +17,9 @@ summary:
   n_missed: 5
   avg_satisfaction: 68.0
   total_messages: 494
-  total_tokens: 0
-  total_llm_calls: 0
-  total_cost_usd: 0.0
+  total_tokens: 230494
+  total_llm_calls: 5
+  total_cost_usd: 0.065038
 prices_over_time:
 - turn: 1
   a: 364
@@ -4224,14 +4224,14 @@ agents:
         turn: 39
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 894
+      cache_read: 42887
+      cache_creation: 1897
+      total: 45706
+      cost_usd: 0.012012
+      calls: 1
+      duration_ms: 10749
   buyer_2:
     id: buyer_2
     letter: B
@@ -4649,14 +4649,14 @@ agents:
       content: What price are you seeing? I'm seeing $272 for Airline_A.
     beliefs: {}
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1229
+      cache_read: 43093
+      cache_creation: 2236
+      total: 46586
+      cost_usd: 0.014073
+      calls: 1
+      duration_ms: 13789
   buyer_3:
     id: buyer_3
     letter: C
@@ -5019,14 +5019,14 @@ agents:
         turn: 37
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 994
+      cache_read: 42800
+      cache_creation: 1884
+      total: 45706
+      cost_usd: 0.012473
+      calls: 1
+      duration_ms: 10475
   buyer_4:
     id: buyer_4
     letter: D
@@ -5440,14 +5440,14 @@ agents:
       content: What price are you seeing? I'm seeing $272 for Airline_A.
     beliefs: {}
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1224
+      cache_read: 43136
+      cache_creation: 2232
+      total: 46620
+      cost_usd: 0.014054
+      calls: 1
+      duration_ms: 14169
   buyer_5:
     id: buyer_5
     letter: E
@@ -5753,14 +5753,14 @@ agents:
         turn: 28
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 961
+      cache_read: 42901
+      cache_creation: 1986
+      total: 45876
+      cost_usd: 0.012426
+      calls: 1
+      duration_ms: 13057
   buyer_6:
     id: buyer_6
     letter: F
