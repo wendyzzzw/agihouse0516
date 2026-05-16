@@ -1,0 +1,3648 @@
+{
+  "topology": "hub_spoke",
+  "seed": 42,
+  "ticks": 55,
+  "llm_mode": "rule",
+  "summary": {
+    "avg_price": 300.8,
+    "by_profile": {
+      "budget": 307.5,
+      "family": 305.5,
+      "investor": 298.7,
+      "flexible": 275.0
+    },
+    "n_bought": 10,
+    "n_missed": 5,
+    "avg_satisfaction": 63.2,
+    "total_messages": 376
+  },
+  "prices_over_time": [
+    {
+      "turn": 1,
+      "a": 364,
+      "b": 338,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 2,
+      "a": 364,
+      "b": 362,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 3,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 4,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 5,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 6,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 7,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 8,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 9,
+      "a": 349,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 10,
+      "a": 335,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 11,
+      "a": 322,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 12,
+      "a": 309,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 13,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 14,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 15,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 16,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 17,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 18,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 19,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 20,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 21,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 22,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 23,
+      "a": 318,
+      "b": 349,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 24,
+      "a": 318,
+      "b": 335,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 25,
+      "a": 318,
+      "b": 322,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 26,
+      "a": 318,
+      "b": 309,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 27,
+      "a": 306,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 28,
+      "a": 315,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 29,
+      "a": 315,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 30,
+      "a": 315,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 31,
+      "a": 315,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 32,
+      "a": 315,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 33,
+      "a": 315,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 34,
+      "a": 315,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 35,
+      "a": 315,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 36,
+      "a": 302,
+      "b": 297,
+      "inv_a": 3,
+      "inv_b": 0
+    },
+    {
+      "turn": 37,
+      "a": 290,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 38,
+      "a": 299,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 39,
+      "a": 299,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 40,
+      "a": 299,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 41,
+      "a": 299,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 42,
+      "a": 299,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 43,
+      "a": 299,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 44,
+      "a": 299,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 45,
+      "a": 299,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 46,
+      "a": 299,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 47,
+      "a": 275,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 48,
+      "a": 275,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 49,
+      "a": 275,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 50,
+      "a": 275,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 51,
+      "a": 275,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 52,
+      "a": 275,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 53,
+      "a": 275,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 54,
+      "a": 275,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 55,
+      "a": 275,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    }
+  ],
+  "events": [
+    {
+      "from": "I",
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $338 (family, 60% sat)",
+      "cls": "log-buy",
+      "letter": "I",
+      "price": 338,
+      "sat": 60,
+      "turn": 1
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "A",
+      "to": "D",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $362 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 2
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "A",
+      "to": "M",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 3
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "A",
+      "to": "E",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 4
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "A",
+      "to": "B",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 5
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "A",
+      "to": "E",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 6
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "A",
+      "to": "L",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 7
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "A",
+      "to": "L",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $364 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 8
+    },
+    {
+      "from": "A",
+      "to": "E",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $349 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 9
+    },
+    {
+      "from": "A",
+      "to": "G",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $335 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 10
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "A",
+      "to": "B",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "D",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "M",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $322 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 11
+    },
+    {
+      "from": "M",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $309 (investor, 72% sat)",
+      "cls": "log-buy",
+      "letter": "M",
+      "price": 309,
+      "sat": 72,
+      "turn": 12
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 12
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 12
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 12
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 12
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 12
+    },
+    {
+      "from": "D",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $309 (budget, 67% sat)",
+      "cls": "log-buy",
+      "letter": "D",
+      "price": 309,
+      "sat": 67,
+      "turn": 12
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 12
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 12
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 12
+    },
+    {
+      "from": "A",
+      "to": "B",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 12
+    },
+    {
+      "from": "A",
+      "to": "L",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 13
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 13
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 13
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 13
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 13
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 13
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 13
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 13
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 13
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 14
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 14
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 14
+    },
+    {
+      "from": "A",
+      "to": "O",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 14
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 14
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 14
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 14
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 14
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 14
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 15
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 15
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 15
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 15
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 15
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 15
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 15
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 15
+    },
+    {
+      "from": "A",
+      "to": "K",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 15
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 16
+    },
+    {
+      "from": "A",
+      "to": "I",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 16
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 16
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 16
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 16
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 16
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 16
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 16
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 16
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 17
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 17
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 17
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 17
+    },
+    {
+      "from": "A",
+      "to": "L",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 17
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 17
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 17
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 17
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 17
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 18
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 18
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 18
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 18
+    },
+    {
+      "from": "A",
+      "to": "G",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 18
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 18
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 18
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 18
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 18
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 19
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 19
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 19
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 19
+    },
+    {
+      "from": "A",
+      "to": "G",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 19
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 19
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 19
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 19
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 19
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 20
+    },
+    {
+      "from": "A",
+      "to": "L",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 20
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 20
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 20
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 20
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 20
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 20
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 20
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 20
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 21
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 21
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 21
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 21
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 21
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 21
+    },
+    {
+      "from": "A",
+      "to": "J",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 21
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 21
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 21
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 22
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 22
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 22
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 22
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 22
+    },
+    {
+      "from": "A",
+      "to": "K",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 22
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 22
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 22
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 22
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 23
+    },
+    {
+      "from": "A",
+      "to": "I",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 23
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 23
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 23
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 23
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 23
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 23
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 23
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 23
+    },
+    {
+      "from": "A",
+      "to": "J",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 24
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 24
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 24
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 24
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 24
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 24
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 24
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 24
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 24
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 25
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 25
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 25
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 25
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 25
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 25
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 25
+    },
+    {
+      "from": "A",
+      "to": "G",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 25
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $318 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 25
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 26
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 26
+    },
+    {
+      "from": "A",
+      "to": "D",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 26
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 26
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 26
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 26
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 26
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 26
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $309 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 26
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $297 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 27
+    },
+    {
+      "from": "G",
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $297 (family, 54% sat)",
+      "cls": "log-buy",
+      "letter": "G",
+      "price": 297,
+      "sat": 54,
+      "turn": 27
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $297 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 27
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $297 for Airline_B.",
+      "cls": "log-probe",
+      "turn": 27
+    },
+    {
+      "from": "H",
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $297 (family, 50% sat)",
+      "cls": "log-buy",
+      "letter": "H",
+      "price": 297,
+      "sat": 50,
+      "turn": 27
+    },
+    {
+      "from": "L",
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $297 (investor, 71% sat)",
+      "cls": "log-buy",
+      "letter": "L",
+      "price": 297,
+      "sat": 71,
+      "turn": 27
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $306 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 27
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $306 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 27
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $306 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 27
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $306 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 27
+    },
+    {
+      "from": "A",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $306 (budget, 65% sat)",
+      "cls": "log-buy",
+      "letter": "A",
+      "price": 306,
+      "sat": 65,
+      "turn": 27
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 28
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 28
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 28
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 28
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 28
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 28
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 28
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 29
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 29
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 29
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 29
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 29
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 29
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 29
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 30
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 30
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 30
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 30
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 30
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 30
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 30
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 31
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 31
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 31
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 31
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 31
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 31
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 31
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 32
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 32
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 32
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 32
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 32
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 32
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 32
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 33
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 33
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 33
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 33
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 33
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 33
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 33
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 34
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 34
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 34
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 34
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 34
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 34
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 34
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 35
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 35
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 35
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 35
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 35
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 35
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $315 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 35
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $302 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 36
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $302 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 36
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $302 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 36
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $302 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 36
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $302 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 36
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $302 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 36
+    },
+    {
+      "from": "K",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $302 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 36
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $290 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 37
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $290 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 37
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $290 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 37
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $290 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 37
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $290 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 37
+    },
+    {
+      "from": "K",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $290 (investor, 71% sat)",
+      "cls": "log-buy",
+      "letter": "K",
+      "price": 290,
+      "sat": 71,
+      "turn": 37
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $290 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 37
+    },
+    {
+      "from": "J",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $290 (family, 51% sat)",
+      "cls": "log-buy",
+      "letter": "J",
+      "price": 290,
+      "sat": 51,
+      "turn": 37
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 38
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 38
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 38
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 38
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 38
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 38
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 39
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 39
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 39
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 39
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 39
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 39
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 40
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 40
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 40
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 40
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 40
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 40
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 41
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 41
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 41
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 41
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 41
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 41
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 42
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 42
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 42
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 42
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 42
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 42
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 43
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 43
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 43
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 43
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 43
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 43
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 44
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 44
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 44
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 44
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 44
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 44
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 45
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 45
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 45
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 45
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 45
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 45
+    },
+    {
+      "from": "O",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 46
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 46
+    },
+    {
+      "from": "C",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 46
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 46
+    },
+    {
+      "from": "N",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 46
+    },
+    {
+      "from": "E",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $299 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 46
+    },
+    {
+      "from": "F",
+      "to": "A",
+      "msg": "What price are you seeing? I'm seeing $275 for Airline_A.",
+      "cls": "log-probe",
+      "turn": 47
+    },
+    {
+      "from": "N",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $275 (flexible, 71% sat)",
+      "cls": "log-buy",
+      "letter": "N",
+      "price": 275,
+      "sat": 71,
+      "turn": 47
+    }
+  ],
+  "agents": {
+    "A": {
+      "id": "A",
+      "profile": "budget",
+      "budget": 361,
+      "bought": true,
+      "purchase_price": 306,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 65,
+      "messages_sent": 25,
+      "messages_received": 10
+    },
+    "B": {
+      "id": "B",
+      "profile": "budget",
+      "budget": 294,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 45,
+      "messages_received": 3
+    },
+    "C": {
+      "id": "C",
+      "profile": "budget",
+      "budget": 283,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 45,
+      "messages_received": 0
+    },
+    "D": {
+      "id": "D",
+      "profile": "budget",
+      "budget": 374,
+      "bought": true,
+      "purchase_price": 309,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 67,
+      "messages_sent": 10,
+      "messages_received": 2
+    },
+    "E": {
+      "id": "E",
+      "profile": "budget",
+      "budget": 315,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 45,
+      "messages_received": 3
+    },
+    "F": {
+      "id": "F",
+      "profile": "budget",
+      "budget": 311,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 46,
+      "messages_received": 0
+    },
+    "G": {
+      "id": "G",
+      "profile": "family",
+      "budget": 308,
+      "bought": true,
+      "purchase_price": 297,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 54,
+      "messages_sent": 0,
+      "messages_received": 4
+    },
+    "H": {
+      "id": "H",
+      "profile": "family",
+      "budget": 297,
+      "bought": true,
+      "purchase_price": 297,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 50,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "I": {
+      "id": "I",
+      "profile": "family",
+      "budget": 374,
+      "bought": true,
+      "purchase_price": 338,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 60,
+      "messages_sent": 0,
+      "messages_received": 2
+    },
+    "J": {
+      "id": "J",
+      "profile": "family",
+      "budget": 293,
+      "bought": true,
+      "purchase_price": 290,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 51,
+      "messages_sent": 0,
+      "messages_received": 2
+    },
+    "K": {
+      "id": "K",
+      "profile": "investor",
+      "budget": 366,
+      "bought": true,
+      "purchase_price": 290,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 71,
+      "messages_sent": 35,
+      "messages_received": 2
+    },
+    "L": {
+      "id": "L",
+      "profile": "investor",
+      "budget": 374,
+      "bought": true,
+      "purchase_price": 297,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 71,
+      "messages_sent": 25,
+      "messages_received": 5
+    },
+    "M": {
+      "id": "M",
+      "profile": "investor",
+      "budget": 394,
+      "bought": true,
+      "purchase_price": 309,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 72,
+      "messages_sent": 10,
+      "messages_received": 1
+    },
+    "N": {
+      "id": "N",
+      "profile": "flexible",
+      "budget": 349,
+      "bought": true,
+      "purchase_price": 275,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 71,
+      "messages_sent": 45,
+      "messages_received": 0
+    },
+    "O": {
+      "id": "O",
+      "profile": "flexible",
+      "budget": 291,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 45,
+      "messages_received": 1
+    }
+  },
+  "sellers": {
+    "Airline_A": {
+      "name": "Airline_A",
+      "base_price": 280,
+      "final_price": 275,
+      "initial_inventory": 6,
+      "final_inventory": 0
+    },
+    "Airline_B": {
+      "name": "Airline_B",
+      "base_price": 260,
+      "final_price": 297,
+      "initial_inventory": 4,
+      "final_inventory": 0
+    }
+  },
+  "comm_matrix": {
+    "A": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": true,
+      "C": true,
+      "D": true,
+      "E": true,
+      "F": true,
+      "G": true,
+      "H": true,
+      "I": true,
+      "J": true,
+      "K": true,
+      "L": true,
+      "M": true,
+      "N": true,
+      "O": true
+    },
+    "Airline_A": {
+      "A": true,
+      "Airline_A": false,
+      "Airline_B": false,
+      "B": true,
+      "C": true,
+      "D": true,
+      "E": true,
+      "F": true,
+      "G": true,
+      "H": true,
+      "I": true,
+      "J": true,
+      "K": true,
+      "L": true,
+      "M": true,
+      "N": true,
+      "O": true
+    },
+    "Airline_B": {
+      "A": true,
+      "Airline_A": false,
+      "Airline_B": false,
+      "B": true,
+      "C": true,
+      "D": true,
+      "E": true,
+      "F": true,
+      "G": true,
+      "H": true,
+      "I": true,
+      "J": true,
+      "K": true,
+      "L": true,
+      "M": true,
+      "N": true,
+      "O": true
+    },
+    "B": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "C": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "D": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "E": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "F": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "G": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "H": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "I": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "J": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "K": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "L": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "M": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "N": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "O": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    }
+  }
+}

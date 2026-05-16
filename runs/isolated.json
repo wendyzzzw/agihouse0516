@@ -1,0 +1,1016 @@
+{
+  "topology": "isolated",
+  "seed": 42,
+  "ticks": 55,
+  "llm_mode": "rule",
+  "summary": {
+    "avg_price": 309.6,
+    "by_profile": {
+      "budget": 308.3,
+      "family": 310.7,
+      "investor": 304.0,
+      "flexible": 327.0
+    },
+    "n_bought": 10,
+    "n_missed": 5,
+    "avg_satisfaction": 61.1,
+    "total_messages": 0
+  },
+  "prices_over_time": [
+    {
+      "turn": 1,
+      "a": 364,
+      "b": 338,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 2,
+      "a": 364,
+      "b": 362,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 3,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 4,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 5,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 6,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 7,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 8,
+      "a": 364,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 9,
+      "a": 349,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 10,
+      "a": 335,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 11,
+      "a": 322,
+      "b": 364,
+      "inv_a": 6,
+      "inv_b": 3
+    },
+    {
+      "turn": 12,
+      "a": 309,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 13,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 14,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 15,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 16,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 17,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 18,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 19,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 20,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 21,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 22,
+      "a": 318,
+      "b": 364,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 23,
+      "a": 318,
+      "b": 349,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 24,
+      "a": 318,
+      "b": 335,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 25,
+      "a": 318,
+      "b": 322,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 26,
+      "a": 318,
+      "b": 309,
+      "inv_a": 4,
+      "inv_b": 3
+    },
+    {
+      "turn": 27,
+      "a": 306,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 28,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 29,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 30,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 31,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 32,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 33,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 34,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 35,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 36,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 37,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 38,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 39,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 40,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 41,
+      "a": 327,
+      "b": 297,
+      "inv_a": 2,
+      "inv_b": 0
+    },
+    {
+      "turn": 42,
+      "a": 327,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 43,
+      "a": 337,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 44,
+      "a": 337,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 45,
+      "a": 337,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 46,
+      "a": 337,
+      "b": 297,
+      "inv_a": 1,
+      "inv_b": 0
+    },
+    {
+      "turn": 47,
+      "a": 310,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 48,
+      "a": 310,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 49,
+      "a": 310,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 50,
+      "a": 310,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 51,
+      "a": 310,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 52,
+      "a": 310,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 53,
+      "a": 310,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 54,
+      "a": 310,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "turn": 55,
+      "a": 310,
+      "b": 297,
+      "inv_a": 0,
+      "inv_b": 0
+    }
+  ],
+  "events": [
+    {
+      "from": "I",
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $338 (family, 60% sat)",
+      "cls": "log-buy",
+      "letter": "I",
+      "price": 338,
+      "sat": 60,
+      "turn": 1
+    },
+    {
+      "from": "M",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $309 (investor, 72% sat)",
+      "cls": "log-buy",
+      "letter": "M",
+      "price": 309,
+      "sat": 72,
+      "turn": 12
+    },
+    {
+      "from": "D",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $309 (budget, 67% sat)",
+      "cls": "log-buy",
+      "letter": "D",
+      "price": 309,
+      "sat": 67,
+      "turn": 12
+    },
+    {
+      "from": "G",
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $297 (family, 54% sat)",
+      "cls": "log-buy",
+      "letter": "G",
+      "price": 297,
+      "sat": 54,
+      "turn": 27
+    },
+    {
+      "from": "H",
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $297 (family, 50% sat)",
+      "cls": "log-buy",
+      "letter": "H",
+      "price": 297,
+      "sat": 50,
+      "turn": 27
+    },
+    {
+      "from": "L",
+      "to": null,
+      "msg": "BOUGHT from Airline_B at $297 (investor, 71% sat)",
+      "cls": "log-buy",
+      "letter": "L",
+      "price": 297,
+      "sat": 71,
+      "turn": 27
+    },
+    {
+      "from": "K",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $306 (investor, 66% sat)",
+      "cls": "log-buy",
+      "letter": "K",
+      "price": 306,
+      "sat": 66,
+      "turn": 27
+    },
+    {
+      "from": "A",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $306 (budget, 65% sat)",
+      "cls": "log-buy",
+      "letter": "A",
+      "price": 306,
+      "sat": 65,
+      "turn": 27
+    },
+    {
+      "from": "N",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $327 (flexible, 56% sat)",
+      "cls": "log-buy",
+      "letter": "N",
+      "price": 327,
+      "sat": 56,
+      "turn": 42
+    },
+    {
+      "from": "F",
+      "to": null,
+      "msg": "BOUGHT from Airline_A at $310 (budget, 50% sat)",
+      "cls": "log-buy",
+      "letter": "F",
+      "price": 310,
+      "sat": 50,
+      "turn": 47
+    }
+  ],
+  "agents": {
+    "A": {
+      "id": "A",
+      "profile": "budget",
+      "budget": 361,
+      "bought": true,
+      "purchase_price": 306,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 65,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "B": {
+      "id": "B",
+      "profile": "budget",
+      "budget": 294,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "C": {
+      "id": "C",
+      "profile": "budget",
+      "budget": 283,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "D": {
+      "id": "D",
+      "profile": "budget",
+      "budget": 374,
+      "bought": true,
+      "purchase_price": 309,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 67,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "E": {
+      "id": "E",
+      "profile": "budget",
+      "budget": 315,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "F": {
+      "id": "F",
+      "profile": "budget",
+      "budget": 311,
+      "bought": true,
+      "purchase_price": 310,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 50,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "G": {
+      "id": "G",
+      "profile": "family",
+      "budget": 308,
+      "bought": true,
+      "purchase_price": 297,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 54,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "H": {
+      "id": "H",
+      "profile": "family",
+      "budget": 297,
+      "bought": true,
+      "purchase_price": 297,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 50,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "I": {
+      "id": "I",
+      "profile": "family",
+      "budget": 374,
+      "bought": true,
+      "purchase_price": 338,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 60,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "J": {
+      "id": "J",
+      "profile": "family",
+      "budget": 293,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "K": {
+      "id": "K",
+      "profile": "investor",
+      "budget": 366,
+      "bought": true,
+      "purchase_price": 306,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 66,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "L": {
+      "id": "L",
+      "profile": "investor",
+      "budget": 374,
+      "bought": true,
+      "purchase_price": 297,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 71,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "M": {
+      "id": "M",
+      "profile": "investor",
+      "budget": 394,
+      "bought": true,
+      "purchase_price": 309,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 72,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "N": {
+      "id": "N",
+      "profile": "flexible",
+      "budget": 349,
+      "bought": true,
+      "purchase_price": 327,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 56,
+      "messages_sent": 0,
+      "messages_received": 0
+    },
+    "O": {
+      "id": "O",
+      "profile": "flexible",
+      "budget": 291,
+      "bought": false,
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "messages_sent": 0,
+      "messages_received": 0
+    }
+  },
+  "sellers": {
+    "Airline_A": {
+      "name": "Airline_A",
+      "base_price": 280,
+      "final_price": 310,
+      "initial_inventory": 6,
+      "final_inventory": 0
+    },
+    "Airline_B": {
+      "name": "Airline_B",
+      "base_price": 260,
+      "final_price": 297,
+      "initial_inventory": 4,
+      "final_inventory": 0
+    }
+  },
+  "comm_matrix": {
+    "A": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "Airline_A": {
+      "A": true,
+      "Airline_A": false,
+      "Airline_B": false,
+      "B": true,
+      "C": true,
+      "D": true,
+      "E": true,
+      "F": true,
+      "G": true,
+      "H": true,
+      "I": true,
+      "J": true,
+      "K": true,
+      "L": true,
+      "M": true,
+      "N": true,
+      "O": true
+    },
+    "Airline_B": {
+      "A": true,
+      "Airline_A": false,
+      "Airline_B": false,
+      "B": true,
+      "C": true,
+      "D": true,
+      "E": true,
+      "F": true,
+      "G": true,
+      "H": true,
+      "I": true,
+      "J": true,
+      "K": true,
+      "L": true,
+      "M": true,
+      "N": true,
+      "O": true
+    },
+    "B": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "C": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "D": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "E": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "F": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "G": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "H": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "I": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "J": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "K": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "L": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "M": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "N": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    },
+    "O": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": false,
+      "D": false,
+      "E": false,
+      "F": false,
+      "G": false,
+      "H": false,
+      "I": false,
+      "J": false,
+      "K": false,
+      "L": false,
+      "M": false,
+      "N": false,
+      "O": false
+    }
+  }
+}
