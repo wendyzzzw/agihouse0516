@@ -594,6 +594,35 @@ function markNodeBought(letter) {
 }
 
 function updateStats(turn) {
+  // If we have real backend data, use it; otherwise fall back to the synthetic mock.
+  const rd = window.__runData;
+  if (rd && rd.prices_over_time && rd.prices_over_time.length) {
+    const pt = rd.prices_over_time.find(p => p.turn === turn) || rd.prices_over_time[rd.prices_over_time.length-1];
+    const a = pt.a, b = pt.b;
+    const currentPrice = Math.round((a + b) / 2);
+    const spread = Math.abs(a - b);
+    const seatsLeft = (pt.inv_a||0) + (pt.inv_b||0);
+    const bought = state.totalSeats - seatsLeft;
+    state.agentsBought = bought;
+    const efficiency = rd.summary && rd.summary.avg_satisfaction !== undefined ? Math.round(rd.summary.avg_satisfaction) : null;
+    document.getElementById('stat-price').textContent = '$'+currentPrice;
+    document.getElementById('stat-price').className = 'stat-value'+(currentPrice>320?' bad':currentPrice<290?' good':' warn');
+    document.getElementById('stat-spread').textContent = '$'+spread;
+    document.getElementById('stat-spread').className = 'stat-value'+(spread>40?' bad':spread<15?' good':' warn');
+    document.getElementById('stat-seats').textContent = Math.max(seatsLeft, 0);
+    document.getElementById('stat-trades').textContent = bought;
+    document.getElementById('stat-trades').className = 'stat-value'+(bought>0?' good':'');
+    if (efficiency !== null) {
+      document.getElementById('stat-efficiency').textContent = efficiency+'%';
+      document.getElementById('stat-efficiency').className = 'stat-value'+(efficiency>80?' good':efficiency<50?' bad':' warn');
+      document.getElementById('stat-satisfaction').textContent = efficiency+'%';
+      document.getElementById('stat-satisfaction').className = 'stat-value'+(efficiency>80?' good':efficiency<60?' bad':' warn');
+    }
+    state.prices.push({ a: a, b: b });
+    updatePriceChart();
+    return;
+  }
+  // ── synthetic fallback (when running file:// or backend not reachable) ───────
   const progress = Math.min(turn/25, 1);
   const tm = { isolated:1.22, clustered:1.10, small_world:1.0, hub_spoke:0.98, fully_connected:0.95 }[state.topology]||1;
   const currentPrice = Math.round(275*tm + progress*20*tm + (Math.random()-0.5)*10);
@@ -618,33 +647,74 @@ function updateStats(turn) {
   updatePriceChart();
 }
 
+async function fetchBackendRun(topology) {
+  try {
+    const r = await fetch(`./runs/${topology}.json`, { cache: 'no-store' });
+    if (!r.ok) return null;
+    const data = await r.json();
+    // Compute total seats from sellers section so the dashboard scales to any sim.
+    if (data.sellers) {
+      data._totalSeats = Object.values(data.sellers).reduce((s, x) => s + (x.initial_inventory || 0), 0);
+    }
+    return data;
+  } catch (e) {
+    console.warn('backend fetch failed, falling back to mock:', e);
+    return null;
+  }
+}
+
 let activitySeq = [], actIdx = 0;
 
-function startSimulation() {
+async function startSimulation() {
   if (state.running) return;
   state.running = true; state.turn = 0; state.prices = []; state.agentsBought = 0;
-  activitySeq = getActivitySequence(); actIdx = 0;
   document.getElementById('activity-log').innerHTML = '';
-  document.getElementById('price-status').textContent = 'RUNNING';
-  document.getElementById('price-status').style.color = '#40f080';
+  document.getElementById('price-status').textContent = 'LOADING…';
+  document.getElementById('price-status').style.color = '#f0a040';
   initLeaderboard(); initToolGrid();
+
+  // Try to load real backend data; if missing, fall back to the hardcoded mock.
+  const runData = await fetchBackendRun(state.topology);
+  if (runData) {
+    window.__runData = runData;
+    activitySeq = runData.events || [];
+    state.totalSeats = runData._totalSeats || 10;
+    document.getElementById('stat-seats').textContent = state.totalSeats;
+  } else {
+    window.__runData = null;
+    activitySeq = getActivitySequence();
+    state.totalSeats = 10;
+  }
+  actIdx = 0;
+  const totalTurns = (window.__runData && window.__runData.ticks) || 55;
+  document.getElementById('price-status').textContent = window.__runData ? 'BACKEND RUN' : 'MOCK RUN';
+  document.getElementById('price-status').style.color = '#40f080';
 
   state.interval = setInterval(() => {
     state.turn++;
     document.getElementById('turn-badge').textContent = `Turn ${state.turn}`;
     updateStats(state.turn);
 
-    if (actIdx < activitySeq.length && state.turn % 2 === 0) {
+    // Drain every event whose turn has now arrived. Backend emits real `turn` per event;
+    // for the legacy mock we treat 2 ticks = 1 event by stamping turn=actIdx*2.
+    while (actIdx < activitySeq.length) {
       const act = activitySeq[actIdx];
+      const actTurn = (act.turn != null) ? act.turn : (actIdx * 2);
+      if (actTurn > state.turn) break;
       addLogEntry(act, state.turn);
-      if (act.from.length === 1) pulseNode(act.from);
-      if (act.to && act.to.length === 1) { flashEdge(act.from, act.to); pulseNode(act.to); }
+      const fromLetter = act.letter || (act.from && act.from.length === 1 ? act.from : null);
+      const toLetter   = act.to_letter || (act.to && act.to.length === 1 ? act.to : null);
+      if (fromLetter) pulseNode(fromLetter);
+      if (fromLetter && toLetter) { flashEdge(fromLetter, toLetter); pulseNode(toLetter); }
       if (act.toolIdx !== undefined) addToolCard(act.toolIdx, act.shareInfo);
-      if (act.letter) { updateLeaderboardBuy(act.letter, act.price, act.sat); markNodeBought(act.letter); }
+      if (act.cls === 'log-buy' && act.letter) {
+        updateLeaderboardBuy(act.letter, act.price, act.sat);
+        markNodeBought(act.letter);
+      }
       actIdx++;
     }
 
-    if (state.turn >= 55) {
+    if (state.turn >= totalTurns) {
       clearInterval(state.interval); state.running = false;
       document.getElementById('price-status').textContent = 'COMPLETE';
       document.getElementById('price-status').style.color = '#00d4ff';

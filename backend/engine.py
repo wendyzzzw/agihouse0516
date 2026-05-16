@@ -81,9 +81,13 @@ class Engine:
         self.buyers: Dict[str, dict] = {}
         # demo.html uses A..O letters to address agents; preserve that mapping
         # by assigning a letter per buyer in declaration order.
+        self.id_to_letter: Dict[str, str] = {
+            b["id"]: (chr(ord("A") + i) if i < 26 else None)
+            for i, b in enumerate(self.sim["buyers"])
+        }
         for i, b in enumerate(self.sim["buyers"]):
             bid = b["id"]
-            letter = chr(ord("A") + i) if i < 26 else None
+            letter = self.id_to_letter[bid]
             self.buyers[bid] = {
                 "id": bid,
                 "letter": letter,
@@ -170,7 +174,8 @@ class Engine:
             target = action.get("target")
             seller = self.sellers.get(target)
             if seller is None:
-                self._emit(**{"from": agent["id"], "msg": f"tried to buy unknown seller '{target}'",
+                self._emit(**{"from": agent["id"], "letter": agent["letter"],
+                              "msg": f"tried to buy unknown seller '{target}'",
                               "cls": "log-lie"})
                 return
             if seller.attempt_buy():
@@ -190,7 +195,8 @@ class Engine:
                     "price": price, "sat": agent["satisfaction"],
                 })
             else:
-                self._emit(**{"from": agent["id"], "msg": f"failed buy from {target} (sold out)",
+                self._emit(**{"from": agent["id"], "letter": agent["letter"],
+                              "msg": f"failed buy from {target} (sold out)",
                               "cls": "log-trade"})
             return
 
@@ -216,7 +222,8 @@ class Engine:
             agent["outbox"].append(msg)
             cls = "log-probe" if "?" in content else "log-trade"
             self._emit(**{
-                "from": agent["id"], "letter": agent["letter"], "to": to,
+                "from": agent["id"], "letter": agent["letter"],
+                "to": to, "to_letter": self.id_to_letter.get(to),
                 "msg": content if len(content) <= 100 else content[:97] + "...",
                 "cls": cls,
             })
