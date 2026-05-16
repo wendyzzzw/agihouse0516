@@ -98,17 +98,18 @@ class Engine:
     # ---------- per-tick phases ----------
 
     def deliver_messages(self) -> None:
+        """Deliver queued messages to recipients. inbox keeps the FULL history;
+        agent_runtime trims to the last N when building the prompt context."""
         for msg in self.pending_messages:
             recipient = self.buyers.get(msg["recipient"])
             if recipient is None:
                 continue
             recipient["inbox"].append({
+                "id": msg.get("id"),
                 "sender": msg["sender"],
                 "content": msg["content"],
                 "turn": msg["turn"],
             })
-            if len(recipient["inbox"]) > 10:
-                recipient["inbox"] = recipient["inbox"][-10:]
         self.pending_messages.clear()
 
     def decide(self, agent: dict) -> dict:
@@ -250,13 +251,18 @@ class Engine:
                 bid: {
                     "id": b["id"],
                     "profile": b["persona"]["profile"],
+                    "persona": b["persona"],
                     "budget": b["budget"],
                     "bought": b["bought"],
                     "purchase_price": b["purchase_price"],
                     "purchase_seller": b["purchase_seller"],
                     "satisfaction": b["satisfaction"],
+                    "ticks_waited": b["ticks_waited"],
                     "messages_sent": len(b["outbox"]),
                     "messages_received": len(b["inbox"]),
+                    "inbox": b["inbox"],            # full received-message history
+                    "outbox": b["outbox"],          # full sent-message history
+                    "beliefs": b["beliefs"],
                 }
                 for bid, b in self.buyers.items()
             },
@@ -271,4 +277,19 @@ class Engine:
                 for sid, s in self.sellers.items()
             },
             "comm_matrix": self.matrix,
+            "conversations": self._conversation_threads(),
         }
+
+    def _conversation_threads(self) -> Dict[str, List[Dict[str, Any]]]:
+        """Group every message into per-pair threads keyed 'A<->B' (sorted ids)."""
+        threads: Dict[str, List[Dict[str, Any]]] = {}
+        for b in self.buyers.values():
+            for m in b["outbox"]:
+                a, c = m["sender"], m["recipient"]
+                key = f"{min(a,c)}<->{max(a,c)}"
+                threads.setdefault(key, []).append({
+                    "turn": m["turn"], "from": a, "to": c, "content": m["content"],
+                })
+        for k in threads:
+            threads[k].sort(key=lambda x: x["turn"])
+        return threads

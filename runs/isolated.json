@@ -509,167 +509,437 @@
     "A": {
       "id": "A",
       "profile": "budget",
+      "persona": {
+        "profile": "budget",
+        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
+        "traits": {
+          "patience": 0.85,
+          "risk_aversion": 0.7,
+          "social": 0.5,
+          "honesty": 0.85
+        }
+      },
       "budget": 361,
       "bought": true,
       "purchase_price": 306,
       "purchase_seller": "Airline_A",
       "satisfaction": 65,
+      "ticks_waited": 26,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_A": {
+          "last_price": 306,
+          "turn": 27,
+          "source": "self"
+        }
+      }
     },
     "B": {
       "id": "B",
       "profile": "budget",
+      "persona": {
+        "profile": "budget",
+        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
+        "traits": {
+          "patience": 0.85,
+          "risk_aversion": 0.7,
+          "social": 0.5,
+          "honesty": 0.85
+        }
+      },
       "budget": 294,
       "bought": false,
       "purchase_price": null,
       "purchase_seller": null,
       "satisfaction": null,
+      "ticks_waited": 55,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {}
     },
     "C": {
       "id": "C",
       "profile": "budget",
+      "persona": {
+        "profile": "budget",
+        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
+        "traits": {
+          "patience": 0.85,
+          "risk_aversion": 0.7,
+          "social": 0.5,
+          "honesty": 0.85
+        }
+      },
       "budget": 283,
       "bought": false,
       "purchase_price": null,
       "purchase_seller": null,
       "satisfaction": null,
+      "ticks_waited": 55,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {}
     },
     "D": {
       "id": "D",
       "profile": "budget",
+      "persona": {
+        "profile": "budget",
+        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
+        "traits": {
+          "patience": 0.85,
+          "risk_aversion": 0.7,
+          "social": 0.5,
+          "honesty": 0.85
+        }
+      },
       "budget": 374,
       "bought": true,
       "purchase_price": 309,
       "purchase_seller": "Airline_A",
       "satisfaction": 67,
+      "ticks_waited": 11,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_A": {
+          "last_price": 309,
+          "turn": 12,
+          "source": "self"
+        }
+      }
     },
     "E": {
       "id": "E",
       "profile": "budget",
+      "persona": {
+        "profile": "budget",
+        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
+        "traits": {
+          "patience": 0.85,
+          "risk_aversion": 0.7,
+          "social": 0.5,
+          "honesty": 0.85
+        }
+      },
       "budget": 315,
       "bought": false,
       "purchase_price": null,
       "purchase_seller": null,
       "satisfaction": null,
+      "ticks_waited": 55,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {}
     },
     "F": {
       "id": "F",
       "profile": "budget",
+      "persona": {
+        "profile": "budget",
+        "description": "Frugal first-time flyer who hates overpaying. Patient. Will wait many ticks for a clearly good deal.",
+        "traits": {
+          "patience": 0.85,
+          "risk_aversion": 0.7,
+          "social": 0.5,
+          "honesty": 0.85
+        }
+      },
       "budget": 311,
       "bought": true,
       "purchase_price": 310,
       "purchase_seller": "Airline_A",
       "satisfaction": 50,
+      "ticks_waited": 46,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_A": {
+          "last_price": 310,
+          "turn": 47,
+          "source": "self"
+        }
+      }
     },
     "G": {
       "id": "G",
       "profile": "family",
+      "persona": {
+        "profile": "family",
+        "description": "Family of four needing tickets for a fixed date. Time-pressured. Will pay close to budget to secure seats.",
+        "traits": {
+          "patience": 0.25,
+          "risk_aversion": 0.4,
+          "social": 0.2,
+          "honesty": 0.9
+        }
+      },
       "budget": 308,
       "bought": true,
       "purchase_price": 297,
       "purchase_seller": "Airline_B",
       "satisfaction": 54,
+      "ticks_waited": 26,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_B": {
+          "last_price": 297,
+          "turn": 27,
+          "source": "self"
+        }
+      }
     },
     "H": {
       "id": "H",
       "profile": "family",
+      "persona": {
+        "profile": "family",
+        "description": "Family of four needing tickets for a fixed date. Time-pressured. Will pay close to budget to secure seats.",
+        "traits": {
+          "patience": 0.25,
+          "risk_aversion": 0.4,
+          "social": 0.2,
+          "honesty": 0.9
+        }
+      },
       "budget": 297,
       "bought": true,
       "purchase_price": 297,
       "purchase_seller": "Airline_B",
       "satisfaction": 50,
+      "ticks_waited": 26,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_B": {
+          "last_price": 297,
+          "turn": 27,
+          "source": "self"
+        }
+      }
     },
     "I": {
       "id": "I",
       "profile": "family",
+      "persona": {
+        "profile": "family",
+        "description": "Family of four needing tickets for a fixed date. Time-pressured. Will pay close to budget to secure seats.",
+        "traits": {
+          "patience": 0.25,
+          "risk_aversion": 0.4,
+          "social": 0.2,
+          "honesty": 0.9
+        }
+      },
       "budget": 374,
       "bought": true,
       "purchase_price": 338,
       "purchase_seller": "Airline_B",
       "satisfaction": 60,
+      "ticks_waited": 0,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_B": {
+          "last_price": 338,
+          "turn": 1,
+          "source": "self"
+        }
+      }
     },
     "J": {
       "id": "J",
       "profile": "family",
+      "persona": {
+        "profile": "family",
+        "description": "Family of four needing tickets for a fixed date. Time-pressured. Will pay close to budget to secure seats.",
+        "traits": {
+          "patience": 0.25,
+          "risk_aversion": 0.4,
+          "social": 0.2,
+          "honesty": 0.9
+        }
+      },
       "budget": 293,
       "bought": false,
       "purchase_price": null,
       "purchase_seller": null,
       "satisfaction": null,
+      "ticks_waited": 55,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {}
     },
     "K": {
       "id": "K",
       "profile": "investor",
+      "persona": {
+        "profile": "investor",
+        "description": "Sophisticated trader hunting arbitrage. Calculating, info-hungry, only buys clear deals. May bluff.",
+        "traits": {
+          "patience": 0.6,
+          "risk_aversion": 0.5,
+          "social": 0.7,
+          "honesty": 0.6
+        }
+      },
       "budget": 366,
       "bought": true,
       "purchase_price": 306,
       "purchase_seller": "Airline_A",
       "satisfaction": 66,
+      "ticks_waited": 26,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_A": {
+          "last_price": 306,
+          "turn": 27,
+          "source": "self"
+        }
+      }
     },
     "L": {
       "id": "L",
       "profile": "investor",
+      "persona": {
+        "profile": "investor",
+        "description": "Sophisticated trader hunting arbitrage. Calculating, info-hungry, only buys clear deals. May bluff.",
+        "traits": {
+          "patience": 0.6,
+          "risk_aversion": 0.5,
+          "social": 0.7,
+          "honesty": 0.6
+        }
+      },
       "budget": 374,
       "bought": true,
       "purchase_price": 297,
       "purchase_seller": "Airline_B",
       "satisfaction": 71,
+      "ticks_waited": 26,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_B": {
+          "last_price": 297,
+          "turn": 27,
+          "source": "self"
+        }
+      }
     },
     "M": {
       "id": "M",
       "profile": "investor",
+      "persona": {
+        "profile": "investor",
+        "description": "Sophisticated trader hunting arbitrage. Calculating, info-hungry, only buys clear deals. May bluff.",
+        "traits": {
+          "patience": 0.6,
+          "risk_aversion": 0.5,
+          "social": 0.7,
+          "honesty": 0.6
+        }
+      },
       "budget": 394,
       "bought": true,
       "purchase_price": 309,
       "purchase_seller": "Airline_A",
       "satisfaction": 72,
+      "ticks_waited": 11,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_A": {
+          "last_price": 309,
+          "turn": 12,
+          "source": "self"
+        }
+      }
     },
     "N": {
       "id": "N",
       "profile": "flexible",
+      "persona": {
+        "profile": "flexible",
+        "description": "Digital nomad with no fixed schedule. Extreme patience, opportunistic, will wait for fire-sale prices.",
+        "traits": {
+          "patience": 0.95,
+          "risk_aversion": 0.3,
+          "social": 0.5,
+          "honesty": 0.8
+        }
+      },
       "budget": 349,
       "bought": true,
       "purchase_price": 327,
       "purchase_seller": "Airline_A",
       "satisfaction": 56,
+      "ticks_waited": 41,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {
+        "Airline_A": {
+          "last_price": 327,
+          "turn": 42,
+          "source": "self"
+        }
+      }
     },
     "O": {
       "id": "O",
       "profile": "flexible",
+      "persona": {
+        "profile": "flexible",
+        "description": "Digital nomad with no fixed schedule. Extreme patience, opportunistic, will wait for fire-sale prices.",
+        "traits": {
+          "patience": 0.95,
+          "risk_aversion": 0.3,
+          "social": 0.5,
+          "honesty": 0.8
+        }
+      },
       "budget": 291,
       "bought": false,
       "purchase_price": null,
       "purchase_seller": null,
       "satisfaction": null,
+      "ticks_waited": 55,
       "messages_sent": 0,
-      "messages_received": 0
+      "messages_received": 0,
+      "inbox": [],
+      "outbox": [],
+      "beliefs": {}
     }
   },
   "sellers": {
@@ -1012,5 +1282,6 @@
       "N": false,
       "O": false
     }
-  }
+  },
+  "conversations": {}
 }
