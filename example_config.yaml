@@ -1,0 +1,462 @@
+scenario:
+  name: "Consumer Electronics Flash Sale"
+  description: >
+    33 agents (3 sellers + 30 buyers) compete in a GPU market.
+    All participants are agents with a type, role, goals, and an allowed action set.
+    No hard buyer/seller separation — topology connects everyone.
+
+  # Agent identity convention:
+  #   type   — archetype name, set in config, shared across instances of the same template
+  #   id     — unique runtime identifier, auto-assigned by the engine as "{type}_{n}"
+  #            For count: 1 agents, an explicit id can be pinned here so events can
+  #            address them by name; otherwise defaults to "{type}_0"
+
+  # ─── MARKET CONTEXT ────────────────────────────────────────────────────────
+
+  market:
+    item: "GPU-X9 Pro"
+    true_value: 650            # objective value — hidden from all agents
+    total_supply: 30           # split across seller agents below
+
+  # ─── AGENTS ────────────────────────────────────────────────────────────────
+
+  agents:
+
+    # ── SELLER AGENTS ───────────────────────────────────────────────────────
+
+    - type: seller
+      id: "TechDirect"         # pinned — count is 1, events reference this name
+      count: 1
+
+      state:
+        inventory: 12
+        floor_price: 720         # private — will not go below this
+        listing_price: 899       # public starting ask
+
+      goals:
+        primary: "maximize_revenue"
+        secondary: "clear_inventory_before_simulation_ends"
+        weights:
+          revenue: 0.70
+          inventory_cleared: 0.20
+          reputation: 0.10
+
+      actions:
+        - SET_PRICE
+        - ACCEPT_OFFER
+        - COUNTER_OFFER
+        - REJECT_OFFER
+        - PROBE
+        - BROADCAST
+        - WAIT
+
+      decision_hints:
+        - condition: "inventory_pct <= 0.5"
+          bias: "raise_price"
+        - condition: "no_offers_for_turns(5)"
+          bias: "lower_price_slightly"
+        - condition: "buyer_mentions_competing_offer"
+          bias: "match_or_beat_it"
+
+    - type: seller
+      id: "BudgetHub"
+      count: 1
+
+      state:
+        inventory: 10
+        floor_price: 700
+        listing_price: 849
+
+      goals:
+        primary: "maximize_units_sold"
+        secondary: "maintain_price_competitiveness"
+        weights:
+          volume: 0.60
+          price_rank: 0.30
+          reputation: 0.10
+
+      actions:
+        - SET_PRICE
+        - ACCEPT_OFFER
+        - COUNTER_OFFER
+        - REJECT_OFFER
+        - PROBE
+        - BROADCAST
+        - UNDERCUT
+        - WAIT
+
+      decision_hints:
+        - condition: "competitor_listing_known"
+          bias: "undercut_by_fixed_amount(40)"
+        - condition: "inventory_pct <= 0.3"
+          bias: "stop_undercutting_hold_current_price"
+
+    - type: seller
+      id: "PremiumVault"
+      count: 1
+
+      state:
+        inventory: 8
+        floor_price: 800
+        listing_price: 949
+
+      goals:
+        primary: "maximize_per_unit_margin"
+        secondary: "reinforce_premium_positioning"
+        weights:
+          margin: 0.80
+          brand_signal: 0.20
+
+      actions:
+        - SET_PRICE
+        - ACCEPT_OFFER
+        - REJECT_OFFER
+        - BROADCAST
+        - WAIT
+
+      decision_hints:
+        - condition: "inventory_pct <= 0.5"
+          bias: "raise_price_aggressively"
+        - condition: "multiple_buyers_in_queue"
+          bias: "broadcast_scarcity_to_network"
+
+    # ── BUYER AGENTS ────────────────────────────────────────────────────────
+    # count > 1: engine spawns instances with ids bargain_hunter_0 … bargain_hunter_9
+
+    - type: bargain_hunter
+      count: 10
+
+      state:
+        budget_distribution: "normal(780, 30)"
+        items_owned: 0
+        target_items: 1
+
+      goals:
+        primary: "acquire_item_below_true_value"
+        secondary: "outlast_competing_buyers"
+        weights:
+          budget_efficiency: 0.65
+          requirement_match: 0.15
+          risk_minimization: 0.15
+          time_efficiency: 0.05
+
+      constraints:
+        max_spend: 800
+        will_exit_above: 820
+
+      actions:
+        - BID
+        - COUNTER_OFFER
+        - REJECT_OFFER
+        - PROBE
+        - SHARE_INFO
+        - WAIT
+        - BUILD_TOOL
+        - FORM_CONNECTION
+        - EXIT
+        - LIE
+        - COORDINATE
+
+      decision_hints:
+        patience: high
+        counter_aggressiveness: 0.8
+        bluffs_competing_offer: true
+        shares_info_freely: true
+
+    - type: time_pressured
+      count: 8
+
+      state:
+        budget_distribution: "normal(950, 60)"
+        items_owned: 0
+        target_items: 1
+
+      goals:
+        primary: "close_deal_as_fast_as_possible"
+        secondary: "avoid_extreme_overpaying"
+        weights:
+          time_efficiency: 0.40
+          requirement_match: 0.30
+          risk_minimization: 0.20
+          budget_efficiency: 0.10
+
+      constraints:
+        max_spend: 1000
+        must_close_within_turns: 15
+
+      actions:
+        - BID
+        - COUNTER_OFFER
+        - ACCEPT_OFFER
+        - PROBE
+        - WAIT
+        - EXIT
+
+      decision_hints:
+        patience: low
+        counter_aggressiveness: 0.2
+        bluffs_competing_offer: false
+        shares_info_freely: false
+
+    - type: comparison_shopper
+      count: 7
+
+      state:
+        budget_distribution: "normal(840, 40)"
+        items_owned: 0
+        target_items: 1
+
+      goals:
+        primary: "find_best_available_deal_across_all_sellers"
+        secondary: "avoid_regret_from_missing_a_better_option"
+        weights:
+          budget_efficiency: 0.40
+          risk_minimization: 0.25
+          requirement_match: 0.25
+          time_efficiency: 0.10
+
+      constraints:
+        max_spend: 870
+        min_sellers_evaluated: 2
+
+      actions:
+        - BID
+        - COUNTER_OFFER
+        - REJECT_OFFER
+        - PROBE
+        - SHARE_INFO
+        - WAIT
+        - BUILD_TOOL
+        - FORM_CONNECTION
+        - EXIT
+        - LIE
+
+      decision_hints:
+        patience: medium
+        counter_aggressiveness: 0.5
+        bluffs_competing_offer: true
+        shares_info_freely: true
+        always_probes_multiple_sellers_before_bidding: true
+
+    - type: reseller
+      count: 5
+
+      state:
+        budget_distribution: "normal(730, 20)"
+        items_owned: 0
+        target_items: 2
+
+      goals:
+        primary: "acquire_multiple_units_at_lowest_per_unit_cost"
+        secondary: "maximize_resale_margin"
+        weights:
+          budget_efficiency: 0.50
+          risk_minimization: 0.35
+          requirement_match: 0.10
+          time_efficiency: 0.05
+
+      constraints:
+        max_spend_per_unit: 750
+        min_resale_margin_pct: 10
+        target_units: 2
+
+      actions:
+        - BID
+        - COUNTER_OFFER
+        - REJECT_OFFER
+        - PROBE
+        - WAIT
+        - BUILD_TOOL
+        - FORM_CONNECTION
+        - EXIT
+        - LIE
+        - VOLUME_BID
+        - COORDINATE
+
+      decision_hints:
+        patience: high
+        counter_aggressiveness: 0.9
+        bluffs_competing_offer: true
+        shares_info_freely: false
+        attempts_volume_discount: true
+
+  # ─── TOPOLOGY ──────────────────────────────────────────────────────────────
+
+  topology:
+    type: "small_world"            # swap to: isolated | clustered | scale_free | fully_connected
+    params:
+      avg_degree: 4
+      rewiring_probability: 0.15
+
+    initial_edge_bias:
+      seller_to_seller: 0.3
+      buyer_to_seller: 1.5
+      buyer_to_buyer: 3.0
+
+    evolution:
+      enabled: true
+      rules:
+        - trigger: "successful_probe"
+          action: "reinforce_edge(weight += 0.1)"
+        - trigger: "received_false_info_from"
+          action: "weaken_edge(weight -= 0.3)"
+        - trigger: "trust_below_threshold(0.2)"
+          action: "drop_edge"
+        - trigger: "agent_introduced_me_to_new_contact"
+          action: "add_edge(trust=0.4)"
+        - trigger: "completed_transaction_with"
+          action: "reinforce_edge(weight += 0.2)"
+
+  # ─── OBSERVABILITY ─────────────────────────────────────────────────────────
+
+  observability:
+    graph_knowledge: "local_only"
+    price_knowledge: "from_connections_only"
+    inventory_knowledge: "observable_if_connected_to_seller"
+    tool_knowledge: "own_only"
+    other_agents_goals: "hidden"
+
+  # ─── TOOLS ─────────────────────────────────────────────────────────────────
+
+  available_tools:
+
+    - name: "price_tracker"
+      eligible_roles: [buyer, seller]
+      build_cost: { turns: 2, budget: 30 }
+      effect: "surfaces last-known transaction price for each connected agent"
+
+    - name: "inventory_spy"
+      eligible_roles: [buyer]
+      build_cost: { turns: 3, budget: 50 }
+      effect: "estimates seller remaining stock from bid-timing patterns (70% accuracy)"
+
+    - name: "demand_estimator"
+      eligible_roles: [seller]
+      build_cost: { turns: 3, budget: 50 }
+      effect: "infers buyer urgency distribution from incoming bid frequency"
+
+    - name: "bluff_detector"
+      eligible_roles: [buyer, seller]
+      build_cost: { turns: 2, budget: 40 }
+      effect: "flags likely deception in incoming messages (65% accuracy)"
+
+    - name: "group_buy_coordinator"
+      eligible_roles: [buyer]
+      build_cost: { turns: 4, budget: 80 }
+      effect: "unlocks VOLUME_BID; allows pooling demand across connected buyers"
+
+    - name: "competitor_monitor"
+      eligible_roles: [seller]
+      build_cost: { turns: 2, budget: 35 }
+      effect: "tracks public listing prices of connected seller agents in real time"
+
+  # ─── ACTION COSTS ──────────────────────────────────────────────────────────
+
+  action_costs:
+    PROBE:           { turns: 1, budget: 10 }
+    FORM_CONNECTION: { turns: 1, budget: 0, requires: "mutual_consent" }
+    COORDINATE:      { turns: 1, budget: 5 }
+    VOLUME_BID:      { turns: 1, budget: 0 }
+    UNDERCUT:        { turns: 0, budget: 0 }
+    BUILD_TOOL:      "see tool definition"
+
+  # ─── MARKET MECHANISM ──────────────────────────────────────────────────────
+
+  market_mechanism: "bilateral_negotiation"
+  negotiation_rounds_max: 5
+  simultaneous_negotiations: true
+
+  # ─── SCHEDULED EVENTS ──────────────────────────────────────────────────────
+  # target_agent references a pinned id (singleton) or a runtime-assigned id
+  # target_type references all live instances of an agent type
+
+  events:
+    - time_turn: 10
+      type: "state_change"
+      target_agent: "TechDirect"     # pinned id — unambiguous
+      change: { inventory: -3 }
+      visibility: "private"
+
+    - time_turn: 20
+      type: "info_leak"
+      content: { target_agent: "BudgetHub", field: "floor_price" }
+      injected_at_count: 2           # leaked into 2 random buyer-type instances
+
+    - time_turn: 35
+      type: "agent_enters"
+      agent:
+        type: seller
+        id: "FlashDeal"              # pinned — referenced later if needed
+        count: 1
+        state:
+          inventory: 5
+          floor_price: 780
+          listing_price: 780
+        goals:
+          primary: "clear_all_inventory_immediately"
+          weights: { volume: 1.0 }
+        actions: [ACCEPT_OFFER, REJECT_OFFER, BROADCAST, WAIT]
+        lifespan_turns: 10
+
+    - time_turn: 55
+      type: "broadcast"
+      content: "total_remaining_market_inventory"
+      visibility: "all_agents"
+
+  # ─── SIMULATION PARAMETERS ─────────────────────────────────────────────────
+
+  duration_turns: 80
+  tick_interval_ms: 100
+  speed: "10x"
+  runs: 500
+
+  llm:
+    enabled: true
+    model: "claude-sonnet-4-6"
+    decision_mode: "autonomous"
+    prompt_template: "agent_negotiation_v1"
+    fallback: "scripted_decision_hints"
+
+  random_seed: 42
+
+  # ─── METRICS ───────────────────────────────────────────────────────────────
+
+  metrics:
+    per_agent:                       # keyed by runtime id (e.g. bargain_hunter_3)
+      - type                         # archetype for grouping
+      - role
+      - units_transacted
+      - avg_price_per_unit
+      - revenue_total
+      - budget_remaining
+      - goal_satisfaction_score
+      - turns_to_first_transaction
+      - tools_built
+      - probes_sent
+      - probes_received
+      - lies_told
+      - lies_detected_by_others
+      - trust_score_avg
+      - network_degree_final
+
+    aggregate:
+      - avg_transaction_price
+      - price_spread_stddev
+      - revenue_by_seller
+      - total_market_surplus
+      - time_to_price_equilibrium_turns
+      - collusion_events_count
+      - collusion_avg_duration_turns
+      - misinformation_spread_pct
+      - fairness_gini_coefficient
+      - market_efficiency_pct
+      - avg_satisfaction_by_role
+      - avg_satisfaction_by_type
+
+    topology:
+      - graph_density
+      - avg_path_length
+      - clustering_coefficient
+      - max_betweenness_centrality
+      - connected_components_count
+      - degree_gini
