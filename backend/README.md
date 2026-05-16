@@ -125,6 +125,27 @@ Every agent decision conforms to:
 
 Passed to `claude -p --json-schema` so the LLM is forced to comply.
 
+## Verifying the frontend is actually reading backend data
+
+The leaderboard has a **Tokens** column. Numbers come straight from the
+`claude -p` wrapper's `usage` + `total_cost_usd` (Anthropic API response).
+They cannot be forged client-side.
+
+- Rule mode → `0` for every agent (zero LLM calls).
+- Claude mode → real thousands-scale token counts; hover any cell to see
+  the breakdown (input / output / cache_read / cache_creation / cost / wall).
+- `summary.total_tokens`, `summary.total_llm_calls`, `summary.total_cost_usd`
+  also live on each `runs/*.json` so you can `jq` them straight from disk.
+
+Quick claude proof (≤3 min with parallel workers):
+
+```bash
+python run.py --topology small_world --mode claude --ticks 3 --workers 8
+```
+
+This overwrites `runs/small_world.json` with a real LLM run. Refresh the
+demo, pick Small World, click Run — the Tokens column lights up.
+
 ## Smoke testing
 
 ```bash

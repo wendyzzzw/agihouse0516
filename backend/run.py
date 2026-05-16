@@ -13,16 +13,30 @@ import json
 import os
 import sys
 import time
+from typing import Optional
+
+import yaml
 
 from engine import Engine
 from config import DEFAULT_CONFIG, load, list_simulations
+
+
+def save_run(result: dict, path: str) -> None:
+    """Save a sim result to disk. Extension picks the format (.yaml or .json)."""
+    ext = os.path.splitext(path)[1].lower()
+    with open(path, "w", encoding="utf-8") as f:
+        if ext in (".yaml", ".yml"):
+            yaml.safe_dump(result, f, sort_keys=False, allow_unicode=True, default_flow_style=False)
+        else:
+            json.dump(result, f, indent=2, ensure_ascii=False)
 
 # Topologies the frontend exposes via buttons.
 FRONTEND_TOPOLOGIES = ["isolated", "clustered", "small_world", "hub_spoke", "fully_connected"]
 
 
 def run_one(config_path: str, simulation_id, override_topology, seed: int,
-            mode: str, model: str, out: str) -> dict:
+            mode: str, model: str, out: str, ticks: Optional[int] = None,
+            workers: int = 8) -> dict:
     t0 = time.time()
     eng = Engine(
         config_path=config_path,
@@ -31,11 +45,12 @@ def run_one(config_path: str, simulation_id, override_topology, seed: int,
         seed=seed,
         llm_mode=mode,
         model=model,
+        ticks_override=ticks,
+        llm_workers=workers,
     )
     result = eng.run()
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
-    with open(out, "w") as f:
-        json.dump(result, f, indent=2)
+    save_run(result, out)
     s = result["summary"]
     elapsed = time.time() - t0
     print(f"[{result['topology']:>16}] avg=${s['avg_price']:>6} bought={s['n_bought']:>2}/{s['n_bought']+s['n_missed']:>2} "
@@ -54,6 +69,10 @@ def main():
     ap.add_argument("--all", action="store_true",
                     help="run all 5 frontend topologies (override sweep)")
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--ticks", type=int, default=None,
+                    help="override max_rounds from YAML (useful for quick claude proofs)")
+    ap.add_argument("--workers", type=int, default=8,
+                    help="parallel claude -p workers per tick (claude mode only)")
     ap.add_argument("--mode", choices=["claude", "rule"], default="rule")
     ap.add_argument("--model", default="haiku")
     ap.add_argument("--out", default=None)
@@ -72,12 +91,13 @@ def main():
 
     if args.all:
         for topo in FRONTEND_TOPOLOGIES:
-            out = os.path.join(runs_dir, f"{topo}.json")
-            run_one(args.config, args.simulation, topo, args.seed, args.mode, args.model, out)
+            out = os.path.join(runs_dir, f"{topo}.yaml")
+            run_one(args.config, args.simulation, topo, args.seed, args.mode, args.model, out,
+                ticks=args.ticks, workers=args.workers)
         return 0
 
     topo = args.topology
-    out = args.out or os.path.join(runs_dir, f"{topo or 'run'}.json")
+    out = args.out or os.path.join(runs_dir, f"{topo or 'run'}.yaml")
     run_one(args.config, args.simulation, topo, args.seed, args.mode, args.model, out)
     return 0
 

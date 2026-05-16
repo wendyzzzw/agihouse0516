@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgentArena - Game-Theory Simulation for the Internet of Agents</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; background: #0a0e17; color: #e0e6f0; overflow-x: hidden; }
@@ -181,7 +182,7 @@ table.lb tr.highlight td { background: #00d4ff08; }
           <th>#</th>
           <th>Agent</th>
           <th>Type</th>
-          <th>Tools</th>
+          <th title="Real claude -p tokens used by this agent (input+output+cache). Zero in rule mode.">Tokens</th>
           <th>Price</th>
           <th>Satisf.</th>
           <th>Status</th>
@@ -385,7 +386,7 @@ function initLeaderboard() {
       <td class="lb-rank">${i+1}</td>
       <td class="lb-name" style="color:${a.color}">${a.letter}</td>
       <td><span class="lb-profile" style="background:${PROFILE_COLORS_BG[a.profile]};color:${a.color}">${PROFILE_LABELS[a.profile]}</span></td>
-      <td class="lb-tools-count" id="lb-tools-${a.letter}">0</td>
+      <td class="lb-tools-count" id="lb-tokens-${a.letter}" title="real tokens consumed">0</td>
       <td class="lb-price" id="lb-price-${a.letter}">--</td>
       <td class="lb-sat" id="lb-sat-${a.letter}">--</td>
       <td><span class="lb-status searching" id="lb-status-${a.letter}">searching</span></td>
@@ -648,12 +649,13 @@ function updateStats(turn) {
 }
 
 async function fetchBackendRun(topology) {
+  // Backend writes YAML; we parse with js-yaml (loaded from CDN above).
   try {
-    const r = await fetch(`./runs/${topology}.json`, { cache: 'no-store' });
+    const r = await fetch(`./runs/${topology}.yaml`, { cache: 'no-store' });
     if (!r.ok) return null;
-    const data = await r.json();
-    // Compute total seats from sellers section so the dashboard scales to any sim.
-    if (data.sellers) {
+    const text = await r.text();
+    const data = (typeof jsyaml !== 'undefined') ? jsyaml.load(text) : JSON.parse(text);
+    if (data && data.sellers) {
       data._totalSeats = Object.values(data.sellers).reduce((s, x) => s + (x.initial_inventory || 0), 0);
     }
     return data;
@@ -680,6 +682,26 @@ async function startSimulation() {
     activitySeq = runData.events || [];
     state.totalSeats = runData._totalSeats || 10;
     document.getElementById('stat-seats').textContent = state.totalSeats;
+    // Populate the Tokens column from real per-agent counts so viewers can
+    // verify backend wiring at a glance — these come from the Anthropic API
+    // `usage` block via the claude -p wrapper and cannot be forged client-side.
+    Object.values(runData.agents || {}).forEach(a => {
+      if (!a.letter) return;
+      const cell = document.getElementById('lb-tokens-' + a.letter);
+      if (cell && a.tokens) {
+        cell.textContent = a.tokens.total || 0;
+        cell.title = `calls=${a.tokens.calls}, in=${a.tokens.input}, out=${a.tokens.output}, ` +
+                     `cache_r=${a.tokens.cache_read}, cache_w=${a.tokens.cache_creation}, ` +
+                     `cost=$${(a.tokens.cost_usd || 0).toFixed(4)}, ` +
+                     `wall=${(a.tokens.duration_ms / 1000).toFixed(1)}s`;
+      }
+    });
+    // Badge: BACKEND RUN + aggregate token + cost label
+    const s = runData.summary || {};
+    const totalK = s.total_tokens != null ? (s.total_tokens / 1000).toFixed(1) + 'k tok' : '0 tok';
+    const cost = s.total_cost_usd != null ? '$' + s.total_cost_usd.toFixed(4) : '$0';
+    document.getElementById('lb-badge').textContent =
+      `0 / ${(runData.agents ? Object.keys(runData.agents).length : 15)} bought · ${totalK} · ${cost}`;
   } else {
     window.__runData = null;
     activitySeq = getActivitySequence();

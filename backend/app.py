@@ -79,10 +79,10 @@ def run_sim(req: RunRequest):
 def cached_run(topology: str):
     if topology not in FRONTEND_TOPOLOGIES:
         raise HTTPException(404, f"unknown topology: {topology}")
-    path = os.path.join(RUNS_DIR, f"{topology}.json")
+    path = os.path.join(RUNS_DIR, f"{topology}.yaml")
     if not os.path.exists(path):
         raise HTTPException(404, f"no cached run; run `python run.py --topology {topology}` first")
-    return FileResponse(path, media_type="application/json")
+    return FileResponse(path, media_type="application/yaml")
 
 
 @app.get("/api/sim/compare")

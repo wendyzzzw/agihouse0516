@@ -165,6 +165,16 @@ def decide_via_claude(
 
     if not isinstance(inner, dict) or "action" not in inner:
         return _fallback(agent_state, world_view, error=f"malformed inner: {str(inner)[:200]}")
+
+    # Attach real usage stats from the claude -p wrapper so the engine can
+    # accumulate per-agent token counts and cost. These come straight from
+    # the Anthropic API response — they cannot be faked client-side.
+    inner["_meta"] = {
+        "usage": wrapper.get("usage") or {},
+        "cost_usd": float(wrapper.get("total_cost_usd") or 0.0),
+        "duration_ms": int(wrapper.get("duration_ms") or 0),
+        "model": (wrapper.get("modelUsage") or {}),
+    }
     return inner
 
 

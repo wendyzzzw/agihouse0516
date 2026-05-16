@@ -18,6 +18,7 @@ Output: see snapshot() — matches what runs/*.json has always exported, plus a
 from __future__ import annotations
 import random
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from typing import Dict, List, Any, Optional
 
 from market import Seller
@@ -25,6 +26,19 @@ from topology import build_matrix
 from personas import make_persona, DEFAULT_TOOLS
 from agent_runtime import decide_via_claude, _fallback
 from config import load, simulation as _sim, DEFAULT_CONFIG
+
+
+def _empty_tokens() -> Dict[str, Any]:
+    return {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_creation": 0,
+        "total": 0,
+        "cost_usd": 0.0,
+        "calls": 0,
+        "duration_ms": 0,
+    }
 
 
 class Engine:
@@ -36,6 +50,8 @@ class Engine:
         seed: int = 42,
         llm_mode: str = "rule",
         model: Optional[str] = None,
+        ticks_override: Optional[int] = None,
+        llm_workers: int = 8,
     ):
         self.config_path = config_path
         self.cfg = load(config_path)
@@ -43,11 +59,12 @@ class Engine:
         self.simulation_id = self.sim["id"]
         self.override_topology = override_topology
         self.llm_mode = llm_mode
+        self.llm_workers = llm_workers
         self.seed = seed
         self.rng = random.Random(seed)
 
         settings = self.sim.get("settings") or {}
-        self.ticks = int(settings.get("max_rounds", 55))
+        self.ticks = int(ticks_override or settings.get("max_rounds", 55))
 
         llm_cfg = self.sim.get("llm") or {}
         self.model = model or llm_cfg.get("model", "haiku")
@@ -109,6 +126,7 @@ class Engine:
                 "tools": list(DEFAULT_TOOLS),
                 "inbox": [],
                 "outbox": [],
+                "tokens": _empty_tokens(),
             }
 
         # Topology
@@ -159,8 +177,28 @@ class Engine:
     def decide(self, agent: dict) -> dict:
         wv = self.world_view_for(agent["id"])
         if self.llm_mode == "claude":
-            return decide_via_claude(agent, wv, model=self.model)
-        return _fallback(agent, wv)
+            action = decide_via_claude(agent, wv, model=self.model)
+        else:
+            action = _fallback(agent, wv)
+        self._account_usage(agent, action.pop("_meta", None))
+        return action
+
+    def _account_usage(self, agent: dict, meta: Optional[Dict[str, Any]]) -> None:
+        """Accumulate token + cost metadata onto the agent's per-run tally.
+        Pulled directly from the Anthropic API response (`claude -p` wrapper)
+        — these numbers are not synthesised."""
+        if not meta:
+            return
+        usage = meta.get("usage") or {}
+        tok = agent["tokens"]
+        tok["input"] += int(usage.get("input_tokens") or 0)
+        tok["output"] += int(usage.get("output_tokens") or 0)
+        tok["cache_read"] += int(usage.get("cache_read_input_tokens") or 0)
+        tok["cache_creation"] += int(usage.get("cache_creation_input_tokens") or 0)
+        tok["total"] = tok["input"] + tok["output"] + tok["cache_read"] + tok["cache_creation"]
+        tok["cost_usd"] = round(tok["cost_usd"] + float(meta.get("cost_usd") or 0.0), 6)
+        tok["duration_ms"] += int(meta.get("duration_ms") or 0)
+        tok["calls"] += 1
 
     def execute(self, agent: dict, action: dict) -> None:
         atype = (action.get("action") or "WAIT").upper()
@@ -244,12 +282,21 @@ class Engine:
             # 3. Buyers decide & act (shuffled)
             order = list(self.buyer_ids)
             self.rng.shuffle(order)
-            for bid in order:
-                agent = self.buyers[bid]
-                if agent["bought"]:
-                    continue
-                action = self.decide(agent)
-                self.execute(agent, action)
+            active = [bid for bid in order if not self.buyers[bid]["bought"]]
+
+            # claude mode: decide in parallel (each subprocess.run releases GIL),
+            # then execute serially in the shuffled order so resource contention
+            # (limited seats) resolves deterministically.
+            if self.llm_mode == "claude" and len(active) > 1:
+                with ThreadPoolExecutor(max_workers=self.llm_workers) as ex:
+                    decisions = list(ex.map(lambda bid: self.decide(self.buyers[bid]), active))
+                for bid, action in zip(active, decisions):
+                    self.execute(self.buyers[bid], action)
+            else:
+                for bid in active:
+                    agent = self.buyers[bid]
+                    action = self.decide(agent)
+                    self.execute(agent, action)
 
             # 4. Snapshot
             sellers_list = list(self.sellers.values())
@@ -275,6 +322,9 @@ class Engine:
             by_archetype.setdefault(a, []).append(b["purchase_price"])
         by_archetype = {a: round(sum(v) / len(v), 1) for a, v in by_archetype.items()}
         total_msgs = sum(len(b["outbox"]) for b in self.buyers.values())
+        total_tokens = sum(b["tokens"]["total"] for b in self.buyers.values())
+        total_cost = round(sum(b["tokens"]["cost_usd"] for b in self.buyers.values()), 6)
+        total_calls = sum(b["tokens"]["calls"] for b in self.buyers.values())
 
         return {
             "config": {
@@ -293,6 +343,9 @@ class Engine:
                 "n_missed": len(self.buyer_ids) - n_bought,
                 "avg_satisfaction": avg_sat,
                 "total_messages": total_msgs,
+                "total_tokens": total_tokens,
+                "total_llm_calls": total_calls,
+                "total_cost_usd": total_cost,
             },
             "prices_over_time": self.prices_over_time,
             "events": self.events,
@@ -316,6 +369,7 @@ class Engine:
                     "inbox": b["inbox"],
                     "outbox": b["outbox"],
                     "beliefs": b["beliefs"],
+                    "tokens": b["tokens"],
                 }
                 for bid, b in self.buyers.items()
             },
