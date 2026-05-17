@@ -108,13 +108,15 @@ agent from its configured action list:
 ```json
 {
   "action": "BUY" | "BID" | "PROBE" | "SHARE_INFO" | "WAIT",
-  "target": "Airline_A" | "C" | null,
+  "target": "Airline_A" | "C" | ["C", "D"] | null,
   "content": "What price are you seeing?" | "$260 for one seat" | null,
   "reasoning": "one-sentence why"
 }
 ```
 
 This is also passed to `claude -p --json-schema` so the LLM is forced to comply.
+For message-like actions, a null target means all reachable contacts in the
+agent's adjacency row.
 
 ## Calibrating the 22% spread
 

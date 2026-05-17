@@ -165,6 +165,22 @@ class Engine:
         kw.setdefault("turn", self.current_tick)
         self.events.append(kw)
 
+    def _target_list(self, target: Any) -> List[str]:
+        if target is None:
+            return []
+        raw_values = target if isinstance(target, list) else [target]
+        values: List[str] = []
+        seen = set()
+        for value in raw_values:
+            if value is None:
+                continue
+            normalized = str(value).strip()
+            if not normalized or normalized in seen:
+                continue
+            values.append(normalized)
+            seen.add(normalized)
+        return values
+
     # ---------- per-tick phases ----------
 
     def deliver_messages(self) -> None:
@@ -218,7 +234,8 @@ class Engine:
             return
 
         if atype in BUY_ACTIONS:
-            target = action.get("target")
+            targets = self._target_list(action.get("target"))
+            target = targets[0] if targets else None
             seller = self.sellers.get(target)
             if seller is None:
                 agent["ticks_waited"] += 1
@@ -250,34 +267,35 @@ class Engine:
             return
 
         if atype in MESSAGE_ACTIONS:
-            to = action.get("target")
-            content = (action.get("content") or "").strip()
-            if not to or not content:
+            recipients = self._target_list(action.get("target")) or self.contacts_of(agent["id"])
+            raw_content = action.get("content")
+            content = raw_content.strip() if isinstance(raw_content, str) else str(raw_content or "").strip()
+            if not recipients or not content:
                 agent["ticks_waited"] += 1
                 return
-            if not self.matrix.get(agent["id"], {}).get(to, False):
-                # topology blocked it
-                agent["ticks_waited"] += 1
-                self._emit(**{"from": agent["id"], "to": to,
-                              "msg": f"blocked: no edge ({content[:40]})",
-                              "cls": "log-lie"})
-                return
-            msg = {
-                "id": str(uuid.uuid4())[:8],
-                "turn": t,
-                "sender": agent["id"],
-                "recipient": to,
-                "content": content,
-            }
-            self.pending_messages.append(msg)
-            agent["outbox"].append(msg)
-            cls = ACTION_EVENT_CLASS.get(atype) or ("log-probe" if "?" in content else "log-trade")
-            display = content if len(content) <= 100 else content[:97] + "..."
-            self._emit(**{
-                "from": agent["id"], "to": to,
-                "msg": display,
-                "cls": cls,
-            })
+            for to in recipients:
+                if not self.matrix.get(agent["id"], {}).get(to, False):
+                    # topology blocked it
+                    self._emit(**{"from": agent["id"], "to": to,
+                                  "msg": f"blocked: no edge ({content[:40]})",
+                                  "cls": "log-lie"})
+                    continue
+                msg = {
+                    "id": str(uuid.uuid4())[:8],
+                    "turn": t,
+                    "sender": agent["id"],
+                    "recipient": to,
+                    "content": content,
+                }
+                self.pending_messages.append(msg)
+                agent["outbox"].append(msg)
+                cls = ACTION_EVENT_CLASS.get(atype) or ("log-probe" if "?" in content else "log-trade")
+                display = content if len(content) <= 100 else content[:97] + "..."
+                self._emit(**{
+                    "from": agent["id"], "to": to,
+                    "msg": display,
+                    "cls": cls,
+                })
             agent["ticks_waited"] += 1
             return
 

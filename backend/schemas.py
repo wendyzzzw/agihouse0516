@@ -1,6 +1,6 @@
 """Pydantic schemas — the contract between agents, engine, and the frontend."""
 from __future__ import annotations
-from typing import Optional, Literal, Dict, List, Any
+from typing import Optional, Literal, Dict, List, Any, Union
 from enum import Enum
 from pydantic import BaseModel, Field
 
@@ -28,15 +28,18 @@ class ActionType(str, Enum):
 class Action(BaseModel):
     """One turn output by an agent. The engine executes the subset it supports."""
     action: ActionType
-    target: Optional[str] = None      # seller_id or agent_id, depending on action
+    target: Optional[Union[str, List[str]]] = None  # seller_id, agent_id, or recipients list
     content: Optional[str] = None     # message, offer terms, or price/update content
     reasoning: Optional[str] = None   # one-sentence why (helps debugging)
 
 
 class Persona(BaseModel):
-    profile: str                       # budget | family | investor | flexible
+    profile: str                       # e.g. budget | family | investor | buyer_unionist
     description: str
     traits: Dict[str, float] = Field(default_factory=dict)
+    communication_style: Optional[str] = None
+    tactics: List[str] = Field(default_factory=list)
+    persuasion_strategy: Optional[str] = None
     # traits keys: patience, risk_aversion, social, honesty (each 0-1)
 
 

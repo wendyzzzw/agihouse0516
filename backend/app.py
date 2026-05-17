@@ -20,6 +20,7 @@ from live_runtime import (
     ScenarioCompiler,
     create_live_run,
     player_contexts_from_state,
+    public_model_options,
     run_live_background,
     snapshot_from_state,
 )
@@ -51,8 +52,12 @@ class LiveRunRequest(BaseModel):
     scenario_id: str = "open_bazaar"
     seed: int = 42
     max_rounds: Optional[int] = None
-    llm_provider: str = Field("rule", description="rule | openai | claude")
-    model: str = "gpt-4.1-mini"
+    llm_provider: str = Field("rule", description="rule | openai | claude | auto")
+    model: str = "rule"
+    model_assignment: str = Field(
+        "uniform",
+        description="uniform | scenario | buyer_advantage | seller_advantage | mixed_sellers | buyer_advantage_mixed_sellers",
+    )
     speed_ms: int = Field(500, ge=0, le=10000)
 
 
@@ -65,6 +70,11 @@ def list_topologies():
 def list_scenarios():
     compiler = ScenarioCompiler(Path(CONFIG_PATH))
     return {"scenarios": compiler.list_scenarios()}
+
+
+@app.get("/api/models")
+def list_models():
+    return public_model_options()
 
 
 @app.post("/api/sim/run")
@@ -154,6 +164,7 @@ def create_run(req: LiveRunRequest, background_tasks: BackgroundTasks):
             max_rounds=req.max_rounds,
             llm_provider=req.llm_provider,
             model=req.model,
+            model_assignment=req.model_assignment,
             speed_ms=req.speed_ms,
         )
     except ValueError as exc:
@@ -165,6 +176,10 @@ def create_run(req: LiveRunRequest, background_tasks: BackgroundTasks):
         "scenario_id": meta["scenario_id"],
         "current_turn": meta["current_turn"],
         "max_rounds": meta["max_rounds"],
+        "llm_provider": meta.get("llm_provider"),
+        "model": meta.get("model"),
+        "model_assignment": meta.get("model_assignment"),
+        "agent_model_summary": meta.get("agent_model_summary"),
     }
 
 

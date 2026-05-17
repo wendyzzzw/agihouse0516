@@ -41,15 +41,20 @@
               </label>
               <label>
                 LLM Provider
-                <select name="llm_provider">
+                <select id="llm_provider" name="llm_provider">
                   <option value="rule">rule - deterministic local demo</option>
+                  <option value="auto">auto - infer from model</option>
                   <option value="openai">openai - real OpenAI API call</option>
                   <option value="claude">claude - local Claude CLI</option>
                 </select>
               </label>
               <label>
                 Model
-                <input name="model" value="gpt-4.1-mini">
+                <select id="model" name="model"></select>
+              </label>
+              <label>
+                Model Mix
+                <select id="model_assignment" name="model_assignment"></select>
               </label>
               <label>
                 Seed
@@ -65,7 +70,7 @@
               </label>
             </div>
             <p id="scenario-summary" class="hint"></p>
-            <p class="hint">OpenAI mode requires OPENAI_API_KEY in the FastAPI server environment. Claude mode requires the claude CLI to be installed and authenticated. If either fails, the current backend falls back to the rule adapter and records the adapter error in the per-agent trace.</p>
+            <p class="hint">OpenAI mode requires OPENAI_API_KEY in the FastAPI server environment. Claude mode requires the claude CLI to be installed and authenticated. Mixed model runs can assign different providers/models to individual buyers and sellers; failed model calls fall back to the rule adapter and record the adapter error in the per-agent trace.</p>
             <div class="form-actions">
               <a class="button" href="runs.html">Cancel</a>
               <button id="create-submit" class="primary" type="submit">Create and Open Run</button>

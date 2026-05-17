@@ -115,14 +115,15 @@ code {
 .topnav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-start;
+  gap: 24px;
   margin-bottom: 22px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--line-soft);
 }
 
 .brand {
+  flex: 0 0 auto;
   display: grid;
   gap: 3px;
 }

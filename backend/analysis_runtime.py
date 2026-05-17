@@ -1,6 +1,7 @@
 """Deterministic run analysis and recap generation."""
 from __future__ import annotations
 
+import json
 import time
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -18,7 +19,7 @@ from live_runtime import (
 )
 
 
-ANALYSIS_VERSION = 2
+ANALYSIS_VERSION = 3
 
 
 def labelize(value: Any) -> str:
@@ -39,6 +40,11 @@ def role_for(agent_id: str, agents: Dict[str, Dict[str, Any]]) -> str:
 
 def analysis_path(store: RunStore, run_id: str) -> Path:
     return store.run_dir(run_id) / "analysis.json"
+
+
+def overall_insights_path(store: RunStore, scenario_id: Optional[str]) -> Path:
+    suffix = re_safe(scenario_id or "all")
+    return store.root / "_insights" / f"overall__{suffix}.json"
 
 
 def load_or_analyze_run(store: RunStore, run_id: str, force: bool = False) -> Dict[str, Any]:
@@ -102,6 +108,19 @@ def analyze_run(store: RunStore, run_id: str, persist: bool = True) -> Dict[str,
 
 
 def compare_runs(store: RunStore, scenario_id: Optional[str] = None, refresh: bool = False) -> Dict[str, Any]:
+    path = overall_insights_path(store, scenario_id)
+    if not refresh and path.exists():
+        try:
+            cached = read_json(path)
+            if (
+                cached.get("analysis_version") == ANALYSIS_VERSION
+                and cached.get("filters", {}).get("scenario_id") == scenario_id
+            ):
+                cached["cache"] = {"hit": True, "path": str(path)}
+                return cached
+        except Exception:
+            pass
+
     analyses = []
     for row in store.list_runs():
         if scenario_id and row.get("scenario_id") != scenario_id:
@@ -119,7 +138,8 @@ def compare_runs(store: RunStore, scenario_id: Optional[str] = None, refresh: bo
     archetype_rows = summarize_archetype_groups(analyses)
     power_rows = summarize_power_groups(analyses)
 
-    return {
+    comparison = {
+        "analysis_version": ANALYSIS_VERSION,
         "generated_at": time.time(),
         "filters": {"scenario_id": scenario_id},
         "run_count": len(analyses),
@@ -142,6 +162,9 @@ def compare_runs(store: RunStore, scenario_id: Optional[str] = None, refresh: bo
             for a in analyses
         ],
     }
+    comparison["cache"] = {"hit": False, "path": str(path)}
+    atomic_write_json(path, comparison)
+    return comparison
 
 
 def pairwise_comparison_path(store: RunStore, left_run_id: str, right_run_id: str) -> Path:
@@ -275,12 +298,24 @@ def setup_differences(left: Dict[str, Any], right: Dict[str, Any]) -> List[Dict[
         ("Buyer-seller reach", left["topology"]["buyer_seller_reach_pct"], right["topology"]["buyer_seller_reach_pct"]),
         ("Provider", left["setup"]["provider"], right["setup"]["provider"]),
         ("Model", left["setup"]["model"], right["setup"]["model"]),
+        ("Model mix", left["setup"].get("model_assignment"), right["setup"].get("model_assignment")),
+        (
+            "Agent models",
+            left["setup"].get("agent_model_summary"),
+            right["setup"].get("agent_model_summary"),
+        ),
     ]
     return [
-        {"label": label, "left": left_value, "right": right_value}
+        {"label": label, "left": setup_value_label(left_value), "right": setup_value_label(right_value)}
         for label, left_value, right_value in fields
         if left_value != right_value
     ]
+
+
+def setup_value_label(value: Any) -> str:
+    if isinstance(value, (dict, list)):
+        return json.dumps(value, sort_keys=True)
+    return str(value)
 
 
 def pairwise_takeaways(left: Dict[str, Any], right: Dict[str, Any], metrics: List[Dict[str, Any]]) -> List[str]:
@@ -333,6 +368,8 @@ def build_setup(meta: Dict[str, Any], state: Dict[str, Any], config: Dict[str, A
         "setup_type": setup_type,
         "provider": meta.get("llm_provider"),
         "model": meta.get("model"),
+        "model_assignment": meta.get("model_assignment"),
+        "agent_model_summary": meta.get("agent_model_summary"),
         "seed": meta.get("seed"),
         "max_rounds": meta.get("max_rounds"),
         "buyer_count": len(buyers),

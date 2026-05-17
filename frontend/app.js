@@ -88,7 +88,8 @@
     if (!nav) return;
     const links = [
       ["runs", "Past Runs", "runs.html"],
-      ["create", "Create Simulation", "create.html"],
+      ["create", "Create New", "create.html"],
+      ["insights", "Insights", "insights.html"],
     ];
     nav.innerHTML = links.map(([key, label, href]) => (
       `<a class="${active === key ? "active" : ""}" href="${href}">${label}</a>`
@@ -99,16 +100,10 @@
     renderNav("runs");
     const list = $("#run-list");
     const status = $("#runs-status");
-    $("#comparison-refresh")?.addEventListener("click", () => loadComparison(true));
     try {
-      const [payload, comparison] = await Promise.all([
-        api("/api/runs"),
-        api("/api/analysis/compare").catch(error => ({ error })),
-      ]);
+      const payload = await api("/api/runs");
       const runs = payload.runs || [];
-      window.__runsPageRuns = runs;
       status.textContent = runs.length ? `${runs.length} file-backed run${runs.length === 1 ? "" : "s"}` : "No live runs yet";
-      renderComparison(comparison, runs);
       if (!runs.length) {
         list.innerHTML = `<div class="empty">No past live runs yet. Create a simulation to write the first run under runs/live.</div>`;
         return;
@@ -120,17 +115,37 @@
     }
   }
 
-  async function loadComparison(refresh = false) {
-    $("#comparison-status").textContent = refresh ? "Refreshing analysis cache..." : "Loading comparison...";
+  async function initInsightsPage() {
+    renderNav("insights");
+    $("#comparison-refresh")?.addEventListener("click", () => loadComparison(true));
     try {
-      const comparison = await api(`/api/analysis/compare${refresh ? "?refresh=true" : ""}`);
-      renderComparison(comparison, window.__runsPageRuns || []);
+      const [payload, comparison] = await Promise.all([
+        api("/api/runs"),
+        api("/api/analysis/compare").catch(error => ({ error })),
+      ]);
+      const runs = payload.runs || [];
+      window.__insightsRuns = runs;
+      setText("#insights-status", runs.length ? `${runs.length} previous run${runs.length === 1 ? "" : "s"} available` : "No previous runs yet");
+      renderComparison(comparison);
+      renderPairwisePanel(runs);
     } catch (error) {
-      renderComparison({ error }, window.__runsPageRuns || []);
+      showError("#insights-status", error);
+      $("#comparison").innerHTML = `<div class="empty">The backend is not reachable. Start FastAPI and reload this page.</div>`;
+      renderPairwisePanel([]);
     }
   }
 
-  function renderComparison(comparison, runs = []) {
+  async function loadComparison(refresh = false) {
+    $("#comparison-status").textContent = refresh ? "Regenerating insights and overwriting cache..." : "Loading cached insights...";
+    try {
+      const comparison = await api(`/api/analysis/compare${refresh ? "?refresh=true" : ""}`);
+      renderComparison(comparison);
+    } catch (error) {
+      renderComparison({ error });
+    }
+  }
+
+  function renderComparison(comparison) {
     const root = $("#comparison");
     if (!root) return;
     if (comparison?.error) {
@@ -140,7 +155,8 @@
     }
     const rows = comparison?.scenario_comparison || [];
     const learnings = comparison?.overall_learnings || [];
-    $("#comparison-status").textContent = rows.length ? `${rows.length} scenario group${rows.length === 1 ? "" : "s"}` : "No completed analysis yet";
+    const cacheLabel = comparison?.cache?.hit ? "loaded from cache" : "regenerated";
+    $("#comparison-status").textContent = rows.length ? `${rows.length} scenario group${rows.length === 1 ? "" : "s"} · ${cacheLabel}` : "No completed analysis yet";
     if (!rows.length) {
       root.innerHTML = `<div class="empty">Create or open a run to generate analysis.</div>`;
       return;
@@ -187,34 +203,38 @@
         </table>
       </div>
       ${renderArchetypeComparison(comparison.archetype_comparison || [])}
-      ${renderPairwiseControls(runs)}
     `;
+  }
+
+  function renderPairwisePanel(runs) {
+    const root = $("#pairwise");
+    if (!root) return;
+    root.innerHTML = renderPairwiseControls(runs);
     bindPairwiseControls(runs);
   }
 
   function renderPairwiseControls(runs) {
-    if (!runs.length) return "";
+    if (runs.length < 2) {
+      return `<div class="empty">Create at least two runs to compare them pairwise.</div>`;
+    }
     const options = runs.map(run => `
       <option value="${escapeHtml(run.run_id)}">${escapeHtml(labelize(run.scenario_id))} / ${escapeHtml(run.run_id)}</option>
     `).join("");
     return `
-      <div class="pairwise-box">
-        <div class="panel-title">Pairwise Comparison</div>
-        <div class="pairwise-controls">
-          <label>
-            Left run
-            <select id="pair-left">${options}</select>
-          </label>
-          <label>
-            Right run
-            <select id="pair-right">${options}</select>
-          </label>
-          <button id="pair-compare" type="button">Compare Pair</button>
-          <button id="pair-refresh" type="button">Bypass Cache</button>
-        </div>
-        <div id="pair-status" class="status-line">Pick two runs to compare directly.</div>
-        <div id="pairwise-result"></div>
+      <div class="pairwise-controls">
+        <label>
+          Left run
+          <select id="pair-left">${options}</select>
+        </label>
+        <label>
+          Right run
+          <select id="pair-right">${options}</select>
+        </label>
+        <button id="pair-compare" type="button">Compare Pair</button>
+        <button id="pair-refresh" type="button">Regenerate Pair</button>
       </div>
+      <div id="pair-status" class="status-line">Pick two runs to compare directly.</div>
+      <div id="pairwise-result"></div>
     `;
   }
 
@@ -343,6 +363,7 @@
     const summary = run.result_summary || {};
     const scenario = labelize(run.scenario_id);
     const turn = `${fmtNumber(run.current_turn)} / ${fmtNumber(run.max_rounds)}`;
+    const modelLabel = modelSummaryLabel(run);
     return `
       <a class="run-row" href="run.html?run_id=${encodeURIComponent(run.run_id)}">
         <div class="run-main">
@@ -356,7 +377,7 @@
         </div>
         <div>
           <div>${escapeHtml(run.llm_provider || "rule")}</div>
-          <div class="run-cell-label">${escapeHtml(run.model || "")}</div>
+          <div class="run-cell-label">${escapeHtml(modelLabel)}</div>
         </div>
         <div>
           <div>${fmtNumber(run.message_count || summary.total_messages)}</div>
@@ -370,18 +391,75 @@
     `;
   }
 
+  function modelSummaryLabel(run) {
+    const summary = run.agent_model_summary || {};
+    const roleLabels = Object.entries(summary).map(([role, models]) => {
+      const modelLabels = Object.entries(models || {})
+        .map(([model, count]) => `${model} x${count}`)
+        .join(", ");
+      return modelLabels ? `${role}: ${modelLabels}` : "";
+    }).filter(Boolean);
+    return roleLabels.length ? roleLabels.join(" | ") : (run.model || "");
+  }
+
+  function fallbackModelCatalog() {
+    return {
+      models: [
+        { id: "rule", label: "Rule Adapter", provider: "rule", model: "rule" },
+        { id: "gpt-5.5", label: "GPT-5.5", provider: "openai", model: "gpt-5.5" },
+        { id: "gpt-4.1-mini", label: "GPT-4 Mini", provider: "openai", model: "gpt-4.1-mini" },
+        { id: "claude-opus-4.7", label: "Claude Opus 4.7", provider: "claude", model: "claude-opus-4.7" },
+        { id: "claude-haiku-4.5", label: "Claude Haiku 4.5", provider: "claude", model: "claude-haiku-4.5" },
+      ],
+      model_assignments: [
+        { id: "uniform", label: "Uniform selected model" },
+        { id: "scenario", label: "Scenario model mix" },
+        { id: "buyer_advantage", label: "Buyer advantage" },
+        { id: "seller_advantage", label: "Seller advantage" },
+        { id: "mixed_sellers", label: "Mixed seller models" },
+        { id: "buyer_advantage_mixed_sellers", label: "Strong buyers, mixed sellers" },
+      ],
+    };
+  }
+
   async function initCreatePage() {
     renderNav("create");
     const select = $("#scenario_id");
     const status = $("#create-status");
+    const providerSelect = $("#llm_provider");
+    const modelSelect = $("#model");
+    const assignmentSelect = $("#model_assignment");
+    let modelCatalog = fallbackModelCatalog();
+    try {
+      modelCatalog = await api("/api/models");
+    } catch (error) {
+      status.textContent = "Model catalog unavailable; using built-in defaults.";
+    }
+    modelSelect.innerHTML = (modelCatalog.models || []).map(model => (
+      `<option value="${escapeHtml(model.model || model.id)}" data-provider="${escapeHtml(model.provider || "auto")}">${escapeHtml(model.label || model.id)}</option>`
+    )).join("");
+    assignmentSelect.innerHTML = (modelCatalog.model_assignments || []).map(policy => (
+      `<option value="${escapeHtml(policy.id)}">${escapeHtml(policy.label || labelize(policy.id))}</option>`
+    )).join("");
+    modelSelect.value = "rule";
+    providerSelect.value = "rule";
+    modelSelect.addEventListener("change", () => {
+      const selected = modelSelect.selectedOptions[0];
+      const provider = selected?.dataset?.provider || "auto";
+      providerSelect.value = provider;
+    });
     try {
       const payload = await api("/api/scenarios");
       select.innerHTML = (payload.scenarios || []).map(scenario => (
         `<option value="${escapeHtml(scenario.id)}">${escapeHtml(labelize(scenario.id))}</option>`
       )).join("");
       const summaryById = Object.fromEntries((payload.scenarios || []).map(s => [s.id, s.summary || ""]));
+      const hasModelAssignmentById = Object.fromEntries((payload.scenarios || []).map(s => [s.id, Boolean(s.has_model_assignment)]));
       const updateSummary = () => {
         setText("#scenario-summary", summaryById[select.value] || "");
+        if (hasModelAssignmentById[select.value]) {
+          assignmentSelect.value = "scenario";
+        }
       };
       select.addEventListener("change", updateSummary);
       updateSummary();
@@ -398,7 +476,8 @@
         seed: Number(form.get("seed") || 42),
         max_rounds: maxRoundsRaw ? Number(maxRoundsRaw) : null,
         llm_provider: String(form.get("llm_provider") || "rule"),
-        model: String(form.get("model") || "gpt-4.1-mini"),
+        model: String(form.get("model") || "rule"),
+        model_assignment: String(form.get("model_assignment") || "uniform"),
         speed_ms: Number(form.get("speed_ms") || 500),
       };
       status.textContent = "Creating run...";
@@ -508,7 +587,7 @@
     const title = `${labelize(meta.scenario_id)} / ${meta.run_id}`;
     $("#run-title").textContent = title;
     $("#run-subtitle").textContent = meta.summary || "Live file-backed simulation run";
-    $("#run-status").innerHTML = `${statusBadge(meta.status)} <span class="muted">Created ${escapeHtml(fmtDate(meta.created_at))}; provider ${escapeHtml(meta.llm_provider)} / ${escapeHtml(meta.model)}</span>`;
+    $("#run-status").innerHTML = `${statusBadge(meta.status)} <span class="muted">Created ${escapeHtml(fmtDate(meta.created_at))}; ${escapeHtml(meta.model_assignment || "uniform")} model mix; ${escapeHtml(modelSummaryLabel(meta))}</span>`;
     $("#context-link").href = `context.html?run_id=${encodeURIComponent(meta.run_id)}`;
 
     const maxTurn = Number(meta.current_turn ?? snapshot.current_turn ?? 0);
@@ -726,6 +805,7 @@
       const budget = status.budget !== undefined && status.budget !== null ? `budget ${fmtMoney(status.budget)}` : "";
       const price = status.current_price !== undefined && status.current_price !== null ? `price ${fmtMoney(status.current_price)}` : "";
       const bought = status.purchase_price ? `bought ${fmtMoney(status.purchase_price)}` : "";
+      const model = player.model ? `${player.llm_provider || ""}/${player.model}` : "";
       return `
         <div class="player-row">
           <div>
@@ -746,6 +826,7 @@
               <span>${fmtNumber((status.messages_sent ?? player.messages_sent) || 0)} sent</span>
               <span>${fmtNumber((status.messages_received ?? player.messages_received) || 0)} received</span>
               <span>${fmtNumber((player.neighbors || []).length)} contacts</span>
+              <span>${escapeHtml(model)}</span>
             </div>
           </div>
           <a class="button" href="${detailsHref}">Context</a>
@@ -1218,7 +1299,7 @@
     let selected = players.find(player => player.id === requestedAgentId) || players[0];
     $("#context-title").textContent = `${labelize(run.scenario_id)} / Context`;
     $("#context-subtitle").textContent = `${run.run_id} at turn ${fmtNumber(context.turn)}. Select an agent to inspect the prompt and local view it receives.`;
-    $("#context-status").innerHTML = `${statusBadge(run.status)} <span class="muted">${escapeHtml(run.llm_provider)} / ${escapeHtml(run.model)}</span>`;
+    $("#context-status").innerHTML = `${statusBadge(run.status)} <span class="muted">${escapeHtml(run.model_assignment || "uniform")} model mix; ${escapeHtml(modelSummaryLabel(run))}</span>`;
 
     const renderSelected = player => {
       selected = player;
@@ -1239,11 +1320,13 @@
               <pre class="prompt-block">${escapeHtml(JSON.stringify(player.goal || {}, null, 2))}</pre>
             </div>
             <div>
-              <div class="panel-title">Constraints and Contacts</div>
+            <div class="panel-title">Constraints and Contacts</div>
               <pre class="prompt-block">${escapeHtml(JSON.stringify({
                 constraints: player.constraints || {},
                 actions: player.actions || [],
                 neighbors: player.neighbors || [],
+                llm_provider: player.llm_provider,
+                model: player.model,
               }, null, 2))}</pre>
             </div>
           </div>
@@ -1308,6 +1391,7 @@
     const page = document.body.dataset.page;
     if (page === "runs") initRunsPage();
     if (page === "create") initCreatePage();
+    if (page === "insights") initInsightsPage();
     if (page === "run") initRunPage();
     if (page === "context") initContextPage();
   });
