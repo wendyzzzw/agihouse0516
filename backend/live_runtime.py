@@ -1254,6 +1254,11 @@ class LiveRunEngine:
                         "reasoning": f"real LLM provider failed: {exc}",
                     }
                 trace["raw_decision"] = decision
+                if provider != "rule":
+                    trace["parsed_action"] = self._sanitize_decision(agent, decision)
+                    trace["post_state"] = self._agent_public(agent)
+                    self.store.write_trace(self.run_id, agent_id, turn, trace)
+                    raise RuntimeError(f"{provider} adapter failed for {agent_id}: {exc}") from exc
             decision = self._sanitize_decision(agent, decision)
             trace["parsed_action"] = decision
             self._execute(state, agent_id, decision)

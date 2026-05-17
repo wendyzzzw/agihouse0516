@@ -1,5 +1,5 @@
 {
-  "analysis_version": 2,
+  "analysis_version": 3,
   "archetypes": {
     "buyers": [
       {
@@ -248,7 +248,7 @@
         "total": 5
       },
       {
-        "agent_id": "buyer_7",
+        "agent_id": "buyer_11",
         "received": 0,
         "sent": 5,
         "total": 5
@@ -301,7 +301,7 @@
       "label": "Seller Advantage"
     }
   ],
-  "generated_at": 1778984172.135204,
+  "generated_at": 1778987753.577143,
   "outcomes": {
     "avg_price": 86.2,
     "avg_satisfaction": 65.5,
@@ -384,6 +384,7 @@
   "run_id": "buyer_coalition_market-702c48b7",
   "scenario_id": "buyer_coalition_market",
   "setup": {
+    "agent_model_summary": null,
     "buyer_archetypes": {
       "aggressive_bargain_hunter": 1,
       "bulk_discount_hunter": 1,
@@ -415,6 +416,7 @@
     },
     "max_rounds": 5,
     "model": "gpt-4.1-mini",
+    "model_assignment": null,
     "provider": "openai",
     "scenario_id": "buyer_coalition_market",
     "scenario_name": "Buyer Coalition Market",

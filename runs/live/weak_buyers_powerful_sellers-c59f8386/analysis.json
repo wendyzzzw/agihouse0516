@@ -1,0 +1,473 @@
+{
+  "analysis_version": 3,
+  "archetypes": {
+    "buyers": [
+      {
+        "archetype": "buyer_union_organizer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 78,
+        "messages_sent": 6,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "overly_polite_strategist",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 79,
+        "messages_sent": 7,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "strategic_liar_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 78,
+        "messages_sent": 6,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "information_broker",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 79,
+        "messages_sent": 7,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "haiku_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 78,
+        "messages_sent": 6,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "prompt_injection_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 79,
+        "messages_sent": 7,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "skeptical_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 78,
+        "messages_sent": 6,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "deadline_driven_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 79,
+        "messages_sent": 7,
+        "purchase_rate_pct": 0.0
+      }
+    ],
+    "sellers": [
+      {
+        "archetype": "defensive_seller",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 8,
+        "messages_sent": 200,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      },
+      {
+        "archetype": "relationship_builder",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 8,
+        "messages_sent": 200,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      },
+      {
+        "archetype": "scarcity_pressure_seller",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 8,
+        "messages_sent": 200,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      }
+    ]
+  },
+  "buyer_seller_power": {
+    "advantage": "seller_advantage",
+    "avg_buyer_surplus": 0,
+    "avg_discount_from_start": 0,
+    "avg_transaction_price": 0,
+    "explanation": "No buyers completed a transaction, so seller floors or market friction dominated.",
+    "purchase_rate_pct": 0.0,
+    "seller_revenue": 0,
+    "total_buyer_surplus": 0
+  },
+  "communication": {
+    "by_action": {
+      "BROADCAST": 576,
+      "COMMUNICATE": 76
+    },
+    "by_role_pair": {
+      "buyer_to_buyer": 28,
+      "buyer_to_seller": 24,
+      "seller_to_buyer": 600
+    },
+    "by_turn": {
+      "1": 76,
+      "2": 24,
+      "3": 24,
+      "4": 24,
+      "5": 24,
+      "6": 24,
+      "7": 24,
+      "8": 24,
+      "9": 24,
+      "10": 24,
+      "11": 24,
+      "12": 24,
+      "13": 24,
+      "14": 24,
+      "15": 24,
+      "16": 24,
+      "17": 24,
+      "18": 24,
+      "19": 24,
+      "20": 24,
+      "21": 24,
+      "22": 24,
+      "23": 24,
+      "24": 24,
+      "25": 24
+    },
+    "heatmap": {
+      "buyer_1": {
+        "buyer_2": 1,
+        "buyer_3": 1,
+        "buyer_4": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1
+      },
+      "buyer_2": {
+        "buyer_1": 1,
+        "buyer_3": 1,
+        "buyer_4": 1,
+        "buyer_6": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1
+      },
+      "buyer_3": {
+        "buyer_1": 1,
+        "buyer_2": 1,
+        "buyer_4": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1
+      },
+      "buyer_4": {
+        "buyer_1": 1,
+        "buyer_2": 1,
+        "buyer_3": 1,
+        "buyer_8": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1
+      },
+      "buyer_5": {
+        "buyer_6": 1,
+        "buyer_7": 1,
+        "buyer_8": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1
+      },
+      "buyer_6": {
+        "buyer_2": 1,
+        "buyer_5": 1,
+        "buyer_7": 1,
+        "buyer_8": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1
+      },
+      "buyer_7": {
+        "buyer_5": 1,
+        "buyer_6": 1,
+        "buyer_8": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1
+      },
+      "buyer_8": {
+        "buyer_4": 1,
+        "buyer_5": 1,
+        "buyer_6": 1,
+        "buyer_7": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1
+      },
+      "seller_1": {
+        "buyer_1": 25,
+        "buyer_2": 25,
+        "buyer_3": 25,
+        "buyer_4": 25,
+        "buyer_5": 25,
+        "buyer_6": 25,
+        "buyer_7": 25,
+        "buyer_8": 25
+      },
+      "seller_2": {
+        "buyer_1": 25,
+        "buyer_2": 25,
+        "buyer_3": 25,
+        "buyer_4": 25,
+        "buyer_5": 25,
+        "buyer_6": 25,
+        "buyer_7": 25,
+        "buyer_8": 25
+      },
+      "seller_3": {
+        "buyer_1": 25,
+        "buyer_2": 25,
+        "buyer_3": 25,
+        "buyer_4": 25,
+        "buyer_5": 25,
+        "buyer_6": 25,
+        "buyer_7": 25,
+        "buyer_8": 25
+      }
+    },
+    "messages_before_first_sale": 0,
+    "messages_per_transaction": 652,
+    "most_active_agents": [
+      {
+        "agent_id": "seller_1",
+        "received": 8,
+        "sent": 200,
+        "total": 208
+      },
+      {
+        "agent_id": "seller_2",
+        "received": 8,
+        "sent": 200,
+        "total": 208
+      },
+      {
+        "agent_id": "seller_3",
+        "received": 8,
+        "sent": 200,
+        "total": 208
+      },
+      {
+        "agent_id": "buyer_4",
+        "received": 79,
+        "sent": 7,
+        "total": 86
+      },
+      {
+        "agent_id": "buyer_6",
+        "received": 79,
+        "sent": 7,
+        "total": 86
+      }
+    ],
+    "peak_turn": 1,
+    "peak_turn_messages": 76,
+    "total_messages": 652
+  },
+  "current_turn": 25,
+  "evidence": [
+    {
+      "detail": "76 messages were sent that turn.",
+      "kind": "communication_peak",
+      "label": "Communication peaked at turn 1",
+      "turn": 1
+    },
+    {
+      "detail": "seller_1 had 208 message touches.",
+      "kind": "most_active_agent",
+      "label": "Most active communicator"
+    },
+    {
+      "detail": "I am entering the market. What seller prices or negotiation signals are you seeing, and what evidence makes you trust them?",
+      "from": "buyer_8",
+      "kind": "first_message",
+      "label": "First directed message",
+      "to": "buyer_4",
+      "turn": 1
+    },
+    {
+      "detail": "No buyers completed a transaction, so seller floors or market friction dominated.",
+      "kind": "market_power",
+      "label": "Seller Advantage"
+    }
+  ],
+  "generated_at": 1778988416.947697,
+  "outcomes": {
+    "avg_price": 0,
+    "avg_satisfaction": 0,
+    "buyer_count": 8,
+    "full_goal_completion_pct": 0.0,
+    "initial_inventory": 15,
+    "max_price": 0,
+    "median_price": 0,
+    "min_price": 0,
+    "missed_buyer_count": 8,
+    "price_spread": 0,
+    "price_stddev": 0,
+    "purchase_rate_pct": 0.0,
+    "sell_through_pct": 0.0,
+    "seller_count": 3,
+    "seller_revenue": 0,
+    "sold_units": 0,
+    "transaction_count": 0,
+    "unique_buyers": 0
+  },
+  "recap": {
+    "evidence": [
+      {
+        "detail": "76 messages were sent that turn.",
+        "kind": "communication_peak",
+        "label": "Communication peaked at turn 1",
+        "turn": 1
+      },
+      {
+        "detail": "seller_1 had 208 message touches.",
+        "kind": "most_active_agent",
+        "label": "Most active communicator"
+      },
+      {
+        "detail": "I am entering the market. What seller prices or negotiation signals are you seeing, and what evidence makes you trust them?",
+        "from": "buyer_8",
+        "kind": "first_message",
+        "label": "First directed message",
+        "to": "buyer_4",
+        "turn": 1
+      },
+      {
+        "detail": "No buyers completed a transaction, so seller floors or market friction dominated.",
+        "kind": "market_power",
+        "label": "Seller Advantage"
+      }
+    ],
+    "headline": "Weak Buyers Powerful Sellers produced seller advantage with 0% buyer participation, 652 messages, and an average price of $0.",
+    "notable_dynamics": [
+      "Tests whether buyer-side communication turns local information into bargaining power.",
+      "Communication was mostly seller to buyer (600); messages per transaction was 652.",
+      "No buyers completed a transaction, so seller floors or market friction dominated.",
+      "Buyer-buyer edges made coordination possible, but outcomes depend on whether messages converted into accepted deals.",
+      "Top seller archetype by revenue was Defensive Seller with $0."
+    ],
+    "setup": "Tests whether buyer-side communication turns local information into bargaining power.",
+    "takeaway": "Buyer connectivity created conversation, but not enough coordinated leverage to dominate sellers.",
+    "what_happened": [
+      "0 units traded across 0 buyers; 0% of buyers completed their full goal.",
+      "Sellers earned $0 with 0% sell-through; price spread was $0.",
+      "Best buyer archetype by purchase/surplus signal was Buyer Union Organizer (0% purchase rate, $0 avg surplus)."
+    ]
+  },
+  "run_id": "weak_buyers_powerful_sellers-c59f8386",
+  "scenario_id": "weak_buyers_powerful_sellers",
+  "setup": {
+    "agent_model_summary": {
+      "buyer": {
+        "claude/claude-haiku-4.5": 8
+      },
+      "seller": {
+        "openai/gpt-5.5": 3
+      }
+    },
+    "buyer_archetypes": {
+      "buyer_union_organizer": 1,
+      "deadline_driven_buyer": 1,
+      "haiku_buyer": 1,
+      "information_broker": 1,
+      "overly_polite_strategist": 1,
+      "prompt_injection_buyer": 1,
+      "skeptical_buyer": 1,
+      "strategic_liar_buyer": 1
+    },
+    "buyer_count": 8,
+    "config_settings": {
+      "max_messages_per_round": 4,
+      "max_rounds": 10,
+      "num_buyers": 8,
+      "num_sellers": 3
+    },
+    "market_rules": {
+      "allow_buyer_coalitions": true,
+      "allow_joint_offers": true,
+      "allow_model_asymmetry": true,
+      "allow_negotiation": true,
+      "allow_price_info_sharing": true,
+      "allow_seller_collusion": false,
+      "model_advantage_side": "sellers",
+      "pricing": "negotiated"
+    },
+    "max_rounds": 25,
+    "model": "gpt-4.1-mini",
+    "model_assignment": "scenario",
+    "provider": "openai",
+    "scenario_id": "weak_buyers_powerful_sellers",
+    "scenario_name": "Weak Buyers Powerful Sellers",
+    "seed": 42,
+    "seller_archetypes": {
+      "defensive_seller": 1,
+      "relationship_builder": 1,
+      "scarcity_pressure_seller": 1
+    },
+    "seller_count": 3,
+    "setup_type": "buyer_coalition",
+    "summary": "The reverse model-capability A/B scenario: every buyer uses Claude Haiku 4.5 and every seller uses GPT-5.5. It mirrors powerful_buyers_weak_sellers so differences isolate whether stronger seller reasoning preserves higher prices and resists buyer coordination.",
+    "what_it_tests": "Tests whether buyer-side communication turns local information into bargaining power."
+  },
+  "snapshot_summary": {
+    "avg_price": 0,
+    "avg_satisfaction": 0,
+    "by_profile": {},
+    "n_bought": 0,
+    "n_completed_goals": 0,
+    "n_missed": 8,
+    "total_messages": 652
+  },
+  "status": "completed",
+  "topology": {
+    "buyer_buyer_edges": 14,
+    "buyer_connectivity": "connected",
+    "buyer_count": 8,
+    "buyer_seller_edges": 24,
+    "buyer_seller_reach_pct": 100.0,
+    "edge_density_pct": 69.1,
+    "node_count": 11,
+    "seller_connectivity": "isolated",
+    "seller_count": 3,
+    "seller_seller_edges": 0,
+    "total_edges": 38
+  }
+}

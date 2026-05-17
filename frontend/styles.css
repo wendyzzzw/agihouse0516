@@ -250,6 +250,12 @@ code {
   font-size: 13px;
 }
 
+.run-error {
+  display: inline-block;
+  margin-left: 8px;
+  color: var(--rose);
+}
+
 .grid-metrics {
   display: grid;
   grid-template-columns: repeat(5, minmax(140px, 1fr));
@@ -507,13 +513,6 @@ code {
   margin-top: 10px;
   color: var(--muted);
   font-size: 12px;
-}
-
-.sticky-topology {
-  position: sticky;
-  top: 12px;
-  z-index: 20;
-  align-self: start;
 }
 
 .topology-panel {

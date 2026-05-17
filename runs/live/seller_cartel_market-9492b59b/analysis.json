@@ -1,5 +1,5 @@
 {
-  "analysis_version": 2,
+  "analysis_version": 3,
   "archetypes": {
     "buyers": [
       {
@@ -296,7 +296,7 @@
       "label": "Balanced"
     }
   ],
-  "generated_at": 1778984172.1398,
+  "generated_at": 1778987753.5679932,
   "outcomes": {
     "avg_price": 109.4,
     "avg_satisfaction": 65.8,
@@ -379,6 +379,7 @@
   "run_id": "seller_cartel_market-9492b59b",
   "scenario_id": "seller_cartel_market",
   "setup": {
+    "agent_model_summary": null,
     "buyer_archetypes": {
       "aggressive_bargain_hunter": 1,
       "early_lock_in_buyer": 1,
@@ -406,6 +407,7 @@
     },
     "max_rounds": 5,
     "model": "gpt-4.1-mini",
+    "model_assignment": null,
     "provider": "openai",
     "scenario_id": "seller_cartel_market",
     "scenario_name": "Seller Cartel Market",

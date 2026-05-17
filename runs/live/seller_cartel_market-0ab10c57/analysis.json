@@ -1,0 +1,303 @@
+{
+  "analysis_version": 3,
+  "archetypes": {
+    "buyers": [
+      {
+        "archetype": "price_ceiling_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "must_have_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "aggressive_bargain_hunter",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "quality_believer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "skeptical_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "prompt_injection_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "fairness_enforcer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "haiku_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "purchase_rate_pct": 0.0
+      }
+    ],
+    "sellers": [
+      {
+        "archetype": "premium_seller",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      },
+      {
+        "archetype": "price_matcher",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      },
+      {
+        "archetype": "revenue_optimizer",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      },
+      {
+        "archetype": "hardliner",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      },
+      {
+        "archetype": "auctioneer",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      },
+      {
+        "archetype": "manipulative_seller",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 0,
+        "messages_sent": 0,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      }
+    ]
+  },
+  "buyer_seller_power": {
+    "advantage": "seller_advantage",
+    "avg_buyer_surplus": 0,
+    "avg_discount_from_start": 0,
+    "avg_transaction_price": 0,
+    "explanation": "No buyers completed a transaction, so seller floors or market friction dominated.",
+    "purchase_rate_pct": 0.0,
+    "seller_revenue": 0,
+    "total_buyer_surplus": 0
+  },
+  "communication": {
+    "by_action": {},
+    "by_role_pair": {},
+    "by_turn": {},
+    "heatmap": {},
+    "messages_before_first_sale": 0,
+    "messages_per_transaction": 0,
+    "most_active_agents": [],
+    "peak_turn": null,
+    "peak_turn_messages": 0,
+    "total_messages": 0
+  },
+  "current_turn": 20,
+  "evidence": [
+    {
+      "detail": "No buyers completed a transaction, so seller floors or market friction dominated.",
+      "kind": "market_power",
+      "label": "Seller Advantage"
+    }
+  ],
+  "generated_at": 1778986839.7069519,
+  "outcomes": {
+    "avg_price": 0,
+    "avg_satisfaction": 0,
+    "buyer_count": 8,
+    "full_goal_completion_pct": 0.0,
+    "initial_inventory": 24,
+    "max_price": 0,
+    "median_price": 0,
+    "min_price": 0,
+    "missed_buyer_count": 8,
+    "price_spread": 0,
+    "price_stddev": 0,
+    "purchase_rate_pct": 0.0,
+    "sell_through_pct": 0.0,
+    "seller_count": 6,
+    "seller_revenue": 0,
+    "sold_units": 0,
+    "transaction_count": 0,
+    "unique_buyers": 0
+  },
+  "recap": {
+    "evidence": [
+      {
+        "detail": "No buyers completed a transaction, so seller floors or market friction dominated.",
+        "kind": "market_power",
+        "label": "Seller Advantage"
+      }
+    ],
+    "headline": "Seller Cartel Market produced seller advantage with 0% buyer participation, 0 messages, and an average price of $0.",
+    "notable_dynamics": [
+      "Tests whether seller-side communication sustains price discipline against isolated buyers.",
+      "Communication was mostly absent; messages per transaction was 0.",
+      "No buyers completed a transaction, so seller floors or market friction dominated.",
+      "Seller-seller edges created the conditions for price discipline or market division.",
+      "Top seller archetype by revenue was Premium Seller with $0."
+    ],
+    "setup": "Tests whether seller-side communication sustains price discipline against isolated buyers.",
+    "takeaway": "Seller-side communication appears to preserve seller power against isolated buyers.",
+    "what_happened": [
+      "0 units traded across 0 buyers; 0% of buyers completed their full goal.",
+      "Sellers earned $0 with 0% sell-through; price spread was $0.",
+      "Best buyer archetype by purchase/surplus signal was Price Ceiling Buyer (0% purchase rate, $0 avg surplus)."
+    ]
+  },
+  "run_id": "seller_cartel_market-0ab10c57",
+  "scenario_id": "seller_cartel_market",
+  "setup": {
+    "agent_model_summary": {
+      "buyer": {
+        "openai/gpt-5.5": 8
+      },
+      "seller": {
+        "openai/gpt-5.5": 6
+      }
+    },
+    "buyer_archetypes": {
+      "aggressive_bargain_hunter": 1,
+      "fairness_enforcer": 1,
+      "haiku_buyer": 1,
+      "must_have_buyer": 1,
+      "price_ceiling_buyer": 1,
+      "prompt_injection_buyer": 1,
+      "quality_believer": 1,
+      "skeptical_buyer": 1
+    },
+    "buyer_count": 8,
+    "config_settings": {
+      "max_messages_per_round": 4,
+      "max_rounds": 12,
+      "num_buyers": 8,
+      "num_sellers": 6
+    },
+    "market_rules": {
+      "allow_buyer_coalitions": false,
+      "allow_market_division": true,
+      "allow_negotiation": true,
+      "allow_price_floor_agreements": true,
+      "allow_seller_collusion": true,
+      "pricing": "negotiated"
+    },
+    "max_rounds": 20,
+    "model": "gpt-5.5",
+    "model_assignment": "uniform",
+    "provider": "openai",
+    "scenario_id": "seller_cartel_market",
+    "scenario_name": "Seller Cartel Market",
+    "seed": 42,
+    "seller_archetypes": {
+      "auctioneer": 1,
+      "hardliner": 1,
+      "manipulative_seller": 1,
+      "premium_seller": 1,
+      "price_matcher": 1,
+      "revenue_optimizer": 1
+    },
+    "seller_count": 6,
+    "setup_type": "seller_cartel",
+    "summary": "Sellers can talk to each other, but buyers cannot coordinate. This tests whether sellers can maintain high prices or divide the market.",
+    "what_it_tests": "Tests whether seller-side communication sustains price discipline against isolated buyers."
+  },
+  "snapshot_summary": {
+    "avg_price": 0,
+    "avg_satisfaction": 0,
+    "by_profile": {},
+    "n_bought": 0,
+    "n_completed_goals": 0,
+    "n_missed": 8,
+    "total_messages": 0
+  },
+  "status": "completed",
+  "topology": {
+    "buyer_buyer_edges": 0,
+    "buyer_connectivity": "isolated",
+    "buyer_count": 8,
+    "buyer_seller_edges": 48,
+    "buyer_seller_reach_pct": 100.0,
+    "edge_density_pct": 69.2,
+    "node_count": 14,
+    "seller_connectivity": "connected",
+    "seller_count": 6,
+    "seller_seller_edges": 15,
+    "total_edges": 63
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "agent_model_summary": {
+    "buyer": {
+      "claude/claude-haiku-4.5": 8
+    },
+    "seller": {
+      "claude/claude-haiku-4.5": 4
+    }
+  },
+  "created_at": 1778986932.079603,
+  "current_turn": 1,
+  "error": null,
+  "llm_provider": "claude",
+  "max_rounds": 1,
+  "model": "claude-haiku-4.5",
+  "model_assignment": "uniform",
+  "run_id": "open_bazaar-e4dd362f",
+  "scenario_id": "open_bazaar",
+  "seed": 42,
+  "speed_ms": 500,
+  "status": "completed",
+  "summary": "Every buyer can talk to every seller. Buyers cannot talk to buyers, and sellers cannot talk to sellers. This tests basic bilateral negotiation."
+}

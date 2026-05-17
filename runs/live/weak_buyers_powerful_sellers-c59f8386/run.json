@@ -1,0 +1,23 @@
+{
+  "agent_model_summary": {
+    "buyer": {
+      "claude/claude-haiku-4.5": 8
+    },
+    "seller": {
+      "openai/gpt-5.5": 3
+    }
+  },
+  "created_at": 1778987346.0,
+  "current_turn": 25,
+  "error": null,
+  "llm_provider": "openai",
+  "max_rounds": 25,
+  "model": "gpt-4.1-mini",
+  "model_assignment": "scenario",
+  "run_id": "weak_buyers_powerful_sellers-c59f8386",
+  "scenario_id": "weak_buyers_powerful_sellers",
+  "seed": 42,
+  "speed_ms": 500,
+  "status": "completed",
+  "summary": "The reverse model-capability A/B scenario: every buyer uses Claude Haiku 4.5 and every seller uses GPT-5.5. It mirrors powerful_buyers_weak_sellers so differences isolate whether stronger seller reasoning preserves higher prices and resists buyer coordination."
+}

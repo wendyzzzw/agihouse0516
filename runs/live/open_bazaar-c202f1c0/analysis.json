@@ -1,5 +1,5 @@
 {
-  "analysis_version": 2,
+  "analysis_version": 3,
   "archetypes": {
     "buyers": [
       {
@@ -181,7 +181,7 @@
         "total": 2
       },
       {
-        "agent_id": "buyer_6",
+        "agent_id": "buyer_8",
         "received": 0,
         "sent": 1,
         "total": 1
@@ -193,7 +193,7 @@
         "total": 1
       },
       {
-        "agent_id": "buyer_8",
+        "agent_id": "buyer_6",
         "received": 0,
         "sent": 1,
         "total": 1
@@ -246,7 +246,7 @@
       "label": "Balanced"
     }
   ],
-  "generated_at": 1778984172.151446,
+  "generated_at": 1778987753.546103,
   "outcomes": {
     "avg_price": 95.0,
     "avg_satisfaction": 67.8,
@@ -328,6 +328,7 @@
   "run_id": "open_bazaar-c202f1c0",
   "scenario_id": "open_bazaar",
   "setup": {
+    "agent_model_summary": null,
     "buyer_archetypes": {
       "aggressive_bargain_hunter": 1,
       "bulk_discount_hunter": 1,
@@ -352,6 +353,7 @@
     },
     "max_rounds": 1,
     "model": "gpt-4.1-mini",
+    "model_assignment": null,
     "provider": "rule",
     "scenario_id": "open_bazaar",
     "scenario_name": "Open Bazaar",

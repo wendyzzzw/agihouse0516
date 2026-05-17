@@ -1548,6 +1548,221 @@ simulations:
         budget: 240
         goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 108 }
 
+  - id: powerful_buyers_weak_sellers
+    short_description: GPT-5.5 buyers negotiate against Claude Haiku sellers.
+    summary: >
+      A clean model-capability A/B scenario: every buyer uses GPT-5.5 and every
+      seller uses Claude Haiku 4.5. Agents, topology, inventory, and prices match
+      weak_buyers_powerful_sellers so model-side advantage is easier to compare.
+
+    settings:
+      max_rounds: 10
+      num_sellers: 3
+      num_buyers: 8
+      max_messages_per_round: 4
+
+    market_rules:
+      pricing: negotiated
+      allow_negotiation: true
+      allow_buyer_coalitions: true
+      allow_seller_collusion: false
+      allow_joint_offers: true
+      allow_price_info_sharing: true
+      allow_model_asymmetry: true
+      model_advantage_side: buyers
+
+    model_assignment:
+      roles:
+        buyer: { provider: openai, model: gpt-5.5 }
+        seller: { provider: claude, model: claude-haiku-4.5 }
+
+    topology:
+      input_type: generated
+      compile_to: adjacency_matrix
+      generator:
+        seller_buyer_edges: complete_bipartite
+        seller_seller_edges: none
+        buyer_buyer_edges:
+          type: clustered
+          clusters:
+            - [buyer_1, buyer_2, buyer_3, buyer_4]
+            - [buyer_5, buyer_6, buyer_7, buyer_8]
+          bridge_edges:
+            - [buyer_2, buyer_6]
+            - [buyer_4, buyer_8]
+        directed: true
+
+    sellers:
+      - id: seller_1
+        archetype: defensive_seller
+        inventory: 5
+        starting_price: 120
+        min_price: 70
+        goal: { type: highest_revenue }
+
+      - id: seller_2
+        archetype: relationship_builder
+        inventory: 6
+        starting_price: 105
+        min_price: 58
+        goal: { type: min_revenue, min_revenue: 390 }
+
+      - id: seller_3
+        archetype: scarcity_pressure_seller
+        inventory: 4
+        starting_price: 135
+        min_price: 82
+        goal: { type: highest_revenue }
+
+    buyers:
+      - id: buyer_1
+        archetype: buyer_union_organizer
+        budget: 230
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 90 }
+
+      - id: buyer_2
+        archetype: overly_polite_strategist
+        budget: 210
+        goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 98 }
+
+      - id: buyer_3
+        archetype: strategic_liar_buyer
+        budget: 190
+        goal: { type: buy_if_below_price, max_price_per_item: 84, max_quantity: 2 }
+
+      - id: buyer_4
+        archetype: information_broker
+        budget: 180
+        goal: { type: buy_if_below_price, max_price_per_item: 80, max_quantity: 2 }
+
+      - id: buyer_5
+        archetype: haiku_buyer
+        budget: 190
+        goal: { type: buy_if_below_price, max_price_per_item: 82, max_quantity: 2 }
+
+      - id: buyer_6
+        archetype: prompt_injection_buyer
+        budget: 220
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 88 }
+
+      - id: buyer_7
+        archetype: skeptical_buyer
+        budget: 170
+        goal: { type: buy_if_below_price, max_price_per_item: 78, max_quantity: 1 }
+
+      - id: buyer_8
+        archetype: deadline_driven_buyer
+        budget: 240
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 108 }
+
+  - id: weak_buyers_powerful_sellers
+    short_description: Claude Haiku buyers negotiate against GPT-5.5 sellers.
+    summary: >
+      The reverse model-capability A/B scenario: every buyer uses Claude Haiku
+      4.5 and every seller uses GPT-5.5. It mirrors powerful_buyers_weak_sellers
+      so differences isolate whether stronger seller reasoning preserves higher
+      prices and resists buyer coordination.
+
+    settings:
+      max_rounds: 10
+      num_sellers: 3
+      num_buyers: 8
+      max_messages_per_round: 4
+
+    market_rules:
+      pricing: negotiated
+      allow_negotiation: true
+      allow_buyer_coalitions: true
+      allow_seller_collusion: false
+      allow_joint_offers: true
+      allow_price_info_sharing: true
+      allow_model_asymmetry: true
+      model_advantage_side: sellers
+
+    model_assignment:
+      roles:
+        buyer: { provider: claude, model: claude-haiku-4.5 }
+        seller: { provider: openai, model: gpt-5.5 }
+
+    topology:
+      input_type: generated
+      compile_to: adjacency_matrix
+      generator:
+        seller_buyer_edges: complete_bipartite
+        seller_seller_edges: none
+        buyer_buyer_edges:
+          type: clustered
+          clusters:
+            - [buyer_1, buyer_2, buyer_3, buyer_4]
+            - [buyer_5, buyer_6, buyer_7, buyer_8]
+          bridge_edges:
+            - [buyer_2, buyer_6]
+            - [buyer_4, buyer_8]
+        directed: true
+
+    sellers:
+      - id: seller_1
+        archetype: defensive_seller
+        inventory: 5
+        starting_price: 120
+        min_price: 70
+        goal: { type: highest_revenue }
+
+      - id: seller_2
+        archetype: relationship_builder
+        inventory: 6
+        starting_price: 105
+        min_price: 58
+        goal: { type: min_revenue, min_revenue: 390 }
+
+      - id: seller_3
+        archetype: scarcity_pressure_seller
+        inventory: 4
+        starting_price: 135
+        min_price: 82
+        goal: { type: highest_revenue }
+
+    buyers:
+      - id: buyer_1
+        archetype: buyer_union_organizer
+        budget: 230
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 90 }
+
+      - id: buyer_2
+        archetype: overly_polite_strategist
+        budget: 210
+        goal: { type: must_buy_quantity, quantity: 1, max_price_per_item: 98 }
+
+      - id: buyer_3
+        archetype: strategic_liar_buyer
+        budget: 190
+        goal: { type: buy_if_below_price, max_price_per_item: 84, max_quantity: 2 }
+
+      - id: buyer_4
+        archetype: information_broker
+        budget: 180
+        goal: { type: buy_if_below_price, max_price_per_item: 80, max_quantity: 2 }
+
+      - id: buyer_5
+        archetype: haiku_buyer
+        budget: 190
+        goal: { type: buy_if_below_price, max_price_per_item: 82, max_quantity: 2 }
+
+      - id: buyer_6
+        archetype: prompt_injection_buyer
+        budget: 220
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 88 }
+
+      - id: buyer_7
+        archetype: skeptical_buyer
+        budget: 170
+        goal: { type: buy_if_below_price, max_price_per_item: 78, max_quantity: 1 }
+
+      - id: buyer_8
+        archetype: deadline_driven_buyer
+        budget: 240
+        goal: { type: must_buy_quantity, quantity: 2, max_price_per_item: 108 }
+
 output:
   record_messages: true
   record_offers: true

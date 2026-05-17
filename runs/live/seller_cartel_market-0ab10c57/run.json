@@ -1,0 +1,23 @@
+{
+  "agent_model_summary": {
+    "buyer": {
+      "openai/gpt-5.5": 8
+    },
+    "seller": {
+      "openai/gpt-5.5": 6
+    }
+  },
+  "created_at": 1778986772.134395,
+  "current_turn": 20,
+  "error": "openai adapter failed for buyer_1: Error code: 401 - Incorrect API key provided. Update OPENAI_API_KEY on the FastAPI server and create a new run.",
+  "llm_provider": "openai",
+  "max_rounds": 20,
+  "model": "gpt-5.5",
+  "model_assignment": "uniform",
+  "run_id": "seller_cartel_market-0ab10c57",
+  "scenario_id": "seller_cartel_market",
+  "seed": 42,
+  "speed_ms": 500,
+  "status": "failed",
+  "summary": "Sellers can talk to each other, but buyers cannot coordinate. This tests whether sellers can maintain high prices or divide the market."
+}

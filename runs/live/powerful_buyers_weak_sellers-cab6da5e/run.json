@@ -1,0 +1,23 @@
+{
+  "agent_model_summary": {
+    "buyer": {
+      "openai/gpt-5.5": 8
+    },
+    "seller": {
+      "claude/claude-haiku-4.5": 3
+    }
+  },
+  "created_at": 1778987206.068062,
+  "current_turn": 20,
+  "error": null,
+  "llm_provider": "openai",
+  "max_rounds": 20,
+  "model": "gpt-4.1-mini",
+  "model_assignment": "scenario",
+  "run_id": "powerful_buyers_weak_sellers-cab6da5e",
+  "scenario_id": "powerful_buyers_weak_sellers",
+  "seed": 42,
+  "speed_ms": 500,
+  "status": "completed",
+  "summary": "A clean model-capability A/B scenario: every buyer uses GPT-5.5 and every seller uses Claude Haiku 4.5. Agents, topology, inventory, and prices match weak_buyers_powerful_sellers so model-side advantage is easier to compare."
+}

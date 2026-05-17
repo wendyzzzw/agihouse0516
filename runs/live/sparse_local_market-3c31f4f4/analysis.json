@@ -1,5 +1,5 @@
 {
-  "analysis_version": 2,
+  "analysis_version": 3,
   "archetypes": {
     "buyers": [
       {
@@ -304,7 +304,7 @@
         "total": 11
       },
       {
-        "agent_id": "buyer_7",
+        "agent_id": "buyer_3",
         "received": 0,
         "sent": 10,
         "total": 10
@@ -357,7 +357,7 @@
       "label": "Balanced"
     }
   ],
-  "generated_at": 1778984172.1457121,
+  "generated_at": 1778987753.5609758,
   "outcomes": {
     "avg_price": 90.5,
     "avg_satisfaction": 67.5,
@@ -440,6 +440,7 @@
   "run_id": "sparse_local_market-3c31f4f4",
   "scenario_id": "sparse_local_market",
   "setup": {
+    "agent_model_summary": null,
     "buyer_archetypes": {
       "anxious_buyer": 1,
       "budget_constrained_buyer": 1,
@@ -472,6 +473,7 @@
     },
     "max_rounds": 10,
     "model": "gpt-4.1-mini",
+    "model_assignment": null,
     "provider": "openai",
     "scenario_id": "sparse_local_market",
     "scenario_name": "Sparse Local Market",

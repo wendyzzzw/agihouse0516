@@ -1,0 +1,23 @@
+{
+  "agent_model_summary": {
+    "buyer": {
+      "openai/gpt-4.1-mini": 8
+    },
+    "seller": {
+      "openai/gpt-4.1-mini": 4
+    }
+  },
+  "created_at": 1778987148.402852,
+  "current_turn": 1,
+  "error": null,
+  "llm_provider": "openai",
+  "max_rounds": 1,
+  "model": "gpt-4.1-mini",
+  "model_assignment": "uniform",
+  "run_id": "open_bazaar-66a4ab61",
+  "scenario_id": "open_bazaar",
+  "seed": 42,
+  "speed_ms": 500,
+  "status": "completed",
+  "summary": "Every buyer can talk to every seller. Buyers cannot talk to buyers, and sellers cannot talk to sellers. This tests basic bilateral negotiation."
+}

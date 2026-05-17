@@ -1,5 +1,5 @@
 {
-  "analysis_version": 2,
+  "analysis_version": 3,
   "archetypes": {
     "buyers": [
       {
@@ -242,13 +242,13 @@
     "messages_per_transaction": 16.0,
     "most_active_agents": [
       {
-        "agent_id": "seller_4",
+        "agent_id": "seller_1",
         "received": 8,
         "sent": 8,
         "total": 16
       },
       {
-        "agent_id": "seller_1",
+        "agent_id": "seller_4",
         "received": 8,
         "sent": 8,
         "total": 16
@@ -266,7 +266,7 @@
         "total": 16
       },
       {
-        "agent_id": "buyer_7",
+        "agent_id": "buyer_3",
         "received": 4,
         "sent": 4,
         "total": 8
@@ -301,7 +301,7 @@
       "turn": 1
     },
     {
-      "detail": "seller_4 had 16 message touches.",
+      "detail": "seller_1 had 16 message touches.",
       "kind": "most_active_agent",
       "label": "Most active communicator"
     },
@@ -319,7 +319,7 @@
       "label": "Balanced"
     }
   ],
-  "generated_at": 1778984172.104115,
+  "generated_at": 1778987753.6287339,
   "outcomes": {
     "avg_price": 95.0,
     "avg_satisfaction": 67.8,
@@ -365,7 +365,7 @@
         "turn": 1
       },
       {
-        "detail": "seller_4 had 16 message touches.",
+        "detail": "seller_1 had 16 message touches.",
         "kind": "most_active_agent",
         "label": "Most active communicator"
       },
@@ -401,6 +401,7 @@
   "run_id": "open_bazaar-9c3fca40",
   "scenario_id": "open_bazaar",
   "setup": {
+    "agent_model_summary": null,
     "buyer_archetypes": {
       "aggressive_bargain_hunter": 1,
       "bulk_discount_hunter": 1,
@@ -425,6 +426,7 @@
     },
     "max_rounds": 1,
     "model": "gpt-4.1-mini",
+    "model_assignment": null,
     "provider": "rule",
     "scenario_id": "open_bazaar",
     "scenario_name": "Open Bazaar",

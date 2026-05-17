@@ -88,10 +88,10 @@
     if (node) node.textContent = text || "";
   }
 
-  function shortDescription(text, fallback = "") {
+  function shortDescription(text, fallback = "", limit = 150) {
     const value = String(text || fallback || "").replace(/\s+/g, " ").trim();
     if (!value) return "";
-    return value.length > 150 ? `${value.slice(0, 147)}...` : value;
+    return value.length > limit ? `${value.slice(0, Math.max(0, limit - 3))}...` : value;
   }
 
   function renderNav(active) {
@@ -657,7 +657,8 @@
     const title = `${labelize(meta.scenario_id)} / ${meta.run_id}`;
     $("#run-title").textContent = title;
     $("#run-subtitle").textContent = meta.summary || "Live file-backed simulation run";
-    $("#run-status").innerHTML = `${statusBadge(meta.status)} <span class="muted">Created ${escapeHtml(fmtDate(meta.created_at))}; ${escapeHtml(meta.model_assignment || "uniform")} model mix; ${escapeHtml(modelSummaryLabel(meta))}</span>`;
+    const errorText = meta.error ? `<span class="run-error">Error: ${escapeHtml(shortDescription(meta.error, "", 260))}</span>` : "";
+    $("#run-status").innerHTML = `${statusBadge(meta.status)} <span class="muted">Created ${escapeHtml(fmtDate(meta.created_at))}; ${escapeHtml(meta.model_assignment || "uniform")} model mix; ${escapeHtml(modelSummaryLabel(meta))}</span> ${errorText}`;
     $("#context-link").href = `context.html?run_id=${encodeURIComponent(meta.run_id)}`;
 
     const maxTurn = Number(meta.current_turn ?? snapshot.current_turn ?? 0);
@@ -935,7 +936,19 @@
       .sort((a, b) => Number(a.turn || 0) - Number(b.turn || 0));
     $("#message-count").textContent = `${rows.length} shown`;
     if (!rows.length) {
-      $("#messages").innerHTML = `<div class="empty">No messages match this filter at turn ${fmtNumber(turn)}.</div>`;
+      const meta = window.__runPageData?.meta || {};
+      const availableTurns = [...new Set(messages.map(message => Number(message.turn || 0)))]
+        .filter(Number.isFinite)
+        .sort((a, b) => a - b);
+      let detail = `No messages match this filter at turn ${fmtNumber(turn)}.`;
+      if (!messages.length && meta.error) {
+        detail = `No messages were recorded because the run failed before any agent produced a message. ${meta.error}`;
+      } else if (!messages.length && String(meta.status || "").toLowerCase() === "running") {
+        detail = "No messages have been recorded yet. The run is still waiting on agent output.";
+      } else if (availableTurns.length) {
+        detail = `No messages match this filter at turn ${fmtNumber(turn)}. Messages exist at turn${availableTurns.length === 1 ? "" : "s"} ${availableTurns.map(fmtNumber).join(", ")}; use the replay arrows or slider.`;
+      }
+      $("#messages").innerHTML = `<div class="empty">${escapeHtml(detail)}</div>`;
       return;
     }
     $("#messages").innerHTML = rows.map((message, index) => `
