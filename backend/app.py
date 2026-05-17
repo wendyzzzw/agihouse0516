@@ -52,8 +52,8 @@ class LiveRunRequest(BaseModel):
     scenario_id: str = "open_bazaar"
     seed: int = 42
     max_rounds: Optional[int] = None
-    llm_provider: str = Field("rule", description="rule | openai | claude | auto")
-    model: str = "rule"
+    llm_provider: str = Field("openai", description="openai | claude | auto")
+    model: str = "gpt-4.1-mini"
     model_assignment: str = Field(
         "uniform",
         description="uniform | scenario | buyer_advantage | seller_advantage | mixed_sellers | buyer_advantage_mixed_sellers",
@@ -155,6 +155,8 @@ def get_pairwise_analysis(left_run_id: str, right_run_id: str, refresh: bool = F
 
 @app.post("/api/runs")
 def create_run(req: LiveRunRequest, background_tasks: BackgroundTasks):
+    if req.llm_provider == "rule" or req.model == "rule":
+        raise HTTPException(400, "Live simulations use real LLM models. Choose an OpenAI or Claude model.")
     try:
         meta = create_live_run(
             LIVE_STORE,

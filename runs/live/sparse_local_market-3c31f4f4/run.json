@@ -1,0 +1,14 @@
+{
+  "created_at": 1778976288.449234,
+  "current_turn": 10,
+  "error": null,
+  "llm_provider": "openai",
+  "max_rounds": 10,
+  "model": "gpt-4.1-mini",
+  "run_id": "sparse_local_market-3c31f4f4",
+  "scenario_id": "sparse_local_market",
+  "seed": 42,
+  "speed_ms": 500,
+  "status": "completed",
+  "summary": "A fragmented local market. Buyers can only reach nearby sellers, so some sellers have local monopoly power while others face competition."
+}

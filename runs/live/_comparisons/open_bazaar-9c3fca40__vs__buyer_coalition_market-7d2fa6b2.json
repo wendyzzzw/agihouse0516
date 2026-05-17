@@ -1,0 +1,129 @@
+{
+  "analysis_version": 2,
+  "cache": {
+    "hit": false,
+    "path": "/Users/liyuzhang/Documents/GitHub/agihouse0516/runs/live/_comparisons/open_bazaar-9c3fca40__vs__buyer_coalition_market-7d2fa6b2.json"
+  },
+  "generated_at": 1778983758.264688,
+  "left": {
+    "advantage": "balanced",
+    "current_turn": 1,
+    "headline": "Open Bazaar produced balanced with 50% buyer participation, 64 messages, and an average price of $95.",
+    "run_id": "open_bazaar-9c3fca40",
+    "scenario_id": "open_bazaar",
+    "scenario_name": "Open Bazaar",
+    "setup_type": "open_bazaar"
+  },
+  "metric_deltas": [
+    {
+      "delta": -8.8,
+      "direction": "right_better",
+      "label": "Avg price",
+      "left": 95.0,
+      "right": 86.2,
+      "seller_favorable": false,
+      "unit": "money"
+    },
+    {
+      "delta": 25,
+      "direction": "left_better",
+      "label": "Price spread",
+      "left": 0,
+      "right": 25,
+      "seller_favorable": false,
+      "unit": "money"
+    },
+    {
+      "delta": -16.7,
+      "direction": "left_better",
+      "label": "Purchase rate",
+      "left": 50.0,
+      "right": 33.3,
+      "seller_favorable": false,
+      "unit": "pct"
+    },
+    {
+      "delta": 25.0,
+      "direction": "right_better",
+      "label": "Goal completion",
+      "left": 0.0,
+      "right": 25.0,
+      "seller_favorable": false,
+      "unit": "pct"
+    },
+    {
+      "delta": 137,
+      "direction": "right_better",
+      "label": "Seller revenue",
+      "left": 380,
+      "right": 517,
+      "seller_favorable": true,
+      "unit": "money"
+    },
+    {
+      "delta": -7.0,
+      "direction": "left_better",
+      "label": "Buyer surplus",
+      "left": 10.0,
+      "right": 3.0,
+      "seller_favorable": false,
+      "unit": "money"
+    },
+    {
+      "delta": 14,
+      "direction": "neutral",
+      "label": "Total messages",
+      "left": 64,
+      "right": 78,
+      "seller_favorable": false,
+      "unit": "count"
+    },
+    {
+      "delta": -3.0,
+      "direction": "right_better",
+      "label": "Messages / transaction",
+      "left": 16.0,
+      "right": 13.0,
+      "seller_favorable": false,
+      "unit": "count"
+    }
+  ],
+  "right": {
+    "advantage": "seller_advantage",
+    "current_turn": 7,
+    "headline": "Buyer Coalition Market produced seller advantage with 33% buyer participation, 78 messages, and an average price of $86.",
+    "run_id": "buyer_coalition_market-7d2fa6b2",
+    "scenario_id": "buyer_coalition_market",
+    "scenario_name": "Buyer Coalition Market",
+    "setup_type": "buyer_coalition"
+  },
+  "setup_differences": [
+    {
+      "label": "Scenario",
+      "left": "open_bazaar",
+      "right": "buyer_coalition_market"
+    },
+    {
+      "label": "Setup type",
+      "left": "open_bazaar",
+      "right": "buyer_coalition"
+    },
+    {
+      "label": "Buyer-buyer edges",
+      "left": 0,
+      "right": 21
+    },
+    {
+      "label": "Provider",
+      "left": "rule",
+      "right": "openai"
+    }
+  ],
+  "summary": "Buyer Coalition Market (buyer_coalition_market-7d2fa6b2) compared with Open Bazaar (open_bazaar-9c3fca40): price delta $-8.8, purchase-rate delta -16.7 points, seller-revenue delta $137.0.",
+  "takeaways": [
+    "Right run produced lower average prices by $8.8.",
+    "Left run allocated to 16.7 more percentage points of buyers.",
+    "Right run generated $137.0 more seller revenue.",
+    "Setup changed from Open Bazaar to Buyer Coalition, so read deltas as market-structure effects, not just run noise."
+  ]
+}

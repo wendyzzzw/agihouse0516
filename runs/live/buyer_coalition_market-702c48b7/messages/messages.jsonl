@@ -1,0 +1,56 @@
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "aa86ba53", "recipient": "seller_2", "sender": "buyer_6", "turn": 1}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "e7e8db33", "recipient": "seller_2", "sender": "buyer_5", "turn": 1}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "d4899faf", "recipient": "seller_2", "sender": "buyer_4", "turn": 1}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "bf526c8a", "recipient": "seller_2", "sender": "buyer_3", "turn": 1}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "c7e7b2a5", "recipient": "seller_2", "sender": "buyer_11", "turn": 1}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "50578329", "recipient": "seller_2", "sender": "buyer_7", "turn": 1}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "b121cc8f", "recipient": "seller_2", "sender": "buyer_12", "turn": 1}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "9eec844e", "recipient": "seller_2", "sender": "buyer_9", "turn": 1}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "51f393fd", "recipient": "seller_2", "sender": "buyer_1", "turn": 1}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "afbe45d1", "recipient": "seller_2", "sender": "buyer_8", "turn": 1}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "b31a4725", "recipient": "seller_2", "sender": "buyer_11", "turn": 2}
+{"action": "BROADCAST", "content": "seller_1 has 6 units listed at $115.", "id": "6493b3f1", "recipient": "buyer_1", "sender": "seller_1", "turn": 2}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "c353028c", "recipient": "seller_2", "sender": "buyer_7", "turn": 2}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "50ff6e42", "recipient": "seller_2", "sender": "buyer_5", "turn": 2}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "76a66e26", "recipient": "seller_2", "sender": "buyer_4", "turn": 2}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "46403db3", "recipient": "seller_2", "sender": "buyer_3", "turn": 2}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "e29a11fe", "recipient": "seller_2", "sender": "buyer_8", "turn": 2}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "616cbfed", "recipient": "seller_2", "sender": "buyer_6", "turn": 2}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "59d3fe21", "recipient": "seller_2", "sender": "buyer_9", "turn": 2}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "26033e55", "recipient": "seller_2", "sender": "buyer_12", "turn": 2}
+{"action": "BROADCAST", "content": "seller_3 has 4 units listed at $130.", "id": "2d9fa6a0", "recipient": "buyer_1", "sender": "seller_3", "turn": 2}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "332d1059", "recipient": "seller_2", "sender": "buyer_1", "turn": 2}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "cbbb69d4", "recipient": "seller_2", "sender": "buyer_5", "turn": 3}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "23926613", "recipient": "seller_2", "sender": "buyer_6", "turn": 3}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "92784bf2", "recipient": "seller_2", "sender": "buyer_12", "turn": 3}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "7a1ec707", "recipient": "seller_2", "sender": "buyer_9", "turn": 3}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "9c7795fd", "recipient": "seller_2", "sender": "buyer_8", "turn": 3}
+{"action": "BROADCAST", "content": "seller_3 has 4 units listed at $130.", "id": "5be8f02e", "recipient": "buyer_1", "sender": "seller_3", "turn": 3}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "747adefd", "recipient": "seller_2", "sender": "buyer_3", "turn": 3}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "4b224ffe", "recipient": "seller_2", "sender": "buyer_4", "turn": 3}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "5592bc41", "recipient": "seller_2", "sender": "buyer_11", "turn": 3}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "037183d2", "recipient": "seller_2", "sender": "buyer_1", "turn": 3}
+{"action": "BROADCAST", "content": "seller_1 has 6 units listed at $115.", "id": "75e92fe8", "recipient": "buyer_1", "sender": "seller_1", "turn": 3}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "5e9df038", "recipient": "seller_2", "sender": "buyer_7", "turn": 3}
+{"action": "BROADCAST", "content": "seller_1 has 6 units listed at $115.", "id": "33fe7d2e", "recipient": "buyer_1", "sender": "seller_1", "turn": 4}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "882477e0", "recipient": "seller_2", "sender": "buyer_6", "turn": 4}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "1cd549de", "recipient": "seller_2", "sender": "buyer_4", "turn": 4}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "4922daea", "recipient": "seller_2", "sender": "buyer_11", "turn": 4}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "60b5422c", "recipient": "seller_2", "sender": "buyer_8", "turn": 4}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "6f75f319", "recipient": "seller_2", "sender": "buyer_9", "turn": 4}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "147ff607", "recipient": "seller_2", "sender": "buyer_12", "turn": 4}
+{"action": "BROADCAST", "content": "seller_3 has 4 units listed at $130.", "id": "f82723f5", "recipient": "buyer_1", "sender": "seller_3", "turn": 4}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "b10c0dc2", "recipient": "seller_2", "sender": "buyer_1", "turn": 4}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "f3390f84", "recipient": "seller_2", "sender": "buyer_7", "turn": 4}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "ee1b7e3e", "recipient": "seller_2", "sender": "buyer_3", "turn": 4}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "5a7d1d77", "recipient": "seller_2", "sender": "buyer_6", "turn": 5}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "e44d7018", "recipient": "seller_2", "sender": "buyer_11", "turn": 5}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "53bd9a00", "recipient": "seller_2", "sender": "buyer_3", "turn": 5}
+{"action": "BROADCAST", "content": "seller_3 has 4 units listed at $130.", "id": "be47057e", "recipient": "buyer_1", "sender": "seller_3", "turn": 5}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "e0698343", "recipient": "seller_2", "sender": "buyer_8", "turn": 5}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "1f70f383", "recipient": "seller_2", "sender": "buyer_4", "turn": 5}
+{"action": "BROADCAST", "content": "seller_1 has 6 units listed at $115.", "id": "c8211f8e", "recipient": "buyer_1", "sender": "seller_1", "turn": 5}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "0e700d73", "recipient": "seller_2", "sender": "buyer_1", "turn": 5}
+{"action": "BID", "content": "I can offer $75 for one item today.", "id": "e73b7ad7", "recipient": "seller_2", "sender": "buyer_9", "turn": 5}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "9fca4c4c", "recipient": "seller_2", "sender": "buyer_12", "turn": 5}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "faba94c7", "recipient": "seller_2", "sender": "buyer_7", "turn": 5}

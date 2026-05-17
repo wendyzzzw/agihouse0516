@@ -1,0 +1,23 @@
+{
+  "agent_model_summary": {
+    "buyer": {
+      "rule/rule": 8
+    },
+    "seller": {
+      "rule/rule": 4
+    }
+  },
+  "created_at": 1778984443.423436,
+  "current_turn": 1,
+  "error": null,
+  "llm_provider": "rule",
+  "max_rounds": 1,
+  "model": "rule",
+  "model_assignment": "uniform",
+  "run_id": "open_bazaar-b7d46022",
+  "scenario_id": "open_bazaar",
+  "seed": 99,
+  "speed_ms": 0,
+  "status": "completed",
+  "summary": "Every buyer can talk to every seller. Buyers cannot talk to buyers, and sellers cannot talk to sellers. This tests basic bilateral negotiation."
+}

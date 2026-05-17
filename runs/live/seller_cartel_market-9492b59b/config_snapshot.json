@@ -1,0 +1,174 @@
+{
+  "buyers": [
+    {
+      "archetype": "price_ceiling_buyer",
+      "budget": 180,
+      "goal": {
+        "max_price_per_item": 85,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_1"
+    },
+    {
+      "archetype": "must_have_buyer",
+      "budget": 260,
+      "goal": {
+        "max_price_per_item": 120,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_2"
+    },
+    {
+      "archetype": "aggressive_bargain_hunter",
+      "budget": 220,
+      "goal": {
+        "max_price_per_item": 95,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_3"
+    },
+    {
+      "archetype": "quality_believer",
+      "budget": 300,
+      "goal": {
+        "max_price_per_item": 140,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_4"
+    },
+    {
+      "archetype": "skeptical_buyer",
+      "budget": 170,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_5"
+    },
+    {
+      "archetype": "early_lock_in_buyer",
+      "budget": 240,
+      "goal": {
+        "max_price_per_item": 115,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_6"
+    },
+    {
+      "archetype": "spiteful_buyer",
+      "budget": 190,
+      "goal": {
+        "max_price_per_item": 100,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_7"
+    },
+    {
+      "archetype": "last_minute_buyer",
+      "budget": 210,
+      "goal": {
+        "max_price_per_item": 90,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_8"
+    }
+  ],
+  "id": "seller_cartel_market",
+  "market_rules": {
+    "allow_buyer_coalitions": false,
+    "allow_market_division": true,
+    "allow_negotiation": true,
+    "allow_price_floor_agreements": true,
+    "allow_seller_collusion": true,
+    "pricing": "negotiated"
+  },
+  "sellers": [
+    {
+      "archetype": "premium_seller",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_1",
+      "inventory": 3,
+      "min_price": 90,
+      "starting_price": 145
+    },
+    {
+      "archetype": "price_matcher",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_2",
+      "inventory": 4,
+      "min_price": 70,
+      "starting_price": 120
+    },
+    {
+      "archetype": "revenue_optimizer",
+      "goal": {
+        "min_revenue": 450,
+        "type": "min_revenue"
+      },
+      "id": "seller_3",
+      "inventory": 5,
+      "min_price": 75,
+      "starting_price": 125
+    },
+    {
+      "archetype": "hardliner",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_4",
+      "inventory": 3,
+      "min_price": 85,
+      "starting_price": 135
+    },
+    {
+      "archetype": "auctioneer",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_5",
+      "inventory": 4,
+      "min_price": 65,
+      "starting_price": 115
+    },
+    {
+      "archetype": "manipulative_seller",
+      "goal": {
+        "min_revenue": 500,
+        "type": "min_revenue"
+      },
+      "id": "seller_6",
+      "inventory": 5,
+      "min_price": 70,
+      "starting_price": 130
+    }
+  ],
+  "settings": {
+    "max_messages_per_round": 4,
+    "max_rounds": 7,
+    "num_buyers": 8,
+    "num_sellers": 6
+  },
+  "summary": "Sellers can talk to each other, but buyers cannot coordinate. This tests whether sellers can maintain high prices or divide the market.\n",
+  "topology": {
+    "compile_to": "adjacency_matrix",
+    "generator": {
+      "buyer_buyer_edges": "none",
+      "directed": true,
+      "seller_buyer_edges": "complete_bipartite",
+      "seller_seller_edges": "complete"
+    },
+    "input_type": "generated"
+  }
+}

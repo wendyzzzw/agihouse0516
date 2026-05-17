@@ -63,13 +63,6 @@ DEFAULT_PERSONA_TRAITS = {
 }
 MODEL_OPTIONS = [
     {
-        "id": "rule",
-        "label": "Rule Adapter",
-        "provider": "rule",
-        "model": "rule",
-        "description": "Deterministic local fallback. No API key required.",
-    },
-    {
         "id": "gpt-5.5",
         "label": "GPT-5.5",
         "provider": "openai",
@@ -187,7 +180,7 @@ def parse_price(text: Any) -> Optional[int]:
 
 def public_model_options() -> Dict[str, Any]:
     return {
-        "models": deepcopy(MODEL_OPTIONS),
+        "models": [deepcopy(item) for item in MODEL_OPTIONS if item.get("provider") != "rule"],
         "model_assignments": deepcopy(MODEL_ASSIGNMENT_POLICIES),
     }
 
@@ -439,6 +432,7 @@ class ScenarioCompiler:
             {
                 "id": sim["id"],
                 "summary": sim.get("summary", "").strip(),
+                "short_description": sim.get("short_description", "").strip(),
                 "has_model_assignment": bool(sim.get("model_assignment")),
             }
             for sim in self.config.get("simulations", [])
@@ -1243,18 +1237,27 @@ class LiveRunEngine:
                 continue
             local_view = self._local_view(state, agent_id)
             trace = self._trace_base(agent, local_view)
+            provider = str(agent.get("llm_provider") or state.get("llm_provider") or "rule").lower()
+            adapter_failed = False
             try:
                 adapter = self._adapter_for_agent(agent, state)
                 decision = adapter.decide(agent, local_view)
                 trace["raw_decision"] = decision
             except Exception as exc:
-                decision = RuleAdapter().decide(agent, local_view)
+                adapter_failed = True
                 trace["adapter_error"] = str(exc)
+                if provider == "rule":
+                    decision = RuleAdapter().decide(agent, local_view)
+                else:
+                    decision = {
+                        "action": "WAIT",
+                        "reasoning": f"real LLM provider failed: {exc}",
+                    }
                 trace["raw_decision"] = decision
             decision = self._sanitize_decision(agent, decision)
             trace["parsed_action"] = decision
             self._execute(state, agent_id, decision)
-            trace["opening_messages"] = self._send_first_turn_openings(state, agent_id)
+            trace["opening_messages"] = [] if adapter_failed and provider != "rule" else self._send_first_turn_openings(state, agent_id)
             trace["post_state"] = self._agent_public(agent)
             self.store.write_trace(self.run_id, agent_id, turn, trace)
 

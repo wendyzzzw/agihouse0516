@@ -1,0 +1,587 @@
+{
+  "analysis_version": 3,
+  "archetypes": {
+    "buyers": [
+      {
+        "archetype": "overly_polite_strategist",
+        "avg_price": 90.0,
+        "avg_satisfaction": 67.0,
+        "avg_surplus": 8.0,
+        "count": 1,
+        "messages_received": 26,
+        "messages_sent": 9,
+        "purchase_rate_pct": 100.0
+      },
+      {
+        "archetype": "cooperative_fair_buyer",
+        "avg_price": 90.0,
+        "avg_satisfaction": 66.0,
+        "avg_surplus": 5.0,
+        "count": 1,
+        "messages_received": 23,
+        "messages_sent": 11,
+        "purchase_rate_pct": 100.0
+      },
+      {
+        "archetype": "deadline_driven_buyer",
+        "avg_price": 105.0,
+        "avg_satisfaction": 65.0,
+        "avg_surplus": 3.0,
+        "count": 1,
+        "messages_received": 23,
+        "messages_sent": 9,
+        "purchase_rate_pct": 100.0
+      },
+      {
+        "archetype": "researcher_buyer",
+        "avg_price": 93.0,
+        "avg_satisfaction": 65.0,
+        "avg_surplus": 3.0,
+        "count": 1,
+        "messages_received": 30,
+        "messages_sent": 13,
+        "purchase_rate_pct": 100.0
+      },
+      {
+        "archetype": "bulk_discount_hunter",
+        "avg_price": 85.0,
+        "avg_satisfaction": 65.0,
+        "avg_surplus": 0.0,
+        "count": 1,
+        "messages_received": 23,
+        "messages_sent": 11,
+        "purchase_rate_pct": 100.0
+      },
+      {
+        "archetype": "buyer_union_organizer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 23,
+        "messages_sent": 31,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "prompt_injection_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 26,
+        "messages_sent": 14,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "haiku_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 27,
+        "messages_sent": 15,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "information_broker",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 27,
+        "messages_sent": 15,
+        "purchase_rate_pct": 0.0
+      },
+      {
+        "archetype": "skeptical_buyer",
+        "avg_price": 0,
+        "avg_satisfaction": 0,
+        "avg_surplus": 0,
+        "count": 1,
+        "messages_received": 22,
+        "messages_sent": 14,
+        "purchase_rate_pct": 0.0
+      }
+    ],
+    "sellers": [
+      {
+        "archetype": "price_matcher",
+        "avg_sale_price": 95.0,
+        "count": 1,
+        "messages_received": 26,
+        "messages_sent": 10,
+        "revenue": 570,
+        "sell_through_pct": 100.0,
+        "sold_units": 6
+      },
+      {
+        "archetype": "relationship_builder",
+        "avg_sale_price": 87.8,
+        "count": 1,
+        "messages_received": 30,
+        "messages_sent": 34,
+        "revenue": 351,
+        "sell_through_pct": 80.0,
+        "sold_units": 4
+      },
+      {
+        "archetype": "defensive_seller",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 10,
+        "messages_sent": 70,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      },
+      {
+        "archetype": "scarcity_pressure_seller",
+        "avg_sale_price": 0,
+        "count": 1,
+        "messages_received": 10,
+        "messages_sent": 70,
+        "revenue": 0,
+        "sell_through_pct": 0.0,
+        "sold_units": 0
+      }
+    ]
+  },
+  "buyer_seller_power": {
+    "advantage": "balanced",
+    "avg_buyer_surplus": 3.3,
+    "avg_discount_from_start": 18.1,
+    "avg_transaction_price": 92.1,
+    "explanation": "Buyers completed deals, but seller revenue and concessions stayed moderate.",
+    "purchase_rate_pct": 50.0,
+    "seller_revenue": 921,
+    "total_buyer_surplus": 33
+  },
+  "communication": {
+    "by_action": {
+      "BID": 37,
+      "BROADCAST": 140,
+      "COMMUNICATE": 113,
+      "COORDINATE": 25,
+      "COUNTER_OFFER": 4,
+      "LIE": 7
+    },
+    "by_role_pair": {
+      "buyer_to_buyer": 66,
+      "buyer_to_seller": 76,
+      "seller_to_buyer": 184
+    },
+    "by_turn": {
+      "1": 126,
+      "2": 43,
+      "3": 42,
+      "4": 32,
+      "5": 31,
+      "6": 26,
+      "7": 26
+    },
+    "heatmap": {
+      "buyer_1": {
+        "buyer_2": 5,
+        "buyer_3": 5,
+        "buyer_4": 5,
+        "buyer_5": 5,
+        "buyer_6": 5,
+        "seller_1": 3,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 1
+      },
+      "buyer_10": {
+        "buyer_5": 1,
+        "buyer_6": 1,
+        "buyer_7": 1,
+        "buyer_8": 1,
+        "buyer_9": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 1
+      },
+      "buyer_2": {
+        "buyer_1": 1,
+        "buyer_3": 1,
+        "buyer_4": 1,
+        "buyer_5": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 2
+      },
+      "buyer_3": {
+        "buyer_1": 1,
+        "buyer_2": 1,
+        "buyer_4": 1,
+        "buyer_5": 1,
+        "seller_1": 5,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 3
+      },
+      "buyer_4": {
+        "buyer_1": 1,
+        "buyer_2": 1,
+        "buyer_3": 1,
+        "buyer_5": 1,
+        "buyer_9": 1,
+        "seller_1": 5,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 3
+      },
+      "buyer_5": {
+        "buyer_1": 1,
+        "buyer_10": 1,
+        "buyer_2": 1,
+        "buyer_3": 1,
+        "buyer_4": 1,
+        "seller_1": 5,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 3
+      },
+      "buyer_6": {
+        "buyer_1": 1,
+        "buyer_10": 1,
+        "buyer_7": 1,
+        "buyer_8": 1,
+        "buyer_9": 1,
+        "seller_1": 2,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 4
+      },
+      "buyer_7": {
+        "buyer_10": 1,
+        "buyer_6": 1,
+        "buyer_8": 1,
+        "buyer_9": 1,
+        "seller_1": 5,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 3
+      },
+      "buyer_8": {
+        "buyer_10": 1,
+        "buyer_6": 1,
+        "buyer_7": 1,
+        "buyer_9": 1,
+        "seller_1": 2,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 3
+      },
+      "buyer_9": {
+        "buyer_10": 1,
+        "buyer_4": 1,
+        "buyer_6": 1,
+        "buyer_7": 1,
+        "buyer_8": 1,
+        "seller_1": 1,
+        "seller_2": 1,
+        "seller_3": 1,
+        "seller_4": 3
+      },
+      "seller_1": {
+        "buyer_1": 3,
+        "buyer_10": 3,
+        "buyer_2": 3,
+        "buyer_3": 3,
+        "buyer_4": 3,
+        "buyer_5": 3,
+        "buyer_6": 6,
+        "buyer_7": 3,
+        "buyer_8": 4,
+        "buyer_9": 3
+      },
+      "seller_2": {
+        "buyer_1": 7,
+        "buyer_10": 7,
+        "buyer_2": 7,
+        "buyer_3": 7,
+        "buyer_4": 7,
+        "buyer_5": 7,
+        "buyer_6": 7,
+        "buyer_7": 7,
+        "buyer_8": 7,
+        "buyer_9": 7
+      },
+      "seller_3": {
+        "buyer_1": 7,
+        "buyer_10": 7,
+        "buyer_2": 7,
+        "buyer_3": 7,
+        "buyer_4": 7,
+        "buyer_5": 7,
+        "buyer_6": 7,
+        "buyer_7": 7,
+        "buyer_8": 7,
+        "buyer_9": 7
+      },
+      "seller_4": {
+        "buyer_1": 1,
+        "buyer_10": 1,
+        "buyer_2": 1,
+        "buyer_3": 1,
+        "buyer_4": 1,
+        "buyer_5": 1,
+        "buyer_6": 1,
+        "buyer_7": 1,
+        "buyer_8": 1,
+        "buyer_9": 1
+      }
+    },
+    "messages_before_first_sale": 126,
+    "messages_per_transaction": 32.6,
+    "most_active_agents": [
+      {
+        "agent_id": "seller_3",
+        "received": 10,
+        "sent": 70,
+        "total": 80
+      },
+      {
+        "agent_id": "seller_2",
+        "received": 10,
+        "sent": 70,
+        "total": 80
+      },
+      {
+        "agent_id": "seller_1",
+        "received": 30,
+        "sent": 34,
+        "total": 64
+      },
+      {
+        "agent_id": "buyer_1",
+        "received": 23,
+        "sent": 31,
+        "total": 54
+      },
+      {
+        "agent_id": "buyer_6",
+        "received": 30,
+        "sent": 13,
+        "total": 43
+      }
+    ],
+    "peak_turn": 1,
+    "peak_turn_messages": 126,
+    "total_messages": 326
+  },
+  "current_turn": 7,
+  "evidence": [
+    {
+      "detail": "buyer_6 bought from seller_4 at $90.",
+      "from": "buyer_6",
+      "kind": "first_transaction",
+      "label": "First transaction at turn 1",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "detail": "buyer_10 paid $105 to seller_4.",
+      "from": "buyer_10",
+      "kind": "largest_price",
+      "label": "Largest observed transaction",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "detail": "126 messages were sent that turn.",
+      "kind": "communication_peak",
+      "label": "Communication peaked at turn 1",
+      "turn": 1
+    },
+    {
+      "detail": "seller_3 had 80 message touches.",
+      "kind": "most_active_agent",
+      "label": "Most active communicator"
+    },
+    {
+      "detail": "I can offer $85 for one item today. My reasoning is that $105 is above my current ceiling, but accepting this bid clears inventory now and reduces the risk of waiting.",
+      "from": "buyer_8",
+      "kind": "first_message",
+      "label": "First directed message",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "detail": "Buyers completed deals, but seller revenue and concessions stayed moderate.",
+      "kind": "market_power",
+      "label": "Balanced"
+    }
+  ],
+  "generated_at": 1778984619.703975,
+  "outcomes": {
+    "avg_price": 92.1,
+    "avg_satisfaction": 65.6,
+    "buyer_count": 10,
+    "full_goal_completion_pct": 40.0,
+    "initial_inventory": 18,
+    "max_price": 105,
+    "median_price": 90.0,
+    "min_price": 85,
+    "missed_buyer_count": 5,
+    "price_spread": 20,
+    "price_stddev": 7.2,
+    "purchase_rate_pct": 50.0,
+    "sell_through_pct": 55.6,
+    "seller_count": 4,
+    "seller_revenue": 921,
+    "sold_units": 10,
+    "transaction_count": 10,
+    "unique_buyers": 5
+  },
+  "recap": {
+    "evidence": [
+      {
+        "detail": "buyer_6 bought from seller_4 at $90.",
+        "from": "buyer_6",
+        "kind": "first_transaction",
+        "label": "First transaction at turn 1",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "detail": "buyer_10 paid $105 to seller_4.",
+        "from": "buyer_10",
+        "kind": "largest_price",
+        "label": "Largest observed transaction",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "detail": "126 messages were sent that turn.",
+        "kind": "communication_peak",
+        "label": "Communication peaked at turn 1",
+        "turn": 1
+      },
+      {
+        "detail": "seller_3 had 80 message touches.",
+        "kind": "most_active_agent",
+        "label": "Most active communicator"
+      },
+      {
+        "detail": "I can offer $85 for one item today. My reasoning is that $105 is above my current ceiling, but accepting this bid clears inventory now and reduces the risk of waiting.",
+        "from": "buyer_8",
+        "kind": "first_message",
+        "label": "First directed message",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "detail": "Buyers completed deals, but seller revenue and concessions stayed moderate.",
+        "kind": "market_power",
+        "label": "Balanced"
+      }
+    ],
+    "headline": "Model Asymmetry Market produced balanced with 50% buyer participation, 326 messages, and an average price of $92.",
+    "notable_dynamics": [
+      "Tests whether buyer-side communication turns local information into bargaining power.",
+      "Communication was mostly seller to buyer (184); messages per transaction was 32.6.",
+      "Buyers completed deals, but seller revenue and concessions stayed moderate.",
+      "Buyer-buyer edges made coordination possible, but outcomes depend on whether messages converted into accepted deals.",
+      "Top seller archetype by revenue was Price Matcher with $570."
+    ],
+    "setup": "Tests whether buyer-side communication turns local information into bargaining power.",
+    "takeaway": "Buyer connectivity created conversation, but not enough coordinated leverage to dominate sellers.",
+    "what_happened": [
+      "10 units traded across 5 buyers; 40% of buyers completed their full goal.",
+      "Sellers earned $921 with 56% sell-through; price spread was $20.",
+      "Best buyer archetype by purchase/surplus signal was Overly Polite Strategist (100% purchase rate, $8 avg surplus)."
+    ]
+  },
+  "run_id": "model_asymmetry_market-de616c86",
+  "scenario_id": "model_asymmetry_market",
+  "setup": {
+    "agent_model_summary": {
+      "buyer": {
+        "openai/gpt-5.5": 10
+      },
+      "seller": {
+        "claude/claude-haiku-4.5": 1,
+        "claude/claude-opus-4.7": 1,
+        "openai/gpt-4.1-mini": 1,
+        "openai/gpt-5.5": 1
+      }
+    },
+    "buyer_archetypes": {
+      "bulk_discount_hunter": 1,
+      "buyer_union_organizer": 1,
+      "cooperative_fair_buyer": 1,
+      "deadline_driven_buyer": 1,
+      "haiku_buyer": 1,
+      "information_broker": 1,
+      "overly_polite_strategist": 1,
+      "prompt_injection_buyer": 1,
+      "researcher_buyer": 1,
+      "skeptical_buyer": 1
+    },
+    "buyer_count": 10,
+    "config_settings": {
+      "max_messages_per_round": 4,
+      "max_rounds": 7,
+      "num_buyers": 10,
+      "num_sellers": 4
+    },
+    "market_rules": {
+      "allow_buyer_coalitions": true,
+      "allow_joint_offers": true,
+      "allow_model_asymmetry": true,
+      "allow_negotiation": true,
+      "allow_price_info_sharing": true,
+      "allow_seller_collusion": false,
+      "pricing": "negotiated"
+    },
+    "max_rounds": 7,
+    "model": "rule",
+    "model_assignment": "scenario",
+    "provider": "rule",
+    "scenario_id": "model_asymmetry_market",
+    "scenario_name": "Model Asymmetry Market",
+    "seed": 42,
+    "seller_archetypes": {
+      "defensive_seller": 1,
+      "price_matcher": 1,
+      "relationship_builder": 1,
+      "scarcity_pressure_seller": 1
+    },
+    "seller_count": 4,
+    "setup_type": "buyer_coalition",
+    "summary": "Buyers run stronger models and richer persuasion personas while sellers use a mixed model stack. This tests whether model capability asymmetry changes price discovery, coalition formation, and seller revenue.",
+    "what_it_tests": "Tests whether buyer-side communication turns local information into bargaining power."
+  },
+  "snapshot_summary": {
+    "avg_price": 93.2,
+    "avg_satisfaction": 65.6,
+    "by_profile": {
+      "family": 105.0,
+      "flexible": 87.5,
+      "investor": 96.0,
+      "polite_operator": 90.0
+    },
+    "n_bought": 5,
+    "n_completed_goals": 4,
+    "n_missed": 6,
+    "total_messages": 326
+  },
+  "status": "completed",
+  "topology": {
+    "buyer_buyer_edges": 23,
+    "buyer_connectivity": "connected",
+    "buyer_count": 10,
+    "buyer_seller_edges": 40,
+    "buyer_seller_reach_pct": 100.0,
+    "edge_density_pct": 69.2,
+    "node_count": 14,
+    "seller_connectivity": "isolated",
+    "seller_count": 4,
+    "seller_seller_edges": 0,
+    "total_edges": 63
+  }
+}

@@ -1,0 +1,968 @@
+{
+  "agents": {
+    "buyer_1": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "price_ceiling_buyer",
+      "archetype_description": "Refuses to buy above a strict maximum price.\n",
+      "beliefs": {},
+      "bought": false,
+      "budget": 180,
+      "constraints": {
+        "max_budget": 180,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 85,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_1",
+      "inbox": [],
+      "initial_budget": 180,
+      "items_owned": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Refuses to buy above a strict maximum price.\n",
+        "profile": "budget",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "buyer"
+    },
+    "buyer_2": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "must_have_buyer",
+      "archetype_description": "Needs to buy a required quantity and becomes more flexible over time.\n",
+      "beliefs": {},
+      "bought": false,
+      "budget": 260,
+      "constraints": {
+        "max_budget": 260,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 120,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_2",
+      "inbox": [],
+      "initial_budget": 260,
+      "items_owned": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Needs to buy a required quantity and becomes more flexible over time.\n",
+        "profile": "family",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "buyer"
+    },
+    "buyer_3": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "aggressive_bargain_hunter",
+      "archetype_description": "Opens with low offers and pushes hard for the lowest price.\n",
+      "beliefs": {},
+      "bought": false,
+      "budget": 220,
+      "constraints": {
+        "max_budget": 220,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 95,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_3",
+      "inbox": [],
+      "initial_budget": 220,
+      "items_owned": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Opens with low offers and pushes hard for the lowest price.\n",
+        "profile": "budget",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "buyer"
+    },
+    "buyer_4": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "quality_believer",
+      "archetype_description": "Interprets higher prices as possible signs of quality.\n",
+      "beliefs": {},
+      "bought": false,
+      "budget": 300,
+      "constraints": {
+        "max_budget": 300,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 140,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_4",
+      "inbox": [],
+      "initial_budget": 300,
+      "items_owned": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Interprets higher prices as possible signs of quality.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "buyer"
+    },
+    "buyer_5": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "skeptical_buyer",
+      "archetype_description": "Distrusts sellers and demands justification.\n",
+      "beliefs": {},
+      "bought": false,
+      "budget": 170,
+      "constraints": {
+        "max_budget": 170,
+        "target_quantity": 1
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_5",
+      "inbox": [],
+      "initial_budget": 170,
+      "items_owned": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Distrusts sellers and demands justification.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "buyer"
+    },
+    "buyer_6": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "early_lock_in_buyer",
+      "archetype_description": "Wants certainty and buys early.\n",
+      "beliefs": {},
+      "bought": false,
+      "budget": 240,
+      "constraints": {
+        "max_budget": 240,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 115,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_6",
+      "inbox": [],
+      "initial_budget": 240,
+      "items_owned": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Wants certainty and buys early.\n",
+        "profile": "family",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "buyer"
+    },
+    "buyer_7": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "spiteful_buyer",
+      "archetype_description": "Rejects sellers who seem unfair, even if the deal is acceptable.\n",
+      "beliefs": {},
+      "bought": false,
+      "budget": 190,
+      "constraints": {
+        "max_budget": 190,
+        "target_quantity": 1
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 100,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_7",
+      "inbox": [],
+      "initial_budget": 190,
+      "items_owned": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Rejects sellers who seem unfair, even if the deal is acceptable.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "buyer"
+    },
+    "buyer_8": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "last_minute_buyer",
+      "archetype_description": "Waits until late rounds, hoping sellers become desperate.\n",
+      "beliefs": {},
+      "bought": false,
+      "budget": 210,
+      "constraints": {
+        "max_budget": 210,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 90,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_8",
+      "inbox": [],
+      "initial_budget": 210,
+      "items_owned": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Waits until late rounds, hoping sellers become desperate.\n",
+        "profile": "budget",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "buyer"
+    },
+    "seller_1": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "premium_seller",
+      "archetype_description": "Believes their agents are valuable. Avoids discounting and prefers fewer high-price sales over many low-price sales.\n",
+      "beliefs": {},
+      "constraints": {
+        "min_price": 90
+      },
+      "current_price": 145,
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_1",
+      "inbox": [],
+      "initial_inventory": 3,
+      "inventory": 3,
+      "min_price": 90,
+      "outbox": [],
+      "persona": {
+        "description": "Believes their agents are valuable. Avoids discounting and prefers fewer high-price sales over many low-price sales.\n",
+        "profile": "premium_seller",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "revenue": 0,
+      "role": "seller",
+      "starting_price": 145,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "seller"
+    },
+    "seller_2": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "price_matcher",
+      "archetype_description": "Matches or slightly beats competing sellers.\n",
+      "beliefs": {},
+      "constraints": {
+        "min_price": 70
+      },
+      "current_price": 120,
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_2",
+      "inbox": [],
+      "initial_inventory": 4,
+      "inventory": 4,
+      "min_price": 70,
+      "outbox": [],
+      "persona": {
+        "description": "Matches or slightly beats competing sellers.\n",
+        "profile": "price_matcher",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "revenue": 0,
+      "role": "seller",
+      "starting_price": 120,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "seller"
+    },
+    "seller_3": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "revenue_optimizer",
+      "archetype_description": "Balances price and probability of sale to maximize total revenue.\n",
+      "beliefs": {},
+      "constraints": {
+        "min_price": 75
+      },
+      "current_price": 125,
+      "goal": {
+        "min_revenue": 450,
+        "type": "min_revenue"
+      },
+      "id": "seller_3",
+      "inbox": [],
+      "initial_inventory": 5,
+      "inventory": 5,
+      "min_price": 75,
+      "outbox": [],
+      "persona": {
+        "description": "Balances price and probability of sale to maximize total revenue.\n",
+        "profile": "revenue_optimizer",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "revenue": 0,
+      "role": "seller",
+      "starting_price": 125,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "seller"
+    },
+    "seller_4": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "hardliner",
+      "archetype_description": "Rejects low offers quickly. Rarely compromises and prefers no sale over appearing weak.\n",
+      "beliefs": {},
+      "constraints": {
+        "min_price": 85
+      },
+      "current_price": 135,
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_4",
+      "inbox": [],
+      "initial_inventory": 3,
+      "inventory": 3,
+      "min_price": 85,
+      "outbox": [],
+      "persona": {
+        "description": "Rejects low offers quickly. Rarely compromises and prefers no sale over appearing weak.\n",
+        "profile": "hardliner",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "revenue": 0,
+      "role": "seller",
+      "starting_price": 135,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "seller"
+    },
+    "seller_5": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "auctioneer",
+      "archetype_description": "Encourages buyers to compete and uses rival offers to push prices upward.\n",
+      "beliefs": {},
+      "constraints": {
+        "min_price": 65
+      },
+      "current_price": 115,
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_5",
+      "inbox": [],
+      "initial_inventory": 4,
+      "inventory": 4,
+      "min_price": 65,
+      "outbox": [],
+      "persona": {
+        "description": "Encourages buyers to compete and uses rival offers to push prices upward.\n",
+        "profile": "auctioneer",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "revenue": 0,
+      "role": "seller",
+      "starting_price": 115,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "seller"
+    },
+    "seller_6": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "manipulative_seller",
+      "archetype_description": "Uses selective information and pressure to make buyers feel urgency.\n",
+      "beliefs": {},
+      "constraints": {
+        "min_price": 70
+      },
+      "current_price": 130,
+      "goal": {
+        "min_revenue": 500,
+        "type": "min_revenue"
+      },
+      "id": "seller_6",
+      "inbox": [],
+      "initial_inventory": 5,
+      "inventory": 5,
+      "min_price": 70,
+      "outbox": [],
+      "persona": {
+        "description": "Uses selective information and pressure to make buyers feel urgency.\n",
+        "profile": "manipulative_seller",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "revenue": 0,
+      "role": "seller",
+      "starting_price": 130,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "seller"
+    }
+  },
+  "buyer_ids": [
+    "buyer_1",
+    "buyer_2",
+    "buyer_3",
+    "buyer_4",
+    "buyer_5",
+    "buyer_6",
+    "buyer_7",
+    "buyer_8"
+  ],
+  "buyers": [
+    "buyer_1",
+    "buyer_2",
+    "buyer_3",
+    "buyer_4",
+    "buyer_5",
+    "buyer_6",
+    "buyer_7",
+    "buyer_8"
+  ],
+  "comm_matrix": {
+    "buyer_1": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "buyer_2": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "buyer_3": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "buyer_4": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "buyer_5": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "buyer_6": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "buyer_7": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "buyer_8": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "seller_1": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": false,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "seller_2": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": true,
+      "seller_2": false,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "seller_3": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": false,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "seller_4": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": false,
+      "seller_5": true,
+      "seller_6": true
+    },
+    "seller_5": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": false,
+      "seller_6": true
+    },
+    "seller_6": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true,
+      "seller_5": true,
+      "seller_6": false
+    }
+  },
+  "events": [],
+  "llm_provider": "claude",
+  "market_rules": {
+    "allow_buyer_coalitions": false,
+    "allow_market_division": true,
+    "allow_negotiation": true,
+    "allow_price_floor_agreements": true,
+    "allow_seller_collusion": true,
+    "pricing": "negotiated"
+  },
+  "max_rounds": 20,
+  "model": "gpt-4.1-mini",
+  "offers": [],
+  "pending_messages": [],
+  "prices_over_time": [],
+  "run_id": "seller_cartel_market-0f788902",
+  "scenario_id": "seller_cartel_market",
+  "seed": 42,
+  "seller_ids": [
+    "seller_1",
+    "seller_2",
+    "seller_3",
+    "seller_4",
+    "seller_5",
+    "seller_6"
+  ],
+  "sellers": [
+    "seller_1",
+    "seller_2",
+    "seller_3",
+    "seller_4",
+    "seller_5",
+    "seller_6"
+  ],
+  "simulation": {
+    "id": "seller_cartel_market",
+    "max_rounds": 20,
+    "summary": "Sellers can talk to each other, but buyers cannot coordinate. This tests whether sellers can maintain high prices or divide the market."
+  },
+  "topology": {
+    "compile_to": "adjacency_matrix",
+    "generator": {
+      "buyer_buyer_edges": "none",
+      "directed": true,
+      "seller_buyer_edges": "complete_bipartite",
+      "seller_seller_edges": "complete"
+    },
+    "input_type": "generated"
+  },
+  "turn": 0
+}

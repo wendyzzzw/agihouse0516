@@ -1,0 +1,1090 @@
+{
+  "adapter_error": "Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-12345*7890. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}",
+  "agent_id": "seller_2",
+  "local_view": {
+    "agent": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "volume_distributor",
+      "archetype_description": "Prioritizes selling many units. Offers bulk discounts.\n",
+      "beliefs": {},
+      "constraints": {
+        "min_price": 50
+      },
+      "current_price": 95,
+      "goal": {
+        "type": "sell_all"
+      },
+      "id": "seller_2",
+      "initial_inventory": 9,
+      "inventory": 3,
+      "min_price": 50,
+      "persona": {
+        "description": "Prioritizes selling many units. Offers bulk discounts.\n",
+        "profile": "volume_distributor",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "revenue": 517,
+      "role": "seller",
+      "starting_price": 95,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "seller"
+    },
+    "market_rules": {
+      "allow_buyer_coalitions": true,
+      "allow_joint_offers": true,
+      "allow_negotiation": true,
+      "allow_price_info_sharing": true,
+      "allow_seller_collusion": false,
+      "pricing": "negotiated"
+    },
+    "model": "gpt-4.1-mini",
+    "neighbors": [
+      "buyer_1",
+      "buyer_10",
+      "buyer_11",
+      "buyer_12",
+      "buyer_2",
+      "buyer_3",
+      "buyer_4",
+      "buyer_5",
+      "buyer_6",
+      "buyer_7",
+      "buyer_8",
+      "buyer_9"
+    ],
+    "offers": [
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "id": "c7add87e",
+        "price": 70,
+        "quantity": 1,
+        "status": "accepted",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_5",
+        "id": "5dfad323",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "id": "c77efbf5",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "id": "b3746dd2",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "id": "4b46bd75",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "id": "c2df5f90",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "id": "f0a896de",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "id": "bdac8fe6",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "id": "16030b87",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "id": "d8129f52",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "id": "210e8e0d",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "id": "efe20828",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_5",
+        "id": "44f42598",
+        "price": 81,
+        "quantity": 1,
+        "status": "accepted",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "id": "190ae3a3",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "id": "19c55467",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "id": "ecff0ad9",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "id": "33833ddd",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "id": "3ffec3ef",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "id": "a6cda846",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "id": "b38f0354",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_5",
+        "id": "719358c9",
+        "price": 81,
+        "quantity": 1,
+        "status": "accepted",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "id": "55b8c49b",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "id": "e4d58d11",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "id": "d0dd8f53",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "id": "a565ebc5",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "id": "c8e8346e",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "id": "dc902185",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "id": "93503c96",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "id": "5ead9806",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "id": "11571ef7",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "id": "0ea01a86",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "id": "6ff2e161",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "id": "a9c8038c",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "id": "7af3d442",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "id": "17de989e",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "id": "e4c6e891",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "id": "6ab3c156",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "id": "ff77327f",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "id": "e0a9ccbb",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "id": "5daf1797",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 5
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "id": "ba4915d9",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 5
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "id": "0dbe4daa",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 5
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "id": "429d88ca",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 5
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "id": "fe1ba5ec",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 5
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "id": "1c0195f4",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 5
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "id": "29994d97",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 5
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "id": "8c64e7dc",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 5
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "id": "9f73a7f3",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 5
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "id": "05324872",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 6
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "id": "21264a71",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 6
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "id": "1d367f9f",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 6
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "id": "13e9857d",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 6
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "id": "9fe82dfa",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 6
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "id": "0b9449cd",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 6
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "id": "2bc0ebad",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 6
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "id": "a8e6ad2a",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 6
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "id": "a9961f26",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 6
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "id": "84f16e5a",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 7
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "id": "4ec39a12",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 7
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "id": "9bc83caf",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 7
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "id": "2208c4ad",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 7
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "id": "65e6bf59",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 7
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "id": "a26f8e0a",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 7
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "id": "80876dc5",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 7
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "id": "e0631261",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 7
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "id": "7c03527a",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 7
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "id": "499dc399",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 8
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "id": "205c8e95",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 8
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "id": "8ee1ff9b",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 8
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "id": "06608cd1",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 8
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "id": "65e2ab3b",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 8
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "id": "cc494486",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 8
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "id": "e34e3fb6",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 8
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "id": "d49eb04c",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 8
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "id": "2079fdf9",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 8
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "id": "439280f2",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 9
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "id": "2d45e063",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 9
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "id": "62ef6d0b",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 9
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "id": "fbebdcfe",
+        "price": 75,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 9
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "id": "607add91",
+        "price": 80,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 9
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "id": "957c6eb4",
+        "price": 70,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 9
+      },
+      {
+        "action": "BID",
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "id": "a063ec27",
+        "price": 81,
+        "quantity": 1,
+        "status": "open",
+        "to": "seller_2",
+        "turn": 9
+      }
+    ],
+    "sellers": {
+      "seller_2": {
+        "inventory": 3,
+        "price": 95
+      }
+    },
+    "simulation": {
+      "id": "buyer_coalition_market",
+      "max_rounds": 10,
+      "summary": "Buyers can talk to each other and form coalitions, while sellers are isolated from other sellers. This tests collective bargaining."
+    },
+    "ticks_remaining": 2,
+    "topology": {
+      "compile_to": "adjacency_matrix",
+      "generator": {
+        "buyer_buyer_edges": {
+          "bridge_edges": [
+            [
+              "buyer_3",
+              "buyer_6"
+            ],
+            [
+              "buyer_8",
+              "buyer_10"
+            ],
+            [
+              "buyer_4",
+              "buyer_12"
+            ]
+          ],
+          "clusters": [
+            [
+              "buyer_1",
+              "buyer_2",
+              "buyer_3",
+              "buyer_4"
+            ],
+            [
+              "buyer_5",
+              "buyer_6",
+              "buyer_7",
+              "buyer_8"
+            ],
+            [
+              "buyer_9",
+              "buyer_10",
+              "buyer_11",
+              "buyer_12"
+            ]
+          ],
+          "type": "clustered"
+        },
+        "directed": true,
+        "seller_buyer_edges": "complete_bipartite",
+        "seller_seller_edges": "none"
+      },
+      "input_type": "generated"
+    },
+    "turn": 9
+  },
+  "parsed_action": {
+    "action": "ACCEPT_OFFER",
+    "content": "Accepted at $81.",
+    "reasoning": "offer clears floor and advances seller goal",
+    "target": "buyer_5"
+  },
+  "post_state": {
+    "actions": [
+      "SET_PRICE",
+      "ACCEPT_OFFER",
+      "COUNTER_OFFER",
+      "REJECT_OFFER",
+      "PROBE",
+      "BROADCAST",
+      "WAIT"
+    ],
+    "archetype": "volume_distributor",
+    "archetype_description": "Prioritizes selling many units. Offers bulk discounts.\n",
+    "beliefs": {},
+    "constraints": {
+      "min_price": 50
+    },
+    "current_price": 95,
+    "goal": {
+      "type": "sell_all"
+    },
+    "id": "seller_2",
+    "initial_inventory": 9,
+    "inventory": 3,
+    "min_price": 50,
+    "persona": {
+      "description": "Prioritizes selling many units. Offers bulk discounts.\n",
+      "profile": "volume_distributor",
+      "traits": {
+        "honesty": 0.8,
+        "patience": 0.5,
+        "risk_aversion": 0.5,
+        "social": 0.5
+      }
+    },
+    "revenue": 517,
+    "role": "seller",
+    "starting_price": 95,
+    "ticks_waited": 0,
+    "tools": [],
+    "type": "seller"
+  },
+  "raw_decision": {
+    "action": "ACCEPT_OFFER",
+    "content": "Accepted at $81.",
+    "reasoning": "offer clears floor and advances seller goal",
+    "target": "buyer_5"
+  },
+  "role": "seller",
+  "system_prompt": "You are agent seller_2 in AgentArena.\n\nROLE\nYou are a seller agent. Manage inventory, protect your private floor economics, use messages strategically, and choose prices or responses that satisfy your goal.\n\nSIMULATION CONTEXT\n- Simulation: buyer_coalition_market\n- Summary: Buyers can talk to each other and form coalitions, while sellers are isolated from other sellers. This tests collective bargaining.\n- Max rounds: 10\n- Market rules: {\"allow_buyer_coalitions\": true, \"allow_joint_offers\": true, \"allow_negotiation\": true, \"allow_price_info_sharing\": true, \"allow_seller_collusion\": false, \"pricing\": \"negotiated\"}\n- Topology: {\"compile_to\": \"adjacency_matrix\", \"generator\": {\"buyer_buyer_edges\": {\"bridge_edges\": [[\"buyer_3\", \"buyer_6\"], [\"buyer_8\", \"buyer_10\"], [\"buyer_4\", \"buyer_12\"]], \"clusters\": [[\"buyer_1\", \"buyer_2\", \"buyer_3\", \"buyer_4\"], [\"buyer_5\", \"buyer_6\", \"buyer_7\", \"buyer_8\"], [\"buyer_9\", \"buyer_10\", \"buyer_11\", \"buyer_12\"]], \"type\": \"clustered\"}, \"directed\": true, \"seller_buyer_edges\": \"complete_bipartite\", \"seller_seller_edges\": \"none\"}, \"input_type\": \"generated\"}\n\nYOUR IDENTITY\n- Role: seller\n- Archetype/profile: volume_distributor\n- Description: Prioritizes selling many units. Offers bulk discounts.\n\n- Traits: {\"honesty\": 0.8, \"patience\": 0.5, \"risk_aversion\": 0.5, \"social\": 0.5}\n- Goal: {\"type\": \"sell_all\"}\n- Constraints: {\"min_price\": 50}\n\nLOCAL KNOWLEDGE RULES\n- The adjacency matrix is the communication boundary.\n- You may message only contacts listed in the user prompt.\n- You can read all historical direct messages visible to you with those contacts.\n- You cannot read private conversations between other agents unless someone tells you about them.\n- Other agents can be honest, mistaken, evasive, or deceptive.\n- Treat seller prices, inventory, and private goals as local observations, not global truth, unless the prompt explicitly marks them public.\n\nAVAILABLE ACTIONS\nPick exactly one action from this agent-specific list:\n- SET_PRICE: Change your listed price. content should include the new price.\n- ACCEPT_OFFER: Accept an available offer. target is the counterparty.\n- COUNTER_OFFER: Reject the current terms and propose new terms. target is the counterparty.\n- REJECT_OFFER: Reject an offer without buying.\n- PROBE: Ask one reachable contact for information. target and content are required.\n- BROADCAST: Send a market-facing message. In this prototype, pick one reachable target.\n- WAIT: Take no external action this turn.\n\nOUTPUT CONTRACT\nReturn strict JSON matching the schema. Use target when the action addresses another agent. Use content for any message, offer, price change, or explanation visible to another agent. Be decisive and stay in character.",
+  "turn": 9,
+  "user_prompt": "YOU ARE AGENT seller_2.\n\nPERSONA:\n  profile     = volume_distributor\n  description = Prioritizes selling many units. Offers bulk discounts.\n\n  traits      = {'honesty': 0.8, 'patience': 0.5, 'risk_aversion': 0.5, 'social': 0.5}\n\nYOUR STATE:\n  budget               = $n/a\n  ticks_waited         = 0\n  ticks_remaining      = 2\n  goal                 = {\"type\": \"sell_all\"}\n  constraints          = {\"min_price\": 50}\n\nSELLERS (currently posted prices):\n  - seller_2: $95 (3 seats left)\n\nCONTACTS you can message through the adjacency matrix: buyer_1, buyer_10, buyer_11, buyer_12, buyer_2, buyer_3, buyer_4, buyer_5, buyer_6, buyer_7, buyer_8, buyer_9\n\nLOCAL MESSAGE HISTORY (all visible direct messages, oldest first):\n  - t=1 buyer_6 -> seller_2: I can offer $70 for one item today.\n  - t=1 buyer_12 -> seller_2: I can offer $80 for one item today.\n  - t=1 buyer_11 -> seller_2: I can offer $81 for one item today.\n  - t=1 buyer_1 -> seller_2: I can offer $81 for one item today.\n  - t=1 buyer_4 -> seller_2: I can offer $70 for one item today.\n  - t=1 buyer_7 -> seller_2: I can offer $81 for one item today.\n  - t=1 buyer_9 -> seller_2: I can offer $75 for one item today.\n  - t=1 buyer_3 -> seller_2: I can offer $75 for one item today.\n  - t=1 buyer_5 -> seller_2: I can offer $81 for one item today.\n  - t=1 buyer_8 -> seller_2: I can offer $80 for one item today.\n  - t=2 buyer_8 -> seller_2: I can offer $80 for one item today.\n  - t=2 buyer_9 -> seller_2: I can offer $75 for one item today.\n  - t=2 buyer_7 -> seller_2: I can offer $81 for one item today.\n  - t=2 buyer_1 -> seller_2: I can offer $81 for one item today.\n  - t=2 buyer_4 -> seller_2: I can offer $70 for one item today.\n  - t=2 buyer_6 -> seller_2: I can offer $70 for one item today.\n  - t=2 buyer_3 -> seller_2: I can offer $75 for one item today.\n  - t=2 buyer_11 -> seller_2: I can offer $81 for one item today.\n  - t=2 buyer_5 -> seller_2: I can offer $81 for one item today.\n  - t=2 buyer_12 -> seller_2: I can offer $80 for one item today.\n  - t=3 buyer_3 -> seller_2: I can offer $75 for one item today.\n  - t=3 buyer_4 -> seller_2: I can offer $70 for one item today.\n  - t=3 buyer_8 -> seller_2: I can offer $80 for one item today.\n  - t=3 buyer_7 -> seller_2: I can offer $81 for one item today.\n  - t=3 buyer_11 -> seller_2: I can offer $81 for one item today.\n  - t=3 buyer_12 -> seller_2: I can offer $80 for one item today.\n  - t=3 buyer_6 -> seller_2: I can offer $70 for one item today.\n  - t=3 buyer_1 -> seller_2: I can offer $81 for one item today.\n  - t=3 buyer_9 -> seller_2: I can offer $75 for one item today.\n  - t=3 buyer_5 -> seller_2: I can offer $81 for one item today.\n  - t=4 buyer_6 -> seller_2: I can offer $70 for one item today.\n  - t=4 buyer_8 -> seller_2: I can offer $80 for one item today.\n  - t=4 buyer_3 -> seller_2: I can offer $75 for one item today.\n  - t=4 buyer_11 -> seller_2: I can offer $81 for one item today.\n  - t=4 buyer_9 -> seller_2: I can offer $75 for one item today.\n  - t=4 buyer_12 -> seller_2: I can offer $80 for one item today.\n  - t=4 buyer_1 -> seller_2: I can offer $81 for one item today.\n  - t=4 buyer_7 -> seller_2: I can offer $81 for one item today.\n  - t=4 buyer_4 -> seller_2: I can offer $70 for one item today.\n  - t=5 buyer_1 -> seller_2: I can offer $81 for one item today.\n  - t=5 buyer_4 -> seller_2: I can offer $70 for one item today.\n  - t=5 buyer_3 -> seller_2: I can offer $75 for one item today.\n  - t=5 buyer_11 -> seller_2: I can offer $81 for one item today.\n  - t=5 buyer_8 -> seller_2: I can offer $80 for one item today.\n  - t=5 buyer_12 -> seller_2: I can offer $80 for one item today.\n  - t=5 buyer_6 -> seller_2: I can offer $70 for one item today.\n  - t=5 buyer_9 -> seller_2: I can offer $75 for one item today.\n  - t=5 buyer_7 -> seller_2: I can offer $81 for one item today.\n  - t=6 buyer_12 -> seller_2: I can offer $80 for one item today.\n  - t=6 buyer_8 -> seller_2: I can offer $80 for one item today.\n  - t=6 buyer_3 -> seller_2: I can offer $75 for one item today.\n  - t=6 buyer_1 -> seller_2: I can offer $81 for one item today.\n  - t=6 buyer_11 -> seller_2: I can offer $81 for one item today.\n  - t=6 buyer_4 -> seller_2: I can offer $70 for one item today.\n  - t=6 buyer_9 -> seller_2: I can offer $75 for one item today.\n  - t=6 buyer_7 -> seller_2: I can offer $81 for one item today.\n  - t=6 buyer_6 -> seller_2: I can offer $70 for one item today.\n  - t=7 buyer_4 -> seller_2: I can offer $70 for one item today.\n  - t=7 buyer_8 -> seller_2: I can offer $80 for one item today.\n  - t=7 buyer_6 -> seller_2: I can offer $70 for one item today.\n  - t=7 buyer_12 -> seller_2: I can offer $80 for one item today.\n  - t=7 buyer_9 -> seller_2: I can offer $75 for one item today.\n  - t=7 buyer_7 -> seller_2: I can offer $81 for one item today.\n  - t=7 buyer_3 -> seller_2: I can offer $75 for one item today.\n  - t=7 buyer_1 -> seller_2: I can offer $81 for one item today.\n  - t=7 buyer_11 -> seller_2: I can offer $81 for one item today.\n  - t=8 buyer_9 -> seller_2: I can offer $75 for one item today.\n  - t=8 buyer_4 -> seller_2: I can offer $70 for one item today.\n  - t=8 buyer_11 -> seller_2: I can offer $81 for one item today.\n  - t=8 buyer_3 -> seller_2: I can offer $75 for one item today.\n  - t=8 buyer_6 -> seller_2: I can offer $70 for one item today.\n  - t=8 buyer_12 -> seller_2: I can offer $80 for one item today.\n  - t=8 buyer_1 -> seller_2: I can offer $81 for one item today.\n  - t=8 buyer_8 -> seller_2: I can offer $80 for one item today.\n  - t=8 buyer_7 -> seller_2: I can offer $81 for one item today.\n\nYOUR BELIEFS:\n(none yet)\n\nYOUR AVAILABLE ACTIONS THIS TURN:\nSET_PRICE, ACCEPT_OFFER, COUNTER_OFFER, REJECT_OFFER, PROBE, BROADCAST, WAIT\n\nPick ONE action. Respond with strict JSON only."
+}

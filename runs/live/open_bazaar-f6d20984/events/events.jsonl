@@ -1,0 +1,29 @@
+{"cls": "log-trade", "from": "buyer_8", "msg": "I can offer $80 for one item today.", "to": "seller_4", "turn": 1}
+{"cls": "log-trade", "from": "buyer_8", "msg": "offered $80", "to": "seller_4", "turn": 1}
+{"cls": "log-trade", "from": "buyer_6", "msg": "I can offer $81 for one item today.", "to": "seller_4", "turn": 1}
+{"cls": "log-trade", "from": "buyer_6", "msg": "offered $81", "to": "seller_4", "turn": 1}
+{"cls": "log-buy", "from": "buyer_3", "letter": "buyer_3", "msg": "BOUGHT from seller_4 at $95 (early_lock_in_buyer, 71% sat)", "price": 95, "sat": 71, "to": "seller_4", "turn": 1}
+{"cls": "log-buy", "from": "buyer_7", "letter": "buyer_7", "msg": "BOUGHT from seller_4 at $95 (loyal_buyer, 66% sat)", "price": 95, "sat": 66, "to": "seller_4", "turn": 1}
+{"cls": "log-trade", "from": "seller_4", "msg": "I cannot do $81. I can do $89.", "to": "buyer_6", "turn": 1}
+{"cls": "log-trade", "from": "seller_4", "msg": "offered $81", "to": "buyer_6", "turn": 1}
+{"cls": "log-trade", "from": "buyer_4", "msg": "I can offer $81 for one item today.", "to": "seller_4", "turn": 1}
+{"cls": "log-trade", "from": "buyer_4", "msg": "offered $81", "to": "seller_4", "turn": 1}
+{"cls": "log-buy", "from": "buyer_5", "letter": "buyer_5", "msg": "BOUGHT from seller_4 at $95 (competitive_buyer, 69% sat)", "price": 95, "sat": 69, "to": "seller_4", "turn": 1}
+{"cls": "log-buy", "from": "buyer_1", "letter": "buyer_1", "msg": "BOUGHT from seller_4 at $95 (aggressive_bargain_hunter, 65% sat)", "price": 95, "sat": 65, "to": "seller_4", "turn": 1}
+{"cls": "log-trade", "from": "buyer_2", "msg": "I can offer $70 for one item today.", "to": "seller_4", "turn": 1}
+{"cls": "log-trade", "from": "buyer_2", "msg": "offered $70", "to": "seller_4", "turn": 1}
+{"cls": "log-buy", "from": "buyer_6", "letter": "buyer_6", "msg": "BOUGHT from seller_4 at $81 (bulk_discount_hunter, 68% sat)", "price": 81, "sat": 68, "to": "seller_4", "turn": 2}
+{"cls": "log-trade", "from": "buyer_8", "msg": "I can offer $80 for one item today.", "to": "seller_4", "turn": 2}
+{"cls": "log-trade", "from": "buyer_8", "msg": "offered $80", "to": "seller_4", "turn": 2}
+{"cls": "log-buy", "from": "buyer_3", "letter": "buyer_3", "msg": "BOUGHT from seller_4 at $95 (early_lock_in_buyer, 71% sat)", "price": 95, "sat": 71, "to": "seller_4", "turn": 2}
+{"cls": "log-trade", "from": "seller_2", "msg": "seller_2 has 5 units listed at $100.", "to": "buyer_1", "turn": 2}
+{"cls": "log-trade", "from": "seller_3", "msg": "seller_3 has 4 units listed at $130.", "to": "buyer_1", "turn": 2}
+{"cls": "log-buy", "from": "buyer_7", "letter": "buyer_7", "msg": "BOUGHT from seller_4 at $95 (loyal_buyer, 66% sat)", "price": 95, "sat": 66, "to": "seller_4", "turn": 2}
+{"cls": "log-buy", "from": "buyer_5", "letter": "buyer_5", "msg": "BOUGHT from seller_2 at $100 (competitive_buyer, 68% sat)", "price": 100, "sat": 68, "to": "seller_2", "turn": 2}
+{"cls": "log-trade", "from": "seller_1", "msg": "seller_1 has 3 units listed at $140.", "to": "buyer_1", "turn": 2}
+{"cls": "log-trade", "from": "buyer_4", "msg": "I can offer $85 for one item today.", "to": "seller_2", "turn": 2}
+{"cls": "log-trade", "from": "buyer_4", "msg": "offered $85", "to": "seller_2", "turn": 2}
+{"cls": "log-trade", "from": "buyer_2", "msg": "I can offer $70 for one item today.", "to": "seller_2", "turn": 2}
+{"cls": "log-trade", "from": "buyer_2", "msg": "offered $70", "to": "seller_2", "turn": 2}
+{"cls": "log-trade", "from": "buyer_1", "msg": "I can offer $86 for one item today.", "to": "seller_2", "turn": 2}
+{"cls": "log-trade", "from": "buyer_1", "msg": "offered $86", "to": "seller_2", "turn": 2}

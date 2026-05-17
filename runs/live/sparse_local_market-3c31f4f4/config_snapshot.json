@@ -1,0 +1,361 @@
+{
+  "buyers": [
+    {
+      "archetype": "anxious_buyer",
+      "budget": 220,
+      "goal": {
+        "max_price_per_item": 120,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_1"
+    },
+    {
+      "archetype": "budget_constrained_buyer",
+      "budget": 120,
+      "goal": {
+        "max_price_per_item": 65,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_2"
+    },
+    {
+      "archetype": "information_broker",
+      "budget": 180,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_3"
+    },
+    {
+      "archetype": "loyal_buyer",
+      "budget": 210,
+      "goal": {
+        "max_price_per_item": 105,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_4"
+    },
+    {
+      "archetype": "manipulative_buyer",
+      "budget": 190,
+      "goal": {
+        "max_price_per_item": 85,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_5"
+    },
+    {
+      "archetype": "coalition_organizer",
+      "budget": 230,
+      "goal": {
+        "max_price_per_item": 90,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_6"
+    },
+    {
+      "archetype": "free_rider",
+      "budget": 170,
+      "goal": {
+        "max_price_per_item": 75,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_7"
+    },
+    {
+      "archetype": "cooperative_fair_buyer",
+      "budget": 200,
+      "goal": {
+        "max_price_per_item": 95,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_8"
+    },
+    {
+      "archetype": "silent_sniper",
+      "budget": 190,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_9"
+    },
+    {
+      "archetype": "researcher_buyer",
+      "budget": 210,
+      "goal": {
+        "max_price_per_item": 100,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_10"
+    },
+    {
+      "archetype": "price_ceiling_buyer",
+      "budget": 150,
+      "goal": {
+        "max_price_per_item": 70,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_11"
+    },
+    {
+      "archetype": "deadline_driven_buyer",
+      "budget": 230,
+      "goal": {
+        "max_price_per_item": 105,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_12"
+    },
+    {
+      "archetype": "competitive_buyer",
+      "budget": 260,
+      "goal": {
+        "max_price_per_item": 115,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_13"
+    },
+    {
+      "archetype": "contrarian_buyer",
+      "budget": 180,
+      "goal": {
+        "max_price_per_item": 85,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_14"
+    },
+    {
+      "archetype": "must_have_buyer",
+      "budget": 250,
+      "goal": {
+        "max_price_per_item": 110,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_15"
+    }
+  ],
+  "id": "sparse_local_market",
+  "market_rules": {
+    "allow_buyer_coalitions": true,
+    "allow_negotiation": true,
+    "allow_price_info_sharing": true,
+    "allow_seller_collusion": false,
+    "pricing": "negotiated"
+  },
+  "sellers": [
+    {
+      "archetype": "scarcity_pressure_seller",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_1",
+      "inventory": 4,
+      "min_price": 80,
+      "starting_price": 130
+    },
+    {
+      "archetype": "relationship_builder",
+      "goal": {
+        "min_revenue": 400,
+        "type": "min_revenue"
+      },
+      "id": "seller_2",
+      "inventory": 5,
+      "min_price": 60,
+      "starting_price": 105
+    },
+    {
+      "archetype": "market_maker",
+      "goal": {
+        "type": "sell_all"
+      },
+      "id": "seller_3",
+      "inventory": 7,
+      "min_price": 50,
+      "starting_price": 95
+    },
+    {
+      "archetype": "defensive_seller",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_4",
+      "inventory": 4,
+      "min_price": 70,
+      "starting_price": 120
+    },
+    {
+      "archetype": "clearance_specialist",
+      "goal": {
+        "type": "sell_all"
+      },
+      "id": "seller_5",
+      "inventory": 6,
+      "min_price": 45,
+      "starting_price": 90
+    }
+  ],
+  "settings": {
+    "max_rounds": 8,
+    "num_buyers": 15,
+    "num_sellers": 5
+  },
+  "summary": "A fragmented local market. Buyers can only reach nearby sellers, so some sellers have local monopoly power while others face competition.\n",
+  "topology": {
+    "compile_to": "adjacency_matrix",
+    "directed": false,
+    "edges": {
+      "buyer_buyer": [
+        [
+          "buyer_1",
+          "buyer_2"
+        ],
+        [
+          "buyer_2",
+          "buyer_3"
+        ],
+        [
+          "buyer_4",
+          "buyer_5"
+        ],
+        [
+          "buyer_6",
+          "buyer_7"
+        ],
+        [
+          "buyer_7",
+          "buyer_8"
+        ],
+        [
+          "buyer_9",
+          "buyer_10"
+        ],
+        [
+          "buyer_11",
+          "buyer_12"
+        ],
+        [
+          "buyer_13",
+          "buyer_14"
+        ],
+        [
+          "buyer_14",
+          "buyer_15"
+        ],
+        [
+          "buyer_5",
+          "buyer_10"
+        ]
+      ],
+      "seller_buyer": [
+        [
+          "seller_1",
+          "buyer_1"
+        ],
+        [
+          "seller_1",
+          "buyer_2"
+        ],
+        [
+          "seller_1",
+          "buyer_3"
+        ],
+        [
+          "seller_1",
+          "buyer_4"
+        ],
+        [
+          "seller_2",
+          "buyer_3"
+        ],
+        [
+          "seller_2",
+          "buyer_4"
+        ],
+        [
+          "seller_2",
+          "buyer_5"
+        ],
+        [
+          "seller_2",
+          "buyer_6"
+        ],
+        [
+          "seller_2",
+          "buyer_7"
+        ],
+        [
+          "seller_3",
+          "buyer_6"
+        ],
+        [
+          "seller_3",
+          "buyer_7"
+        ],
+        [
+          "seller_3",
+          "buyer_8"
+        ],
+        [
+          "seller_3",
+          "buyer_9"
+        ],
+        [
+          "seller_3",
+          "buyer_10"
+        ],
+        [
+          "seller_4",
+          "buyer_10"
+        ],
+        [
+          "seller_4",
+          "buyer_11"
+        ],
+        [
+          "seller_4",
+          "buyer_12"
+        ],
+        [
+          "seller_4",
+          "buyer_13"
+        ],
+        [
+          "seller_5",
+          "buyer_13"
+        ],
+        [
+          "seller_5",
+          "buyer_14"
+        ],
+        [
+          "seller_5",
+          "buyer_15"
+        ],
+        [
+          "seller_5",
+          "buyer_1"
+        ]
+      ],
+      "seller_seller": []
+    },
+    "input_type": "edge_list"
+  }
+}

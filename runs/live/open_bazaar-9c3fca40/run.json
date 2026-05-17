@@ -1,0 +1,14 @@
+{
+  "created_at": 1778983588.256105,
+  "current_turn": 1,
+  "error": null,
+  "llm_provider": "rule",
+  "max_rounds": 1,
+  "model": "gpt-4.1-mini",
+  "run_id": "open_bazaar-9c3fca40",
+  "scenario_id": "open_bazaar",
+  "seed": 913,
+  "speed_ms": 0,
+  "status": "completed",
+  "summary": "Every buyer can talk to every seller. Buyers cannot talk to buyers, and sellers cannot talk to sellers. This tests basic bilateral negotiation."
+}

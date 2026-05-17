@@ -1,0 +1,218 @@
+{
+  "buyers": [
+    {
+      "archetype": "coalition_organizer",
+      "budget": 220,
+      "goal": {
+        "max_price_per_item": 90,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_1"
+    },
+    {
+      "archetype": "cooperative_fair_buyer",
+      "budget": 180,
+      "goal": {
+        "max_price_per_item": 95,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_2"
+    },
+    {
+      "archetype": "information_broker",
+      "budget": 160,
+      "goal": {
+        "max_price_per_item": 75,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_3"
+    },
+    {
+      "archetype": "free_rider",
+      "budget": 170,
+      "goal": {
+        "max_price_per_item": 70,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_4"
+    },
+    {
+      "archetype": "aggressive_bargain_hunter",
+      "budget": 200,
+      "goal": {
+        "max_price_per_item": 85,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_5"
+    },
+    {
+      "archetype": "patient_value_buyer",
+      "budget": 180,
+      "goal": {
+        "max_price_per_item": 70,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_6"
+    },
+    {
+      "archetype": "fairness_enforcer",
+      "budget": 190,
+      "goal": {
+        "max_price_per_item": 90,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_7"
+    },
+    {
+      "archetype": "bulk_discount_hunter",
+      "budget": 360,
+      "goal": {
+        "max_price_per_item": 80,
+        "quantity": 4,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_8"
+    },
+    {
+      "archetype": "skeptical_buyer",
+      "budget": 150,
+      "goal": {
+        "max_price_per_item": 75,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_9"
+    },
+    {
+      "archetype": "deadline_driven_buyer",
+      "budget": 220,
+      "goal": {
+        "max_price_per_item": 100,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_10"
+    },
+    {
+      "archetype": "manipulative_buyer",
+      "budget": 200,
+      "goal": {
+        "max_price_per_item": 85,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_11"
+    },
+    {
+      "archetype": "contrarian_buyer",
+      "budget": 180,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_12"
+    }
+  ],
+  "id": "buyer_coalition_market",
+  "market_rules": {
+    "allow_buyer_coalitions": true,
+    "allow_joint_offers": true,
+    "allow_negotiation": true,
+    "allow_price_info_sharing": true,
+    "allow_seller_collusion": false,
+    "pricing": "negotiated"
+  },
+  "sellers": [
+    {
+      "archetype": "defensive_seller",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_1",
+      "inventory": 6,
+      "min_price": 65,
+      "starting_price": 115
+    },
+    {
+      "archetype": "volume_distributor",
+      "goal": {
+        "type": "sell_all"
+      },
+      "id": "seller_2",
+      "inventory": 9,
+      "min_price": 50,
+      "starting_price": 95
+    },
+    {
+      "archetype": "scarcity_pressure_seller",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_3",
+      "inventory": 4,
+      "min_price": 80,
+      "starting_price": 130
+    }
+  ],
+  "settings": {
+    "max_messages_per_round": 4,
+    "max_rounds": 7,
+    "num_buyers": 12,
+    "num_sellers": 3
+  },
+  "summary": "Buyers can talk to each other and form coalitions, while sellers are isolated from other sellers. This tests collective bargaining.\n",
+  "topology": {
+    "compile_to": "adjacency_matrix",
+    "generator": {
+      "buyer_buyer_edges": {
+        "bridge_edges": [
+          [
+            "buyer_3",
+            "buyer_6"
+          ],
+          [
+            "buyer_8",
+            "buyer_10"
+          ],
+          [
+            "buyer_4",
+            "buyer_12"
+          ]
+        ],
+        "clusters": [
+          [
+            "buyer_1",
+            "buyer_2",
+            "buyer_3",
+            "buyer_4"
+          ],
+          [
+            "buyer_5",
+            "buyer_6",
+            "buyer_7",
+            "buyer_8"
+          ],
+          [
+            "buyer_9",
+            "buyer_10",
+            "buyer_11",
+            "buyer_12"
+          ]
+        ],
+        "type": "clustered"
+      },
+      "directed": true,
+      "seller_buyer_edges": "complete_bipartite",
+      "seller_seller_edges": "none"
+    },
+    "input_type": "generated"
+  }
+}

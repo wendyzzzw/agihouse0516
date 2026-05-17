@@ -1,0 +1,14 @@
+{
+  "created_at": 1778976194.33113,
+  "current_turn": 5,
+  "error": null,
+  "llm_provider": "openai",
+  "max_rounds": 5,
+  "model": "gpt-4.1-mini",
+  "run_id": "seller_cartel_market-9492b59b",
+  "scenario_id": "seller_cartel_market",
+  "seed": 42,
+  "speed_ms": 500,
+  "status": "completed",
+  "summary": "Sellers can talk to each other, but buyers cannot coordinate. This tests whether sellers can maintain high prices or divide the market."
+}

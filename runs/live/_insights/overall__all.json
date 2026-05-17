@@ -1,0 +1,400 @@
+{
+  "analysis_version": 2,
+  "archetype_comparison": [
+    {
+      "archetype": "market_maker",
+      "avg_messages": 10.0,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 607.0,
+      "avg_surplus": 0.0,
+      "label": "Market Maker",
+      "role": "seller",
+      "samples": 1
+    },
+    {
+      "archetype": "clearance_specialist",
+      "avg_messages": 2.0,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 527.0,
+      "avg_surplus": 0.0,
+      "label": "Clearance Specialist",
+      "role": "seller",
+      "samples": 1
+    },
+    {
+      "archetype": "volume_distributor",
+      "avg_messages": 34.1,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 477.4,
+      "avg_surplus": 0.0,
+      "label": "Volume Distributor",
+      "role": "seller",
+      "samples": 7
+    },
+    {
+      "archetype": "relationship_builder",
+      "avg_messages": 27.0,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 380.0,
+      "avg_surplus": 0.0,
+      "label": "Relationship Builder",
+      "role": "seller",
+      "samples": 1
+    },
+    {
+      "archetype": "auctioneer",
+      "avg_messages": 4.0,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 230.0,
+      "avg_surplus": 0.0,
+      "label": "Auctioneer",
+      "role": "seller",
+      "samples": 2
+    },
+    {
+      "archetype": "price_matcher",
+      "avg_messages": 6.0,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 215.0,
+      "avg_surplus": 0.0,
+      "label": "Price Matcher",
+      "role": "seller",
+      "samples": 2
+    },
+    {
+      "archetype": "defensive_seller",
+      "avg_messages": 10.0,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 51.5,
+      "avg_surplus": 0.0,
+      "label": "Defensive Seller",
+      "role": "seller",
+      "samples": 4
+    },
+    {
+      "archetype": "revenue_optimizer",
+      "avg_messages": 6.0,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 47.5,
+      "avg_surplus": 0.0,
+      "label": "Revenue Optimizer",
+      "role": "seller",
+      "samples": 2
+    },
+    {
+      "archetype": "desperate_liquidator",
+      "avg_messages": 5.0,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 25.0,
+      "avg_surplus": 0.0,
+      "label": "Desperate Liquidator",
+      "role": "seller",
+      "samples": 4
+    },
+    {
+      "archetype": "premium_seller",
+      "avg_messages": 4.0,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 0.0,
+      "avg_surplus": 0.0,
+      "label": "Premium Seller",
+      "role": "seller",
+      "samples": 6
+    },
+    {
+      "archetype": "anchoring_negotiator",
+      "avg_messages": 4.2,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 0.0,
+      "avg_surplus": 0.0,
+      "label": "Anchoring Negotiator",
+      "role": "seller",
+      "samples": 4
+    },
+    {
+      "archetype": "scarcity_pressure_seller",
+      "avg_messages": 7.2,
+      "avg_purchase_rate_pct": 0.0,
+      "avg_revenue": 0.0,
+      "avg_surplus": 0.0,
+      "label": "Scarcity Pressure Seller",
+      "role": "seller",
+      "samples": 4
+    }
+  ],
+  "buyer_seller_power": [
+    {
+      "advantage": "balanced",
+      "avg_buyer_surplus": 10.0,
+      "purchase_rate_pct": 50.0,
+      "run_id": "open_bazaar-9c3fca40",
+      "scenario_id": "open_bazaar",
+      "seller_revenue": 380
+    },
+    {
+      "advantage": "seller_advantage",
+      "avg_buyer_surplus": 3.0,
+      "purchase_rate_pct": 33.3,
+      "run_id": "buyer_coalition_market-7d2fa6b2",
+      "scenario_id": "buyer_coalition_market",
+      "seller_revenue": 517
+    },
+    {
+      "advantage": "balanced",
+      "avg_buyer_surplus": 10.5,
+      "purchase_rate_pct": 62.5,
+      "run_id": "open_bazaar-f6d20984",
+      "scenario_id": "open_bazaar",
+      "seller_revenue": 751
+    },
+    {
+      "advantage": "seller_advantage",
+      "avg_buyer_surplus": 3.0,
+      "purchase_rate_pct": 33.3,
+      "run_id": "buyer_coalition_market-702c48b7",
+      "scenario_id": "buyer_coalition_market",
+      "seller_revenue": 517
+    },
+    {
+      "advantage": "balanced",
+      "avg_buyer_surplus": 5.6,
+      "purchase_rate_pct": 75.0,
+      "run_id": "seller_cartel_market-9492b59b",
+      "scenario_id": "seller_cartel_market",
+      "seller_revenue": 985
+    },
+    {
+      "advantage": "balanced",
+      "avg_buyer_surplus": 8.9,
+      "purchase_rate_pct": 73.3,
+      "run_id": "sparse_local_market-3c31f4f4",
+      "scenario_id": "sparse_local_market",
+      "seller_revenue": 1720
+    },
+    {
+      "advantage": "balanced",
+      "avg_buyer_surplus": 10.0,
+      "purchase_rate_pct": 50.0,
+      "run_id": "open_bazaar-c202f1c0",
+      "scenario_id": "open_bazaar",
+      "seller_revenue": 380
+    },
+    {
+      "advantage": "seller_advantage",
+      "avg_buyer_surplus": 3.0,
+      "purchase_rate_pct": 33.3,
+      "run_id": "buyer_coalition_market-be05117d",
+      "scenario_id": "buyer_coalition_market",
+      "seller_revenue": 517
+    },
+    {
+      "advantage": "seller_advantage",
+      "avg_buyer_surplus": 0,
+      "purchase_rate_pct": 0.0,
+      "run_id": "seller_cartel_market-0f788902",
+      "scenario_id": "seller_cartel_market",
+      "seller_revenue": 0
+    },
+    {
+      "advantage": "balanced",
+      "avg_buyer_surplus": 10.0,
+      "purchase_rate_pct": 50.0,
+      "run_id": "open_bazaar-4ea5c0d2",
+      "scenario_id": "open_bazaar",
+      "seller_revenue": 380
+    }
+  ],
+  "cache": {
+    "hit": false,
+    "path": "/Users/liyuzhang/Documents/GitHub/agihouse0516/runs/live/_insights/overall__all.json"
+  },
+  "filters": {
+    "scenario_id": null
+  },
+  "generated_at": 1778984172.1695921,
+  "overall_learnings": [
+    "Buyer Coalition Market currently has the lowest average price ($86), making it the strongest buyer-price outcome in this run set.",
+    "Sparse Local Market produces the highest seller revenue ($1720), which is the clearest seller-power signal.",
+    "Buyer Coalition Market has the most communication (82 messages), but message volume should be judged against transactions and surplus.",
+    "Across these runs, the dominant market-power label is balanced."
+  ],
+  "run_count": 10,
+  "runs": [
+    {
+      "avg_price": 95.0,
+      "headline": "Open Bazaar produced balanced with 50% buyer participation, 64 messages, and an average price of $95.",
+      "market_advantage": "balanced",
+      "price_spread": 0,
+      "purchase_rate_pct": 50.0,
+      "run_id": "open_bazaar-9c3fca40",
+      "scenario_id": "open_bazaar",
+      "seller_revenue": 380,
+      "total_messages": 64
+    },
+    {
+      "avg_price": 86.2,
+      "headline": "Buyer Coalition Market produced seller advantage with 33% buyer participation, 78 messages, and an average price of $86.",
+      "market_advantage": "seller_advantage",
+      "price_spread": 25,
+      "purchase_rate_pct": 33.3,
+      "run_id": "buyer_coalition_market-7d2fa6b2",
+      "scenario_id": "buyer_coalition_market",
+      "seller_revenue": 517,
+      "total_messages": 78
+    },
+    {
+      "avg_price": 93.9,
+      "headline": "Open Bazaar produced balanced with 62% buyer participation, 12 messages, and an average price of $94.",
+      "market_advantage": "balanced",
+      "price_spread": 19,
+      "purchase_rate_pct": 62.5,
+      "run_id": "open_bazaar-f6d20984",
+      "scenario_id": "open_bazaar",
+      "seller_revenue": 751,
+      "total_messages": 12
+    },
+    {
+      "avg_price": 86.2,
+      "headline": "Buyer Coalition Market produced seller advantage with 33% buyer participation, 56 messages, and an average price of $86.",
+      "market_advantage": "seller_advantage",
+      "price_spread": 25,
+      "purchase_rate_pct": 33.3,
+      "run_id": "buyer_coalition_market-702c48b7",
+      "scenario_id": "buyer_coalition_market",
+      "seller_revenue": 517,
+      "total_messages": 56
+    },
+    {
+      "avg_price": 109.4,
+      "headline": "Seller Cartel Market produced balanced with 75% buyer participation, 37 messages, and an average price of $109.",
+      "market_advantage": "balanced",
+      "price_spread": 30,
+      "purchase_rate_pct": 75.0,
+      "run_id": "seller_cartel_market-9492b59b",
+      "scenario_id": "seller_cartel_market",
+      "seller_revenue": 985,
+      "total_messages": 37
+    },
+    {
+      "avg_price": 90.5,
+      "headline": "Sparse Local Market produced balanced with 73% buyer participation, 70 messages, and an average price of $90.",
+      "market_advantage": "balanced",
+      "price_spread": 28,
+      "purchase_rate_pct": 73.3,
+      "run_id": "sparse_local_market-3c31f4f4",
+      "scenario_id": "sparse_local_market",
+      "seller_revenue": 1720,
+      "total_messages": 70
+    },
+    {
+      "avg_price": 95.0,
+      "headline": "Open Bazaar produced balanced with 50% buyer participation, 5 messages, and an average price of $95.",
+      "market_advantage": "balanced",
+      "price_spread": 0,
+      "purchase_rate_pct": 50.0,
+      "run_id": "open_bazaar-c202f1c0",
+      "scenario_id": "open_bazaar",
+      "seller_revenue": 380,
+      "total_messages": 5
+    },
+    {
+      "avg_price": 86.2,
+      "headline": "Buyer Coalition Market produced seller advantage with 33% buyer participation, 111 messages, and an average price of $86.",
+      "market_advantage": "seller_advantage",
+      "price_spread": 25,
+      "purchase_rate_pct": 33.3,
+      "run_id": "buyer_coalition_market-be05117d",
+      "scenario_id": "buyer_coalition_market",
+      "seller_revenue": 517,
+      "total_messages": 111
+    },
+    {
+      "avg_price": 0,
+      "headline": "Seller Cartel Market produced seller advantage with 0% buyer participation, 16 messages, and an average price of $0.",
+      "market_advantage": "seller_advantage",
+      "price_spread": 0,
+      "purchase_rate_pct": 0.0,
+      "run_id": "seller_cartel_market-0f788902",
+      "scenario_id": "seller_cartel_market",
+      "seller_revenue": 0,
+      "total_messages": 16
+    },
+    {
+      "avg_price": 95.0,
+      "headline": "Open Bazaar produced balanced with 50% buyer participation, 5 messages, and an average price of $95.",
+      "market_advantage": "balanced",
+      "price_spread": 0,
+      "purchase_rate_pct": 50.0,
+      "run_id": "open_bazaar-4ea5c0d2",
+      "scenario_id": "open_bazaar",
+      "seller_revenue": 380,
+      "total_messages": 5
+    }
+  ],
+  "scenario_comparison": [
+    {
+      "avg_buyer_surplus": 3.0,
+      "avg_goal_completion_pct": 25.0,
+      "avg_messages": 81.7,
+      "avg_messages_per_transaction": 13.6,
+      "avg_price": 86.2,
+      "avg_price_spread": 25.0,
+      "avg_purchase_rate_pct": 33.3,
+      "avg_seller_revenue": 517.0,
+      "dominant_advantage": "seller_advantage",
+      "headline": "Buyer Coalition Market averages $86, 33% buyer participation, $517 seller revenue, and seller advantage.",
+      "run_count": 3,
+      "scenario_id": "buyer_coalition_market",
+      "scenario_name": "Buyer Coalition Market",
+      "setup_type": "buyer_coalition"
+    },
+    {
+      "avg_buyer_surplus": 10.1,
+      "avg_goal_completion_pct": 9.4,
+      "avg_messages": 21.5,
+      "avg_messages_per_transaction": 5.0,
+      "avg_price": 94.7,
+      "avg_price_spread": 4.8,
+      "avg_purchase_rate_pct": 53.1,
+      "avg_seller_revenue": 472.8,
+      "dominant_advantage": "balanced",
+      "headline": "Open Bazaar averages $95, 53% buyer participation, $473 seller revenue, and balanced.",
+      "run_count": 4,
+      "scenario_id": "open_bazaar",
+      "scenario_name": "Open Bazaar",
+      "setup_type": "open_bazaar"
+    },
+    {
+      "avg_buyer_surplus": 2.8,
+      "avg_goal_completion_pct": 25.0,
+      "avg_messages": 26.5,
+      "avg_messages_per_transaction": 10.1,
+      "avg_price": 109.4,
+      "avg_price_spread": 15.0,
+      "avg_purchase_rate_pct": 37.5,
+      "avg_seller_revenue": 492.5,
+      "dominant_advantage": "balanced",
+      "headline": "Seller Cartel Market averages $109, 38% buyer participation, $492 seller revenue, and balanced.",
+      "run_count": 2,
+      "scenario_id": "seller_cartel_market",
+      "scenario_name": "Seller Cartel Market",
+      "setup_type": "seller_cartel"
+    },
+    {
+      "avg_buyer_surplus": 8.9,
+      "avg_goal_completion_pct": 60.0,
+      "avg_messages": 70.0,
+      "avg_messages_per_transaction": 3.7,
+      "avg_price": 90.5,
+      "avg_price_spread": 28.0,
+      "avg_purchase_rate_pct": 73.3,
+      "avg_seller_revenue": 1720.0,
+      "dominant_advantage": "balanced",
+      "headline": "Sparse Local Market averages $90, 73% buyer participation, $1720 seller revenue, and balanced.",
+      "run_count": 1,
+      "scenario_id": "sparse_local_market",
+      "scenario_name": "Sparse Local Market",
+      "setup_type": "sparse_local"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "c0a3301c", "recipient": "seller_4", "sender": "buyer_6", "turn": 1}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "13922d23", "recipient": "seller_4", "sender": "buyer_2", "turn": 1}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "b3c5a791", "recipient": "seller_4", "sender": "buyer_4", "turn": 1}
+{"action": "COUNTER_OFFER", "content": "I cannot do $81. I can do $89.", "id": "22d7af2d", "recipient": "buyer_6", "sender": "seller_4", "turn": 1}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "7eb76e4e", "recipient": "seller_4", "sender": "buyer_8", "turn": 1}

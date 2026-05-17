@@ -83,6 +83,17 @@
     if (node) node.textContent = `Error: ${error.message || error}`;
   }
 
+  function setDescription(selector, text) {
+    const node = $(selector);
+    if (node) node.textContent = text || "";
+  }
+
+  function shortDescription(text, fallback = "") {
+    const value = String(text || fallback || "").replace(/\s+/g, " ").trim();
+    if (!value) return "";
+    return value.length > 150 ? `${value.slice(0, 147)}...` : value;
+  }
+
   function renderNav(active) {
     const nav = $(".navlinks");
     if (!nav) return;
@@ -222,13 +233,15 @@
     `).join("");
     return `
       <div class="pairwise-controls">
-        <label>
+        <label class="picker-field">
           Left run
           <select id="pair-left">${options}</select>
+          <span id="pair-left-description" class="picker-description"></span>
         </label>
-        <label>
+        <label class="picker-field">
           Right run
           <select id="pair-right">${options}</select>
+          <span id="pair-right-description" class="picker-description"></span>
         </label>
         <button id="pair-compare" type="button">Compare Pair</button>
         <button id="pair-refresh" type="button">Regenerate Pair</button>
@@ -242,10 +255,26 @@
     const left = $("#pair-left");
     const right = $("#pair-right");
     if (!left || !right) return;
+    const runsById = Object.fromEntries(runs.map(run => [run.run_id, run]));
+    const updateDescriptions = () => {
+      setDescription("#pair-left-description", describeRunPicker(runsById[left.value]));
+      setDescription("#pair-right-description", describeRunPicker(runsById[right.value]));
+    };
     const distinctIndex = runs.findIndex(run => run.scenario_id !== runs[0]?.scenario_id);
     if (runs.length > 1) right.selectedIndex = distinctIndex > 0 ? distinctIndex : 1;
+    left.addEventListener("change", updateDescriptions);
+    right.addEventListener("change", updateDescriptions);
     $("#pair-compare")?.addEventListener("click", () => loadPairwise(false));
     $("#pair-refresh")?.addEventListener("click", () => loadPairwise(true));
+    updateDescriptions();
+  }
+
+  function describeRunPicker(run) {
+    if (!run) return "";
+    const modelLabel = modelSummaryLabel(run);
+    const turn = `${fmtNumber(run.current_turn)} / ${fmtNumber(run.max_rounds)} turns`;
+    const setup = shortDescription(run.summary, labelize(run.scenario_id));
+    return `${setup} ${run.status || "unknown"}; ${turn}; ${modelLabel || "model unknown"}.`;
   }
 
   async function loadPairwise(refresh = false) {
@@ -405,19 +434,18 @@
   function fallbackModelCatalog() {
     return {
       models: [
-        { id: "rule", label: "Rule Adapter", provider: "rule", model: "rule" },
-        { id: "gpt-5.5", label: "GPT-5.5", provider: "openai", model: "gpt-5.5" },
-        { id: "gpt-4.1-mini", label: "GPT-4 Mini", provider: "openai", model: "gpt-4.1-mini" },
-        { id: "claude-opus-4.7", label: "Claude Opus 4.7", provider: "claude", model: "claude-opus-4.7" },
-        { id: "claude-haiku-4.5", label: "Claude Haiku 4.5", provider: "claude", model: "claude-haiku-4.5" },
+        { id: "gpt-5.5", label: "GPT-5.5", provider: "openai", model: "gpt-5.5", description: "High-capability OpenAI model for more strategic agents." },
+        { id: "gpt-4.1-mini", label: "GPT-4 Mini", provider: "openai", model: "gpt-4.1-mini", description: "Lower-cost OpenAI model for fast simulation demos." },
+        { id: "claude-opus-4.7", label: "Claude Opus 4.7", provider: "claude", model: "claude-opus-4.7", description: "Claude CLI high-capability model alias." },
+        { id: "claude-haiku-4.5", label: "Claude Haiku 4.5", provider: "claude", model: "claude-haiku-4.5", description: "Claude CLI fast model alias." },
       ],
       model_assignments: [
-        { id: "uniform", label: "Uniform selected model" },
-        { id: "scenario", label: "Scenario model mix" },
-        { id: "buyer_advantage", label: "Buyer advantage" },
-        { id: "seller_advantage", label: "Seller advantage" },
-        { id: "mixed_sellers", label: "Mixed seller models" },
-        { id: "buyer_advantage_mixed_sellers", label: "Strong buyers, mixed sellers" },
+        { id: "uniform", label: "Uniform selected model", description: "Every buyer and seller uses the selected provider and model." },
+        { id: "scenario", label: "Scenario model mix", description: "Use model assignments declared by the scenario, with selected model fallback." },
+        { id: "buyer_advantage", label: "Buyer advantage", description: "Buyers use the strongest OpenAI model while sellers use the fast model." },
+        { id: "seller_advantage", label: "Seller advantage", description: "Sellers use the strongest OpenAI model while buyers use the fast model." },
+        { id: "mixed_sellers", label: "Mixed seller models", description: "Buyers use the selected model while sellers rotate across real models." },
+        { id: "buyer_advantage_mixed_sellers", label: "Strong buyers, mixed sellers", description: "Strong buyers negotiate against a mixed seller model stack." },
       ],
     };
   }
@@ -435,30 +463,67 @@
     } catch (error) {
       status.textContent = "Model catalog unavailable; using built-in defaults.";
     }
-    modelSelect.innerHTML = (modelCatalog.models || []).map(model => (
+    const realModels = (modelCatalog.models || []).filter(model => (
+      model.provider !== "rule" && model.model !== "rule" && model.id !== "rule"
+    ));
+    const modelByValue = {};
+    realModels.forEach(model => {
+      modelByValue[model.model || model.id] = model;
+      modelByValue[model.id] = model;
+    });
+    const assignmentById = Object.fromEntries((modelCatalog.model_assignments || []).map(policy => [policy.id, policy]));
+    const providerDescriptions = {
+      openai: "Use the OpenAI API from the FastAPI server environment.",
+      claude: "Use the authenticated Claude CLI installed on this machine.",
+      auto: "Infer the provider from the selected model metadata.",
+    };
+    const updateProviderDescription = () => {
+      setDescription("#provider-picker-description", providerDescriptions[providerSelect.value] || "");
+    };
+    const updateModelDescription = () => {
+      const model = modelByValue[modelSelect.value] || {};
+      setDescription("#model-picker-description", shortDescription(model.description, `${model.provider || "Selected"} model: ${model.model || model.id || modelSelect.value}`));
+    };
+    const updateAssignmentDescription = () => {
+      const policy = assignmentById[assignmentSelect.value] || {};
+      setDescription("#assignment-picker-description", shortDescription(policy.description, "Choose how real models are assigned across buyers and sellers."));
+    };
+    modelSelect.innerHTML = realModels.map(model => (
       `<option value="${escapeHtml(model.model || model.id)}" data-provider="${escapeHtml(model.provider || "auto")}">${escapeHtml(model.label || model.id)}</option>`
     )).join("");
     assignmentSelect.innerHTML = (modelCatalog.model_assignments || []).map(policy => (
       `<option value="${escapeHtml(policy.id)}">${escapeHtml(policy.label || labelize(policy.id))}</option>`
     )).join("");
-    modelSelect.value = "rule";
-    providerSelect.value = "rule";
+    modelSelect.value = realModels.some(model => model.model === "gpt-4.1-mini") ? "gpt-4.1-mini" : (realModels[0]?.model || "");
+    providerSelect.value = modelSelect.selectedOptions[0]?.dataset?.provider || "openai";
     modelSelect.addEventListener("change", () => {
       const selected = modelSelect.selectedOptions[0];
       const provider = selected?.dataset?.provider || "auto";
       providerSelect.value = provider;
+      updateProviderDescription();
+      updateModelDescription();
     });
+    providerSelect.addEventListener("change", updateProviderDescription);
+    assignmentSelect.addEventListener("change", updateAssignmentDescription);
+    updateProviderDescription();
+    updateModelDescription();
+    updateAssignmentDescription();
     try {
       const payload = await api("/api/scenarios");
       select.innerHTML = (payload.scenarios || []).map(scenario => (
-        `<option value="${escapeHtml(scenario.id)}">${escapeHtml(labelize(scenario.id))}</option>`
+        `<option value="${escapeHtml(scenario.id)}">${escapeHtml(labelize(scenario.id))} - ${escapeHtml(scenario.short_description || scenario.summary || "")}</option>`
       )).join("");
       const summaryById = Object.fromEntries((payload.scenarios || []).map(s => [s.id, s.summary || ""]));
+      const shortById = Object.fromEntries((payload.scenarios || []).map(s => [s.id, s.short_description || ""]));
       const hasModelAssignmentById = Object.fromEntries((payload.scenarios || []).map(s => [s.id, Boolean(s.has_model_assignment)]));
       const updateSummary = () => {
-        setText("#scenario-summary", summaryById[select.value] || "");
+        const short = shortById[select.value] || labelize(select.value);
+        const summary = summaryById[select.value] || "";
+        setDescription("#scenario-picker-description", shortDescription(short, summary));
+        $("#scenario-summary").innerHTML = `<strong>${escapeHtml(short)}</strong><br>${escapeHtml(summary)}`;
         if (hasModelAssignmentById[select.value]) {
           assignmentSelect.value = "scenario";
+          updateAssignmentDescription();
         }
       };
       select.addEventListener("change", updateSummary);
@@ -475,8 +540,8 @@
         scenario_id: String(form.get("scenario_id") || "open_bazaar"),
         seed: Number(form.get("seed") || 42),
         max_rounds: maxRoundsRaw ? Number(maxRoundsRaw) : null,
-        llm_provider: String(form.get("llm_provider") || "rule"),
-        model: String(form.get("model") || "rule"),
+        llm_provider: String(form.get("llm_provider") || "openai"),
+        model: String(form.get("model") || "gpt-4.1-mini"),
         model_assignment: String(form.get("model_assignment") || "uniform"),
         speed_ms: Number(form.get("speed_ms") || 500),
       };
@@ -506,13 +571,18 @@
     $("#context-link").href = `context.html?run_id=${encodeURIComponent(runId)}`;
     $("#refresh-run").addEventListener("click", () => loadRunPage(runId));
     $("#recap-recompute").addEventListener("click", () => recomputeAnalysis(runId));
-    $("#message-filter").addEventListener("change", () => updateRunReplay({ fetchSnapshot: false }));
+    $("#message-filter").addEventListener("change", () => {
+      updateMessageFilterDescription();
+      updateRunReplay({ fetchSnapshot: false });
+    });
     $("#replay-turn").addEventListener("input", event => {
       window.__replayTurn = Number(event.currentTarget.value || 0);
       window.__followLatestTurn = false;
       updateRunReplay({ fetchSnapshot: true });
     });
     $("#replay-play").addEventListener("click", () => toggleReplay());
+    $("#replay-prev").addEventListener("click", () => changeReplayTurn(-1));
+    $("#replay-next").addEventListener("click", () => changeReplayTurn(1));
     $("#replay-latest").addEventListener("click", () => {
       stopReplay();
       window.__followLatestTurn = true;
@@ -700,7 +770,9 @@
     const slider = $("#replay-turn");
     slider.max = String(maxTurn);
     slider.value = String(turn);
-    $("#replay-turn-label").textContent = `Turn ${turn}`;
+    $("#replay-turn-label").textContent = `Turn ${turn} / ${maxTurn}`;
+    $("#replay-prev").disabled = turn <= 0;
+    $("#replay-next").disabled = turn >= maxTurn;
 
     let snapshot = data.snapshotsByTurn?.[turn] || (turn === Number(data.snapshot.current_turn || 0) ? data.snapshot : null);
     if (!snapshot && fetchSnapshot) {
@@ -750,6 +822,15 @@
     ].map(value => `<span class="badge">${escapeHtml(value)}</span>`).join("");
   }
 
+  function changeReplayTurn(delta) {
+    stopReplay();
+    const maxTurn = Number(window.__replayMaxTurn || 0);
+    const next = Math.max(0, Math.min(Number(window.__replayTurn || 0) + delta, maxTurn));
+    window.__replayTurn = next;
+    window.__followLatestTurn = false;
+    updateRunReplay({ fetchSnapshot: true });
+  }
+
   function toggleReplay() {
     if (replayTimer) {
       stopReplay();
@@ -789,6 +870,17 @@
       `<option value="${escapeHtml(player.id)}">${escapeHtml(player.id)}</option>`
     )).join("");
     select.value = [...select.options].some(option => option.value === previous) ? previous : "all";
+    updateMessageFilterDescription();
+  }
+
+  function updateMessageFilterDescription() {
+    const value = $("#message-filter")?.value || "all";
+    setDescription(
+      "#message-filter-description",
+      value === "all"
+        ? "Showing every directed message at the selected turn."
+        : `Showing messages sent or received by ${value} at the selected turn.`,
+    );
   }
 
   function renderPlayers(players) {

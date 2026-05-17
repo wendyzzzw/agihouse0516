@@ -1,0 +1,284 @@
+{
+  "action_schema": {
+    "additionalProperties": false,
+    "properties": {
+      "action": {
+        "enum": [
+          "SET_PRICE",
+          "ACCEPT_OFFER",
+          "COUNTER_OFFER",
+          "REJECT_OFFER",
+          "PROBE",
+          "BROADCAST",
+          "WAIT"
+        ],
+        "type": "string"
+      },
+      "content": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "reasoning": {
+        "type": "string"
+      },
+      "target": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "action",
+      "reasoning"
+    ],
+    "type": "object"
+  },
+  "agent_id": "seller_3",
+  "llm_input": {
+    "action_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "SET_PRICE",
+            "ACCEPT_OFFER",
+            "COUNTER_OFFER",
+            "REJECT_OFFER",
+            "PROBE",
+            "BROADCAST",
+            "WAIT"
+          ],
+          "type": "string"
+        },
+        "content": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reasoning": {
+          "type": "string"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "action",
+        "reasoning"
+      ],
+      "type": "object"
+    },
+    "system_prompt": "You are agent seller_3 in AgentArena.\n\nROLE\nYou are a seller agent. Manage inventory, protect your private floor economics, use messages strategically, and choose prices or responses that satisfy your goal.\n\nSIMULATION CONTEXT\n- Simulation: open_bazaar\n- Summary: Every buyer can talk to every seller. Buyers cannot talk to buyers, and sellers cannot talk to sellers. This tests basic bilateral negotiation.\n- Max rounds: 1\n- Market rules: {\"allow_buyer_coalitions\": false, \"allow_negotiation\": true, \"allow_seller_collusion\": false, \"pricing\": \"negotiated\"}\n- Topology: {\"compile_to\": \"adjacency_matrix\", \"generator\": {\"buyer_buyer_edges\": \"none\", \"directed\": true, \"seller_buyer_edges\": \"complete_bipartite\", \"seller_seller_edges\": \"none\"}, \"input_type\": \"generated\"}\n\nYOUR IDENTITY\n- Role: seller\n- Archetype/profile: anchoring_negotiator\n- Description: Starts with a high asking price to anchor buyers. Makes slow concessions.\n\n- Traits: {\"honesty\": 0.8, \"patience\": 0.5, \"risk_aversion\": 0.5, \"social\": 0.5}\n- Goal: {\"type\": \"highest_revenue\"}\n- Constraints: {\"min_price\": 75}\n\nLOCAL KNOWLEDGE RULES\n- The adjacency matrix is the communication boundary.\n- You may message only contacts listed in the user prompt.\n- You can read all historical direct messages visible to you with those contacts.\n- You cannot read private conversations between other agents unless someone tells you about them.\n- Other agents can be honest, mistaken, evasive, or deceptive.\n- Treat seller prices, inventory, and private goals as local observations, not global truth, unless the prompt explicitly marks them public.\n\nAVAILABLE ACTIONS\nPick exactly one action from this agent-specific list:\n- SET_PRICE: Change your listed price. content should include the new price.\n- ACCEPT_OFFER: Accept an available offer. target is the counterparty.\n- COUNTER_OFFER: Reject the current terms and propose new terms. target is the counterparty.\n- REJECT_OFFER: Reject an offer without buying.\n- PROBE: Ask one or more reachable contacts for information. target may be a string or a list.\n- BROADCAST: Send a market-facing message. Use a list of reachable targets, or omit target to send to all contacts.\n- WAIT: Take no external action this turn.\n\nOUTPUT CONTRACT\nReturn strict JSON matching the schema. Use target when the action addresses another agent. For message-like actions, target may be one contact id or a JSON array of contact ids; null means all reachable contacts. Use content for any message, offer, price change, or explanation visible to another agent. Be decisive and stay in character.",
+    "user_prompt": "YOU ARE AGENT seller_3.\n\nPERSONA:\n  profile     = anchoring_negotiator\n  description = Starts with a high asking price to anchor buyers. Makes slow concessions.\n\n  traits      = {'honesty': 0.8, 'patience': 0.5, 'risk_aversion': 0.5, 'social': 0.5}\n\nYOUR STATE:\n  budget               = $n/a\n  ticks_waited         = 0\n  ticks_remaining      = 1\n  goal                 = {\"type\": \"highest_revenue\"}\n  constraints          = {\"min_price\": 75}\n\nSELLERS (currently posted prices):\n  - seller_3: $130 (4 seats left)\n\nCONTACTS you can message through the adjacency matrix: buyer_1, buyer_2, buyer_3, buyer_4, buyer_5, buyer_6, buyer_7, buyer_8\n\nLOCAL MESSAGE HISTORY (all visible direct messages, oldest first):\n(none)\n\nYOUR BELIEFS:\n(none yet)\n\nYOUR AVAILABLE ACTIONS THIS TURN:\nSET_PRICE, ACCEPT_OFFER, COUNTER_OFFER, REJECT_OFFER, PROBE, BROADCAST, WAIT\n\nPick ONE action. For message-like actions, target can be one contact id or a list of contact ids from CONTACTS. Respond with strict JSON only."
+  },
+  "local_view": {
+    "agent": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "anchoring_negotiator",
+      "archetype_description": "Starts with a high asking price to anchor buyers. Makes slow concessions.\n",
+      "beliefs": {},
+      "constraints": {
+        "min_price": 75
+      },
+      "current_price": 130,
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_3",
+      "initial_inventory": 4,
+      "inventory": 4,
+      "min_price": 75,
+      "persona": {
+        "description": "Starts with a high asking price to anchor buyers. Makes slow concessions.\n",
+        "profile": "anchoring_negotiator",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "revenue": 0,
+      "role": "seller",
+      "starting_price": 130,
+      "ticks_waited": 0,
+      "tools": [],
+      "type": "seller"
+    },
+    "market_rules": {
+      "allow_buyer_coalitions": false,
+      "allow_negotiation": true,
+      "allow_seller_collusion": false,
+      "pricing": "negotiated"
+    },
+    "model": "gpt-4.1-mini",
+    "neighbors": [
+      "buyer_1",
+      "buyer_2",
+      "buyer_3",
+      "buyer_4",
+      "buyer_5",
+      "buyer_6",
+      "buyer_7",
+      "buyer_8"
+    ],
+    "offers": [],
+    "sellers": {
+      "seller_3": {
+        "inventory": 4,
+        "price": 130
+      }
+    },
+    "simulation": {
+      "id": "open_bazaar",
+      "max_rounds": 1,
+      "summary": "Every buyer can talk to every seller. Buyers cannot talk to buyers, and sellers cannot talk to sellers. This tests basic bilateral negotiation."
+    },
+    "ticks_remaining": 1,
+    "topology": {
+      "compile_to": "adjacency_matrix",
+      "generator": {
+        "buyer_buyer_edges": "none",
+        "directed": true,
+        "seller_buyer_edges": "complete_bipartite",
+        "seller_seller_edges": "none"
+      },
+      "input_type": "generated"
+    },
+    "turn": 1
+  },
+  "opening_messages": [
+    {
+      "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "message_id": "023b8491",
+      "recipient": "buyer_1"
+    },
+    {
+      "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "message_id": "a89b4d2a",
+      "recipient": "buyer_2"
+    },
+    {
+      "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "message_id": "cbd272a0",
+      "recipient": "buyer_3"
+    },
+    {
+      "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "message_id": "b3e0802c",
+      "recipient": "buyer_4"
+    },
+    {
+      "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "message_id": "0b9bc0bf",
+      "recipient": "buyer_5"
+    },
+    {
+      "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "message_id": "be4460d2",
+      "recipient": "buyer_6"
+    },
+    {
+      "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "message_id": "913c7d2a",
+      "recipient": "buyer_7"
+    },
+    {
+      "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "message_id": "ddd2b4f2",
+      "recipient": "buyer_8"
+    }
+  ],
+  "parsed_action": {
+    "action": "WAIT",
+    "content": null,
+    "reasoning": "holding current price",
+    "target": null
+  },
+  "post_state": {
+    "actions": [
+      "SET_PRICE",
+      "ACCEPT_OFFER",
+      "COUNTER_OFFER",
+      "REJECT_OFFER",
+      "PROBE",
+      "BROADCAST",
+      "WAIT"
+    ],
+    "archetype": "anchoring_negotiator",
+    "archetype_description": "Starts with a high asking price to anchor buyers. Makes slow concessions.\n",
+    "beliefs": {},
+    "constraints": {
+      "min_price": 75
+    },
+    "current_price": 130,
+    "goal": {
+      "type": "highest_revenue"
+    },
+    "id": "seller_3",
+    "initial_inventory": 4,
+    "inventory": 4,
+    "min_price": 75,
+    "persona": {
+      "description": "Starts with a high asking price to anchor buyers. Makes slow concessions.\n",
+      "profile": "anchoring_negotiator",
+      "traits": {
+        "honesty": 0.8,
+        "patience": 0.5,
+        "risk_aversion": 0.5,
+        "social": 0.5
+      }
+    },
+    "revenue": 0,
+    "role": "seller",
+    "starting_price": 130,
+    "ticks_waited": 1,
+    "tools": [],
+    "type": "seller"
+  },
+  "raw_decision": {
+    "action": "WAIT",
+    "reasoning": "holding current price"
+  },
+  "role": "seller",
+  "system_prompt": "You are agent seller_3 in AgentArena.\n\nROLE\nYou are a seller agent. Manage inventory, protect your private floor economics, use messages strategically, and choose prices or responses that satisfy your goal.\n\nSIMULATION CONTEXT\n- Simulation: open_bazaar\n- Summary: Every buyer can talk to every seller. Buyers cannot talk to buyers, and sellers cannot talk to sellers. This tests basic bilateral negotiation.\n- Max rounds: 1\n- Market rules: {\"allow_buyer_coalitions\": false, \"allow_negotiation\": true, \"allow_seller_collusion\": false, \"pricing\": \"negotiated\"}\n- Topology: {\"compile_to\": \"adjacency_matrix\", \"generator\": {\"buyer_buyer_edges\": \"none\", \"directed\": true, \"seller_buyer_edges\": \"complete_bipartite\", \"seller_seller_edges\": \"none\"}, \"input_type\": \"generated\"}\n\nYOUR IDENTITY\n- Role: seller\n- Archetype/profile: anchoring_negotiator\n- Description: Starts with a high asking price to anchor buyers. Makes slow concessions.\n\n- Traits: {\"honesty\": 0.8, \"patience\": 0.5, \"risk_aversion\": 0.5, \"social\": 0.5}\n- Goal: {\"type\": \"highest_revenue\"}\n- Constraints: {\"min_price\": 75}\n\nLOCAL KNOWLEDGE RULES\n- The adjacency matrix is the communication boundary.\n- You may message only contacts listed in the user prompt.\n- You can read all historical direct messages visible to you with those contacts.\n- You cannot read private conversations between other agents unless someone tells you about them.\n- Other agents can be honest, mistaken, evasive, or deceptive.\n- Treat seller prices, inventory, and private goals as local observations, not global truth, unless the prompt explicitly marks them public.\n\nAVAILABLE ACTIONS\nPick exactly one action from this agent-specific list:\n- SET_PRICE: Change your listed price. content should include the new price.\n- ACCEPT_OFFER: Accept an available offer. target is the counterparty.\n- COUNTER_OFFER: Reject the current terms and propose new terms. target is the counterparty.\n- REJECT_OFFER: Reject an offer without buying.\n- PROBE: Ask one or more reachable contacts for information. target may be a string or a list.\n- BROADCAST: Send a market-facing message. Use a list of reachable targets, or omit target to send to all contacts.\n- WAIT: Take no external action this turn.\n\nOUTPUT CONTRACT\nReturn strict JSON matching the schema. Use target when the action addresses another agent. For message-like actions, target may be one contact id or a JSON array of contact ids; null means all reachable contacts. Use content for any message, offer, price change, or explanation visible to another agent. Be decisive and stay in character.",
+  "turn": 1,
+  "user_prompt": "YOU ARE AGENT seller_3.\n\nPERSONA:\n  profile     = anchoring_negotiator\n  description = Starts with a high asking price to anchor buyers. Makes slow concessions.\n\n  traits      = {'honesty': 0.8, 'patience': 0.5, 'risk_aversion': 0.5, 'social': 0.5}\n\nYOUR STATE:\n  budget               = $n/a\n  ticks_waited         = 0\n  ticks_remaining      = 1\n  goal                 = {\"type\": \"highest_revenue\"}\n  constraints          = {\"min_price\": 75}\n\nSELLERS (currently posted prices):\n  - seller_3: $130 (4 seats left)\n\nCONTACTS you can message through the adjacency matrix: buyer_1, buyer_2, buyer_3, buyer_4, buyer_5, buyer_6, buyer_7, buyer_8\n\nLOCAL MESSAGE HISTORY (all visible direct messages, oldest first):\n(none)\n\nYOUR BELIEFS:\n(none yet)\n\nYOUR AVAILABLE ACTIONS THIS TURN:\nSET_PRICE, ACCEPT_OFFER, COUNTER_OFFER, REJECT_OFFER, PROBE, BROADCAST, WAIT\n\nPick ONE action. For message-like actions, target can be one contact id or a list of contact ids from CONTACTS. Respond with strict JSON only."
+}

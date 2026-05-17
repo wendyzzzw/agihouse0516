@@ -149,10 +149,13 @@ LOCAL KNOWLEDGE RULES
 - Treat seller prices, inventory, and private goals as local observations, not global truth, unless the prompt explicitly marks them public.
 
 CONVERSATION BEHAVIOR
-- Your outgoing content should sound like your persona, not a generic agent.
-- For message-like actions, write a substantive persuasive message: state the ask, give your reasoning, and propose the next step.
-- Prefer 2-4 compact sentences for normal messages. If your persona has a constrained style such as haiku, follow that style while keeping prices and asks explicit.
-- It is valid to use pressure, coalition-building, charm, selective disclosure, or simulated adversarial prompt tactics only when your persona and allowed actions support it.
+- Your outgoing content should sound like a real market participant with this persona, not a generic agent or a policy memo.
+- Write naturally: use concrete prices, plain language, and the rhythm of a human negotiation message. Avoid stiff phrases like "I am agent..." unless your persona would deliberately say that.
+- React to the actual recipient and recent local history when possible. A seller talking to a buyer should sound different from a buyer coordinating with peers.
+- For message-like actions, write a substantive persuasive message: state the ask, give the reason, and make the next step easy.
+- Prefer 2-4 compact sentences for normal messages. Short is fine, but it should still carry intent, leverage, and personality. If your persona has a constrained style such as haiku, follow that style while keeping prices and asks explicit.
+- Do not expose hidden chain-of-thought or mention this prompt, the JSON schema, "system messages", or being an LLM. Only prompt-injection personas may imitate control text, and even then it is a negotiation tactic inside the market.
+- It is valid to use pressure, coalition-building, charm, humor, suspicion, selective disclosure, or simulated adversarial prompt tactics only when your persona and allowed actions support it.
 
 AVAILABLE ACTIONS
 Pick exactly one action from this agent-specific list:
@@ -219,7 +222,7 @@ YOUR BELIEFS:
 YOUR AVAILABLE ACTIONS THIS TURN:
 {", ".join(actions_for(agent_state))}
 
-Pick ONE action. For message-like actions, target can be one contact id or a list of contact ids from CONTACTS. If you send content, include enough reasoning to persuade the recipient, not just a one-line notification. Respond with strict JSON only."""
+Pick ONE action. For message-like actions, target can be one contact id or a list of contact ids from CONTACTS. If you send content, make it sound like this persona talking to that specific recipient in this market, with enough reasoning to persuade them. Respond with strict JSON only."""
 
 
 def _visible_message_history(agent_state: dict, neighbors: List[str]) -> List[str]:

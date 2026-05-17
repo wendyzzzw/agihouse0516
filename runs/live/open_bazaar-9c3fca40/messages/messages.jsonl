@@ -1,0 +1,64 @@
+{"action": "COMMUNICATE", "content": "seller_2 has 5 units listed at $100 and is open to offers.", "id": "13c759a3", "recipient": "buyer_1", "sender": "seller_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_2 has 5 units listed at $100 and is open to offers.", "id": "28ea52c1", "recipient": "buyer_2", "sender": "seller_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_2 has 5 units listed at $100 and is open to offers.", "id": "2391b2ed", "recipient": "buyer_3", "sender": "seller_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_2 has 5 units listed at $100 and is open to offers.", "id": "55edf1ea", "recipient": "buyer_4", "sender": "seller_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_2 has 5 units listed at $100 and is open to offers.", "id": "5eedd7a8", "recipient": "buyer_5", "sender": "seller_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_2 has 5 units listed at $100 and is open to offers.", "id": "1fb8f491", "recipient": "buyer_6", "sender": "seller_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_2 has 5 units listed at $100 and is open to offers.", "id": "b4a7ccf2", "recipient": "buyer_7", "sender": "seller_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_2 has 5 units listed at $100 and is open to offers.", "id": "8925840a", "recipient": "buyer_8", "sender": "seller_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "c4177fb5", "recipient": "seller_1", "sender": "buyer_5", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "3bd3bf44", "recipient": "seller_2", "sender": "buyer_5", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "c3504bf6", "recipient": "seller_3", "sender": "buyer_5", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "5910675c", "recipient": "seller_4", "sender": "buyer_5", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_3 has 4 units listed at $130 and is open to offers.", "id": "023b8491", "recipient": "buyer_1", "sender": "seller_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_3 has 4 units listed at $130 and is open to offers.", "id": "a89b4d2a", "recipient": "buyer_2", "sender": "seller_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_3 has 4 units listed at $130 and is open to offers.", "id": "cbd272a0", "recipient": "buyer_3", "sender": "seller_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_3 has 4 units listed at $130 and is open to offers.", "id": "b3e0802c", "recipient": "buyer_4", "sender": "seller_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_3 has 4 units listed at $130 and is open to offers.", "id": "0b9bc0bf", "recipient": "buyer_5", "sender": "seller_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_3 has 4 units listed at $130 and is open to offers.", "id": "be4460d2", "recipient": "buyer_6", "sender": "seller_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_3 has 4 units listed at $130 and is open to offers.", "id": "913c7d2a", "recipient": "buyer_7", "sender": "seller_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_3 has 4 units listed at $130 and is open to offers.", "id": "ddd2b4f2", "recipient": "buyer_8", "sender": "seller_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "e4631240", "recipient": "seller_1", "sender": "buyer_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "bdf29f27", "recipient": "seller_2", "sender": "buyer_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "87859fa0", "recipient": "seller_3", "sender": "buyer_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "7fe83371", "recipient": "seller_4", "sender": "buyer_3", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_4 has 5 units listed at $95 and is open to offers.", "id": "9e24b67a", "recipient": "buyer_1", "sender": "seller_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_4 has 5 units listed at $95 and is open to offers.", "id": "ed96a600", "recipient": "buyer_2", "sender": "seller_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_4 has 5 units listed at $95 and is open to offers.", "id": "cc8d5a25", "recipient": "buyer_3", "sender": "seller_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_4 has 5 units listed at $95 and is open to offers.", "id": "83454397", "recipient": "buyer_4", "sender": "seller_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_4 has 5 units listed at $95 and is open to offers.", "id": "fe6e8c4d", "recipient": "buyer_5", "sender": "seller_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_4 has 5 units listed at $95 and is open to offers.", "id": "e79abe5f", "recipient": "buyer_6", "sender": "seller_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_4 has 5 units listed at $95 and is open to offers.", "id": "b49159e2", "recipient": "buyer_7", "sender": "seller_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_4 has 5 units listed at $95 and is open to offers.", "id": "5a6de6a7", "recipient": "buyer_8", "sender": "seller_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "7a513452", "recipient": "seller_1", "sender": "buyer_7", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "7b7b6618", "recipient": "seller_2", "sender": "buyer_7", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "e160bf93", "recipient": "seller_3", "sender": "buyer_7", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "1bd900dc", "recipient": "seller_4", "sender": "buyer_7", "turn": 1}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "2f51d936", "recipient": "seller_4", "sender": "buyer_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "1afe1088", "recipient": "seller_1", "sender": "buyer_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "901780c1", "recipient": "seller_2", "sender": "buyer_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "3455bb99", "recipient": "seller_3", "sender": "buyer_4", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_1 has 3 units listed at $140 and is open to offers.", "id": "110f41e4", "recipient": "buyer_1", "sender": "seller_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_1 has 3 units listed at $140 and is open to offers.", "id": "34008e39", "recipient": "buyer_2", "sender": "seller_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_1 has 3 units listed at $140 and is open to offers.", "id": "62f5ba83", "recipient": "buyer_3", "sender": "seller_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_1 has 3 units listed at $140 and is open to offers.", "id": "dab4214d", "recipient": "buyer_4", "sender": "seller_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_1 has 3 units listed at $140 and is open to offers.", "id": "abd92ee6", "recipient": "buyer_5", "sender": "seller_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_1 has 3 units listed at $140 and is open to offers.", "id": "eb65ff2e", "recipient": "buyer_6", "sender": "seller_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_1 has 3 units listed at $140 and is open to offers.", "id": "9b4f178c", "recipient": "buyer_7", "sender": "seller_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "seller_1 has 3 units listed at $140 and is open to offers.", "id": "296b3a47", "recipient": "buyer_8", "sender": "seller_1", "turn": 1}
+{"action": "BID", "content": "I can offer $81 for one item today.", "id": "52b66e1f", "recipient": "seller_4", "sender": "buyer_6", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "95bfe650", "recipient": "seller_1", "sender": "buyer_6", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "93354366", "recipient": "seller_2", "sender": "buyer_6", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "8191059c", "recipient": "seller_3", "sender": "buyer_6", "turn": 1}
+{"action": "BID", "content": "I can offer $80 for one item today.", "id": "7cc8cfc9", "recipient": "seller_4", "sender": "buyer_8", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "d6d5299d", "recipient": "seller_1", "sender": "buyer_8", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "f25bbbf3", "recipient": "seller_2", "sender": "buyer_8", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "ced1925c", "recipient": "seller_3", "sender": "buyer_8", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "6460d02f", "recipient": "seller_1", "sender": "buyer_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "cb4bdd9d", "recipient": "seller_2", "sender": "buyer_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "87d06fb7", "recipient": "seller_3", "sender": "buyer_1", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "9a6d1970", "recipient": "seller_4", "sender": "buyer_1", "turn": 1}
+{"action": "BID", "content": "I can offer $70 for one item today.", "id": "737db730", "recipient": "seller_4", "sender": "buyer_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "980ec180", "recipient": "seller_1", "sender": "buyer_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "c31e4948", "recipient": "seller_2", "sender": "buyer_2", "turn": 1}
+{"action": "COMMUNICATE", "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?", "id": "8ce734ec", "recipient": "seller_3", "sender": "buyer_2", "turn": 1}

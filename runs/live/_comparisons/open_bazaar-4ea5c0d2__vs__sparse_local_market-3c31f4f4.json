@@ -1,0 +1,134 @@
+{
+  "analysis_version": 2,
+  "cache": {
+    "hit": false,
+    "path": "/Users/liyuzhang/Documents/GitHub/agihouse0516/runs/live/_comparisons/open_bazaar-4ea5c0d2__vs__sparse_local_market-3c31f4f4.json"
+  },
+  "generated_at": 1778979433.424681,
+  "left": {
+    "advantage": "balanced",
+    "current_turn": 1,
+    "headline": "Open Bazaar produced balanced with 50% buyer participation, 5 messages, and an average price of $95.",
+    "run_id": "open_bazaar-4ea5c0d2",
+    "scenario_id": "open_bazaar",
+    "scenario_name": "Open Bazaar",
+    "setup_type": "open_bazaar"
+  },
+  "metric_deltas": [
+    {
+      "delta": -4.5,
+      "direction": "right_better",
+      "label": "Avg price",
+      "left": 95.0,
+      "right": 90.5,
+      "seller_favorable": false,
+      "unit": "money"
+    },
+    {
+      "delta": 28,
+      "direction": "left_better",
+      "label": "Price spread",
+      "left": 0,
+      "right": 28,
+      "seller_favorable": false,
+      "unit": "money"
+    },
+    {
+      "delta": 23.3,
+      "direction": "right_better",
+      "label": "Purchase rate",
+      "left": 50.0,
+      "right": 73.3,
+      "seller_favorable": false,
+      "unit": "pct"
+    },
+    {
+      "delta": 60.0,
+      "direction": "right_better",
+      "label": "Goal completion",
+      "left": 0.0,
+      "right": 60.0,
+      "seller_favorable": false,
+      "unit": "pct"
+    },
+    {
+      "delta": 1340,
+      "direction": "right_better",
+      "label": "Seller revenue",
+      "left": 380,
+      "right": 1720,
+      "seller_favorable": true,
+      "unit": "money"
+    },
+    {
+      "delta": -1.1,
+      "direction": "left_better",
+      "label": "Buyer surplus",
+      "left": 10.0,
+      "right": 8.9,
+      "seller_favorable": false,
+      "unit": "money"
+    },
+    {
+      "delta": 65,
+      "direction": "neutral",
+      "label": "Total messages",
+      "left": 5,
+      "right": 70,
+      "seller_favorable": false,
+      "unit": "count"
+    },
+    {
+      "delta": 2.43,
+      "direction": "left_better",
+      "label": "Messages / transaction",
+      "left": 1.25,
+      "right": 3.68,
+      "seller_favorable": false,
+      "unit": "count"
+    }
+  ],
+  "right": {
+    "advantage": "balanced",
+    "current_turn": 10,
+    "headline": "Sparse Local Market produced balanced with 73% buyer participation, 70 messages, and an average price of $90.",
+    "run_id": "sparse_local_market-3c31f4f4",
+    "scenario_id": "sparse_local_market",
+    "scenario_name": "Sparse Local Market",
+    "setup_type": "sparse_local"
+  },
+  "setup_differences": [
+    {
+      "label": "Scenario",
+      "left": "open_bazaar",
+      "right": "sparse_local_market"
+    },
+    {
+      "label": "Setup type",
+      "left": "open_bazaar",
+      "right": "sparse_local"
+    },
+    {
+      "label": "Buyer-buyer edges",
+      "left": 0,
+      "right": 10
+    },
+    {
+      "label": "Buyer-seller reach",
+      "left": 100.0,
+      "right": 29.3
+    },
+    {
+      "label": "Provider",
+      "left": "rule",
+      "right": "openai"
+    }
+  ],
+  "summary": "Sparse Local Market (sparse_local_market-3c31f4f4) compared with Open Bazaar (open_bazaar-4ea5c0d2): price delta $-4.5, purchase-rate delta 23.3 points, seller-revenue delta $1340.0.",
+  "takeaways": [
+    "Right run produced lower average prices by $4.5.",
+    "Right run allocated to 23.3 more percentage points of buyers.",
+    "Right run generated $1340.0 more seller revenue.",
+    "Setup changed from Open Bazaar to Sparse Local, so read deltas as market-structure effects, not just run noise."
+  ]
+}

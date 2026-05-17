@@ -1,0 +1,2520 @@
+{
+  "agents": {
+    "buyer_1": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "aggressive_bargain_hunter",
+      "beliefs": {},
+      "bought": false,
+      "budget": 125,
+      "constraints": {
+        "max_budget": 220,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 95,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_1",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 4,
+      "outbox": [
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "6460d02f",
+          "recipient": "seller_1",
+          "sender": "buyer_1",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "cb4bdd9d",
+          "recipient": "seller_2",
+          "sender": "buyer_1",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "87d06fb7",
+          "recipient": "seller_3",
+          "sender": "buyer_1",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "9a6d1970",
+          "recipient": "seller_4",
+          "sender": "buyer_1",
+          "turn": 1
+        }
+      ],
+      "persona": {
+        "description": "Opens with low offers and pushes hard for the lowest price.\n",
+        "profile": "budget",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "budget",
+      "purchase_price": 95,
+      "purchase_seller": "seller_4",
+      "satisfaction": 65,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_2": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "patient_value_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 180,
+      "constraints": {
+        "max_budget": 180,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 70,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_2",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 4,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "737db730",
+          "recipient": "seller_4",
+          "sender": "buyer_2",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "980ec180",
+          "recipient": "seller_1",
+          "sender": "buyer_2",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "c31e4948",
+          "recipient": "seller_2",
+          "sender": "buyer_2",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "8ce734ec",
+          "recipient": "seller_3",
+          "sender": "buyer_2",
+          "turn": 1
+        }
+      ],
+      "persona": {
+        "description": "Waits for attractive prices and is happy to walk away.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_3": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "early_lock_in_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 185,
+      "constraints": {
+        "max_budget": 280,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 115,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_3",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 4,
+      "outbox": [
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "e4631240",
+          "recipient": "seller_1",
+          "sender": "buyer_3",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "bdf29f27",
+          "recipient": "seller_2",
+          "sender": "buyer_3",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "87859fa0",
+          "recipient": "seller_3",
+          "sender": "buyer_3",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "7fe83371",
+          "recipient": "seller_4",
+          "sender": "buyer_3",
+          "turn": 1
+        }
+      ],
+      "persona": {
+        "description": "Wants certainty and buys early.\n",
+        "profile": "family",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "family",
+      "purchase_price": 95,
+      "purchase_seller": "seller_4",
+      "satisfaction": 71,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_4": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "skeptical_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 160,
+      "constraints": {
+        "max_budget": 160,
+        "target_quantity": 1
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 85,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_4",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 4,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "2f51d936",
+          "recipient": "seller_4",
+          "sender": "buyer_4",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "1afe1088",
+          "recipient": "seller_1",
+          "sender": "buyer_4",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "901780c1",
+          "recipient": "seller_2",
+          "sender": "buyer_4",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "3455bb99",
+          "recipient": "seller_3",
+          "sender": "buyer_4",
+          "turn": 1
+        }
+      ],
+      "persona": {
+        "description": "Distrusts sellers and demands justification.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_5": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "competitive_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 145,
+      "constraints": {
+        "max_budget": 240,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 110,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_5",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 4,
+      "outbox": [
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "c4177fb5",
+          "recipient": "seller_1",
+          "sender": "buyer_5",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "3bd3bf44",
+          "recipient": "seller_2",
+          "sender": "buyer_5",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "c3504bf6",
+          "recipient": "seller_3",
+          "sender": "buyer_5",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "5910675c",
+          "recipient": "seller_4",
+          "sender": "buyer_5",
+          "turn": 1
+        }
+      ],
+      "persona": {
+        "description": "Wants to beat other buyers to good deals.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": 95,
+      "purchase_seller": "seller_4",
+      "satisfaction": 69,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_6": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "bulk_discount_hunter",
+      "beliefs": {},
+      "bought": false,
+      "budget": 360,
+      "constraints": {
+        "max_budget": 360,
+        "target_quantity": 4
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 90,
+        "quantity": 4,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_6",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 4,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "52b66e1f",
+          "recipient": "seller_4",
+          "sender": "buyer_6",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "95bfe650",
+          "recipient": "seller_1",
+          "sender": "buyer_6",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "93354366",
+          "recipient": "seller_2",
+          "sender": "buyer_6",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "8191059c",
+          "recipient": "seller_3",
+          "sender": "buyer_6",
+          "turn": 1
+        }
+      ],
+      "persona": {
+        "description": "Prefers buying many units in exchange for lower unit prices.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_7": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "loyal_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 105,
+      "constraints": {
+        "max_budget": 200,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 100,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_7",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 4,
+      "outbox": [
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "7a513452",
+          "recipient": "seller_1",
+          "sender": "buyer_7",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "7b7b6618",
+          "recipient": "seller_2",
+          "sender": "buyer_7",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "e160bf93",
+          "recipient": "seller_3",
+          "sender": "buyer_7",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "1bd900dc",
+          "recipient": "seller_4",
+          "sender": "buyer_7",
+          "turn": 1
+        }
+      ],
+      "persona": {
+        "description": "Prefers trusted or cooperative sellers.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": 95,
+      "purchase_seller": "seller_4",
+      "satisfaction": 66,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_8": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "last_minute_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 190,
+      "constraints": {
+        "max_budget": 190,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_8",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 4,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "7cc8cfc9",
+          "recipient": "seller_4",
+          "sender": "buyer_8",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "d6d5299d",
+          "recipient": "seller_1",
+          "sender": "buyer_8",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "f25bbbf3",
+          "recipient": "seller_2",
+          "sender": "buyer_8",
+          "turn": 1
+        },
+        {
+          "action": "COMMUNICATE",
+          "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+          "id": "ced1925c",
+          "recipient": "seller_3",
+          "sender": "buyer_8",
+          "turn": 1
+        }
+      ],
+      "persona": {
+        "description": "Waits until late rounds, hoping sellers become desperate.\n",
+        "profile": "budget",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "budget",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    }
+  },
+  "comm_matrix": {
+    "buyer_1": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true
+    },
+    "buyer_2": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true
+    },
+    "buyer_3": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true
+    },
+    "buyer_4": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true
+    },
+    "buyer_5": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true
+    },
+    "buyer_6": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true
+    },
+    "buyer_7": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true
+    },
+    "buyer_8": {
+      "buyer_1": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true,
+      "seller_4": true
+    },
+    "seller_1": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": false,
+      "seller_2": false,
+      "seller_3": false,
+      "seller_4": false
+    },
+    "seller_2": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": false,
+      "seller_2": false,
+      "seller_3": false,
+      "seller_4": false
+    },
+    "seller_3": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": false,
+      "seller_2": false,
+      "seller_3": false,
+      "seller_4": false
+    },
+    "seller_4": {
+      "buyer_1": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "seller_1": false,
+      "seller_2": false,
+      "seller_3": false,
+      "seller_4": false
+    }
+  },
+  "conversations": {
+    "buyer_1<->seller_1": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_1",
+        "to": "seller_1",
+        "turn": 1
+      },
+      {
+        "content": "seller_1 has 3 units listed at $140 and is open to offers.",
+        "from": "seller_1",
+        "to": "buyer_1",
+        "turn": 1
+      }
+    ],
+    "buyer_1<->seller_2": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_1",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "seller_2 has 5 units listed at $100 and is open to offers.",
+        "from": "seller_2",
+        "to": "buyer_1",
+        "turn": 1
+      }
+    ],
+    "buyer_1<->seller_3": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_1",
+        "to": "seller_3",
+        "turn": 1
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+        "from": "seller_3",
+        "to": "buyer_1",
+        "turn": 1
+      }
+    ],
+    "buyer_1<->seller_4": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_1",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "content": "seller_4 has 5 units listed at $95 and is open to offers.",
+        "from": "seller_4",
+        "to": "buyer_1",
+        "turn": 1
+      }
+    ],
+    "buyer_2<->seller_1": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_2",
+        "to": "seller_1",
+        "turn": 1
+      },
+      {
+        "content": "seller_1 has 3 units listed at $140 and is open to offers.",
+        "from": "seller_1",
+        "to": "buyer_2",
+        "turn": 1
+      }
+    ],
+    "buyer_2<->seller_2": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_2",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "seller_2 has 5 units listed at $100 and is open to offers.",
+        "from": "seller_2",
+        "to": "buyer_2",
+        "turn": 1
+      }
+    ],
+    "buyer_2<->seller_3": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_2",
+        "to": "seller_3",
+        "turn": 1
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+        "from": "seller_3",
+        "to": "buyer_2",
+        "turn": 1
+      }
+    ],
+    "buyer_2<->seller_4": [
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_2",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "content": "seller_4 has 5 units listed at $95 and is open to offers.",
+        "from": "seller_4",
+        "to": "buyer_2",
+        "turn": 1
+      }
+    ],
+    "buyer_3<->seller_1": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_3",
+        "to": "seller_1",
+        "turn": 1
+      },
+      {
+        "content": "seller_1 has 3 units listed at $140 and is open to offers.",
+        "from": "seller_1",
+        "to": "buyer_3",
+        "turn": 1
+      }
+    ],
+    "buyer_3<->seller_2": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_3",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "seller_2 has 5 units listed at $100 and is open to offers.",
+        "from": "seller_2",
+        "to": "buyer_3",
+        "turn": 1
+      }
+    ],
+    "buyer_3<->seller_3": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_3",
+        "to": "seller_3",
+        "turn": 1
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+        "from": "seller_3",
+        "to": "buyer_3",
+        "turn": 1
+      }
+    ],
+    "buyer_3<->seller_4": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_3",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "content": "seller_4 has 5 units listed at $95 and is open to offers.",
+        "from": "seller_4",
+        "to": "buyer_3",
+        "turn": 1
+      }
+    ],
+    "buyer_4<->seller_1": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_4",
+        "to": "seller_1",
+        "turn": 1
+      },
+      {
+        "content": "seller_1 has 3 units listed at $140 and is open to offers.",
+        "from": "seller_1",
+        "to": "buyer_4",
+        "turn": 1
+      }
+    ],
+    "buyer_4<->seller_2": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_4",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "seller_2 has 5 units listed at $100 and is open to offers.",
+        "from": "seller_2",
+        "to": "buyer_4",
+        "turn": 1
+      }
+    ],
+    "buyer_4<->seller_3": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_4",
+        "to": "seller_3",
+        "turn": 1
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+        "from": "seller_3",
+        "to": "buyer_4",
+        "turn": 1
+      }
+    ],
+    "buyer_4<->seller_4": [
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_4",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "content": "seller_4 has 5 units listed at $95 and is open to offers.",
+        "from": "seller_4",
+        "to": "buyer_4",
+        "turn": 1
+      }
+    ],
+    "buyer_5<->seller_1": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_5",
+        "to": "seller_1",
+        "turn": 1
+      },
+      {
+        "content": "seller_1 has 3 units listed at $140 and is open to offers.",
+        "from": "seller_1",
+        "to": "buyer_5",
+        "turn": 1
+      }
+    ],
+    "buyer_5<->seller_2": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_5",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "seller_2 has 5 units listed at $100 and is open to offers.",
+        "from": "seller_2",
+        "to": "buyer_5",
+        "turn": 1
+      }
+    ],
+    "buyer_5<->seller_3": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_5",
+        "to": "seller_3",
+        "turn": 1
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+        "from": "seller_3",
+        "to": "buyer_5",
+        "turn": 1
+      }
+    ],
+    "buyer_5<->seller_4": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_5",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "content": "seller_4 has 5 units listed at $95 and is open to offers.",
+        "from": "seller_4",
+        "to": "buyer_5",
+        "turn": 1
+      }
+    ],
+    "buyer_6<->seller_1": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_6",
+        "to": "seller_1",
+        "turn": 1
+      },
+      {
+        "content": "seller_1 has 3 units listed at $140 and is open to offers.",
+        "from": "seller_1",
+        "to": "buyer_6",
+        "turn": 1
+      }
+    ],
+    "buyer_6<->seller_2": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_6",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "seller_2 has 5 units listed at $100 and is open to offers.",
+        "from": "seller_2",
+        "to": "buyer_6",
+        "turn": 1
+      }
+    ],
+    "buyer_6<->seller_3": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_6",
+        "to": "seller_3",
+        "turn": 1
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+        "from": "seller_3",
+        "to": "buyer_6",
+        "turn": 1
+      }
+    ],
+    "buyer_6<->seller_4": [
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_6",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "content": "seller_4 has 5 units listed at $95 and is open to offers.",
+        "from": "seller_4",
+        "to": "buyer_6",
+        "turn": 1
+      }
+    ],
+    "buyer_7<->seller_1": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_7",
+        "to": "seller_1",
+        "turn": 1
+      },
+      {
+        "content": "seller_1 has 3 units listed at $140 and is open to offers.",
+        "from": "seller_1",
+        "to": "buyer_7",
+        "turn": 1
+      }
+    ],
+    "buyer_7<->seller_2": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_7",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "seller_2 has 5 units listed at $100 and is open to offers.",
+        "from": "seller_2",
+        "to": "buyer_7",
+        "turn": 1
+      }
+    ],
+    "buyer_7<->seller_3": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_7",
+        "to": "seller_3",
+        "turn": 1
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+        "from": "seller_3",
+        "to": "buyer_7",
+        "turn": 1
+      }
+    ],
+    "buyer_7<->seller_4": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_7",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "content": "seller_4 has 5 units listed at $95 and is open to offers.",
+        "from": "seller_4",
+        "to": "buyer_7",
+        "turn": 1
+      }
+    ],
+    "buyer_8<->seller_1": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_8",
+        "to": "seller_1",
+        "turn": 1
+      },
+      {
+        "content": "seller_1 has 3 units listed at $140 and is open to offers.",
+        "from": "seller_1",
+        "to": "buyer_8",
+        "turn": 1
+      }
+    ],
+    "buyer_8<->seller_2": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_8",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "seller_2 has 5 units listed at $100 and is open to offers.",
+        "from": "seller_2",
+        "to": "buyer_8",
+        "turn": 1
+      }
+    ],
+    "buyer_8<->seller_3": [
+      {
+        "content": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+        "from": "buyer_8",
+        "to": "seller_3",
+        "turn": 1
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130 and is open to offers.",
+        "from": "seller_3",
+        "to": "buyer_8",
+        "turn": 1
+      }
+    ],
+    "buyer_8<->seller_4": [
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "to": "seller_4",
+        "turn": 1
+      },
+      {
+        "content": "seller_4 has 5 units listed at $95 and is open to offers.",
+        "from": "seller_4",
+        "to": "buyer_8",
+        "turn": 1
+      }
+    ]
+  },
+  "current_turn": 1,
+  "events": [
+    {
+      "cls": "log-trade",
+      "from": "seller_2",
+      "msg": "seller_2 has 5 units listed at $100 and is open to offers.",
+      "to": "buyer_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_2",
+      "msg": "seller_2 has 5 units listed at $100 and is open to offers.",
+      "to": "buyer_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_2",
+      "msg": "seller_2 has 5 units listed at $100 and is open to offers.",
+      "to": "buyer_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_2",
+      "msg": "seller_2 has 5 units listed at $100 and is open to offers.",
+      "to": "buyer_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_2",
+      "msg": "seller_2 has 5 units listed at $100 and is open to offers.",
+      "to": "buyer_5",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_2",
+      "msg": "seller_2 has 5 units listed at $100 and is open to offers.",
+      "to": "buyer_6",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_2",
+      "msg": "seller_2 has 5 units listed at $100 and is open to offers.",
+      "to": "buyer_7",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_2",
+      "msg": "seller_2 has 5 units listed at $100 and is open to offers.",
+      "to": "buyer_8",
+      "turn": 1
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_5",
+      "letter": "buyer_5",
+      "msg": "BOUGHT from seller_4 at $95 (competitive_buyer, 69% sat)",
+      "price": 95,
+      "sat": 69,
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "to": "buyer_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "to": "buyer_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "to": "buyer_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "to": "buyer_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "to": "buyer_5",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "to": "buyer_6",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "to": "buyer_7",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130 and is open to offers.",
+      "to": "buyer_8",
+      "turn": 1
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_3",
+      "letter": "buyer_3",
+      "msg": "BOUGHT from seller_4 at $95 (early_lock_in_buyer, 71% sat)",
+      "price": 95,
+      "sat": 71,
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_4",
+      "msg": "seller_4 has 5 units listed at $95 and is open to offers.",
+      "to": "buyer_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_4",
+      "msg": "seller_4 has 5 units listed at $95 and is open to offers.",
+      "to": "buyer_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_4",
+      "msg": "seller_4 has 5 units listed at $95 and is open to offers.",
+      "to": "buyer_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_4",
+      "msg": "seller_4 has 5 units listed at $95 and is open to offers.",
+      "to": "buyer_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_4",
+      "msg": "seller_4 has 5 units listed at $95 and is open to offers.",
+      "to": "buyer_5",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_4",
+      "msg": "seller_4 has 5 units listed at $95 and is open to offers.",
+      "to": "buyer_6",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_4",
+      "msg": "seller_4 has 5 units listed at $95 and is open to offers.",
+      "to": "buyer_7",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_4",
+      "msg": "seller_4 has 5 units listed at $95 and is open to offers.",
+      "to": "buyer_8",
+      "turn": 1
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_7",
+      "letter": "buyer_7",
+      "msg": "BOUGHT from seller_4 at $95 (loyal_buyer, 66% sat)",
+      "price": 95,
+      "sat": 66,
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "offered $81",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 3 units listed at $140 and is open to offers.",
+      "to": "buyer_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 3 units listed at $140 and is open to offers.",
+      "to": "buyer_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 3 units listed at $140 and is open to offers.",
+      "to": "buyer_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 3 units listed at $140 and is open to offers.",
+      "to": "buyer_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 3 units listed at $140 and is open to offers.",
+      "to": "buyer_5",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 3 units listed at $140 and is open to offers.",
+      "to": "buyer_6",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 3 units listed at $140 and is open to offers.",
+      "to": "buyer_7",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 3 units listed at $140 and is open to offers.",
+      "to": "buyer_8",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "offered $81",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "offered $80",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_1",
+      "letter": "buyer_1",
+      "msg": "BOUGHT from seller_4 at $95 (aggressive_bargain_hunter, 65% sat)",
+      "price": 95,
+      "sat": 65,
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_3",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_2",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_2",
+      "msg": "offered $70",
+      "to": "seller_4",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_2",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_1",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_2",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_2",
+      "msg": "I am entering the market and comparing connected sellers. What is your current best price and available quantity?",
+      "to": "seller_3",
+      "turn": 1
+    }
+  ],
+  "llm_mode": "rule",
+  "players": {
+    "buyer_1": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "aggressive_bargain_hunter",
+      "archetype_description": "Opens with low offers and pushes hard for the lowest price.\n",
+      "bought": false,
+      "budget": 125,
+      "constraints": {
+        "max_budget": 220,
+        "target_quantity": 2
+      },
+      "current_price": null,
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 95,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_1",
+      "inventory": null,
+      "messages_received": 0,
+      "messages_sent": 4,
+      "neighbors": [
+        "seller_1",
+        "seller_2",
+        "seller_3",
+        "seller_4"
+      ],
+      "persona": {
+        "description": "Opens with low offers and pushes hard for the lowest price.\n",
+        "profile": "budget",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "budget",
+      "purchase_price": 95,
+      "purchase_seller": "seller_4",
+      "role": "buyer",
+      "satisfaction": 65
+    },
+    "buyer_2": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "patient_value_buyer",
+      "archetype_description": "Waits for attractive prices and is happy to walk away.\n",
+      "bought": false,
+      "budget": 180,
+      "constraints": {
+        "max_budget": 180,
+        "target_quantity": 2
+      },
+      "current_price": null,
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 70,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_2",
+      "inventory": null,
+      "messages_received": 0,
+      "messages_sent": 4,
+      "neighbors": [
+        "seller_1",
+        "seller_2",
+        "seller_3",
+        "seller_4"
+      ],
+      "persona": {
+        "description": "Waits for attractive prices and is happy to walk away.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null
+    },
+    "buyer_3": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "early_lock_in_buyer",
+      "archetype_description": "Wants certainty and buys early.\n",
+      "bought": false,
+      "budget": 185,
+      "constraints": {
+        "max_budget": 280,
+        "target_quantity": 2
+      },
+      "current_price": null,
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 115,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_3",
+      "inventory": null,
+      "messages_received": 0,
+      "messages_sent": 4,
+      "neighbors": [
+        "seller_1",
+        "seller_2",
+        "seller_3",
+        "seller_4"
+      ],
+      "persona": {
+        "description": "Wants certainty and buys early.\n",
+        "profile": "family",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "family",
+      "purchase_price": 95,
+      "purchase_seller": "seller_4",
+      "role": "buyer",
+      "satisfaction": 71
+    },
+    "buyer_4": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "skeptical_buyer",
+      "archetype_description": "Distrusts sellers and demands justification.\n",
+      "bought": false,
+      "budget": 160,
+      "constraints": {
+        "max_budget": 160,
+        "target_quantity": 1
+      },
+      "current_price": null,
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 85,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_4",
+      "inventory": null,
+      "messages_received": 0,
+      "messages_sent": 4,
+      "neighbors": [
+        "seller_1",
+        "seller_2",
+        "seller_3",
+        "seller_4"
+      ],
+      "persona": {
+        "description": "Distrusts sellers and demands justification.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null
+    },
+    "buyer_5": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "competitive_buyer",
+      "archetype_description": "Wants to beat other buyers to good deals.\n",
+      "bought": false,
+      "budget": 145,
+      "constraints": {
+        "max_budget": 240,
+        "target_quantity": 2
+      },
+      "current_price": null,
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 110,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_5",
+      "inventory": null,
+      "messages_received": 0,
+      "messages_sent": 4,
+      "neighbors": [
+        "seller_1",
+        "seller_2",
+        "seller_3",
+        "seller_4"
+      ],
+      "persona": {
+        "description": "Wants to beat other buyers to good deals.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": 95,
+      "purchase_seller": "seller_4",
+      "role": "buyer",
+      "satisfaction": 69
+    },
+    "buyer_6": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "bulk_discount_hunter",
+      "archetype_description": "Prefers buying many units in exchange for lower unit prices.\n",
+      "bought": false,
+      "budget": 360,
+      "constraints": {
+        "max_budget": 360,
+        "target_quantity": 4
+      },
+      "current_price": null,
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 90,
+        "quantity": 4,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_6",
+      "inventory": null,
+      "messages_received": 0,
+      "messages_sent": 4,
+      "neighbors": [
+        "seller_1",
+        "seller_2",
+        "seller_3",
+        "seller_4"
+      ],
+      "persona": {
+        "description": "Prefers buying many units in exchange for lower unit prices.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null
+    },
+    "buyer_7": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "loyal_buyer",
+      "archetype_description": "Prefers trusted or cooperative sellers.\n",
+      "bought": false,
+      "budget": 105,
+      "constraints": {
+        "max_budget": 200,
+        "target_quantity": 2
+      },
+      "current_price": null,
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 100,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_7",
+      "inventory": null,
+      "messages_received": 0,
+      "messages_sent": 4,
+      "neighbors": [
+        "seller_1",
+        "seller_2",
+        "seller_3",
+        "seller_4"
+      ],
+      "persona": {
+        "description": "Prefers trusted or cooperative sellers.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": 95,
+      "purchase_seller": "seller_4",
+      "role": "buyer",
+      "satisfaction": 66
+    },
+    "buyer_8": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "last_minute_buyer",
+      "archetype_description": "Waits until late rounds, hoping sellers become desperate.\n",
+      "bought": false,
+      "budget": 190,
+      "constraints": {
+        "max_budget": 190,
+        "target_quantity": 2
+      },
+      "current_price": null,
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_8",
+      "inventory": null,
+      "messages_received": 0,
+      "messages_sent": 4,
+      "neighbors": [
+        "seller_1",
+        "seller_2",
+        "seller_3",
+        "seller_4"
+      ],
+      "persona": {
+        "description": "Waits until late rounds, hoping sellers become desperate.\n",
+        "profile": "budget",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "budget",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "buyer",
+      "satisfaction": null
+    },
+    "seller_1": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "premium_seller",
+      "archetype_description": "Believes their agents are valuable. Avoids discounting and prefers fewer high-price sales over many low-price sales.\n",
+      "bought": false,
+      "budget": null,
+      "constraints": {
+        "min_price": 90
+      },
+      "current_price": 140,
+      "exited": false,
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_1",
+      "inventory": 3,
+      "messages_received": 0,
+      "messages_sent": 8,
+      "neighbors": [
+        "buyer_1",
+        "buyer_2",
+        "buyer_3",
+        "buyer_4",
+        "buyer_5",
+        "buyer_6",
+        "buyer_7",
+        "buyer_8"
+      ],
+      "persona": {
+        "description": "Believes their agents are valuable. Avoids discounting and prefers fewer high-price sales over many low-price sales.\n",
+        "profile": "premium_seller",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "profile": "premium_seller",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "seller",
+      "satisfaction": null
+    },
+    "seller_2": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "desperate_liquidator",
+      "archetype_description": "Wants to sell quickly. Cuts prices aggressively if buyers hesitate. Prioritizes clearing inventory over maximizing unit price.\n",
+      "bought": false,
+      "budget": null,
+      "constraints": {
+        "min_price": 55
+      },
+      "current_price": 100,
+      "exited": false,
+      "goal": {
+        "type": "sell_all"
+      },
+      "id": "seller_2",
+      "inventory": 5,
+      "messages_received": 0,
+      "messages_sent": 8,
+      "neighbors": [
+        "buyer_1",
+        "buyer_2",
+        "buyer_3",
+        "buyer_4",
+        "buyer_5",
+        "buyer_6",
+        "buyer_7",
+        "buyer_8"
+      ],
+      "persona": {
+        "description": "Wants to sell quickly. Cuts prices aggressively if buyers hesitate. Prioritizes clearing inventory over maximizing unit price.\n",
+        "profile": "desperate_liquidator",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "profile": "desperate_liquidator",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "seller",
+      "satisfaction": null
+    },
+    "seller_3": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "anchoring_negotiator",
+      "archetype_description": "Starts with a high asking price to anchor buyers. Makes slow concessions.\n",
+      "bought": false,
+      "budget": null,
+      "constraints": {
+        "min_price": 75
+      },
+      "current_price": 130,
+      "exited": false,
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_3",
+      "inventory": 4,
+      "messages_received": 0,
+      "messages_sent": 8,
+      "neighbors": [
+        "buyer_1",
+        "buyer_2",
+        "buyer_3",
+        "buyer_4",
+        "buyer_5",
+        "buyer_6",
+        "buyer_7",
+        "buyer_8"
+      ],
+      "persona": {
+        "description": "Starts with a high asking price to anchor buyers. Makes slow concessions.\n",
+        "profile": "anchoring_negotiator",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "profile": "anchoring_negotiator",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "seller",
+      "satisfaction": null
+    },
+    "seller_4": {
+      "actions": [
+        "SET_PRICE",
+        "ACCEPT_OFFER",
+        "COUNTER_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "BROADCAST",
+        "WAIT"
+      ],
+      "archetype": "volume_distributor",
+      "archetype_description": "Prioritizes selling many units. Offers bulk discounts.\n",
+      "bought": false,
+      "budget": null,
+      "constraints": {
+        "min_price": 50
+      },
+      "current_price": 95,
+      "exited": false,
+      "goal": {
+        "min_revenue": 450,
+        "type": "min_revenue"
+      },
+      "id": "seller_4",
+      "inventory": 3,
+      "messages_received": 0,
+      "messages_sent": 8,
+      "neighbors": [
+        "buyer_1",
+        "buyer_2",
+        "buyer_3",
+        "buyer_4",
+        "buyer_5",
+        "buyer_6",
+        "buyer_7",
+        "buyer_8"
+      ],
+      "persona": {
+        "description": "Prioritizes selling many units. Offers bulk discounts.\n",
+        "profile": "volume_distributor",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.5,
+          "risk_aversion": 0.5,
+          "social": 0.5
+        }
+      },
+      "profile": "volume_distributor",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "role": "seller",
+      "satisfaction": null
+    }
+  },
+  "prices_over_time": [
+    {
+      "a": 140,
+      "b": 100,
+      "c": 130,
+      "d": 95,
+      "inv_a": 3,
+      "inv_b": 5,
+      "inv_c": 4,
+      "inv_d": 3,
+      "turn": 1
+    }
+  ],
+  "run_id": "open_bazaar-9c3fca40",
+  "scenario_id": "open_bazaar",
+  "seed": 913,
+  "sellers": {
+    "seller_1": {
+      "archetype": "premium_seller",
+      "base_price": 140,
+      "current_price": 140,
+      "final_inventory": 3,
+      "final_price": 140,
+      "initial_inventory": 3,
+      "min_price": 90,
+      "name": "seller_1",
+      "revenue": 0
+    },
+    "seller_2": {
+      "archetype": "desperate_liquidator",
+      "base_price": 100,
+      "current_price": 100,
+      "final_inventory": 5,
+      "final_price": 100,
+      "initial_inventory": 5,
+      "min_price": 55,
+      "name": "seller_2",
+      "revenue": 0
+    },
+    "seller_3": {
+      "archetype": "anchoring_negotiator",
+      "base_price": 130,
+      "current_price": 130,
+      "final_inventory": 4,
+      "final_price": 130,
+      "initial_inventory": 4,
+      "min_price": 75,
+      "name": "seller_3",
+      "revenue": 0
+    },
+    "seller_4": {
+      "archetype": "volume_distributor",
+      "base_price": 95,
+      "current_price": 95,
+      "final_inventory": 3,
+      "final_price": 95,
+      "initial_inventory": 7,
+      "min_price": 50,
+      "name": "seller_4",
+      "revenue": 380
+    }
+  },
+  "summary": {
+    "avg_price": 95.0,
+    "avg_satisfaction": 67.8,
+    "by_profile": {
+      "budget": 95.0,
+      "family": 95.0,
+      "flexible": 95.0
+    },
+    "n_bought": 4,
+    "n_completed_goals": 0,
+    "n_missed": 8,
+    "total_messages": 64
+  },
+  "ticks": 1,
+  "topology": "open_bazaar"
+}

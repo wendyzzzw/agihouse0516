@@ -1,0 +1,14 @@
+{
+  "created_at": 1778982837.291882,
+  "current_turn": 7,
+  "error": null,
+  "llm_provider": "openai",
+  "max_rounds": 7,
+  "model": "gpt-4.1-mini",
+  "run_id": "buyer_coalition_market-7d2fa6b2",
+  "scenario_id": "buyer_coalition_market",
+  "seed": 42,
+  "speed_ms": 500,
+  "status": "completed",
+  "summary": "Buyers can talk to each other and form coalitions, while sellers are isolated from other sellers. This tests collective bargaining."
+}

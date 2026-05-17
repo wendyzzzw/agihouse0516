@@ -1,0 +1,2559 @@
+{
+  "agents": {
+    "buyer_1": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "coalition_organizer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 220,
+      "constraints": {
+        "max_budget": 220,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 90,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_1",
+      "inbox": [
+        {
+          "action": "BROADCAST",
+          "content": "seller_1 has 6 units listed at $115.",
+          "id": "6493b3f1",
+          "recipient": "buyer_1",
+          "sender": "seller_1",
+          "turn": 2
+        },
+        {
+          "action": "BROADCAST",
+          "content": "seller_3 has 4 units listed at $130.",
+          "id": "2d9fa6a0",
+          "recipient": "buyer_1",
+          "sender": "seller_3",
+          "turn": 2
+        },
+        {
+          "action": "BROADCAST",
+          "content": "seller_3 has 4 units listed at $130.",
+          "id": "5be8f02e",
+          "recipient": "buyer_1",
+          "sender": "seller_3",
+          "turn": 3
+        },
+        {
+          "action": "BROADCAST",
+          "content": "seller_1 has 6 units listed at $115.",
+          "id": "75e92fe8",
+          "recipient": "buyer_1",
+          "sender": "seller_1",
+          "turn": 3
+        },
+        {
+          "action": "BROADCAST",
+          "content": "seller_1 has 6 units listed at $115.",
+          "id": "33fe7d2e",
+          "recipient": "buyer_1",
+          "sender": "seller_1",
+          "turn": 4
+        },
+        {
+          "action": "BROADCAST",
+          "content": "seller_3 has 4 units listed at $130.",
+          "id": "f82723f5",
+          "recipient": "buyer_1",
+          "sender": "seller_3",
+          "turn": 4
+        }
+      ],
+      "messages_received": 6,
+      "messages_sent": 5,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "51f393fd",
+          "recipient": "seller_2",
+          "sender": "buyer_1",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "332d1059",
+          "recipient": "seller_2",
+          "sender": "buyer_1",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "037183d2",
+          "recipient": "seller_2",
+          "sender": "buyer_1",
+          "turn": 3
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "b10c0dc2",
+          "recipient": "seller_2",
+          "sender": "buyer_1",
+          "turn": 4
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "0e700d73",
+          "recipient": "seller_2",
+          "sender": "buyer_1",
+          "turn": 5
+        }
+      ],
+      "persona": {
+        "description": "Coordinates with other buyers and shares price information.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_10": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "deadline_driven_buyer",
+      "beliefs": {},
+      "bought": true,
+      "budget": 30,
+      "constraints": {
+        "max_budget": 220,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 100,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_10",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Becomes more urgent as the final round approaches.\n",
+        "profile": "family",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "family",
+      "purchase_price": 95,
+      "purchase_seller": "seller_2",
+      "satisfaction": 66,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_11": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "manipulative_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 200,
+      "constraints": {
+        "max_budget": 200,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 85,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_11",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 5,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "c7e7b2a5",
+          "recipient": "seller_2",
+          "sender": "buyer_11",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "b31a4725",
+          "recipient": "seller_2",
+          "sender": "buyer_11",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "5592bc41",
+          "recipient": "seller_2",
+          "sender": "buyer_11",
+          "turn": 3
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "4922daea",
+          "recipient": "seller_2",
+          "sender": "buyer_11",
+          "turn": 4
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "e44d7018",
+          "recipient": "seller_2",
+          "sender": "buyer_11",
+          "turn": 5
+        }
+      ],
+      "persona": {
+        "description": "Pretends to have alternatives and pressures sellers.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_12": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "contrarian_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 180,
+      "constraints": {
+        "max_budget": 180,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_12",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 5,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "b121cc8f",
+          "recipient": "seller_2",
+          "sender": "buyer_12",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "26033e55",
+          "recipient": "seller_2",
+          "sender": "buyer_12",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "92784bf2",
+          "recipient": "seller_2",
+          "sender": "buyer_12",
+          "turn": 3
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "147ff607",
+          "recipient": "seller_2",
+          "sender": "buyer_12",
+          "turn": 4
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "9fca4c4c",
+          "recipient": "seller_2",
+          "sender": "buyer_12",
+          "turn": 5
+        }
+      ],
+      "persona": {
+        "description": "Avoids popular sellers and looks for overlooked deals.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_2": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "cooperative_fair_buyer",
+      "beliefs": {},
+      "bought": true,
+      "budget": 85,
+      "constraints": {
+        "max_budget": 180,
+        "target_quantity": 1
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 95,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_2",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 0,
+      "outbox": [],
+      "persona": {
+        "description": "Wants a reasonable deal that works for both sides.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": 95,
+      "purchase_seller": "seller_2",
+      "satisfaction": 65,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_3": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "information_broker",
+      "beliefs": {},
+      "bought": false,
+      "budget": 160,
+      "constraints": {
+        "max_budget": 160,
+        "target_quantity": 1
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 75,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_3",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 5,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "bf526c8a",
+          "recipient": "seller_2",
+          "sender": "buyer_3",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "46403db3",
+          "recipient": "seller_2",
+          "sender": "buyer_3",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "747adefd",
+          "recipient": "seller_2",
+          "sender": "buyer_3",
+          "turn": 3
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "ee1b7e3e",
+          "recipient": "seller_2",
+          "sender": "buyer_3",
+          "turn": 4
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "53bd9a00",
+          "recipient": "seller_2",
+          "sender": "buyer_3",
+          "turn": 5
+        }
+      ],
+      "persona": {
+        "description": "Talks to many agents and uses market knowledge to negotiate.\n",
+        "profile": "investor",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "investor",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_4": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "free_rider",
+      "beliefs": {},
+      "bought": false,
+      "budget": 170,
+      "constraints": {
+        "max_budget": 170,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 70,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_4",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 5,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "d4899faf",
+          "recipient": "seller_2",
+          "sender": "buyer_4",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "76a66e26",
+          "recipient": "seller_2",
+          "sender": "buyer_4",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "4b224ffe",
+          "recipient": "seller_2",
+          "sender": "buyer_4",
+          "turn": 3
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "1cd549de",
+          "recipient": "seller_2",
+          "sender": "buyer_4",
+          "turn": 4
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "1f70f383",
+          "recipient": "seller_2",
+          "sender": "buyer_4",
+          "turn": 5
+        }
+      ],
+      "persona": {
+        "description": "Benefits from buyer coordination but contributes little.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_5": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "aggressive_bargain_hunter",
+      "beliefs": {},
+      "bought": true,
+      "budget": 38,
+      "constraints": {
+        "max_budget": 200,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 85,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_5",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 3,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "e7e8db33",
+          "recipient": "seller_2",
+          "sender": "buyer_5",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "50ff6e42",
+          "recipient": "seller_2",
+          "sender": "buyer_5",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "cbbb69d4",
+          "recipient": "seller_2",
+          "sender": "buyer_5",
+          "turn": 3
+        }
+      ],
+      "persona": {
+        "description": "Opens with low offers and pushes hard for the lowest price.\n",
+        "profile": "budget",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "budget",
+      "purchase_price": 81,
+      "purchase_seller": "seller_2",
+      "satisfaction": 66,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_6": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "patient_value_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 110,
+      "constraints": {
+        "max_budget": 180,
+        "target_quantity": 2
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 70,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_6",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 5,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "aa86ba53",
+          "recipient": "seller_2",
+          "sender": "buyer_6",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "616cbfed",
+          "recipient": "seller_2",
+          "sender": "buyer_6",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "23926613",
+          "recipient": "seller_2",
+          "sender": "buyer_6",
+          "turn": 3
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "882477e0",
+          "recipient": "seller_2",
+          "sender": "buyer_6",
+          "turn": 4
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $70 for one item today.",
+          "id": "5a7d1d77",
+          "recipient": "seller_2",
+          "sender": "buyer_6",
+          "turn": 5
+        }
+      ],
+      "persona": {
+        "description": "Waits for attractive prices and is happy to walk away.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": 70,
+      "purchase_seller": "seller_2",
+      "satisfaction": 65,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_7": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "fairness_enforcer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 190,
+      "constraints": {
+        "max_budget": 190,
+        "target_quantity": 1
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 90,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_7",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 5,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "50578329",
+          "recipient": "seller_2",
+          "sender": "buyer_7",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "c353028c",
+          "recipient": "seller_2",
+          "sender": "buyer_7",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "5e9df038",
+          "recipient": "seller_2",
+          "sender": "buyer_7",
+          "turn": 3
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "f3390f84",
+          "recipient": "seller_2",
+          "sender": "buyer_7",
+          "turn": 4
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $81 for one item today.",
+          "id": "faba94c7",
+          "recipient": "seller_2",
+          "sender": "buyer_7",
+          "turn": 5
+        }
+      ],
+      "persona": {
+        "description": "Punishes deceptive or unfair sellers by refusing to buy.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_8": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "bulk_discount_hunter",
+      "beliefs": {},
+      "bought": false,
+      "budget": 360,
+      "constraints": {
+        "max_budget": 360,
+        "target_quantity": 4
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 80,
+        "quantity": 4,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_8",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 5,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "afbe45d1",
+          "recipient": "seller_2",
+          "sender": "buyer_8",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "e29a11fe",
+          "recipient": "seller_2",
+          "sender": "buyer_8",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "9c7795fd",
+          "recipient": "seller_2",
+          "sender": "buyer_8",
+          "turn": 3
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "60b5422c",
+          "recipient": "seller_2",
+          "sender": "buyer_8",
+          "turn": 4
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $80 for one item today.",
+          "id": "e0698343",
+          "recipient": "seller_2",
+          "sender": "buyer_8",
+          "turn": 5
+        }
+      ],
+      "persona": {
+        "description": "Prefers buying many units in exchange for lower unit prices.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    },
+    "buyer_9": {
+      "actions": [
+        "BID",
+        "COUNTER_OFFER",
+        "ACCEPT_OFFER",
+        "REJECT_OFFER",
+        "PROBE",
+        "SHARE_INFO",
+        "COORDINATE",
+        "WAIT",
+        "EXIT",
+        "LIE"
+      ],
+      "archetype": "skeptical_buyer",
+      "beliefs": {},
+      "bought": false,
+      "budget": 150,
+      "constraints": {
+        "max_budget": 150,
+        "target_quantity": 1
+      },
+      "exited": false,
+      "goal": {
+        "max_price_per_item": 75,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_9",
+      "inbox": [],
+      "messages_received": 0,
+      "messages_sent": 5,
+      "outbox": [
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "9eec844e",
+          "recipient": "seller_2",
+          "sender": "buyer_9",
+          "turn": 1
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "59d3fe21",
+          "recipient": "seller_2",
+          "sender": "buyer_9",
+          "turn": 2
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "7a1ec707",
+          "recipient": "seller_2",
+          "sender": "buyer_9",
+          "turn": 3
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "6f75f319",
+          "recipient": "seller_2",
+          "sender": "buyer_9",
+          "turn": 4
+        },
+        {
+          "action": "BID",
+          "content": "I can offer $75 for one item today.",
+          "id": "e73b7ad7",
+          "recipient": "seller_2",
+          "sender": "buyer_9",
+          "turn": 5
+        }
+      ],
+      "persona": {
+        "description": "Distrusts sellers and demands justification.\n",
+        "profile": "flexible",
+        "traits": {
+          "honesty": 0.8,
+          "patience": 0.65,
+          "risk_aversion": 0.55,
+          "social": 0.55
+        }
+      },
+      "profile": "flexible",
+      "purchase_price": null,
+      "purchase_seller": null,
+      "satisfaction": null,
+      "ticks_waited": 0,
+      "tools": []
+    }
+  },
+  "comm_matrix": {
+    "buyer_1": {
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_10": {
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": true,
+      "buyer_12": true,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": true,
+      "buyer_9": true,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_11": {
+      "buyer_1": false,
+      "buyer_10": true,
+      "buyer_11": false,
+      "buyer_12": true,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": true,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_12": {
+      "buyer_1": false,
+      "buyer_10": true,
+      "buyer_11": true,
+      "buyer_12": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": true,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": true,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_2": {
+      "buyer_1": true,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_2": false,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_3": {
+      "buyer_1": true,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_2": true,
+      "buyer_3": false,
+      "buyer_4": true,
+      "buyer_5": false,
+      "buyer_6": true,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_4": {
+      "buyer_1": true,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_5": {
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "buyer_9": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_6": {
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_2": false,
+      "buyer_3": true,
+      "buyer_4": false,
+      "buyer_5": true,
+      "buyer_6": false,
+      "buyer_7": true,
+      "buyer_8": true,
+      "buyer_9": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_7": {
+      "buyer_1": false,
+      "buyer_10": false,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": false,
+      "buyer_8": true,
+      "buyer_9": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_8": {
+      "buyer_1": false,
+      "buyer_10": true,
+      "buyer_11": false,
+      "buyer_12": false,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": false,
+      "buyer_9": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "buyer_9": {
+      "buyer_1": false,
+      "buyer_10": true,
+      "buyer_11": true,
+      "buyer_12": true,
+      "buyer_2": false,
+      "buyer_3": false,
+      "buyer_4": false,
+      "buyer_5": false,
+      "buyer_6": false,
+      "buyer_7": false,
+      "buyer_8": false,
+      "buyer_9": false,
+      "seller_1": true,
+      "seller_2": true,
+      "seller_3": true
+    },
+    "seller_1": {
+      "buyer_1": true,
+      "buyer_10": true,
+      "buyer_11": true,
+      "buyer_12": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "buyer_9": true,
+      "seller_1": false,
+      "seller_2": false,
+      "seller_3": false
+    },
+    "seller_2": {
+      "buyer_1": true,
+      "buyer_10": true,
+      "buyer_11": true,
+      "buyer_12": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "buyer_9": true,
+      "seller_1": false,
+      "seller_2": false,
+      "seller_3": false
+    },
+    "seller_3": {
+      "buyer_1": true,
+      "buyer_10": true,
+      "buyer_11": true,
+      "buyer_12": true,
+      "buyer_2": true,
+      "buyer_3": true,
+      "buyer_4": true,
+      "buyer_5": true,
+      "buyer_6": true,
+      "buyer_7": true,
+      "buyer_8": true,
+      "buyer_9": true,
+      "seller_1": false,
+      "seller_2": false,
+      "seller_3": false
+    }
+  },
+  "conversations": {
+    "buyer_11<->seller_2": [
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_11",
+        "to": "seller_2",
+        "turn": 5
+      }
+    ],
+    "buyer_12<->seller_2": [
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_12",
+        "to": "seller_2",
+        "turn": 5
+      }
+    ],
+    "buyer_1<->seller_1": [
+      {
+        "content": "seller_1 has 6 units listed at $115.",
+        "from": "seller_1",
+        "to": "buyer_1",
+        "turn": 2
+      },
+      {
+        "content": "seller_1 has 6 units listed at $115.",
+        "from": "seller_1",
+        "to": "buyer_1",
+        "turn": 3
+      },
+      {
+        "content": "seller_1 has 6 units listed at $115.",
+        "from": "seller_1",
+        "to": "buyer_1",
+        "turn": 4
+      },
+      {
+        "content": "seller_1 has 6 units listed at $115.",
+        "from": "seller_1",
+        "to": "buyer_1",
+        "turn": 5
+      }
+    ],
+    "buyer_1<->seller_2": [
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_1",
+        "to": "seller_2",
+        "turn": 5
+      }
+    ],
+    "buyer_1<->seller_3": [
+      {
+        "content": "seller_3 has 4 units listed at $130.",
+        "from": "seller_3",
+        "to": "buyer_1",
+        "turn": 2
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130.",
+        "from": "seller_3",
+        "to": "buyer_1",
+        "turn": 3
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130.",
+        "from": "seller_3",
+        "to": "buyer_1",
+        "turn": 4
+      },
+      {
+        "content": "seller_3 has 4 units listed at $130.",
+        "from": "seller_3",
+        "to": "buyer_1",
+        "turn": 5
+      }
+    ],
+    "buyer_3<->seller_2": [
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_3",
+        "to": "seller_2",
+        "turn": 5
+      }
+    ],
+    "buyer_4<->seller_2": [
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_4",
+        "to": "seller_2",
+        "turn": 5
+      }
+    ],
+    "buyer_5<->seller_2": [
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_5",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_5",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_5",
+        "to": "seller_2",
+        "turn": 3
+      }
+    ],
+    "buyer_6<->seller_2": [
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "content": "I can offer $70 for one item today.",
+        "from": "buyer_6",
+        "to": "seller_2",
+        "turn": 5
+      }
+    ],
+    "buyer_7<->seller_2": [
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "content": "I can offer $81 for one item today.",
+        "from": "buyer_7",
+        "to": "seller_2",
+        "turn": 5
+      }
+    ],
+    "buyer_8<->seller_2": [
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "content": "I can offer $80 for one item today.",
+        "from": "buyer_8",
+        "to": "seller_2",
+        "turn": 5
+      }
+    ],
+    "buyer_9<->seller_2": [
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "to": "seller_2",
+        "turn": 1
+      },
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "to": "seller_2",
+        "turn": 2
+      },
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "to": "seller_2",
+        "turn": 3
+      },
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "to": "seller_2",
+        "turn": 4
+      },
+      {
+        "content": "I can offer $75 for one item today.",
+        "from": "buyer_9",
+        "to": "seller_2",
+        "turn": 5
+      }
+    ]
+  },
+  "current_turn": 5,
+  "events": [
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_6",
+      "letter": "buyer_6",
+      "msg": "BOUGHT from seller_2 at $70 (patient_value_buyer, 65% sat)",
+      "price": 70,
+      "sat": 65,
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_2",
+      "letter": "buyer_2",
+      "msg": "BOUGHT from seller_2 at $95 (cooperative_fair_buyer, 65% sat)",
+      "price": 95,
+      "sat": 65,
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_10",
+      "letter": "buyer_10",
+      "msg": "BOUGHT from seller_2 at $95 (deadline_driven_buyer, 66% sat)",
+      "price": 95,
+      "sat": 66,
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 1
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 6 units listed at $115.",
+      "to": "buyer_1",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_5",
+      "letter": "buyer_5",
+      "msg": "BOUGHT from seller_2 at $81 (aggressive_bargain_hunter, 66% sat)",
+      "price": 81,
+      "sat": 66,
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_10",
+      "letter": "buyer_10",
+      "msg": "BOUGHT from seller_2 at $95 (deadline_driven_buyer, 66% sat)",
+      "price": 95,
+      "sat": 66,
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130.",
+      "to": "buyer_1",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 2
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_5",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130.",
+      "to": "buyer_1",
+      "turn": 3
+    },
+    {
+      "cls": "log-buy",
+      "from": "buyer_5",
+      "letter": "buyer_5",
+      "msg": "BOUGHT from seller_2 at $81 (aggressive_bargain_hunter, 66% sat)",
+      "price": 81,
+      "sat": 66,
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 6 units listed at $115.",
+      "to": "buyer_1",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 3
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 6 units listed at $115.",
+      "to": "buyer_1",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130.",
+      "to": "buyer_1",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-lie",
+      "from": "buyer_5",
+      "msg": "failed transaction: $81 exceeds budget",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 4
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_6",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_11",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_3",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_3",
+      "msg": "seller_3 has 4 units listed at $130.",
+      "to": "buyer_1",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_8",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "I can offer $70 for one item today.",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_4",
+      "msg": "offered $70",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "seller_1",
+      "msg": "seller_1 has 6 units listed at $115.",
+      "to": "buyer_1",
+      "turn": 5
+    },
+    {
+      "cls": "log-lie",
+      "from": "buyer_5",
+      "msg": "failed transaction: $81 exceeds budget",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_1",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "I can offer $75 for one item today.",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_9",
+      "msg": "offered $75",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "I can offer $80 for one item today.",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_12",
+      "msg": "offered $80",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "I can offer $81 for one item today.",
+      "to": "seller_2",
+      "turn": 5
+    },
+    {
+      "cls": "log-trade",
+      "from": "buyer_7",
+      "msg": "offered $81",
+      "to": "seller_2",
+      "turn": 5
+    }
+  ],
+  "llm_mode": "openai",
+  "prices_over_time": [
+    {
+      "a": 115,
+      "b": 95,
+      "c": 130,
+      "inv_a": 6,
+      "inv_b": 6,
+      "inv_c": 4,
+      "turn": 1
+    },
+    {
+      "a": 115,
+      "b": 95,
+      "c": 130,
+      "inv_a": 6,
+      "inv_b": 4,
+      "inv_c": 4,
+      "turn": 2
+    },
+    {
+      "a": 115,
+      "b": 95,
+      "c": 130,
+      "inv_a": 6,
+      "inv_b": 3,
+      "inv_c": 4,
+      "turn": 3
+    },
+    {
+      "a": 115,
+      "b": 95,
+      "c": 130,
+      "inv_a": 6,
+      "inv_b": 3,
+      "inv_c": 4,
+      "turn": 4
+    },
+    {
+      "a": 115,
+      "b": 95,
+      "c": 130,
+      "inv_a": 6,
+      "inv_b": 3,
+      "inv_c": 4,
+      "turn": 5
+    }
+  ],
+  "run_id": "buyer_coalition_market-702c48b7",
+  "scenario_id": "buyer_coalition_market",
+  "seed": 42,
+  "sellers": {
+    "seller_1": {
+      "archetype": "defensive_seller",
+      "base_price": 115,
+      "current_price": 115,
+      "final_inventory": 6,
+      "final_price": 115,
+      "initial_inventory": 6,
+      "min_price": 65,
+      "name": "seller_1",
+      "revenue": 0
+    },
+    "seller_2": {
+      "archetype": "volume_distributor",
+      "base_price": 95,
+      "current_price": 95,
+      "final_inventory": 3,
+      "final_price": 95,
+      "initial_inventory": 9,
+      "min_price": 50,
+      "name": "seller_2",
+      "revenue": 517
+    },
+    "seller_3": {
+      "archetype": "scarcity_pressure_seller",
+      "base_price": 130,
+      "current_price": 130,
+      "final_inventory": 4,
+      "final_price": 130,
+      "initial_inventory": 4,
+      "min_price": 80,
+      "name": "seller_3",
+      "revenue": 0
+    }
+  },
+  "summary": {
+    "avg_price": 85.2,
+    "avg_satisfaction": 65.5,
+    "by_profile": {
+      "budget": 81.0,
+      "family": 95.0,
+      "flexible": 82.5
+    },
+    "n_bought": 3,
+    "n_missed": 9,
+    "total_messages": 56
+  },
+  "ticks": 5,
+  "topology": "buyer_coalition_market"
+}

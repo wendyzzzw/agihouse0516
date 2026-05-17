@@ -1,0 +1,236 @@
+{
+  "buyers": [
+    {
+      "archetype": "buyer_union_organizer",
+      "budget": 230,
+      "goal": {
+        "max_price_per_item": 92,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_1"
+    },
+    {
+      "archetype": "overly_polite_strategist",
+      "budget": 210,
+      "goal": {
+        "max_price_per_item": 98,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_2"
+    },
+    {
+      "archetype": "prompt_injection_buyer",
+      "budget": 220,
+      "goal": {
+        "max_price_per_item": 88,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_3"
+    },
+    {
+      "archetype": "haiku_buyer",
+      "budget": 190,
+      "goal": {
+        "max_price_per_item": 82,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_4"
+    },
+    {
+      "archetype": "information_broker",
+      "budget": 180,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_5"
+    },
+    {
+      "archetype": "researcher_buyer",
+      "budget": 210,
+      "goal": {
+        "max_price_per_item": 96,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_6"
+    },
+    {
+      "archetype": "skeptical_buyer",
+      "budget": 170,
+      "goal": {
+        "max_price_per_item": 78,
+        "max_quantity": 1,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_7"
+    },
+    {
+      "archetype": "bulk_discount_hunter",
+      "budget": 360,
+      "goal": {
+        "max_price_per_item": 85,
+        "quantity": 4,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_8"
+    },
+    {
+      "archetype": "cooperative_fair_buyer",
+      "budget": 200,
+      "goal": {
+        "max_price_per_item": 95,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_9"
+    },
+    {
+      "archetype": "deadline_driven_buyer",
+      "budget": 240,
+      "goal": {
+        "max_price_per_item": 108,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_10"
+    }
+  ],
+  "id": "model_asymmetry_market",
+  "market_rules": {
+    "allow_buyer_coalitions": true,
+    "allow_joint_offers": true,
+    "allow_model_asymmetry": true,
+    "allow_negotiation": true,
+    "allow_price_info_sharing": true,
+    "allow_seller_collusion": false,
+    "pricing": "negotiated"
+  },
+  "model_assignment": {
+    "agents": {
+      "seller_1": {
+        "model": "claude-opus-4.7",
+        "provider": "claude"
+      },
+      "seller_2": {
+        "model": "gpt-4.1-mini",
+        "provider": "openai"
+      },
+      "seller_3": {
+        "model": "claude-haiku-4.5",
+        "provider": "claude"
+      },
+      "seller_4": {
+        "model": "gpt-5.5",
+        "provider": "openai"
+      }
+    },
+    "default": {
+      "model": "gpt-4.1-mini",
+      "provider": "openai"
+    },
+    "roles": {
+      "buyer": {
+        "model": "gpt-5.5",
+        "provider": "openai"
+      }
+    }
+  },
+  "sellers": [
+    {
+      "archetype": "relationship_builder",
+      "goal": {
+        "min_revenue": 420,
+        "type": "min_revenue"
+      },
+      "id": "seller_1",
+      "inventory": 5,
+      "min_price": 62,
+      "starting_price": 118
+    },
+    {
+      "archetype": "defensive_seller",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_2",
+      "inventory": 4,
+      "min_price": 78,
+      "starting_price": 125
+    },
+    {
+      "archetype": "scarcity_pressure_seller",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_3",
+      "inventory": 3,
+      "min_price": 85,
+      "starting_price": 138
+    },
+    {
+      "archetype": "price_matcher",
+      "goal": {
+        "type": "sell_all"
+      },
+      "id": "seller_4",
+      "inventory": 6,
+      "min_price": 58,
+      "starting_price": 105
+    }
+  ],
+  "settings": {
+    "max_messages_per_round": 4,
+    "max_rounds": 7,
+    "num_buyers": 10,
+    "num_sellers": 4
+  },
+  "summary": "Buyers run stronger models and richer persuasion personas while sellers use a mixed model stack. This tests whether model capability asymmetry changes price discovery, coalition formation, and seller revenue.\n",
+  "topology": {
+    "compile_to": "adjacency_matrix",
+    "generator": {
+      "buyer_buyer_edges": {
+        "bridge_edges": [
+          [
+            "buyer_1",
+            "buyer_6"
+          ],
+          [
+            "buyer_4",
+            "buyer_9"
+          ],
+          [
+            "buyer_5",
+            "buyer_10"
+          ]
+        ],
+        "clusters": [
+          [
+            "buyer_1",
+            "buyer_2",
+            "buyer_3",
+            "buyer_4",
+            "buyer_5"
+          ],
+          [
+            "buyer_6",
+            "buyer_7",
+            "buyer_8",
+            "buyer_9",
+            "buyer_10"
+          ]
+        ],
+        "type": "clustered"
+      },
+      "directed": true,
+      "seller_buyer_edges": "complete_bipartite",
+      "seller_seller_edges": "none"
+    },
+    "input_type": "generated"
+  }
+}

@@ -30,19 +30,6 @@
         </div>
       </div>
 
-      <section class="panel recap-panel">
-        <div class="panel-head">
-          <div class="panel-title">Simulation Recap</div>
-          <div class="actions">
-            <span id="recap-status" class="status-line">Loading recap...</span>
-            <button id="recap-recompute" type="button">Recompute</button>
-          </div>
-        </div>
-        <div class="panel-body">
-          <div id="recap"></div>
-        </div>
-      </section>
-
       <div id="metrics" class="grid-metrics"></div>
 
       <section class="panel replay-panel">
@@ -53,6 +40,8 @@
         <div class="panel-body">
           <div class="replay-controls">
             <button id="replay-play" type="button">Play</button>
+            <button id="replay-prev" type="button" aria-label="Previous turn">&larr;</button>
+            <button id="replay-next" type="button" aria-label="Next turn">&rarr;</button>
             <button id="replay-latest" type="button">Latest</button>
             <label class="replay-slider">
               Turn
@@ -66,13 +55,34 @@
 
       <div class="layout">
         <div class="stack">
+          <section class="panel topology-panel sticky-topology">
+            <div class="panel-head">
+              <div class="panel-title">Communication Topology</div>
+              <div class="actions topo-template-btns" id="topo-template-btns">
+                <button type="button" class="topo-tpl active" data-topo="actual">Actual</button>
+                <button type="button" class="topo-tpl" data-topo="isolated">Isolated</button>
+                <button type="button" class="topo-tpl" data-topo="clustered">Clustered</button>
+                <button type="button" class="topo-tpl" data-topo="small_world">Small World</button>
+                <button type="button" class="topo-tpl" data-topo="hub_spoke">Hub &amp; Spoke</button>
+                <button type="button" class="topo-tpl" data-topo="fully_connected">Full</button>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div id="topology"></div>
+            </div>
+          </section>
+
           <section class="panel">
             <div class="panel-head">
               <div class="panel-title">Messages At Selected Turn</div>
               <div class="actions">
-                <select id="message-filter" aria-label="Filter messages">
-                  <option value="all">All messages</option>
-                </select>
+                <label class="picker-field compact-picker">
+                  Message filter
+                  <select id="message-filter" aria-label="Filter messages">
+                    <option value="all">All messages</option>
+                  </select>
+                  <span id="message-filter-description" class="picker-description">Showing every directed message at the selected turn.</span>
+                </label>
                 <span id="message-count" class="status-line"></span>
               </div>
             </div>
@@ -87,23 +97,6 @@
             </div>
             <div class="panel-body">
               <div id="message-inspector" class="empty">Select Inspect I/O on a message to see the sender's full prompt input and model/adapter output for that turn.</div>
-            </div>
-          </section>
-
-          <section class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Communication Topology</div>
-              <div class="actions topo-template-btns" id="topo-template-btns">
-                <button type="button" class="topo-tpl active" data-topo="actual">Actual</button>
-                <button type="button" class="topo-tpl" data-topo="isolated">Isolated</button>
-                <button type="button" class="topo-tpl" data-topo="clustered">Clustered</button>
-                <button type="button" class="topo-tpl" data-topo="small_world">Small World</button>
-                <button type="button" class="topo-tpl" data-topo="hub_spoke">Hub &amp; Spoke</button>
-                <button type="button" class="topo-tpl" data-topo="fully_connected">Full</button>
-              </div>
-            </div>
-            <div class="panel-body">
-              <div id="topology"></div>
             </div>
           </section>
 
@@ -152,6 +145,19 @@
         </div>
         <div class="panel-body">
           <div id="heatmap"></div>
+        </div>
+      </section>
+
+      <section class="panel recap-panel">
+        <div class="panel-head">
+          <div class="panel-title">Run Insights</div>
+          <div class="actions">
+            <span id="recap-status" class="status-line">Loading insights...</span>
+            <button id="recap-recompute" type="button">Recompute</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="recap"></div>
         </div>
       </section>
     </main>

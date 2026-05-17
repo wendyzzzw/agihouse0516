@@ -38,23 +38,26 @@
               <label>
                 Scenario
                 <select id="scenario_id" name="scenario_id"></select>
+                <span id="scenario-picker-description" class="picker-description"></span>
               </label>
               <label>
                 LLM Provider
                 <select id="llm_provider" name="llm_provider">
-                  <option value="rule">rule - deterministic local demo</option>
-                  <option value="auto">auto - infer from model</option>
-                  <option value="openai">openai - real OpenAI API call</option>
-                  <option value="claude">claude - local Claude CLI</option>
+                  <option value="openai">OpenAI API</option>
+                  <option value="claude">Claude CLI</option>
+                  <option value="auto">Infer from selected model</option>
                 </select>
+                <span id="provider-picker-description" class="picker-description"></span>
               </label>
               <label>
                 Model
                 <select id="model" name="model"></select>
+                <span id="model-picker-description" class="picker-description"></span>
               </label>
               <label>
                 Model Mix
                 <select id="model_assignment" name="model_assignment"></select>
+                <span id="assignment-picker-description" class="picker-description"></span>
               </label>
               <label>
                 Seed
@@ -70,7 +73,7 @@
               </label>
             </div>
             <p id="scenario-summary" class="hint"></p>
-            <p class="hint">OpenAI mode requires OPENAI_API_KEY in the FastAPI server environment. Claude mode requires the claude CLI to be installed and authenticated. Mixed model runs can assign different providers/models to individual buyers and sellers; failed model calls fall back to the rule adapter and record the adapter error in the per-agent trace.</p>
+            <p class="hint">OpenAI mode requires OPENAI_API_KEY in the FastAPI server environment. Claude mode requires the claude CLI to be installed and authenticated. Mixed model runs can assign different real providers/models to individual buyers and sellers; failed model calls are recorded in the per-agent trace.</p>
             <div class="form-actions">
               <a class="button" href="runs.html">Cancel</a>
               <button id="create-submit" class="primary" type="submit">Create and Open Run</button>

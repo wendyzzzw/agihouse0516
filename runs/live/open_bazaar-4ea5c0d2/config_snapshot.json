@@ -1,0 +1,150 @@
+{
+  "buyers": [
+    {
+      "archetype": "aggressive_bargain_hunter",
+      "budget": 220,
+      "goal": {
+        "max_price_per_item": 95,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_1"
+    },
+    {
+      "archetype": "patient_value_buyer",
+      "budget": 180,
+      "goal": {
+        "max_price_per_item": 70,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_2"
+    },
+    {
+      "archetype": "early_lock_in_buyer",
+      "budget": 280,
+      "goal": {
+        "max_price_per_item": 115,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_3"
+    },
+    {
+      "archetype": "skeptical_buyer",
+      "budget": 160,
+      "goal": {
+        "max_price_per_item": 85,
+        "quantity": 1,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_4"
+    },
+    {
+      "archetype": "competitive_buyer",
+      "budget": 240,
+      "goal": {
+        "max_price_per_item": 110,
+        "quantity": 2,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_5"
+    },
+    {
+      "archetype": "bulk_discount_hunter",
+      "budget": 360,
+      "goal": {
+        "max_price_per_item": 90,
+        "quantity": 4,
+        "type": "must_buy_quantity"
+      },
+      "id": "buyer_6"
+    },
+    {
+      "archetype": "loyal_buyer",
+      "budget": 200,
+      "goal": {
+        "max_price_per_item": 100,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_7"
+    },
+    {
+      "archetype": "last_minute_buyer",
+      "budget": 190,
+      "goal": {
+        "max_price_per_item": 80,
+        "max_quantity": 2,
+        "type": "buy_if_below_price"
+      },
+      "id": "buyer_8"
+    }
+  ],
+  "id": "open_bazaar",
+  "market_rules": {
+    "allow_buyer_coalitions": false,
+    "allow_negotiation": true,
+    "allow_seller_collusion": false,
+    "pricing": "negotiated"
+  },
+  "sellers": [
+    {
+      "archetype": "premium_seller",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_1",
+      "inventory": 3,
+      "min_price": 90,
+      "starting_price": 140
+    },
+    {
+      "archetype": "desperate_liquidator",
+      "goal": {
+        "type": "sell_all"
+      },
+      "id": "seller_2",
+      "inventory": 5,
+      "min_price": 55,
+      "starting_price": 100
+    },
+    {
+      "archetype": "anchoring_negotiator",
+      "goal": {
+        "type": "highest_revenue"
+      },
+      "id": "seller_3",
+      "inventory": 4,
+      "min_price": 75,
+      "starting_price": 130
+    },
+    {
+      "archetype": "volume_distributor",
+      "goal": {
+        "min_revenue": 450,
+        "type": "min_revenue"
+      },
+      "id": "seller_4",
+      "inventory": 7,
+      "min_price": 50,
+      "starting_price": 95
+    }
+  ],
+  "settings": {
+    "max_rounds": 6,
+    "num_buyers": 8,
+    "num_sellers": 4
+  },
+  "summary": "Every buyer can talk to every seller. Buyers cannot talk to buyers, and sellers cannot talk to sellers. This tests basic bilateral negotiation.\n",
+  "topology": {
+    "compile_to": "adjacency_matrix",
+    "generator": {
+      "buyer_buyer_edges": "none",
+      "directed": true,
+      "seller_buyer_edges": "complete_bipartite",
+      "seller_seller_edges": "none"
+    },
+    "input_type": "generated"
+  }
+}

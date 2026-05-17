@@ -101,6 +101,22 @@ label {
   font-size: 12px;
 }
 
+.picker-field {
+  display: grid;
+  gap: 7px;
+}
+
+.picker-description {
+  max-width: 460px;
+  color: var(--subtle);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.compact-picker {
+  min-width: min(280px, 100%);
+}
+
 pre,
 code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -373,6 +389,10 @@ code {
   line-height: 1.5;
 }
 
+.hint strong {
+  color: var(--text);
+}
+
 .comparison-panel,
 .recap-panel,
 .replay-panel,
@@ -459,9 +479,13 @@ code {
 
 .replay-controls {
   display: grid;
-  grid-template-columns: auto auto minmax(220px, 1fr) auto;
+  grid-template-columns: auto auto auto auto minmax(220px, 1fr) auto;
   gap: 10px;
   align-items: end;
+}
+
+.replay-controls button {
+  min-width: 42px;
 }
 
 .replay-slider {
@@ -483,6 +507,17 @@ code {
   margin-top: 10px;
   color: var(--muted);
   font-size: 12px;
+}
+
+.sticky-topology {
+  position: sticky;
+  top: 12px;
+  z-index: 20;
+  align-self: start;
+}
+
+.topology-panel {
+  background: var(--surface);
 }
 
 .player-list {
