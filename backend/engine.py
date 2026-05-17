@@ -19,7 +19,7 @@ from __future__ import annotations
 import random
 import uuid
 from concurrent.futures import ThreadPoolExecutor
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Callable
 
 from market import Seller
 from topology import build_matrix
@@ -52,6 +52,8 @@ class Engine:
         model: Optional[str] = None,
         ticks_override: Optional[int] = None,
         llm_workers: int = 8,
+        on_event: Optional[Callable[[Dict[str, Any]], None]] = None,
+        on_tick: Optional[Callable[[Dict[str, Any]], None]] = None,
     ):
         self.config_path = config_path
         self.cfg = load(config_path)
@@ -62,6 +64,10 @@ class Engine:
         self.llm_workers = llm_workers
         self.seed = seed
         self.rng = random.Random(seed)
+        # Streaming hooks — fire as each event / tick snapshot is produced.
+        # The SSE endpoint uses these to push messages to the frontend live.
+        self.on_event = on_event or (lambda e: None)
+        self.on_tick = on_tick or (lambda t: None)
 
         settings = self.sim.get("settings") or {}
         self.ticks = int(ticks_override or settings.get("max_rounds", 55))
@@ -158,6 +164,12 @@ class Engine:
     def _emit(self, **kw) -> None:
         kw.setdefault("turn", self.current_tick)
         self.events.append(kw)
+        # Fire the streaming hook AFTER local state is updated so downstream
+        # readers see a consistent self.events ordering.
+        try:
+            self.on_event(kw)
+        except Exception:
+            pass
 
     # ---------- per-tick phases ----------
 
@@ -221,8 +233,22 @@ class Engine:
             "reasoning": action.get("reasoning", ""),
         } if meta else None
 
-        if agent["bought"] or atype == "WAIT":
+        if agent["bought"]:
             agent["ticks_waited"] += 1
+            return
+
+        if atype == "WAIT":
+            agent["ticks_waited"] += 1
+            # Emit a low-key "thinking" event so streamed runs show one log line
+            # per claude call regardless of action — viewer never sees a blank
+            # 15-second gap. cls=log-wait styles it muted in the frontend.
+            reason = (action.get("reasoning") or "").strip()
+            self._emit(**{
+                "from": agent["id"], "letter": agent["letter"],
+                "msg": "WAIT — " + (reason[:90] if reason else "holding"),
+                "cls": "log-wait",
+                "llm": event_llm,
+            })
             return
 
         if atype == "BUY":
@@ -306,10 +332,12 @@ class Engine:
             self.rng.shuffle(order)
             active = [bid for bid in order if not self.buyers[bid]["bought"]]
 
-            # claude mode: decide in parallel (each subprocess.run releases GIL),
-            # then execute serially in the shuffled order so resource contention
-            # (limited seats) resolves deterministically.
-            if self.llm_mode == "claude" and len(active) > 1:
+            # claude mode: when llm_workers > 1, batch in parallel (faster total
+            # wall-clock but the frontend doesn't see anything until the batch
+            # completes). With llm_workers == 1 (streaming default) calls run
+            # strictly sequentially so each decision can emit its event the
+            # moment claude -p returns.
+            if self.llm_mode == "claude" and len(active) > 1 and self.llm_workers > 1:
                 with ThreadPoolExecutor(max_workers=self.llm_workers) as ex:
                     decisions = list(ex.map(lambda bid: self.decide(self.buyers[bid]), active))
                 for bid, action in zip(active, decisions):
@@ -328,6 +356,10 @@ class Engine:
                 snap[key] = s.posted_price()
                 snap[f"inv_{key}"] = s.inventory
             self.prices_over_time.append(snap)
+            try:
+                self.on_tick(snap)
+            except Exception:
+                pass
 
         return self.snapshot()
 

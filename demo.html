@@ -60,6 +60,7 @@ body { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; background: #
 .log-tool { color: #f0a040; }
 .log-lie { color: #f04040; }
 .log-collude { color: #f060a0; }
+.log-wait { color: #556; }
 
 table.lb { width: 100%; border-collapse: collapse; font-size: 11px; }
 table.lb th { text-align: left; color: #556; font-weight: 400; padding: 4px 6px; border-bottom: 1px solid #1e293b; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -274,7 +275,9 @@ function setSpeed(mult) {
     document.getElementById(id).classList.remove('active'));
   const id = mult === 0.5 ? 'speed-btn-half' : mult === 2 ? 'speed-btn-two' : 'speed-btn-one';
   document.getElementById(id).classList.add('active');
-  // If running, restart the interval at the new cadence.
+  // If we are mid-playback (legacy mock path), restart the interval at the
+  // new cadence. In streaming mode `state.stream` is set and `state.interval`
+  // is null — the LLM dictates pace so speed buttons are advisory only.
   if (state.running && state.interval) {
     clearInterval(state.interval);
     state.interval = setInterval(tickStep, state.tickMs);
@@ -682,92 +685,147 @@ function updateStats(turn) {
   updatePriceChart();
 }
 
-async function fetchBackendRun(topology) {
-  // LIVE mode: every Run triggers a fresh `claude -p` per agent per tick on
-  // the backend. No cached YAML reads here — `flight_booking_live` is sized
-  // (6 buyers, 4 ticks) so a full LLM-driven run completes in ~60-90 sec.
-  const status = document.getElementById('price-status');
-  status.textContent = 'CALLING LLM…';
-  status.style.color = '#f0a040';
-  try {
-    const body = {
-      config_path: 'flight_booking_live.yaml',
-      simulation_id: 'flight_booking_live',
-      topology: topology,
-      mode: 'claude',
-      seed: Date.now() % 1000000,           // fresh seed = fresh sim, no cache
-      model: 'haiku',
-    };
-    const r = await fetch('/api/sim/run', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(body),
-      cache: 'no-store',
-    });
-    if (!r.ok) {
-      console.warn('live run failed:', r.status, await r.text());
-      return null;
-    }
-    const data = await r.json();
-    if (data && data.sellers) {
-      data._totalSeats = Object.values(data.sellers).reduce((s, x) => s + (x.initial_inventory || 0), 0);
-    }
-    return data;
-  } catch (e) {
-    console.warn('live backend call failed:', e);
-    return null;
-  }
+function startBackendStream(topology, onEvent, onTick, onSummary, onDone, onError) {
+  // LIVE STREAMING mode: every Run opens an SSE connection. The backend runs
+  // `claude -p` strictly sequentially and pushes each completed decision
+  // immediately. First event arrives ~10-15s after click.
+  const seed = Date.now() % 1000000;          // fresh seed = no reuse
+  const url = `/api/sim/stream?config_path=flight_booking_live.yaml`
+            + `&simulation_id=flight_booking_live`
+            + `&topology=${encodeURIComponent(topology)}`
+            + `&mode=claude&model=haiku&seed=${seed}`;
+  const es = new EventSource(url);
+  es.onmessage = (ev) => {
+    let msg;
+    try { msg = JSON.parse(ev.data); } catch { return; }
+    if (msg.type === 'event')   onEvent(msg.data);
+    else if (msg.type === 'tick')    onTick(msg.data);
+    else if (msg.type === 'summary') onSummary(msg.data);
+    else if (msg.type === 'done')    { onDone(); es.close(); }
+    else if (msg.type === 'error')   { onError(msg.msg); es.close(); }
+  };
+  es.onerror = () => { onError('stream lost'); es.close(); };
+  return es;
 }
 
 let activitySeq = [], actIdx = 0;
 
-async function startSimulation() {
+function startSimulation() {
   if (state.running) return;
-  state.running = true; state.turn = 0; state.prices = []; state.agentsBought = 0;
+  state.running = true;
+  state.turn = 0;
+  state.prices = [];
+  state.agentsBought = 0;
+  state.totalSeats = 10;
+  state.totalTokens = 0;
+  state.totalCost = 0;
   document.getElementById('activity-log').innerHTML = '';
-  document.getElementById('price-status').textContent = 'LOADING…';
-  document.getElementById('price-status').style.color = '#f0a040';
-  initLeaderboard(); initToolGrid();
+  initLeaderboard();
+  initToolGrid();
 
-  // Try to load real backend data; if missing, fall back to the hardcoded mock.
-  const runData = await fetchBackendRun(state.topology);
-  if (runData) {
-    window.__runData = runData;
-    activitySeq = runData.events || [];
-    state.totalSeats = runData._totalSeats || 10;
-    document.getElementById('stat-seats').textContent = state.totalSeats;
-    // Populate the Tokens column from real per-agent counts so viewers can
-    // verify backend wiring at a glance — these come from the Anthropic API
-    // `usage` block via the claude -p wrapper and cannot be forged client-side.
-    Object.values(runData.agents || {}).forEach(a => {
-      if (!a.letter) return;
-      const cell = document.getElementById('lb-tokens-' + a.letter);
-      if (cell && a.tokens) {
-        cell.textContent = a.tokens.total || 0;
-        cell.title = `calls=${a.tokens.calls}, in=${a.tokens.input}, out=${a.tokens.output}, ` +
-                     `cache_r=${a.tokens.cache_read}, cache_w=${a.tokens.cache_creation}, ` +
-                     `cost=$${(a.tokens.cost_usd || 0).toFixed(4)}, ` +
-                     `wall=${(a.tokens.duration_ms / 1000).toFixed(1)}s`;
-      }
-    });
-    // Badge: BACKEND RUN + aggregate token + cost label
-    const s = runData.summary || {};
-    const totalK = s.total_tokens != null ? (s.total_tokens / 1000).toFixed(1) + 'k tok' : '0 tok';
-    const cost = s.total_cost_usd != null ? '$' + s.total_cost_usd.toFixed(4) : '$0';
-    document.getElementById('lb-badge').textContent =
-      `0 / ${(runData.agents ? Object.keys(runData.agents).length : 15)} bought · ${totalK} · ${cost}`;
-  } else {
-    window.__runData = null;
-    activitySeq = getActivitySequence();
-    state.totalSeats = 10;
+  const status = document.getElementById('price-status');
+  status.textContent = 'WAITING FOR FIRST LLM REPLY…';
+  status.style.color = '#f0a040';
+  document.getElementById('lb-badge').textContent = 'streaming · 0 tok · $0';
+
+  // Live SSE stream: events arrive as each claude -p call returns (sequential).
+  state.stream = startBackendStream(
+    state.topology,
+    onStreamEvent,
+    onStreamTick,
+    onStreamSummary,
+    onStreamDone,
+    onStreamError,
+  );
+}
+
+function onStreamEvent(act) {
+  // First decision arrived — flip status from WAITING to STREAMING.
+  if (status_first()) {
+    document.getElementById('price-status').textContent = 'STREAMING LLM';
+    document.getElementById('price-status').style.color = '#40f080';
   }
-  actIdx = 0;
-  const totalTurns = (window.__runData && window.__runData.ticks) || 55;
-  document.getElementById('price-status').textContent = window.__runData ? 'BACKEND RUN' : 'MOCK RUN';
-  document.getElementById('price-status').style.color = '#40f080';
+  // The arrival time of this message IS its display time — no setTimeout
+  // pacing needed; pacing comes naturally from claude latency.
+  state.turn = act.turn || state.turn;
+  document.getElementById('turn-badge').textContent = `Turn ${state.turn}`;
+  playEvent(act);
+  // Accumulate tokens onto the agent's leaderboard cell + global badge.
+  if (act.llm && act.letter) {
+    const cell = document.getElementById('lb-tokens-' + act.letter);
+    if (cell) {
+      const u = act.llm;
+      const prior = parseInt(cell.dataset.total || '0', 10);
+      const total = prior + (u.input_tokens||0) + (u.output_tokens||0) + (u.cache_read||0) + (u.cache_creation||0);
+      cell.dataset.total = total;
+      cell.textContent = total;
+      const priorCost = parseFloat(cell.dataset.cost || '0');
+      const priorCalls = parseInt(cell.dataset.calls || '0', 10);
+      const cost = priorCost + (u.cost_usd||0);
+      const calls = priorCalls + 1;
+      cell.dataset.cost = cost;
+      cell.dataset.calls = calls;
+      cell.title = `calls=${calls}, last_in=${u.input_tokens}, last_out=${u.output_tokens}, ` +
+                   `cache_r=${u.cache_read}, cost=$${cost.toFixed(4)}, last_ms=${u.duration_ms}`;
+      state.totalTokens += (u.input_tokens||0) + (u.output_tokens||0) + (u.cache_read||0) + (u.cache_creation||0);
+      state.totalCost += (u.cost_usd||0);
+      const bought = state.agentsBought;
+      const totalA = (act.letter ? AGENT_DATA.length : 15);
+      document.getElementById('lb-badge').textContent =
+        `${bought} / ${totalA} bought · ${(state.totalTokens/1000).toFixed(1)}k tok · $${state.totalCost.toFixed(4)}`;
+    }
+  }
+}
 
-  state._totalTurns = totalTurns;
-  state.interval = setInterval(tickStep, state.tickMs);
+function onStreamTick(pt) {
+  state.prices.push({ a: pt.a, b: pt.b });
+  updatePriceChartFromStream(pt);
+}
+
+function onStreamSummary(summary) {
+  // Just stash; the done event flips final UI state.
+  window.__runData = summary;
+}
+
+function onStreamDone() {
+  state.running = false;
+  if (state.stream) state.stream.close();
+  document.getElementById('price-status').textContent = 'COMPLETE';
+  document.getElementById('price-status').style.color = '#00d4ff';
+  AGENT_DATA.filter(a => !a.bought).forEach(a => {
+    const el = document.getElementById(`lb-status-${a.letter}`);
+    if (el) { el.textContent = 'missed'; el.className = 'lb-status missed'; }
+  });
+  resortLeaderboard();
+}
+
+function onStreamError(msg) {
+  state.running = false;
+  if (state.stream) state.stream.close();
+  document.getElementById('price-status').textContent = 'ERROR';
+  document.getElementById('price-status').style.color = '#f04040';
+  console.error('stream error:', msg);
+}
+
+let __firstSeen = false;
+function status_first() {
+  if (__firstSeen) return false;
+  __firstSeen = true;
+  return true;
+}
+
+function updatePriceChartFromStream(pt) {
+  // Reuse the same scaling/render path; we just append a point and redraw.
+  const container = document.getElementById('price-chart');
+  if (!container) return;
+  document.getElementById('stat-seats').textContent =
+    Math.max(state.totalSeats - state.agentsBought, (pt.inv_a||0) + (pt.inv_b||0));
+  const cur = Math.round((pt.a + pt.b) / 2);
+  document.getElementById('stat-price').textContent = '$' + cur;
+  document.getElementById('stat-price').className =
+    'stat-value' + (cur > 320 ? ' bad' : cur < 290 ? ' good' : ' warn');
+  document.getElementById('stat-spread').textContent = '$' + Math.abs(pt.a - pt.b);
+  updatePriceChart();
 }
 
 function playEvent(act) {
@@ -817,8 +875,11 @@ function tickStep() {
 
 function resetSimulation() {
   if (state.interval) clearInterval(state.interval);
+  if (state.stream) { state.stream.close(); state.stream = null; }
+  __firstSeen = false;
   state.running = false; state.turn = 0; state.prices = []; state.seatsLeft = 10;
   state.totalSeats = 10; state.agentsBought = 0; state.toolsBuilt = 0;
+  state.totalTokens = 0; state.totalCost = 0;
   document.getElementById('activity-log').innerHTML = '';
   document.getElementById('turn-badge').textContent = 'Turn 0';
   document.getElementById('price-status').textContent = 'WAITING';

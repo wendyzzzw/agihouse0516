@@ -4,12 +4,15 @@ Run:  uvicorn app:app --reload --port 8000
 Then open: http://localhost:8000/demo.html
 """
 from __future__ import annotations
+import json
 import os
+import queue
+import threading
 from typing import Optional
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel, Field
 
 from engine import Engine
@@ -80,6 +83,87 @@ def run_sim(req: RunRequest):
         model=req.model,
     )
     return eng.run()
+
+
+@app.get("/api/sim/stream")
+def stream_sim(
+    config_path: str = "flight_booking_live.yaml",
+    simulation_id: Optional[str] = None,
+    topology: str = "small_world",
+    mode: str = "claude",
+    model: str = "haiku",
+    seed: int = 42,
+):
+    """SSE: every `claude -p` reply is pushed immediately, sequentially.
+    Frontend opens an EventSource on this URL.
+
+    Message envelopes:
+        data: {"type": "event",   "data": <event dict>}
+        data: {"type": "tick",    "data": <prices snapshot>}
+        data: {"type": "summary", "data": <full snapshot>}
+        data: {"type": "done"}
+        data: {"type": "error",   "msg": "..."}
+    """
+    if topology not in FRONTEND_TOPOLOGIES:
+        raise HTTPException(400, f"unknown topology: {topology}")
+    if mode not in ("rule", "claude"):
+        raise HTTPException(400, f"unknown mode: {mode}")
+    cfg_path = config_path
+    if not os.path.isabs(cfg_path):
+        candidate = os.path.join(REPO_ROOT, cfg_path)
+        if os.path.exists(candidate):
+            cfg_path = candidate
+
+    def event_stream():
+        q: "queue.Queue[Optional[dict]]" = queue.Queue()
+
+        def on_event(e):
+            q.put({"type": "event", "data": e})
+
+        def on_tick(t):
+            q.put({"type": "tick", "data": t})
+
+        def run_engine():
+            try:
+                eng = Engine(
+                    config_path=cfg_path,
+                    simulation_id=simulation_id,
+                    override_topology=topology,
+                    seed=seed,
+                    llm_mode=mode,
+                    model=model,
+                    llm_workers=1,                 # strictly sequential — stream each call
+                    on_event=on_event,
+                    on_tick=on_tick,
+                )
+                final = eng.run()
+                q.put({"type": "summary", "data": final})
+            except Exception as exc:
+                q.put({"type": "error", "msg": str(exc)[:300]})
+            finally:
+                q.put({"type": "done"})
+                q.put(None)
+
+        threading.Thread(target=run_engine, daemon=True).start()
+
+        # Initial comment to flush headers immediately so the browser opens
+        # the EventSource connection before the first 15s of claude latency.
+        yield ": stream open\n\n"
+        while True:
+            msg = q.get()
+            if msg is None:
+                break
+            yield f"data: {json.dumps(msg)}\n\n"
+
+    return StreamingResponse(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache, no-transform",
+            "X-Accel-Buffering": "no",
+            "Connection": "keep-alive",
+        },
+    )
 
 
 @app.get("/api/sim/cached/{topology}")
