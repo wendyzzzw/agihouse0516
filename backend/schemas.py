@@ -7,15 +7,29 @@ from pydantic import BaseModel, Field
 
 class ActionType(str, Enum):
     BUY = "BUY"
+    BID = "BID"
+    ACCEPT_OFFER = "ACCEPT_OFFER"
+    COUNTER_OFFER = "COUNTER_OFFER"
+    REJECT_OFFER = "REJECT_OFFER"
     COMMUNICATE = "COMMUNICATE"
+    PROBE = "PROBE"
+    SHARE_INFO = "SHARE_INFO"
+    COORDINATE = "COORDINATE"
+    LIE = "LIE"
+    BROADCAST = "BROADCAST"
+    SET_PRICE = "SET_PRICE"
+    UNDERCUT = "UNDERCUT"
+    BUILD_TOOL = "BUILD_TOOL"
+    FORM_CONNECTION = "FORM_CONNECTION"
     WAIT = "WAIT"
+    EXIT = "EXIT"
 
 
 class Action(BaseModel):
-    """One turn output by an agent. Two real actions + WAIT."""
+    """One turn output by an agent. The engine executes the subset it supports."""
     action: ActionType
-    target: Optional[str] = None      # seller_id for BUY, agent_id for COMMUNICATE
-    content: Optional[str] = None     # message body when COMMUNICATE
+    target: Optional[str] = None      # seller_id or agent_id, depending on action
+    content: Optional[str] = None     # message, offer terms, or price/update content
     reasoning: Optional[str] = None   # one-sentence why (helps debugging)
 
 
@@ -36,9 +50,14 @@ class AgentState(BaseModel):
     folder-mode message passing — also the exact shape passed into the claude -p prompt."""
     id: str
     type: Literal["buyer", "seller"] = "buyer"
+    archetype: Optional[str] = None
     persona: Persona
     budget: int
+    goal: Optional[Dict[str, Any]] = None
+    constraints: Dict[str, Any] = Field(default_factory=dict)
+    actions: List[str] = Field(default_factory=list)
     bought: bool = False
+    exited: bool = False
     purchase_price: Optional[int] = None
     purchase_seller: Optional[str] = None
     satisfaction: Optional[int] = None

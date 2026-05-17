@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentArena - Create Simulation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="create">
+  <div class="shell">
+    <header class="topnav">
+      <a class="brand" href="runs.html">
+        <strong>AgentArena</strong>
+        <span>File-backed LLM market simulations</span>
+      </a>
+      <nav class="navlinks" aria-label="Primary"></nav>
+    </header>
+
+    <main>
+      <div class="page-head">
+        <div class="page-title">
+          <h1>Create Simulation</h1>
+          <p>Start a scenario from test_config.yaml. The backend creates a run directory, advances agents in the background, and redirects here to the live run detail page.</p>
+        </div>
+        <div class="actions">
+          <a class="button" href="runs.html">Past Runs</a>
+        </div>
+      </div>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div class="panel-title">New Run</div>
+          <div id="create-status" class="status-line">Choose scenario settings.</div>
+        </div>
+        <div class="panel-body">
+          <form id="create-form">
+            <div class="form-grid">
+              <label>
+                Scenario
+                <select id="scenario_id" name="scenario_id"></select>
+              </label>
+              <label>
+                LLM Provider
+                <select name="llm_provider">
+                  <option value="rule">rule - deterministic local demo</option>
+                  <option value="openai">openai - real OpenAI API call</option>
+                  <option value="claude">claude - local Claude CLI</option>
+                </select>
+              </label>
+              <label>
+                Model
+                <input name="model" value="gpt-4.1-mini">
+              </label>
+              <label>
+                Seed
+                <input name="seed" type="number" value="42">
+              </label>
+              <label>
+                Max Rounds
+                <input name="max_rounds" type="number" min="1" placeholder="Use scenario default">
+              </label>
+              <label>
+                Turn Delay (ms)
+                <input name="speed_ms" type="number" min="0" max="10000" value="500">
+              </label>
+            </div>
+            <p id="scenario-summary" class="hint"></p>
+            <p class="hint">OpenAI mode requires OPENAI_API_KEY in the FastAPI server environment. Claude mode requires the claude CLI to be installed and authenticated. If either fails, the current backend falls back to the rule adapter and records the adapter error in the per-agent trace.</p>
+            <div class="form-actions">
+              <a class="button" href="runs.html">Cancel</a>
+              <button id="create-submit" class="primary" type="submit">Create and Open Run</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

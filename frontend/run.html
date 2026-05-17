@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentArena - Run Details</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="run">
+  <div class="shell">
+    <header class="topnav">
+      <a class="brand" href="runs.html">
+        <strong>AgentArena</strong>
+        <span>File-backed LLM market simulations</span>
+      </a>
+      <nav class="navlinks" aria-label="Primary"></nav>
+    </header>
+
+    <main id="run-root">
+      <div class="page-head">
+        <div class="page-title">
+          <h1 id="run-title">Run Details</h1>
+          <p id="run-subtitle">Loading run...</p>
+          <div id="run-status" class="status-line">Loading status...</div>
+        </div>
+        <div class="actions">
+          <a class="button" href="runs.html">Past Runs</a>
+          <a id="context-link" class="button" href="context.html">Context</a>
+          <button id="refresh-run" type="button">Refresh</button>
+        </div>
+      </div>
+
+      <div id="metrics" class="grid-metrics"></div>
+
+      <section class="panel replay-panel">
+        <div class="panel-head">
+          <div class="panel-title">Turn Replay</div>
+          <div id="replay-status" class="status-line">Loading turns...</div>
+        </div>
+        <div class="panel-body">
+          <div class="replay-controls">
+            <button id="replay-play" type="button">Play</button>
+            <button id="replay-latest" type="button">Latest</button>
+            <label class="replay-slider">
+              Turn
+              <input id="replay-turn" type="range" min="0" max="0" value="0">
+            </label>
+            <div id="replay-turn-label" class="turn-label">Turn 0</div>
+          </div>
+          <div id="replay-turn-summary" class="turn-summary"></div>
+        </div>
+      </section>
+
+      <div class="layout">
+        <div class="stack">
+          <section class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Messages At Selected Turn</div>
+              <div class="actions">
+                <select id="message-filter" aria-label="Filter messages">
+                  <option value="all">All messages</option>
+                </select>
+                <span id="message-count" class="status-line"></span>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div id="messages" class="message-list"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Message Input / Output Inspector</div>
+            </div>
+            <div class="panel-body">
+              <div id="message-inspector" class="empty">Select Inspect I/O on a message to see the sender's full prompt input and model/adapter output for that turn.</div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Communication Topology</div>
+            </div>
+            <div class="panel-body">
+              <div id="topology"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Price History</div>
+            </div>
+            <div class="panel-body">
+              <div id="price-chart"></div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Players and Archetypes</div>
+            </div>
+            <div class="panel-body">
+              <div id="players" class="player-list"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Sellers</div>
+            </div>
+            <div class="panel-body" id="sellers"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Event Trace</div>
+            </div>
+            <div class="panel-body">
+              <div id="events" class="event-list"></div>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <section class="panel heatmap-panel">
+        <div class="panel-head">
+          <div class="panel-title">Full Run Communication Heatmap</div>
+          <div id="heatmap-status" class="status-line"></div>
+        </div>
+        <div class="panel-body">
+          <div id="heatmap"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -19,6 +19,40 @@ from agent_runtime import decide_via_claude, _fallback
 
 BUYER_IDS = [chr(ord("A") + i) for i in range(15)]   # A..O
 
+PROFILE_ACTIONS = {
+    "budget": ["BUY", "COMMUNICATE", "PROBE", "SHARE_INFO", "WAIT", "EXIT"],
+    "family": ["BUY", "COMMUNICATE", "PROBE", "WAIT"],
+    "investor": ["BUY", "BID", "COUNTER_OFFER", "PROBE", "SHARE_INFO", "BUILD_TOOL", "LIE", "WAIT", "EXIT"],
+    "flexible": ["BUY", "COMMUNICATE", "PROBE", "WAIT", "EXIT"],
+}
+
+MESSAGE_ACTIONS = {
+    "COMMUNICATE",
+    "PROBE",
+    "SHARE_INFO",
+    "COORDINATE",
+    "LIE",
+    "BID",
+    "COUNTER_OFFER",
+    "REJECT_OFFER",
+    "BROADCAST",
+    "FORM_CONNECTION",
+}
+
+BUY_ACTIONS = {"BUY", "ACCEPT_OFFER"}
+
+ACTION_EVENT_CLASS = {
+    "PROBE": "log-probe",
+    "SHARE_INFO": "log-trade",
+    "COORDINATE": "log-collude",
+    "LIE": "log-lie",
+    "BID": "log-trade",
+    "COUNTER_OFFER": "log-trade",
+    "REJECT_OFFER": "log-trade",
+    "BROADCAST": "log-trade",
+    "FORM_CONNECTION": "log-probe",
+}
+
 
 class Engine:
     def __init__(
@@ -52,11 +86,16 @@ class Engine:
         self.buyers: Dict[str, dict] = {}
         for i, bid in enumerate(self.buyer_ids):
             profile = PROFILE_SEQUENCE[i]
+            budget = 280 + self.rng.randint(0, 120)
             self.buyers[bid] = {
                 "id": bid,
                 "type": "buyer",
                 "persona": make_persona(profile),
-                "budget": 280 + self.rng.randint(0, 120),
+                "archetype": profile,
+                "budget": budget,
+                "goal": self._goal_for_profile(profile, budget),
+                "constraints": {"max_budget": budget, "target_quantity": 1},
+                "actions": list(PROFILE_ACTIONS.get(profile, ["BUY", "COMMUNICATE", "WAIT"])),
                 "bought": False,
                 "purchase_price": None,
                 "purchase_seller": None,
@@ -78,16 +117,47 @@ class Engine:
 
     # ---------- helpers ----------
 
+    def _goal_for_profile(self, profile: str, budget: int) -> dict:
+        if profile == "budget":
+            return {"type": "buy_if_good_deal", "max_price_per_item": int(budget * 0.85)}
+        if profile == "family":
+            return {"type": "must_buy_quickly", "max_price_per_item": int(budget * 0.98)}
+        if profile == "investor":
+            return {"type": "buy_only_clear_arbitrage", "max_price_per_item": int(budget * 0.80)}
+        if profile == "flexible":
+            return {"type": "wait_for_fire_sale", "max_price_per_item": int(budget * 0.82)}
+        return {"type": "buy_if_acceptable", "max_price_per_item": int(budget * 0.90)}
+
+    def contacts_of(self, agent_id: str) -> List[str]:
+        return sorted(self.graph.neighbors(agent_id))
+
     def neighbors_of(self, agent_id: str) -> List[str]:
         return sorted([n for n in self.graph.neighbors(agent_id) if n in self.buyer_ids])
 
     def world_view_for(self, agent_id: str) -> dict:
         return {
+            "simulation": {
+                "id": self.topology,
+                "summary": "Dynamic airline-seat market with local communication constrained by topology.",
+                "max_rounds": self.ticks,
+            },
+            "market_rules": {
+                "pricing": "dynamic_posted_price",
+                "transaction_rule": "buyer_accepts_current_seller_price",
+                "allow_buyer_communication": True,
+                "allow_seller_inventory_updates": True,
+            },
+            "topology": {
+                "name": self.topology,
+                "communication_boundary": "adjacency_matrix",
+                "graph_knowledge": "local_contacts_only",
+            },
             "sellers": {
                 sid: {"price": s.posted_price(), "inventory": s.inventory}
                 for sid, s in self.sellers.items()
             },
-            "neighbors": self.neighbors_of(agent_id),
+            "neighbors": self.contacts_of(agent_id),
+            "buyer_neighbors": self.neighbors_of(agent_id),
             "ticks_remaining": self.ticks - self.current_tick + 1,
         }
 
@@ -99,7 +169,7 @@ class Engine:
 
     def deliver_messages(self) -> None:
         """Deliver queued messages to recipients. inbox keeps the FULL history;
-        agent_runtime trims to the last N when building the prompt context."""
+        agent_runtime filters it to the visible local transcript."""
         for msg in self.pending_messages:
             recipient = self.buyers.get(msg["recipient"])
             if recipient is None:
@@ -122,14 +192,36 @@ class Engine:
         atype = (action.get("action") or "WAIT").upper()
         t = self.current_tick
 
-        if agent["bought"] or atype == "WAIT":
+        if agent["bought"] or agent.get("exited") or atype == "WAIT":
             agent["ticks_waited"] += 1
             return
 
-        if atype == "BUY":
+        if atype == "EXIT":
+            agent["exited"] = True
+            agent["ticks_waited"] += 1
+            self._emit(**{
+                "from": agent["id"],
+                "msg": f"exited the market ({action.get('reasoning', 'no reason provided')})",
+                "cls": "log-trade",
+            })
+            return
+
+        if atype == "BUILD_TOOL":
+            agent["ticks_waited"] += 1
+            tool_name = (action.get("content") or "custom_analysis_tool").strip()
+            agent.setdefault("tools", []).append({"name": tool_name, "description": "Built during simulation"})
+            self._emit(**{
+                "from": agent["id"],
+                "msg": f"built tool: {tool_name}",
+                "cls": "log-tool",
+            })
+            return
+
+        if atype in BUY_ACTIONS:
             target = action.get("target")
             seller = self.sellers.get(target)
             if seller is None:
+                agent["ticks_waited"] += 1
                 self._emit(**{"from": agent["id"], "msg": f"tried to buy unknown seller '{target}'",
                               "cls": "log-lie"})
                 return
@@ -152,11 +244,12 @@ class Engine:
                     "letter": agent["id"], "price": price, "sat": agent["satisfaction"],
                 })
             else:
+                agent["ticks_waited"] += 1
                 self._emit(**{"from": agent["id"], "msg": f"failed buy from {target} (sold out)",
                               "cls": "log-trade"})
             return
 
-        if atype == "COMMUNICATE":
+        if atype in MESSAGE_ACTIONS:
             to = action.get("target")
             content = (action.get("content") or "").strip()
             if not to or not content:
@@ -164,6 +257,7 @@ class Engine:
                 return
             if not self.matrix.get(agent["id"], {}).get(to, False):
                 # topology blocked it
+                agent["ticks_waited"] += 1
                 self._emit(**{"from": agent["id"], "to": to,
                               "msg": f"blocked: no edge ({content[:40]})",
                               "cls": "log-lie"})
@@ -177,12 +271,22 @@ class Engine:
             }
             self.pending_messages.append(msg)
             agent["outbox"].append(msg)
-            cls = "log-probe" if "?" in content else "log-trade"
+            cls = ACTION_EVENT_CLASS.get(atype) or ("log-probe" if "?" in content else "log-trade")
+            display = content if len(content) <= 100 else content[:97] + "..."
             self._emit(**{
                 "from": agent["id"], "to": to,
-                "msg": content if len(content) <= 100 else content[:97] + "...",
+                "msg": display,
                 "cls": cls,
             })
+            agent["ticks_waited"] += 1
+            return
+
+        agent["ticks_waited"] += 1
+        self._emit(**{
+            "from": agent["id"],
+            "msg": f"unsupported action '{atype}' treated as WAIT",
+            "cls": "log-trade",
+        })
 
     # ---------- main loop ----------
 
@@ -202,7 +306,7 @@ class Engine:
             self.rng.shuffle(order)
             for bid in order:
                 agent = self.buyers[bid]
-                if agent["bought"]:
+                if agent["bought"] or agent.get("exited"):
                     continue
                 action = self.decide(agent)
                 self.execute(agent, action)
@@ -252,12 +356,17 @@ class Engine:
                     "id": b["id"],
                     "profile": b["persona"]["profile"],
                     "persona": b["persona"],
+                    "goal": b.get("goal"),
+                    "constraints": b.get("constraints"),
+                    "actions": b.get("actions"),
                     "budget": b["budget"],
                     "bought": b["bought"],
+                    "exited": b.get("exited", False),
                     "purchase_price": b["purchase_price"],
                     "purchase_seller": b["purchase_seller"],
                     "satisfaction": b["satisfaction"],
                     "ticks_waited": b["ticks_waited"],
+                    "tools": b.get("tools", []),
                     "messages_sent": len(b["outbox"]),
                     "messages_received": len(b["inbox"]),
                     "inbox": b["inbox"],            # full received-message history

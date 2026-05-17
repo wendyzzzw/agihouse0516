@@ -12,14 +12,21 @@ agents or `claude -p` LLM agents.
   an explicit `Dict[node][node] -> bool` that gates every message. **The only
   place topology has any effect** is `matrix[sender][recipient]`. Swap matrix
   → different topology. Agent logic doesn't change.
-- **Two actions** (`schemas.py::Action`) — `BUY(target=seller_id)` or
-  `COMMUNICATE(target=agent_id, content=text)`. (`WAIT` is the no-op default.)
+- **Agent-specific actions** (`schemas.py::Action`) — each agent carries its own
+  allowed action list. The current engine executes `BUY`, message-like actions
+  (`COMMUNICATE`, `PROBE`, `SHARE_INFO`, `COORDINATE`, etc.), `BUILD_TOOL`,
+  `EXIT`, and `WAIT`; unsupported actions are logged and treated as wait.
 - **Per-tick decision** — engine calls `agent_runtime.decide()` which either
-  shells out to `claude -p --bare --json-schema ...` (LLM mode) or runs the
+  shells out to `claude -p --system-prompt --json-schema ...` (LLM mode) or runs the
   rule-based fallback. Both return the same Action JSON.
+- **Local memory** — LLM prompts include the full direct-message history visible
+  to that agent through the adjacency matrix: messages it sent or received with
+  currently reachable contacts. They do not receive a global conversation log.
 - **Output** — full sim dumps to `runs/{topology}.json` with `events`,
   `prices_over_time`, `agents`, `comm_matrix`, `summary`. The frontend can
   fetch that file directly.
+- **Live runs** — `live_runtime.py` compiles `test_config.yaml`, runs buyers and
+  sellers in the background, and persists every turn under `runs/live/{run_id}`.
 
 ## Files
 
@@ -31,8 +38,9 @@ backend/
 ├── market.py           # Seller dynamic pricing (yield management, 3 signals)
 ├── agent_runtime.py    # claude -p invocation + rule-based fallback
 ├── engine.py           # Tick loop, event emission, world state
+├── live_runtime.py     # File-backed live runs from test_config.yaml
 ├── run.py              # CLI runner
-├── app.py              # FastAPI: /api/sim/run, /api/sim/compare, /api/sim/cached
+├── app.py              # FastAPI: cached /api/sim/* and live /api/runs/*
 ├── requirements.txt
 └── README.md
 ```
@@ -70,16 +78,27 @@ uvicorn app:app --port 8000 --reload
 - `GET  /api/sim/cached/{topology}` — serve pre-generated `runs/*.json`
 - `GET  /api/sim/compare?seeds=5` — run each topology N times, return mean prices
   and overpay % vs the cheapest topology (the headline "22%" data point)
+- `GET  /api/scenarios` — list scenarios compiled from `test_config.yaml`
+- `POST /api/runs` — create a live background run. Body:
+  `{scenario_id, seed, max_rounds, llm_provider, model, speed_ms}`
+- `GET  /api/runs/{run_id}` — live run status and summary when complete
+- `GET  /api/runs/{run_id}/snapshot?turn=N` — frontend-compatible run snapshot
+- `GET  /api/runs/{run_id}/events?after_turn=N` — poll new frontend events
+- `GET  /api/runs/{run_id}/messages?agent_id=buyer_1` — persisted natural-language messages
+- `GET  /api/runs/{run_id}/debug/agents/{agent_id}/turns/{turn}` — full private trace
+
+Live runs write local files only, under `runs/live/{run_id}`. No database is used.
 
 ## Action JSON schema
 
-Every agent decision conforms to:
+Every agent decision conforms to this shape. The `action` enum is generated per
+agent from its configured action list:
 
 ```json
 {
-  "action": "BUY" | "COMMUNICATE" | "WAIT",
+  "action": "BUY" | "BID" | "PROBE" | "SHARE_INFO" | "WAIT",
   "target": "Airline_A" | "C" | null,
-  "content": "What price are you seeing?" | null,
+  "content": "What price are you seeing?" | "$260 for one seat" | null,
   "reasoning": "one-sentence why"
 }
 ```

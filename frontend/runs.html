@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentArena - Past Runs</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="runs">
+  <div class="shell">
+    <header class="topnav">
+      <a class="brand" href="runs.html">
+        <strong>AgentArena</strong>
+        <span>File-backed LLM market simulations</span>
+      </a>
+      <nav class="navlinks" aria-label="Primary"></nav>
+    </header>
+
+    <main>
+      <div class="page-head">
+        <div class="page-title">
+          <h1>Past Runs</h1>
+          <p>Browse simulations written to the local filesystem. Each run opens into a detailed view with players, directed messages, topology, prices, and context.</p>
+        </div>
+        <div class="actions">
+          <a class="button primary" href="create.html">Create Simulation</a>
+        </div>
+      </div>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div class="panel-title">Run History</div>
+          <div id="runs-status" class="status-line">Loading runs...</div>
+        </div>
+        <div class="panel-body">
+          <div id="run-list" class="run-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
