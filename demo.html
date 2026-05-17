@@ -60,6 +60,7 @@ body { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; background: #
 .log-tool { color: #f0a040; }
 .log-lie { color: #f04040; }
 .log-collude { color: #f060a0; }
+.log-wait { color: #556; }
 
 table.lb { width: 100%; border-collapse: collapse; font-size: 11px; }
 table.lb th { text-align: left; color: #556; font-weight: 400; padding: 4px 6px; border-bottom: 1px solid #1e293b; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -119,6 +120,10 @@ table.lb tr.highlight td { background: #00d4ff08; }
   <button class="btn" onclick="setTopology('fully_connected')">Fully Connected</button>
   <span style="color:#334">|</span>
   <button class="btn success" onclick="startSimulation()">&#9654; Run</button>
+  <button class="btn" id="speed-btn-half" onclick="setSpeed(0.5)">0.5&times;</button>
+  <button class="btn active" id="speed-btn-one" onclick="setSpeed(1)">1&times;</button>
+  <button class="btn" id="speed-btn-two" onclick="setSpeed(2)">2&times;</button>
+  <span style="color:#334">|</span>
   <button class="btn warn" onclick="injectEvent('supply_shock')">Supply Shock</button>
   <button class="btn warn" onclick="injectEvent('new_seller')">New Seller</button>
   <button class="btn danger" onclick="injectEvent('collusion')">Enable Collusion</button>
@@ -257,7 +262,27 @@ let state = {
   topology: 'small_world', running: false, turn: 0, interval: null,
   nodes: [], edges: [], prices: [], trades: [], seatsLeft: 10, totalSeats: 10,
   toolsBuilt: 0, agentsBought: 0,
+  // Playback pacing. tickMs = ms per simulated turn. eventStaggerMs = gap between
+  // events that fall on the same turn. Both scale with the speed control below.
+  tickMs: 1500, eventStaggerMs: 150, speedMult: 1,
 };
+
+function setSpeed(mult) {
+  state.speedMult = mult;
+  state.tickMs = Math.round(1500 / mult);
+  state.eventStaggerMs = Math.round(150 / mult);
+  ['speed-btn-half', 'speed-btn-one', 'speed-btn-two'].forEach(id =>
+    document.getElementById(id).classList.remove('active'));
+  const id = mult === 0.5 ? 'speed-btn-half' : mult === 2 ? 'speed-btn-two' : 'speed-btn-one';
+  document.getElementById(id).classList.add('active');
+  // If we are mid-playback (legacy mock path), restart the interval at the
+  // new cadence. In streaming mode `state.stream` is set and `state.interval`
+  // is null — the LLM dictates pace so speed buttons are advisory only.
+  if (state.running && state.interval) {
+    clearInterval(state.interval);
+    state.interval = setInterval(tickStep, state.tickMs);
+  }
+}
 let simulation, svg, link, node, priceChart;
 
 function createAgents() {
@@ -559,6 +584,18 @@ function addLogEntry(activity, turn) {
   entry.className = 'log-entry';
   const targetStr = activity.to ? ` &rarr; ${activity.to}` : '';
   entry.innerHTML = `<span class="log-time">t=${turn}s</span> <span class="${activity.cls}">[${activity.from}${targetStr}]</span> ${activity.msg}`;
+  // If the backend attached per-event LLM stats, surface them on hover so the
+  // viewer can see THIS message's real input/output without crowding the log.
+  if (activity.llm) {
+    const u = activity.llm;
+    entry.title =
+      `model=${u.model}\n` +
+      `input=${u.input_tokens}  output=${u.output_tokens}\n` +
+      `cache_read=${u.cache_read}  cache_creation=${u.cache_creation}\n` +
+      `cost=$${(u.cost_usd||0).toFixed(4)}  duration=${u.duration_ms}ms\n` +
+      (u.reasoning ? `reasoning: ${u.reasoning}` : '');
+    entry.style.cursor = 'help';
+  }
   log.insertBefore(entry, log.firstChild);
 }
 
@@ -648,111 +685,201 @@ function updateStats(turn) {
   updatePriceChart();
 }
 
-async function fetchBackendRun(topology) {
-  // Backend writes YAML; we parse with js-yaml (loaded from CDN above).
-  try {
-    const r = await fetch(`./runs/${topology}.yaml`, { cache: 'no-store' });
-    if (!r.ok) return null;
-    const text = await r.text();
-    const data = (typeof jsyaml !== 'undefined') ? jsyaml.load(text) : JSON.parse(text);
-    if (data && data.sellers) {
-      data._totalSeats = Object.values(data.sellers).reduce((s, x) => s + (x.initial_inventory || 0), 0);
-    }
-    return data;
-  } catch (e) {
-    console.warn('backend fetch failed, falling back to mock:', e);
-    return null;
-  }
+function startBackendStream(topology, onEvent, onTick, onSummary, onDone, onError) {
+  // LIVE STREAMING mode: every Run opens an SSE connection. The backend runs
+  // `claude -p` strictly sequentially and pushes each completed decision
+  // immediately. First event arrives ~10-15s after click.
+  const seed = Date.now() % 1000000;          // fresh seed = no reuse
+  const url = `/api/sim/stream?config_path=flight_booking_live.yaml`
+            + `&simulation_id=flight_booking_live`
+            + `&topology=${encodeURIComponent(topology)}`
+            + `&mode=claude&model=haiku&seed=${seed}`;
+  const es = new EventSource(url);
+  es.onmessage = (ev) => {
+    let msg;
+    try { msg = JSON.parse(ev.data); } catch { return; }
+    if (msg.type === 'event')   onEvent(msg.data);
+    else if (msg.type === 'tick')    onTick(msg.data);
+    else if (msg.type === 'summary') onSummary(msg.data);
+    else if (msg.type === 'done')    { onDone(); es.close(); }
+    else if (msg.type === 'error')   { onError(msg.msg); es.close(); }
+  };
+  es.onerror = () => { onError('stream lost'); es.close(); };
+  return es;
 }
 
 let activitySeq = [], actIdx = 0;
 
-async function startSimulation() {
+function startSimulation() {
   if (state.running) return;
-  state.running = true; state.turn = 0; state.prices = []; state.agentsBought = 0;
+  state.running = true;
+  state.turn = 0;
+  state.prices = [];
+  state.agentsBought = 0;
+  state.totalSeats = 10;
+  state.totalTokens = 0;
+  state.totalCost = 0;
   document.getElementById('activity-log').innerHTML = '';
-  document.getElementById('price-status').textContent = 'LOADING…';
-  document.getElementById('price-status').style.color = '#f0a040';
-  initLeaderboard(); initToolGrid();
+  initLeaderboard();
+  initToolGrid();
 
-  // Try to load real backend data; if missing, fall back to the hardcoded mock.
-  const runData = await fetchBackendRun(state.topology);
-  if (runData) {
-    window.__runData = runData;
-    activitySeq = runData.events || [];
-    state.totalSeats = runData._totalSeats || 10;
-    document.getElementById('stat-seats').textContent = state.totalSeats;
-    // Populate the Tokens column from real per-agent counts so viewers can
-    // verify backend wiring at a glance — these come from the Anthropic API
-    // `usage` block via the claude -p wrapper and cannot be forged client-side.
-    Object.values(runData.agents || {}).forEach(a => {
-      if (!a.letter) return;
-      const cell = document.getElementById('lb-tokens-' + a.letter);
-      if (cell && a.tokens) {
-        cell.textContent = a.tokens.total || 0;
-        cell.title = `calls=${a.tokens.calls}, in=${a.tokens.input}, out=${a.tokens.output}, ` +
-                     `cache_r=${a.tokens.cache_read}, cache_w=${a.tokens.cache_creation}, ` +
-                     `cost=$${(a.tokens.cost_usd || 0).toFixed(4)}, ` +
-                     `wall=${(a.tokens.duration_ms / 1000).toFixed(1)}s`;
-      }
-    });
-    // Badge: BACKEND RUN + aggregate token + cost label
-    const s = runData.summary || {};
-    const totalK = s.total_tokens != null ? (s.total_tokens / 1000).toFixed(1) + 'k tok' : '0 tok';
-    const cost = s.total_cost_usd != null ? '$' + s.total_cost_usd.toFixed(4) : '$0';
-    document.getElementById('lb-badge').textContent =
-      `0 / ${(runData.agents ? Object.keys(runData.agents).length : 15)} bought · ${totalK} · ${cost}`;
-  } else {
-    window.__runData = null;
-    activitySeq = getActivitySequence();
-    state.totalSeats = 10;
+  const status = document.getElementById('price-status');
+  status.textContent = 'WAITING FOR FIRST LLM REPLY…';
+  status.style.color = '#f0a040';
+  document.getElementById('lb-badge').textContent = 'streaming · 0 tok · $0';
+
+  // Live SSE stream: events arrive as each claude -p call returns (sequential).
+  state.stream = startBackendStream(
+    state.topology,
+    onStreamEvent,
+    onStreamTick,
+    onStreamSummary,
+    onStreamDone,
+    onStreamError,
+  );
+}
+
+function onStreamEvent(act) {
+  // First decision arrived — flip status from WAITING to STREAMING.
+  if (status_first()) {
+    document.getElementById('price-status').textContent = 'STREAMING LLM';
+    document.getElementById('price-status').style.color = '#40f080';
   }
-  actIdx = 0;
-  const totalTurns = (window.__runData && window.__runData.ticks) || 55;
-  document.getElementById('price-status').textContent = window.__runData ? 'BACKEND RUN' : 'MOCK RUN';
-  document.getElementById('price-status').style.color = '#40f080';
-
-  state.interval = setInterval(() => {
-    state.turn++;
-    document.getElementById('turn-badge').textContent = `Turn ${state.turn}`;
-    updateStats(state.turn);
-
-    // Drain every event whose turn has now arrived. Backend emits real `turn` per event;
-    // for the legacy mock we treat 2 ticks = 1 event by stamping turn=actIdx*2.
-    while (actIdx < activitySeq.length) {
-      const act = activitySeq[actIdx];
-      const actTurn = (act.turn != null) ? act.turn : (actIdx * 2);
-      if (actTurn > state.turn) break;
-      addLogEntry(act, state.turn);
-      const fromLetter = act.letter || (act.from && act.from.length === 1 ? act.from : null);
-      const toLetter   = act.to_letter || (act.to && act.to.length === 1 ? act.to : null);
-      if (fromLetter) pulseNode(fromLetter);
-      if (fromLetter && toLetter) { flashEdge(fromLetter, toLetter); pulseNode(toLetter); }
-      if (act.toolIdx !== undefined) addToolCard(act.toolIdx, act.shareInfo);
-      if (act.cls === 'log-buy' && act.letter) {
-        updateLeaderboardBuy(act.letter, act.price, act.sat);
-        markNodeBought(act.letter);
-      }
-      actIdx++;
+  // The arrival time of this message IS its display time — no setTimeout
+  // pacing needed; pacing comes naturally from claude latency.
+  state.turn = act.turn || state.turn;
+  document.getElementById('turn-badge').textContent = `Turn ${state.turn}`;
+  playEvent(act);
+  // Accumulate tokens onto the agent's leaderboard cell + global badge.
+  if (act.llm && act.letter) {
+    const cell = document.getElementById('lb-tokens-' + act.letter);
+    if (cell) {
+      const u = act.llm;
+      const prior = parseInt(cell.dataset.total || '0', 10);
+      const total = prior + (u.input_tokens||0) + (u.output_tokens||0) + (u.cache_read||0) + (u.cache_creation||0);
+      cell.dataset.total = total;
+      cell.textContent = total;
+      const priorCost = parseFloat(cell.dataset.cost || '0');
+      const priorCalls = parseInt(cell.dataset.calls || '0', 10);
+      const cost = priorCost + (u.cost_usd||0);
+      const calls = priorCalls + 1;
+      cell.dataset.cost = cost;
+      cell.dataset.calls = calls;
+      cell.title = `calls=${calls}, last_in=${u.input_tokens}, last_out=${u.output_tokens}, ` +
+                   `cache_r=${u.cache_read}, cost=$${cost.toFixed(4)}, last_ms=${u.duration_ms}`;
+      state.totalTokens += (u.input_tokens||0) + (u.output_tokens||0) + (u.cache_read||0) + (u.cache_creation||0);
+      state.totalCost += (u.cost_usd||0);
+      const bought = state.agentsBought;
+      const totalA = (act.letter ? AGENT_DATA.length : 15);
+      document.getElementById('lb-badge').textContent =
+        `${bought} / ${totalA} bought · ${(state.totalTokens/1000).toFixed(1)}k tok · $${state.totalCost.toFixed(4)}`;
     }
+  }
+}
 
-    if (state.turn >= totalTurns) {
-      clearInterval(state.interval); state.running = false;
-      document.getElementById('price-status').textContent = 'COMPLETE';
-      document.getElementById('price-status').style.color = '#00d4ff';
-      AGENT_DATA.filter(a => !a.bought).forEach(a => {
-        document.getElementById(`lb-status-${a.letter}`).textContent = 'missed';
-        document.getElementById(`lb-status-${a.letter}`).className = 'lb-status missed';
-      });
-      resortLeaderboard();
-    }
-  }, 500);
+function onStreamTick(pt) {
+  state.prices.push({ a: pt.a, b: pt.b });
+  updatePriceChartFromStream(pt);
+}
+
+function onStreamSummary(summary) {
+  // Just stash; the done event flips final UI state.
+  window.__runData = summary;
+}
+
+function onStreamDone() {
+  state.running = false;
+  if (state.stream) state.stream.close();
+  document.getElementById('price-status').textContent = 'COMPLETE';
+  document.getElementById('price-status').style.color = '#00d4ff';
+  AGENT_DATA.filter(a => !a.bought).forEach(a => {
+    const el = document.getElementById(`lb-status-${a.letter}`);
+    if (el) { el.textContent = 'missed'; el.className = 'lb-status missed'; }
+  });
+  resortLeaderboard();
+}
+
+function onStreamError(msg) {
+  state.running = false;
+  if (state.stream) state.stream.close();
+  document.getElementById('price-status').textContent = 'ERROR';
+  document.getElementById('price-status').style.color = '#f04040';
+  console.error('stream error:', msg);
+}
+
+let __firstSeen = false;
+function status_first() {
+  if (__firstSeen) return false;
+  __firstSeen = true;
+  return true;
+}
+
+function updatePriceChartFromStream(pt) {
+  // Reuse the same scaling/render path; we just append a point and redraw.
+  const container = document.getElementById('price-chart');
+  if (!container) return;
+  document.getElementById('stat-seats').textContent =
+    Math.max(state.totalSeats - state.agentsBought, (pt.inv_a||0) + (pt.inv_b||0));
+  const cur = Math.round((pt.a + pt.b) / 2);
+  document.getElementById('stat-price').textContent = '$' + cur;
+  document.getElementById('stat-price').className =
+    'stat-value' + (cur > 320 ? ' bad' : cur < 290 ? ' good' : ' warn');
+  document.getElementById('stat-spread').textContent = '$' + Math.abs(pt.a - pt.b);
+  updatePriceChart();
+}
+
+function playEvent(act) {
+  addLogEntry(act, state.turn);
+  const fromLetter = act.letter || (act.from && act.from.length === 1 ? act.from : null);
+  const toLetter   = act.to_letter || (act.to && act.to.length === 1 ? act.to : null);
+  if (fromLetter) pulseNode(fromLetter);
+  if (fromLetter && toLetter) { flashEdge(fromLetter, toLetter); pulseNode(toLetter); }
+  if (act.toolIdx !== undefined) addToolCard(act.toolIdx, act.shareInfo);
+  if (act.cls === 'log-buy' && act.letter) {
+    updateLeaderboardBuy(act.letter, act.price, act.sat);
+    markNodeBought(act.letter);
+  }
+}
+
+function tickStep() {
+  state.turn++;
+  document.getElementById('turn-badge').textContent = `Turn ${state.turn}`;
+  updateStats(state.turn);
+
+  // Collect every event whose turn has now arrived…
+  const batch = [];
+  while (actIdx < activitySeq.length) {
+    const act = activitySeq[actIdx];
+    const actTurn = (act.turn != null) ? act.turn : (actIdx * 2);
+    if (actTurn > state.turn) break;
+    batch.push(act);
+    actIdx++;
+  }
+  // …then stagger them so the viewer can actually read each line as it arrives.
+  // Cap stagger so a busy turn still finishes before the next tick fires.
+  const maxStaggerTotal = Math.max(0, state.tickMs - 100);
+  const stagger = Math.min(state.eventStaggerMs, Math.floor(maxStaggerTotal / Math.max(1, batch.length)));
+  batch.forEach((act, i) => setTimeout(() => playEvent(act), i * stagger));
+
+  if (state.turn >= (state._totalTurns || 55)) {
+    clearInterval(state.interval); state.running = false;
+    document.getElementById('price-status').textContent = 'COMPLETE';
+    document.getElementById('price-status').style.color = '#00d4ff';
+    AGENT_DATA.filter(a => !a.bought).forEach(a => {
+      document.getElementById(`lb-status-${a.letter}`).textContent = 'missed';
+      document.getElementById(`lb-status-${a.letter}`).className = 'lb-status missed';
+    });
+    resortLeaderboard();
+  }
 }
 
 function resetSimulation() {
   if (state.interval) clearInterval(state.interval);
+  if (state.stream) { state.stream.close(); state.stream = null; }
+  __firstSeen = false;
   state.running = false; state.turn = 0; state.prices = []; state.seatsLeft = 10;
   state.totalSeats = 10; state.agentsBought = 0; state.toolsBuilt = 0;
+  state.totalTokens = 0; state.totalCost = 0;
   document.getElementById('activity-log').innerHTML = '';
   document.getElementById('turn-badge').textContent = 'Turn 0';
   document.getElementById('price-status').textContent = 'WAITING';

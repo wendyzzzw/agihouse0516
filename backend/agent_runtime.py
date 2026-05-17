@@ -239,15 +239,110 @@ def _fallback(agent_state: dict, world_view: dict, error: str = "") -> dict:
 
 
 def _maybe_probe(agent_state: dict, world_view: dict, cheapest_id: str, price: int) -> dict:
-    """Periodically probe a neighbor about the cheapest known price."""
+    """Periodically send a neighbor a behaviour-flavoured message. The flavour
+    (probe / coordinate / info_share / compare / bluff / defect) is biased by
+    archetype so the activity log shows a realistic mix of game-theory tactics
+    rather than 15 identical probes."""
     neighbors = world_view.get("neighbors") or []
     if not neighbors:
         return {"action": "WAIT", "reasoning": "isolated, no one to ask"}
     waited = agent_state.get("ticks_waited", 0)
-    if waited >= 1 and waited % 4 == 1:
-        import random
-        target = random.choice(neighbors)
-        msg = f"What price are you seeing? I'm seeing ${price} for {cheapest_id}."
-        return {"action": "COMMUNICATE", "target": target, "content": msg,
-                "reasoning": "social probe for price signal"}
-    return {"action": "WAIT", "reasoning": "holding for better price"}
+    if waited < 1 or waited % 3 != 1:
+        return {"action": "WAIT", "reasoning": "holding for better price"}
+
+    import random
+    target = random.choice(neighbors)
+    archetype = (agent_state.get("persona") or {}).get("archetype") or agent_state.get("archetype", "")
+    behavior, content, cls = _craft_message(archetype, cheapest_id, price, waited)
+    return {
+        "action": "COMMUNICATE",
+        "target": target,
+        "content": content,
+        "_cls": cls,
+        "reasoning": f"{behavior} (archetype-biased)",
+    }
+
+
+# ─── Behaviour-flavoured message library ─────────────────────────────────────
+
+_BEHAVIOR_TEMPLATES = {
+    "probe": [
+        "What price are you seeing? I'm at ${price} on {seller}.",
+        "Got any quotes for {seller}? Mine reads ${price}.",
+        "Hey, what did you pay so far?",
+        "Anyone seeing better than ${price} on {seller}?",
+        "Quick question — is {seller} really at ${price} for you too?",
+    ],
+    "coordinate": [
+        "Let's all hold out — don't buy above ${low}. Forces them to drop.",
+        "If we all wait, {seller} will crash. Want to coordinate a hold?",
+        "Cartel idea: nobody buys above ${low}. Deal?",
+        "Proposing we boycott {seller} until it drops to ${low}.",
+        "Coordinate w/ me? Don't accept anything over ${low}.",
+    ],
+    "info_share": [
+        "FYI, {seller} just dropped to ${price}. Worth watching.",
+        "Heard {seller} is sitting on stock. They'll cave soon.",
+        "Saw {seller} at ${price} — looks locked in for now.",
+        "{seller} demand seems thin. Pressure them.",
+        "Inventory tracker says {seller} has plenty left.",
+    ],
+    "compare": [
+        "Which seller did you go with?",
+        "Is {seller} actually cheaper than the alternative?",
+        "Anyone tried the other carrier? Worth it?",
+        "Comparing options — what's your read on {seller}?",
+        "Curious what your best-found price is — mine is ${price}.",
+    ],
+    "bluff": [
+        "I just snagged one at ${low}. They were desperate.",
+        "{seller} is about to sell out — last 2 seats!",
+        "I paid ${high} already, regretting it. Don't make my mistake.",
+        "Word is {seller} found a big buyer. Prices going up.",
+        "Demand is spiking — better lock in now or pay more.",
+    ],
+    "defect": [
+        "I'm bailing — prices aren't dropping further. You guys hold if you want.",
+        "Giving up the wait. Going to lock in before it's gone.",
+        "Done waiting. {seller} won the staring contest.",
+        "Whatever, I'm taking ${price} on {seller}. Good luck.",
+    ],
+}
+
+_CLS_BY_BEHAVIOR = {
+    "probe": "log-probe",
+    "coordinate": "log-collude",
+    "info_share": "log-trade",
+    "compare": "log-probe",
+    "bluff": "log-lie",
+    "defect": "log-lie",
+}
+
+# Bias the behaviour mix by archetype. Each tuple is (behaviour, weight).
+_BEHAVIOR_BIAS = {
+    "patient_value_buyer":     [("probe", 3), ("coordinate", 3), ("info_share", 1), ("compare", 1)],
+    "must_have_buyer":         [("compare", 3), ("info_share", 2), ("probe", 1), ("defect", 1)],
+    "arbitrage_buyer":         [("info_share", 2), ("probe", 2), ("bluff", 2), ("compare", 1)],
+    "contrarian_buyer":        [("bluff", 3), ("defect", 2), ("probe", 1)],
+    # generic fallback
+    "_default":                [("probe", 4), ("compare", 2), ("info_share", 1), ("coordinate", 1)],
+}
+
+
+def _craft_message(archetype: str, seller: str, price: int, waited: int):
+    """Pick a behaviour-biased template and render it. Returns (behavior, content, cls)."""
+    import random
+    biases = _BEHAVIOR_BIAS.get(archetype) or _BEHAVIOR_BIAS["_default"]
+    # Late game — bump defection / coordinate weight to add drama.
+    if waited >= 8:
+        biases = biases + [("defect", 1), ("coordinate", 1)]
+    pool = [b for b, w in biases for _ in range(int(w))]
+    behavior = random.choice(pool)
+    template = random.choice(_BEHAVIOR_TEMPLATES[behavior])
+    content = template.format(
+        seller=seller,
+        price=price,
+        low=max(50, int(price * 0.85)),
+        high=int(price * 1.10),
+    )
+    return behavior, content, _CLS_BY_BEHAVIOR[behavior]
