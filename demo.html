@@ -119,6 +119,10 @@ table.lb tr.highlight td { background: #00d4ff08; }
   <button class="btn" onclick="setTopology('fully_connected')">Fully Connected</button>
   <span style="color:#334">|</span>
   <button class="btn success" onclick="startSimulation()">&#9654; Run</button>
+  <button class="btn" id="speed-btn-half" onclick="setSpeed(0.5)">0.5&times;</button>
+  <button class="btn active" id="speed-btn-one" onclick="setSpeed(1)">1&times;</button>
+  <button class="btn" id="speed-btn-two" onclick="setSpeed(2)">2&times;</button>
+  <span style="color:#334">|</span>
   <button class="btn warn" onclick="injectEvent('supply_shock')">Supply Shock</button>
   <button class="btn warn" onclick="injectEvent('new_seller')">New Seller</button>
   <button class="btn danger" onclick="injectEvent('collusion')">Enable Collusion</button>
@@ -257,7 +261,25 @@ let state = {
   topology: 'small_world', running: false, turn: 0, interval: null,
   nodes: [], edges: [], prices: [], trades: [], seatsLeft: 10, totalSeats: 10,
   toolsBuilt: 0, agentsBought: 0,
+  // Playback pacing. tickMs = ms per simulated turn. eventStaggerMs = gap between
+  // events that fall on the same turn. Both scale with the speed control below.
+  tickMs: 1500, eventStaggerMs: 150, speedMult: 1,
 };
+
+function setSpeed(mult) {
+  state.speedMult = mult;
+  state.tickMs = Math.round(1500 / mult);
+  state.eventStaggerMs = Math.round(150 / mult);
+  ['speed-btn-half', 'speed-btn-one', 'speed-btn-two'].forEach(id =>
+    document.getElementById(id).classList.remove('active'));
+  const id = mult === 0.5 ? 'speed-btn-half' : mult === 2 ? 'speed-btn-two' : 'speed-btn-one';
+  document.getElementById(id).classList.add('active');
+  // If running, restart the interval at the new cadence.
+  if (state.running && state.interval) {
+    clearInterval(state.interval);
+    state.interval = setInterval(tickStep, state.tickMs);
+  }
+}
 let simulation, svg, link, node, priceChart;
 
 function createAgents() {
@@ -712,41 +734,53 @@ async function startSimulation() {
   document.getElementById('price-status').textContent = window.__runData ? 'BACKEND RUN' : 'MOCK RUN';
   document.getElementById('price-status').style.color = '#40f080';
 
-  state.interval = setInterval(() => {
-    state.turn++;
-    document.getElementById('turn-badge').textContent = `Turn ${state.turn}`;
-    updateStats(state.turn);
+  state._totalTurns = totalTurns;
+  state.interval = setInterval(tickStep, state.tickMs);
+}
 
-    // Drain every event whose turn has now arrived. Backend emits real `turn` per event;
-    // for the legacy mock we treat 2 ticks = 1 event by stamping turn=actIdx*2.
-    while (actIdx < activitySeq.length) {
-      const act = activitySeq[actIdx];
-      const actTurn = (act.turn != null) ? act.turn : (actIdx * 2);
-      if (actTurn > state.turn) break;
-      addLogEntry(act, state.turn);
-      const fromLetter = act.letter || (act.from && act.from.length === 1 ? act.from : null);
-      const toLetter   = act.to_letter || (act.to && act.to.length === 1 ? act.to : null);
-      if (fromLetter) pulseNode(fromLetter);
-      if (fromLetter && toLetter) { flashEdge(fromLetter, toLetter); pulseNode(toLetter); }
-      if (act.toolIdx !== undefined) addToolCard(act.toolIdx, act.shareInfo);
-      if (act.cls === 'log-buy' && act.letter) {
-        updateLeaderboardBuy(act.letter, act.price, act.sat);
-        markNodeBought(act.letter);
-      }
-      actIdx++;
-    }
+function playEvent(act) {
+  addLogEntry(act, state.turn);
+  const fromLetter = act.letter || (act.from && act.from.length === 1 ? act.from : null);
+  const toLetter   = act.to_letter || (act.to && act.to.length === 1 ? act.to : null);
+  if (fromLetter) pulseNode(fromLetter);
+  if (fromLetter && toLetter) { flashEdge(fromLetter, toLetter); pulseNode(toLetter); }
+  if (act.toolIdx !== undefined) addToolCard(act.toolIdx, act.shareInfo);
+  if (act.cls === 'log-buy' && act.letter) {
+    updateLeaderboardBuy(act.letter, act.price, act.sat);
+    markNodeBought(act.letter);
+  }
+}
 
-    if (state.turn >= totalTurns) {
-      clearInterval(state.interval); state.running = false;
-      document.getElementById('price-status').textContent = 'COMPLETE';
-      document.getElementById('price-status').style.color = '#00d4ff';
-      AGENT_DATA.filter(a => !a.bought).forEach(a => {
-        document.getElementById(`lb-status-${a.letter}`).textContent = 'missed';
-        document.getElementById(`lb-status-${a.letter}`).className = 'lb-status missed';
-      });
-      resortLeaderboard();
-    }
-  }, 500);
+function tickStep() {
+  state.turn++;
+  document.getElementById('turn-badge').textContent = `Turn ${state.turn}`;
+  updateStats(state.turn);
+
+  // Collect every event whose turn has now arrived…
+  const batch = [];
+  while (actIdx < activitySeq.length) {
+    const act = activitySeq[actIdx];
+    const actTurn = (act.turn != null) ? act.turn : (actIdx * 2);
+    if (actTurn > state.turn) break;
+    batch.push(act);
+    actIdx++;
+  }
+  // …then stagger them so the viewer can actually read each line as it arrives.
+  // Cap stagger so a busy turn still finishes before the next tick fires.
+  const maxStaggerTotal = Math.max(0, state.tickMs - 100);
+  const stagger = Math.min(state.eventStaggerMs, Math.floor(maxStaggerTotal / Math.max(1, batch.length)));
+  batch.forEach((act, i) => setTimeout(() => playEvent(act), i * stagger));
+
+  if (state.turn >= (state._totalTurns || 55)) {
+    clearInterval(state.interval); state.running = false;
+    document.getElementById('price-status').textContent = 'COMPLETE';
+    document.getElementById('price-status').style.color = '#00d4ff';
+    AGENT_DATA.filter(a => !a.bought).forEach(a => {
+      document.getElementById(`lb-status-${a.letter}`).textContent = 'missed';
+      document.getElementById(`lb-status-${a.letter}`).className = 'lb-status missed';
+    });
+    resortLeaderboard();
+  }
 }
 
 function resetSimulation() {
