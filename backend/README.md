@@ -39,6 +39,7 @@ backend/
 ├── agent_runtime.py    # claude -p invocation + rule-based fallback
 ├── engine.py           # Tick loop, event emission, world state
 ├── live_runtime.py     # File-backed live runs from test_config.yaml
+├── analysis_runtime.py # Deterministic run recaps and cross-run comparisons
 ├── run.py              # CLI runner
 ├── app.py              # FastAPI: cached /api/sim/* and live /api/runs/*
 ├── requirements.txt
@@ -85,9 +86,14 @@ uvicorn app:app --port 8000 --reload
 - `GET  /api/runs/{run_id}/snapshot?turn=N` — frontend-compatible run snapshot
 - `GET  /api/runs/{run_id}/events?after_turn=N` — poll new frontend events
 - `GET  /api/runs/{run_id}/messages?agent_id=buyer_1` — persisted natural-language messages
+- `GET  /api/runs/{run_id}/analysis` — evidence-based recap and computed metrics
+- `POST /api/runs/{run_id}/analysis/recompute` — force-refresh `analysis.json`
 - `GET  /api/runs/{run_id}/debug/agents/{agent_id}/turns/{turn}` — full private trace
+- `GET  /api/analysis/compare?scenario_id=...` — compare runs by setup, topology,
+  archetype, buyer/seller power, and communication.
 
 Live runs write local files only, under `runs/live/{run_id}`. No database is used.
+Recaps are persisted as `runs/live/{run_id}/analysis.json`.
 
 ## Action JSON schema
 

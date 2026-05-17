@@ -13,6 +13,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
+from analysis_runtime import compare_runs, load_or_analyze_run
 from engine import Engine
 from live_runtime import (
     RunStore,
@@ -122,6 +123,11 @@ def list_runs():
     return {"runs": LIVE_STORE.list_runs()}
 
 
+@app.get("/api/analysis/compare")
+def get_analysis_compare(scenario_id: Optional[str] = None):
+    return compare_runs(LIVE_STORE, scenario_id=scenario_id)
+
+
 @app.post("/api/runs")
 def create_run(req: LiveRunRequest, background_tasks: BackgroundTasks):
     try:
@@ -178,6 +184,22 @@ def get_run_snapshot(run_id: str, turn: Optional[int] = None):
     max_turn = int(state.get("turn", 0))
     events = [e for e in LIVE_STORE.events(run_id) if int(e.get("turn", 0)) <= max_turn]
     return snapshot_from_state(state, events)
+
+
+@app.get("/api/runs/{run_id}/analysis")
+def get_run_analysis(run_id: str):
+    try:
+        return load_or_analyze_run(LIVE_STORE, run_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(404, f"unknown run_id: {run_id}") from exc
+
+
+@app.post("/api/runs/{run_id}/analysis/recompute")
+def recompute_run_analysis(run_id: str):
+    try:
+        return load_or_analyze_run(LIVE_STORE, run_id, force=True)
+    except FileNotFoundError as exc:
+        raise HTTPException(404, f"unknown run_id: {run_id}") from exc
 
 
 @app.get("/api/runs/{run_id}/context")

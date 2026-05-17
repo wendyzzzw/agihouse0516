@@ -372,9 +372,74 @@ code {
   line-height: 1.5;
 }
 
+.comparison-panel,
+.recap-panel,
 .replay-panel,
 .heatmap-panel {
   margin-bottom: 14px;
+}
+
+.comparison-grid,
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.comparison-card,
+.recap-card {
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: #15181b;
+  padding: 12px;
+}
+
+.comparison-card strong,
+.recap-card strong {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.comparison-card p,
+.recap-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.recap-headline {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 760;
+  line-height: 1.35;
+}
+
+.recap-list {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+  color: #dce4e8;
+}
+
+.recap-list li {
+  line-height: 1.45;
+}
+
+.evidence-list {
+  display: grid;
+  gap: 8px;
+}
+
+.evidence-item {
+  border-left: 3px solid var(--accent);
+  background: #111417;
+  padding: 8px 10px;
+}
+
+.comparison-table {
+  margin-top: 12px;
 }
 
 .replay-controls {
@@ -757,6 +822,8 @@ code {
   .form-grid,
   .split,
   .inspector-grid,
+  .comparison-grid,
+  .recap-grid,
   .grid-metrics,
   .replay-controls,
   .run-row {

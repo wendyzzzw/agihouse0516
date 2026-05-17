@@ -29,6 +29,13 @@
     return `$${Math.round(n).toLocaleString()}`;
   }
 
+  function fmtSignedMoney(value) {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return "-";
+    const sign = n < 0 ? "-" : "";
+    return `${sign}$${Math.abs(Math.round(n)).toLocaleString()}`;
+  }
+
   function fmtNumber(value) {
     const n = Number(value);
     return Number.isFinite(n) ? n.toLocaleString() : "-";
@@ -92,9 +99,13 @@
     const list = $("#run-list");
     const status = $("#runs-status");
     try {
-      const payload = await api("/api/runs");
+      const [payload, comparison] = await Promise.all([
+        api("/api/runs"),
+        api("/api/analysis/compare").catch(error => ({ error })),
+      ]);
       const runs = payload.runs || [];
       status.textContent = runs.length ? `${runs.length} file-backed run${runs.length === 1 ? "" : "s"}` : "No live runs yet";
+      renderComparison(comparison);
       if (!runs.length) {
         list.innerHTML = `<div class="empty">No past live runs yet. Create a simulation to write the first run under runs/live.</div>`;
         return;
@@ -104,6 +115,88 @@
       showError("#runs-status", error);
       list.innerHTML = `<div class="empty">The backend is not reachable. Start FastAPI and reload this page.</div>`;
     }
+  }
+
+  function renderComparison(comparison) {
+    const root = $("#comparison");
+    if (!root) return;
+    if (comparison?.error) {
+      $("#comparison-status").textContent = `Comparison unavailable: ${comparison.error.message || comparison.error}`;
+      root.innerHTML = `<div class="empty">Run analysis is unavailable.</div>`;
+      return;
+    }
+    const rows = comparison?.scenario_comparison || [];
+    const learnings = comparison?.overall_learnings || [];
+    $("#comparison-status").textContent = rows.length ? `${rows.length} scenario group${rows.length === 1 ? "" : "s"}` : "No completed analysis yet";
+    if (!rows.length) {
+      root.innerHTML = `<div class="empty">Create or open a run to generate analysis.</div>`;
+      return;
+    }
+    root.innerHTML = `
+      <div class="comparison-grid">
+        ${learnings.slice(0, 3).map((learning, index) => `
+          <div class="comparison-card">
+            <strong>Learning ${index + 1}</strong>
+            <p>${escapeHtml(learning)}</p>
+          </div>
+        `).join("")}
+      </div>
+      <div class="heatmap-wrap comparison-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Setup</th>
+              <th>Avg Price</th>
+              <th>Spread</th>
+              <th>Purchase</th>
+              <th>Surplus</th>
+              <th>Seller Rev</th>
+              <th>Messages</th>
+              <th>Power</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(row => `
+              <tr>
+                <td>${escapeHtml(row.scenario_name)}</td>
+                <td>${escapeHtml(labelize(row.setup_type))}</td>
+                <td>${fmtMoney(row.avg_price)}</td>
+                <td>${fmtMoney(row.avg_price_spread)}</td>
+                <td>${fmtPct(row.avg_purchase_rate_pct)}</td>
+                <td>${fmtSignedMoney(row.avg_buyer_surplus)}</td>
+                <td>${fmtMoney(row.avg_seller_revenue)}</td>
+                <td>${fmtNumber(row.avg_messages)}</td>
+                <td>${escapeHtml(labelize(row.dominant_advantage))}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+      ${renderArchetypeComparison(comparison.archetype_comparison || [])}
+    `;
+  }
+
+  function renderArchetypeComparison(rows) {
+    const buyerRows = rows.filter(row => row.role === "buyer").slice(0, 5);
+    const sellerRows = rows.filter(row => row.role === "seller").slice(0, 5);
+    if (!buyerRows.length && !sellerRows.length) return "";
+    return `
+      <div class="comparison-grid" style="margin-top: 12px;">
+        <div class="comparison-card">
+          <strong>Buyer Archetype Signals</strong>
+          <p>${buyerRows.map(row => `${escapeHtml(row.label)}: ${fmtPct(row.avg_purchase_rate_pct)} bought, ${fmtSignedMoney(row.avg_surplus)} surplus`).join("<br>")}</p>
+        </div>
+        <div class="comparison-card">
+          <strong>Seller Archetype Signals</strong>
+          <p>${sellerRows.map(row => `${escapeHtml(row.label)}: ${fmtMoney(row.avg_revenue)} revenue, ${fmtNumber(row.avg_messages)} msg touches`).join("<br>")}</p>
+        </div>
+        <div class="comparison-card">
+          <strong>How To Read This</strong>
+          <p>Compare setup first, then outcome: topology changes who can coordinate, while archetypes explain which agents converted that structure into trades or revenue.</p>
+        </div>
+      </div>
+    `;
   }
 
   function renderRunRow(run) {
@@ -193,6 +286,7 @@
     }
     $("#context-link").href = `context.html?run_id=${encodeURIComponent(runId)}`;
     $("#refresh-run").addEventListener("click", () => loadRunPage(runId));
+    $("#recap-recompute").addEventListener("click", () => recomputeAnalysis(runId));
     $("#message-filter").addEventListener("change", () => updateRunReplay({ fetchSnapshot: false }));
     $("#replay-turn").addEventListener("input", event => {
       window.__replayTurn = Number(event.currentTarget.value || 0);
@@ -209,18 +303,34 @@
     await loadRunPage(runId);
   }
 
+  async function recomputeAnalysis(runId) {
+    const button = $("#recap-recompute");
+    button.disabled = true;
+    $("#recap-status").textContent = "Recomputing recap...";
+    try {
+      const analysis = await api(`/api/runs/${encodeURIComponent(runId)}/analysis/recompute`, { method: "POST" });
+      if (window.__runPageData) window.__runPageData.analysis = analysis;
+      renderRecap(analysis);
+    } catch (error) {
+      showError("#recap-status", error);
+    } finally {
+      button.disabled = false;
+    }
+  }
+
   async function loadRunPage(runId, fetchData = true) {
     try {
       let data = window.__runPageData;
       if (fetchData || !data) {
-        const [meta, snapshot, messages, context] = await Promise.all([
+        const [meta, snapshot, messages, context, analysis] = await Promise.all([
           api(`/api/runs/${encodeURIComponent(runId)}`),
           api(`/api/runs/${encodeURIComponent(runId)}/snapshot`),
           api(`/api/runs/${encodeURIComponent(runId)}/messages`),
           api(`/api/runs/${encodeURIComponent(runId)}/context`),
+          api(`/api/runs/${encodeURIComponent(runId)}/analysis`).catch(error => ({ error })),
         ]);
         const previousSnapshots = data?.snapshotsByTurn || {};
-        data = { runId, meta, snapshot, messages: messages.messages || [], context, snapshotsByTurn: previousSnapshots };
+        data = { runId, meta, snapshot, messages: messages.messages || [], context, analysis, snapshotsByTurn: previousSnapshots };
         data.snapshotsByTurn[Number(snapshot.current_turn || 0)] = snapshot;
         window.__runPageData = data;
       }
@@ -253,9 +363,72 @@
     }
     window.__replayTurn = Math.max(0, Math.min(Number(window.__replayTurn || 0), maxTurn));
 
+    renderRecap(window.__runPageData?.analysis);
     renderMessageFilter(mergePlayers(context, snapshot));
     renderHeatmap(messages, mergePlayers(context, snapshot));
     updateRunReplay({ fetchSnapshot: false });
+  }
+
+  function renderRecap(analysis) {
+    const root = $("#recap");
+    if (!root) return;
+    if (!analysis || analysis.error) {
+      $("#recap-status").textContent = analysis?.error ? `Recap unavailable: ${analysis.error.message || analysis.error}` : "No recap yet";
+      root.innerHTML = `<div class="empty">Recap analysis is unavailable for this run.</div>`;
+      return;
+    }
+    const recap = analysis.recap || {};
+    const outcomes = analysis.outcomes || {};
+    const power = analysis.buyer_seller_power || {};
+    const communication = analysis.communication || {};
+    $("#recap-status").textContent = `Generated at turn ${fmtNumber(analysis.current_turn)}`;
+    root.innerHTML = `
+      <p class="recap-headline">${escapeHtml(recap.headline || "No headline generated.")}</p>
+      <div class="recap-grid">
+        <div class="recap-card">
+          <strong>What This Tested</strong>
+          <p>${escapeHtml(recap.setup || analysis.setup?.what_it_tests || "")}</p>
+        </div>
+        <div class="recap-card">
+          <strong>Buyer vs Seller Power</strong>
+          <p>${escapeHtml(labelize(power.advantage))}: ${escapeHtml(power.explanation || "")}</p>
+        </div>
+        <div class="recap-card">
+          <strong>Outcome Snapshot</strong>
+          <p>${fmtNumber(outcomes.transaction_count)} trades, ${fmtPct(outcomes.purchase_rate_pct)} buyer participation, ${fmtMoney(outcomes.seller_revenue)} seller revenue, ${fmtNumber(communication.total_messages)} messages.</p>
+        </div>
+      </div>
+      <div class="recap-grid" style="margin-top: 12px;">
+        <div class="recap-card">
+          <strong>What Happened</strong>
+          <ul class="recap-list">${(recap.what_happened || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="recap-card">
+          <strong>Notable Dynamics</strong>
+          <ul class="recap-list">${(recap.notable_dynamics || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="recap-card">
+          <strong>Takeaway</strong>
+          <p>${escapeHtml(recap.takeaway || "")}</p>
+        </div>
+      </div>
+      <div class="recap-card" style="margin-top: 12px;">
+        <strong>Evidence</strong>
+        <div class="evidence-list">
+          ${(recap.evidence || analysis.evidence || []).map(item => `
+            <div class="evidence-item">
+              <div class="message-route">
+                <span>${escapeHtml(item.label || item.kind || "Evidence")}</span>
+                ${item.turn !== undefined ? `<span>t=${fmtNumber(item.turn)}</span>` : ""}
+                ${item.from ? `<span>${escapeHtml(item.from)}</span>` : ""}
+                ${item.to ? `<span>-&gt; ${escapeHtml(item.to)}</span>` : ""}
+              </div>
+              <div class="message-content">${escapeHtml(item.detail || "")}</div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
   }
 
   function mergePlayers(context, snapshot) {
