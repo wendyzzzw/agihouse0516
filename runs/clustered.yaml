@@ -17,9 +17,9 @@ summary:
   n_missed: 5
   avg_satisfaction: 68.0
   total_messages: 494
-  total_tokens: 0
-  total_llm_calls: 0
-  total_cost_usd: 0.0
+  total_tokens: 673117
+  total_llm_calls: 15
+  total_cost_usd: 0.220994
 prices_over_time:
 - turn: 1
   a: 364
@@ -4180,14 +4180,14 @@ agents:
         turn: 39
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 885
+      cache_read: 42901
+      cache_creation: 1908
+      total: 45722
+      cost_usd: 0.011949
+      calls: 1
+      duration_ms: 9780
   buyer_2:
     id: buyer_2
     letter: B
@@ -4597,14 +4597,14 @@ agents:
       content: Airline_A demand seems thin. Pressure them.
     beliefs: {}
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1050
+      cache_read: 42937
+      cache_creation: 2042
+      total: 46057
+      cost_usd: 0.012913
+      calls: 1
+      duration_ms: 14154
   buyer_3:
     id: buyer_3
     letter: C
@@ -4951,14 +4951,14 @@ agents:
         turn: 37
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1099
+      cache_read: 42925
+      cache_creation: 2102
+      total: 46154
+      cost_usd: 0.013242
+      calls: 1
+      duration_ms: 11778
   buyer_4:
     id: buyer_4
     letter: D
@@ -5396,14 +5396,14 @@ agents:
       content: Anyone seeing better than $272 on Airline_A?
     beliefs: {}
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1180
+      cache_read: 42983
+      cache_creation: 2162
+      total: 46353
+      cost_usd: 0.013719
+      calls: 1
+      duration_ms: 16373
   buyer_5:
     id: buyer_5
     letter: E
@@ -5725,14 +5725,14 @@ agents:
         turn: 28
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 18
+      output: 1062
+      cache_read: 27822
+      cache_creation: 1881
+      total: 30783
+      cost_usd: 0.011259
+      calls: 1
+      duration_ms: 11438
   buyer_6:
     id: buyer_6
     letter: F
@@ -6044,14 +6044,14 @@ agents:
       content: 'Cartel idea: nobody buys above $212. Deal?'
     beliefs: {}
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1158
+      cache_read: 42832
+      cache_creation: 2121
+      total: 46139
+      cost_usd: 0.013533
+      calls: 1
+      duration_ms: 11275
   buyer_7:
     id: buyer_7
     letter: G
@@ -6244,14 +6244,14 @@ agents:
         turn: 19
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 814
+      cache_read: 42788
+      cache_creation: 1793
+      total: 45423
+      cost_usd: 0.011399
+      calls: 1
+      duration_ms: 9779
   buyer_8:
     id: buyer_8
     letter: H
@@ -6412,14 +6412,14 @@ agents:
         turn: 10
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1212
+      cache_read: 43245
+      cache_creation: 2209
+      total: 46694
+      cost_usd: 0.013975
+      calls: 1
+      duration_ms: 14659
   buyer_9:
     id: buyer_9
     letter: I
@@ -6626,14 +6626,14 @@ agents:
         turn: 24
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 806
+      cache_read: 42768
+      cache_creation: 1733
+      total: 45335
+      cost_usd: 0.011307
+      calls: 1
+      duration_ms: 9175
   buyer_10:
     id: buyer_10
     letter: J
@@ -6774,14 +6774,14 @@ agents:
         turn: 1
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 18
+      output: 2680
+      cache_read: 27822
+      cache_creation: 3640
+      total: 34160
+      cost_usd: 0.021553
+      calls: 1
+      duration_ms: 25039
   buyer_11:
     id: buyer_11
     letter: K
@@ -7134,14 +7134,14 @@ agents:
         turn: 39
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 2403
+      cache_read: 44245
+      cache_creation: 3411
+      total: 50087
+      cost_usd: 0.021564
+      calls: 1
+      duration_ms: 25025
   buyer_12:
     id: buyer_12
     letter: L
@@ -7590,14 +7590,14 @@ agents:
       content: Got any quotes for Airline_A? Mine reads $272.
     beliefs: {}
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1903
+      cache_read: 43818
+      cache_creation: 2897
+      total: 48646
+      cost_usd: 0.018341
+      calls: 1
+      duration_ms: 20547
   buyer_13:
     id: buyer_13
     letter: M
@@ -8009,14 +8009,14 @@ agents:
         turn: 37
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1265
+      cache_read: 43131
+      cache_creation: 2130
+      total: 46554
+      cost_usd: 0.014143
+      calls: 1
+      duration_ms: 12168
   buyer_14:
     id: buyer_14
     letter: N
@@ -8482,14 +8482,14 @@ agents:
         turn: 48
         source: self
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1739
+      cache_read: 43708
+      cache_creation: 2732
+      total: 48207
+      cost_usd: 0.017333
+      calls: 1
+      duration_ms: 19583
   buyer_15:
     id: buyer_15
     letter: O
@@ -8863,14 +8863,14 @@ agents:
       content: Giving up the wait. Going to lock in before it's gone.
     beliefs: {}
     tokens:
-      input: 0
-      output: 0
-      cache_read: 0
-      cache_creation: 0
-      total: 0
-      cost_usd: 0.0
-      calls: 0
-      duration_ms: 0
+      input: 28
+      output: 1361
+      cache_read: 43157
+      cache_creation: 2257
+      total: 46803
+      cost_usd: 0.014764
+      calls: 1
+      duration_ms: 14178
 sellers:
   Airline_A:
     id: Airline_A

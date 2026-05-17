@@ -581,6 +581,18 @@ function addLogEntry(activity, turn) {
   entry.className = 'log-entry';
   const targetStr = activity.to ? ` &rarr; ${activity.to}` : '';
   entry.innerHTML = `<span class="log-time">t=${turn}s</span> <span class="${activity.cls}">[${activity.from}${targetStr}]</span> ${activity.msg}`;
+  // If the backend attached per-event LLM stats, surface them on hover so the
+  // viewer can see THIS message's real input/output without crowding the log.
+  if (activity.llm) {
+    const u = activity.llm;
+    entry.title =
+      `model=${u.model}\n` +
+      `input=${u.input_tokens}  output=${u.output_tokens}\n` +
+      `cache_read=${u.cache_read}  cache_creation=${u.cache_creation}\n` +
+      `cost=$${(u.cost_usd||0).toFixed(4)}  duration=${u.duration_ms}ms\n` +
+      (u.reasoning ? `reasoning: ${u.reasoning}` : '');
+    entry.style.cursor = 'help';
+  }
   log.insertBefore(entry, log.firstChild);
 }
 
@@ -671,18 +683,38 @@ function updateStats(turn) {
 }
 
 async function fetchBackendRun(topology) {
-  // Backend writes YAML; we parse with js-yaml (loaded from CDN above).
+  // LIVE mode: every Run triggers a fresh `claude -p` per agent per tick on
+  // the backend. No cached YAML reads here — `flight_booking_live` is sized
+  // (6 buyers, 4 ticks) so a full LLM-driven run completes in ~60-90 sec.
+  const status = document.getElementById('price-status');
+  status.textContent = 'CALLING LLM…';
+  status.style.color = '#f0a040';
   try {
-    const r = await fetch(`./runs/${topology}.yaml`, { cache: 'no-store' });
-    if (!r.ok) return null;
-    const text = await r.text();
-    const data = (typeof jsyaml !== 'undefined') ? jsyaml.load(text) : JSON.parse(text);
+    const body = {
+      config_path: 'flight_booking_live.yaml',
+      simulation_id: 'flight_booking_live',
+      topology: topology,
+      mode: 'claude',
+      seed: Date.now() % 1000000,           // fresh seed = fresh sim, no cache
+      model: 'haiku',
+    };
+    const r = await fetch('/api/sim/run', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body),
+      cache: 'no-store',
+    });
+    if (!r.ok) {
+      console.warn('live run failed:', r.status, await r.text());
+      return null;
+    }
+    const data = await r.json();
     if (data && data.sellers) {
       data._totalSeats = Object.values(data.sellers).reduce((s, x) => s + (x.initial_inventory || 0), 0);
     }
     return data;
   } catch (e) {
-    console.warn('backend fetch failed, falling back to mock:', e);
+    console.warn('live backend call failed:', e);
     return null;
   }
 }

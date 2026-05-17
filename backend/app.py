@@ -64,8 +64,15 @@ def run_sim(req: RunRequest):
         raise HTTPException(400, f"unknown topology: {req.topology}")
     if req.mode not in ("rule", "claude"):
         raise HTTPException(400, f"unknown mode: {req.mode}")
+    # Resolve relative config paths against the repo root so the frontend can
+    # send a plain filename like "flight_booking_live.yaml".
+    cfg_path = req.config_path
+    if not os.path.isabs(cfg_path):
+        candidate = os.path.join(REPO_ROOT, cfg_path)
+        if os.path.exists(candidate):
+            cfg_path = candidate
     eng = Engine(
-        config_path=req.config_path,
+        config_path=cfg_path,
         simulation_id=req.simulation_id,
         override_topology=req.topology,
         seed=req.seed,

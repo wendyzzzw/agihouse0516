@@ -180,7 +180,9 @@ class Engine:
             action = decide_via_claude(agent, wv, model=self.model)
         else:
             action = _fallback(agent, wv)
-        self._account_usage(agent, action.pop("_meta", None))
+        # Account into the per-agent tally but KEEP _meta on the action so
+        # execute() can attach it to the emitted event (per-message I/O).
+        self._account_usage(agent, action.get("_meta"))
         return action
 
     def _account_usage(self, agent: dict, meta: Optional[Dict[str, Any]]) -> None:
@@ -203,6 +205,21 @@ class Engine:
     def execute(self, agent: dict, action: dict) -> None:
         atype = (action.get("action") or "WAIT").upper()
         t = self.current_tick
+
+        # LLM metadata for THIS specific decision — attached to whatever event
+        # we emit so the frontend can show per-message in/out/cost on hover.
+        meta = action.get("_meta") or {}
+        usage = meta.get("usage") or {}
+        event_llm = {
+            "input_tokens": int(usage.get("input_tokens") or 0),
+            "output_tokens": int(usage.get("output_tokens") or 0),
+            "cache_read": int(usage.get("cache_read_input_tokens") or 0),
+            "cache_creation": int(usage.get("cache_creation_input_tokens") or 0),
+            "cost_usd": float(meta.get("cost_usd") or 0.0),
+            "duration_ms": int(meta.get("duration_ms") or 0),
+            "model": (list((meta.get("model") or {}).keys()) or ["?"])[0],
+            "reasoning": action.get("reasoning", ""),
+        } if meta else None
 
         if agent["bought"] or atype == "WAIT":
             agent["ticks_waited"] += 1
@@ -231,6 +248,7 @@ class Engine:
                            f"({agent['archetype']}, {agent['satisfaction']}% sat)",
                     "cls": "log-buy",
                     "price": price, "sat": agent["satisfaction"],
+                    "llm": event_llm,
                 })
             else:
                 self._emit(**{"from": agent["id"], "letter": agent["letter"],
@@ -267,6 +285,7 @@ class Engine:
                 "to": to, "to_letter": self.id_to_letter.get(to),
                 "msg": content if len(content) <= 100 else content[:97] + "...",
                 "cls": cls,
+                "llm": event_llm,
             })
 
     # ---------- main loop ----------
