@@ -1,0 +1,287 @@
+{
+  "topology": "fully_connected",
+  "scenario": "llm_smoke",
+  "seed": 42,
+  "ticks": 4,
+  "rounds": 4,
+  "llm_mode": "claude",
+  "run_dir": "/Users/danielgui/agihouse0516/runs/live/llm_smoke-42",
+  "summary": {
+    "avg_price": 340.7,
+    "by_profile": {
+      "budget": 324.0,
+      "family": null,
+      "investor": 349.0,
+      "flexible": 349.0
+    },
+    "n_bought": 3,
+    "n_missed": 0,
+    "n_goal_verified": 3,
+    "avg_satisfaction": 53.3,
+    "total_messages": 0
+  },
+  "prices_over_time": [
+    {
+      "turn": 1,
+      "a": 349,
+      "b": 324,
+      "inv_a": 0,
+      "inv_b": 0
+    }
+  ],
+  "events": [
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "round_start",
+      "from": ""
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "agent_activated",
+      "from": "A",
+      "goal": "Secure one flight seat before the booking window closes, paying as little as possible."
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "agent_thinking",
+      "from": "A",
+      "step": 1
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "buy",
+      "from": "A",
+      "to": null,
+      "cls": "log-buy",
+      "letter": "A",
+      "price": 324,
+      "sat": 60,
+      "msg": "BOUGHT from Airline_B at $324 (budget, 60% sat)"
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "agent_thinking",
+      "from": "A",
+      "step": 2
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "goal_reached",
+      "from": "A",
+      "step": 2
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "agent_activated",
+      "from": "B",
+      "goal": "Secure one flight seat before the booking window closes, paying as little as possible."
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "agent_thinking",
+      "from": "B",
+      "step": 1
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "buy",
+      "from": "B",
+      "to": null,
+      "cls": "log-buy",
+      "letter": "B",
+      "price": 349,
+      "sat": 50,
+      "msg": "BOUGHT from Airline_A at $349 (investor, 50% sat)"
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "agent_thinking",
+      "from": "B",
+      "step": 2
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "goal_reached",
+      "from": "B",
+      "step": 2
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "agent_activated",
+      "from": "C",
+      "goal": "Secure one flight seat before the booking window closes, paying as little as possible."
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "agent_thinking",
+      "from": "C",
+      "step": 1
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "buy",
+      "from": "C",
+      "to": null,
+      "cls": "log-buy",
+      "letter": "C",
+      "price": 349,
+      "sat": 50,
+      "msg": "BOUGHT from Airline_A at $349 (flexible, 50% sat)"
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "agent_thinking",
+      "from": "C",
+      "step": 2
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "goal_reached",
+      "from": "C",
+      "step": 2
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "price",
+      "from": "",
+      "a": 349,
+      "b": 324,
+      "inv_a": 0,
+      "inv_b": 0
+    },
+    {
+      "round": 1,
+      "turn": 1,
+      "kind": "run_complete",
+      "from": "",
+      "rounds_run": 1,
+      "n_verified": 3
+    }
+  ],
+  "agents": {
+    "A": {
+      "id": "A",
+      "profile": "budget",
+      "budget": 361,
+      "goal": "Secure one flight seat before the booking window closes, paying as little as possible.",
+      "goal_status": "verified",
+      "bought": true,
+      "purchase_price": 324,
+      "purchase_seller": "Airline_B",
+      "satisfaction": 60,
+      "ticks_waited": 0,
+      "tools": [
+        "observe_prices",
+        "send_message",
+        "buy"
+      ],
+      "hold_target": null
+    },
+    "B": {
+      "id": "B",
+      "profile": "investor",
+      "budget": 294,
+      "goal": "Secure one flight seat before the booking window closes, paying as little as possible.",
+      "goal_status": "verified",
+      "bought": true,
+      "purchase_price": 349,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 50,
+      "ticks_waited": 0,
+      "tools": [
+        "observe_prices",
+        "send_message",
+        "buy"
+      ],
+      "hold_target": null
+    },
+    "C": {
+      "id": "C",
+      "profile": "flexible",
+      "budget": 283,
+      "goal": "Secure one flight seat before the booking window closes, paying as little as possible.",
+      "goal_status": "verified",
+      "bought": true,
+      "purchase_price": 349,
+      "purchase_seller": "Airline_A",
+      "satisfaction": 50,
+      "ticks_waited": 0,
+      "tools": [
+        "observe_prices",
+        "send_message",
+        "buy"
+      ],
+      "hold_target": null
+    }
+  },
+  "sellers": {
+    "Airline_A": {
+      "name": "Airline_A",
+      "base_price": 280,
+      "final_price": 349,
+      "initial_inventory": 2,
+      "final_inventory": 0
+    },
+    "Airline_B": {
+      "name": "Airline_B",
+      "base_price": 260,
+      "final_price": 324,
+      "initial_inventory": 1,
+      "final_inventory": 0
+    }
+  },
+  "comm_matrix": {
+    "A": {
+      "A": false,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": true,
+      "C": true
+    },
+    "Airline_A": {
+      "A": true,
+      "Airline_A": false,
+      "Airline_B": false,
+      "B": true,
+      "C": true
+    },
+    "Airline_B": {
+      "A": true,
+      "Airline_A": false,
+      "Airline_B": false,
+      "B": true,
+      "C": true
+    },
+    "B": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": false,
+      "C": true
+    },
+    "C": {
+      "A": true,
+      "Airline_A": true,
+      "Airline_B": true,
+      "B": true,
+      "C": false
+    }
+  }
+}

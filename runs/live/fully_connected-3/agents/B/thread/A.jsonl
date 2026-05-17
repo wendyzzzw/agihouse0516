@@ -1,0 +1,16 @@
+{"id": "000001", "round": 1, "sender": "A", "recipient": "B", "content": "Let's all hold out \u2014 don't buy above $223. Forces the sellers to drop their price.", "ts": 1778973607.930232}
+{"id": "000002", "round": 1, "sender": "B", "recipient": "A", "content": "Count me in \u2014 I'll hold below $223.", "ts": 1778973607.930824}
+{"id": "000007", "round": 1, "sender": "B", "recipient": "A", "content": "What price are you seeing? I'm seeing $338 on Airline_B.", "ts": 1778973607.933919}
+{"id": "000008", "round": 1, "sender": "A", "recipient": "B", "content": "I'm seeing $338 on Airline_B right now.", "ts": 1778973607.9345841}
+{"id": "000309", "round": 15, "sender": "A", "recipient": "B", "content": "What price are you seeing? I'm seeing $332 on Airline_A.", "ts": 1778973608.1253881}
+{"id": "000310", "round": 15, "sender": "B", "recipient": "A", "content": "I'm seeing $332 on Airline_A right now.", "ts": 1778973608.125729}
+{"id": "000319", "round": 15, "sender": "B", "recipient": "A", "content": "What price are you seeing? I'm seeing $332 on Airline_A.", "ts": 1778973608.130921}
+{"id": "000320", "round": 15, "sender": "A", "recipient": "B", "content": "I'm seeing $332 on Airline_A right now.", "ts": 1778973608.1312509}
+{"id": "000591", "round": 29, "sender": "B", "recipient": "A", "content": "What price are you seeing? I'm seeing $322 on Airline_A.", "ts": 1778973608.287678}
+{"id": "000592", "round": 29, "sender": "A", "recipient": "B", "content": "I'm seeing $322 on Airline_A right now.", "ts": 1778973608.288036}
+{"id": "000595", "round": 29, "sender": "A", "recipient": "B", "content": "What price are you seeing? I'm seeing $322 on Airline_A.", "ts": 1778973608.290622}
+{"id": "000596", "round": 29, "sender": "B", "recipient": "A", "content": "I'm seeing $322 on Airline_A right now.", "ts": 1778973608.291111}
+{"id": "000779", "round": 43, "sender": "B", "recipient": "A", "content": "What price are you seeing? I'm seeing $392 on Airline_A.", "ts": 1778973608.39677}
+{"id": "000780", "round": 43, "sender": "A", "recipient": "B", "content": "I'm seeing $392 on Airline_A right now.", "ts": 1778973608.397172}
+{"id": "000787", "round": 43, "sender": "A", "recipient": "B", "content": "What price are you seeing? I'm seeing $392 on Airline_A.", "ts": 1778973608.401376}
+{"id": "000788", "round": 43, "sender": "B", "recipient": "A", "content": "I'm seeing $392 on Airline_A right now.", "ts": 1778973608.401811}

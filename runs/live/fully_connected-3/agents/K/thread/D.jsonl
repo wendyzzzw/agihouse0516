@@ -1,0 +1,14 @@
+{"id": "000083", "round": 4, "sender": "K", "recipient": "D", "content": "What price are you seeing? I'm seeing $364 on Airline_A.", "ts": 1778973607.9832718}
+{"id": "000084", "round": 4, "sender": "D", "recipient": "K", "content": "I'm seeing $364 on Airline_A right now.", "ts": 1778973607.983765}
+{"id": "000199", "round": 10, "sender": "D", "recipient": "K", "content": "What price are you seeing? I'm seeing $335 on Airline_A.", "ts": 1778973608.060821}
+{"id": "000200", "round": 10, "sender": "K", "recipient": "D", "content": "I'm seeing $335 on Airline_A right now.", "ts": 1778973608.0611598}
+{"id": "000377", "round": 18, "sender": "K", "recipient": "D", "content": "What price are you seeing? I'm seeing $318 on Airline_A.", "ts": 1778973608.1638489}
+{"id": "000378", "round": 18, "sender": "D", "recipient": "K", "content": "I'm seeing $318 on Airline_A right now.", "ts": 1778973608.16417}
+{"id": "000515", "round": 24, "sender": "D", "recipient": "K", "content": "What price are you seeing? I'm seeing $249 on Airline_A.", "ts": 1778973608.242068}
+{"id": "000516", "round": 24, "sender": "K", "recipient": "D", "content": "I'm seeing $249 on Airline_A right now.", "ts": 1778973608.242468}
+{"id": "000627", "round": 32, "sender": "K", "recipient": "D", "content": "What price are you seeing? I'm seeing $362 on Airline_A.", "ts": 1778973608.311348}
+{"id": "000628", "round": 32, "sender": "D", "recipient": "K", "content": "I'm seeing $362 on Airline_A right now.", "ts": 1778973608.311691}
+{"id": "000715", "round": 38, "sender": "D", "recipient": "K", "content": "What price are you seeing? I'm seeing $364 on Airline_B.", "ts": 1778973608.36042}
+{"id": "000716", "round": 38, "sender": "K", "recipient": "D", "content": "I'm seeing $364 on Airline_B right now.", "ts": 1778973608.360818}
+{"id": "000819", "round": 46, "sender": "K", "recipient": "D", "content": "What price are you seeing? I'm seeing $392 on Airline_A.", "ts": 1778973608.419477}
+{"id": "000820", "round": 46, "sender": "D", "recipient": "K", "content": "I'm seeing $392 on Airline_A right now.", "ts": 1778973608.419882}

@@ -1,0 +1,23 @@
+# Scenario config — see small_world.yaml for field docs.
+scenario:
+  name: fully_connected
+  seed: 42
+  rounds: 55
+
+market:
+  sellers:
+    - {id: Airline_A, inventory: 6, base_price: 280}
+    - {id: Airline_B, inventory: 4, base_price: 260}
+
+topology:
+  buyer_buyer: fully_connected
+
+agents:
+  defaults:
+    goal: "Secure one flight seat before the booking window closes, paying as little as possible."
+    tools: [observe_prices, send_message, buy]
+  roster:
+    - {persona: budget,   count: 6}
+    - {persona: family,   count: 4}
+    - {persona: investor, count: 3}
+    - {persona: flexible, count: 2}

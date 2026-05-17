@@ -1,0 +1,8 @@
+{"id": "000221", "round": 11, "sender": "N", "recipient": "K", "content": "What price are you seeing? I'm seeing $322 on Airline_A.", "ts": 1778973608.073904}
+{"id": "000222", "round": 11, "sender": "K", "recipient": "N", "content": "I'm seeing $322 on Airline_A right now.", "ts": 1778973608.074315}
+{"id": "000283", "round": 13, "sender": "K", "recipient": "N", "content": "What price are you seeing? I'm seeing $332 on Airline_A.", "ts": 1778973608.1106749}
+{"id": "000284", "round": 13, "sender": "N", "recipient": "K", "content": "I'm seeing $332 on Airline_A right now.", "ts": 1778973608.11104}
+{"id": "000561", "round": 27, "sender": "K", "recipient": "N", "content": "What price are you seeing? I'm seeing $289 on Airline_A.", "ts": 1778973608.270893}
+{"id": "000562", "round": 27, "sender": "N", "recipient": "K", "content": "Already bought \u2014 paid $249.", "ts": 1778973608.271243}
+{"id": "000761", "round": 41, "sender": "K", "recipient": "N", "content": "What price are you seeing? I'm seeing $364 on Airline_B.", "ts": 1778973608.38607}
+{"id": "000762", "round": 41, "sender": "N", "recipient": "K", "content": "Already bought \u2014 paid $249.", "ts": 1778973608.386496}

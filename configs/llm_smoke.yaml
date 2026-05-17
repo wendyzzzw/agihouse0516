@@ -1,0 +1,32 @@
+# ───────────────────────────────────────────────────────────────────────────
+# llm_smoke — a deliberately TINY scenario for testing `claude` mode end-to-end
+# without an hours-long wait. Every agent decision is a real `claude -p` call.
+#
+# Cost/time math (each claude -p step ≈ 15–20s):
+#   3 agents × 4 rounds × ~2–3 ReAct steps  + synchronous replies
+#   ≈ 30–50 claude calls  ≈ 9–15 minutes total.
+# To go faster: drop `rounds` to 3, or the roster to 2 agents.
+# To go bigger: raise them — but watch the wall-clock.
+# The CallBudget cap (600) in engine.py still protects you from a runaway.
+# ───────────────────────────────────────────────────────────────────────────
+scenario:
+  name: llm_smoke
+  seed: 42
+  rounds: 4                 # short window — keeps the claude run minutes, not hours
+
+market:
+  sellers:
+    - {id: Airline_A, inventory: 2, base_price: 280}
+    - {id: Airline_B, inventory: 1, base_price: 260}   # 3 seats total for 3 buyers
+
+topology:
+  buyer_buyer: fully_connected   # everyone can talk — exercises messaging + replies
+
+agents:
+  defaults:
+    goal: "Secure one flight seat before the booking window closes, paying as little as possible."
+    tools: [observe_prices, send_message, buy]
+  roster:
+    - {persona: budget,   count: 1}    # patient, probes neighbours
+    - {persona: investor, count: 1}    # info-hungry, may propose a hold
+    - {persona: flexible, count: 1}    # very patient, opportunistic

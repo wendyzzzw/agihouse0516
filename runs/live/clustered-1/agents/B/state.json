@@ -1,0 +1,18 @@
+{
+  "id": "B",
+  "profile": "budget",
+  "budget": 352,
+  "goal": "Secure one flight seat before the booking window closes, paying as little as possible.",
+  "goal_status": "verified",
+  "bought": true,
+  "purchase_price": 299,
+  "purchase_seller": "Airline_A",
+  "satisfaction": 65,
+  "ticks_waited": 31,
+  "tools": [
+    "observe_prices",
+    "send_message",
+    "buy"
+  ],
+  "hold_target": 253
+}

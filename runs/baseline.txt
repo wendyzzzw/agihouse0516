@@ -1,0 +1,17 @@
+# Regression baseline — captured 2026-05-16T22:55:44Z
+# rule mode is deterministic; these numbers must not change after refactor.
+
+=== Topology comparison (5 seeds each) ===
+        topology    mean_price     sat   missed     overpay
+        isolated  $     325.4   58.8%     5.0       +5.5%
+       clustered  $     308.3   63.0%     5.0        best
+     small_world  $     308.3   63.0%     5.0        best
+       hub_spoke  $     308.3   63.0%     5.0        best
+ fully_connected  $     308.3   63.0%     5.0        best
+
+# per-topology regen (seed 42):
+[        isolated] avg=$ 309.6 bought=10/15 sat= 61.1% msgs=  0 events= 10 (0.0s) → /Users/danielgui/agihouse0516/runs/isolated.json
+[       clustered] avg=$ 300.8 bought=10/15 sat= 63.2% msgs=376 events=386 (0.0s) → /Users/danielgui/agihouse0516/runs/clustered.json
+[     small_world] avg=$ 300.8 bought=10/15 sat= 63.2% msgs=376 events=386 (0.0s) → /Users/danielgui/agihouse0516/runs/small_world.json
+[       hub_spoke] avg=$ 300.8 bought=10/15 sat= 63.2% msgs=376 events=386 (0.0s) → /Users/danielgui/agihouse0516/runs/hub_spoke.json
+[ fully_connected] avg=$ 300.8 bought=10/15 sat= 63.2% msgs=376 events=386 (0.0s) → /Users/danielgui/agihouse0516/runs/fully_connected.json

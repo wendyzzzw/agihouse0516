@@ -97,6 +97,35 @@ table.lb tr.highlight td { background: #00d4ff08; }
 .pulse { animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
+/* --- live agent-state visuals (driven by the backend event stream) --- */
+@keyframes nodePulse  { 0%,100% { stroke-width: 2; } 50% { stroke-width: 6.5; } }
+@keyframes nodeThink  { from { stroke-width: 2; } to { stroke-width: 4.5; } }
+g.node-state-active   circle { animation: nodePulse 1.1s ease-in-out infinite; }
+g.node-state-thinking circle { stroke: #f0a040 !important;
+                               animation: nodeThink 0.55s ease-in-out infinite alternate; }
+g.node-state-done     circle { fill: #40f080aa !important; stroke: #40f080 !important;
+                               stroke-width: 3.5 !important; }
+g.node-state-idle     circle { opacity: 0.5; }
+.log-life   { color: #5577aa; }
+.log-goal   { color: #40f080; font-weight: 600; }
+
+/* --- debug HUD (only shown with ?debug=1) --- */
+.hud { position: fixed; top: 10px; right: 12px; z-index: 200; display: none;
+       background: #0d1320ee; border: 1px solid #1e293b; border-radius: 8px;
+       padding: 10px 14px; font-size: 11px; line-height: 1.7; color: #aab;
+       min-width: 190px; }
+.hud.show { display: block; }
+.hud .hud-title { color: #00d4ff; font-weight: 700; letter-spacing: 1px;
+                  margin-bottom: 4px; font-size: 10px; }
+.hud .hud-row { display: flex; justify-content: space-between; gap: 14px; }
+.hud .hud-k { color: #556; }
+.hud .hud-v { color: #e0e6f0; }
+.hud .hud-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+                margin-right: 5px; background: #556; vertical-align: middle; }
+.hud .hud-dot.open   { background: #40f080; }
+.hud .hud-dot.closed { background: #f04040; }
+.hud .hud-v.stale    { color: #f04040; }
+
 .tooltip { position: absolute; background: #1a2038; border: 1px solid #334; border-radius: 6px; padding: 10px 14px; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 100; max-width: 250px; }
 .tooltip .tt-name { font-weight: 700; color: #00d4ff; margin-bottom: 4px; }
 .tooltip .tt-row { color: #aab; margin: 2px 0; }
@@ -111,18 +140,10 @@ table.lb tr.highlight td { background: #00d4ff08; }
 </div>
 
 <div class="controls">
-  <button class="btn active" onclick="setTopology('small_world')">Small World</button>
-  <button class="btn" onclick="setTopology('clustered')">Clustered</button>
-  <button class="btn" onclick="setTopology('isolated')">Isolated</button>
-  <button class="btn" onclick="setTopology('hub_spoke')">Hub &amp; Spoke</button>
-  <button class="btn" onclick="setTopology('fully_connected')">Fully Connected</button>
-  <span style="color:#334">|</span>
-  <button class="btn success" onclick="startSimulation()">&#9654; Run</button>
-  <button class="btn warn" onclick="injectEvent('supply_shock')">Supply Shock</button>
-  <button class="btn warn" onclick="injectEvent('new_seller')">New Seller</button>
-  <button class="btn danger" onclick="injectEvent('collusion')">Enable Collusion</button>
-  <button class="btn danger" onclick="injectEvent('shill')">Inject Shills</button>
-  <button class="btn" onclick="resetSimulation()">Reset</button>
+  <button class="btn success" id="btn-live" onclick="startLive()">&#9654; Live LLM Run</button>
+  <button class="btn" onclick="location.reload()">Reset</button>
+  <span style="color:#445;font-size:11px;align-self:center">
+    every run is real Claude (Haiku) agents — no replay, no canned data</span>
 </div>
 
 <div class="stats-bar">
@@ -202,6 +223,15 @@ table.lb tr.highlight td { background: #00d4ff08; }
 </div>
 
 <div class="tooltip" id="tooltip"></div>
+
+<div class="hud" id="hud">
+  <div class="hud-title">LIVE STREAM</div>
+  <div class="hud-row"><span class="hud-k"><span class="hud-dot" id="hud-dot"></span>state</span><span class="hud-v" id="hud-state">idle</span></div>
+  <div class="hud-row"><span class="hud-k">events</span><span class="hud-v" id="hud-events">0</span></div>
+  <div class="hud-row"><span class="hud-k">last event</span><span class="hud-v" id="hud-last">--</span></div>
+  <div class="hud-row"><span class="hud-k">round</span><span class="hud-v" id="hud-round">0</span></div>
+  <div class="hud-row"><span class="hud-k">goals reached</span><span class="hud-v" id="hud-goals">0</span></div>
+</div>
 
 <script>
 const COLORS = {
@@ -410,7 +440,8 @@ function updateLeaderboardBuy(letter, price, sat) {
   row.className = 'bought highlight';
   setTimeout(() => row.className = 'bought', 2000);
 
-  document.getElementById('lb-badge').textContent = `${state.agentsBought} / 15 bought`;
+  document.getElementById('lb-badge').textContent =
+    `${state.agentsBought} / ${LIVE.nAgents || 15} bought`;
   resortLeaderboard();
 }
 
@@ -737,8 +768,295 @@ function showTooltip(event, d) {
 
 function hideTooltip() { document.getElementById('tooltip').style.opacity = 0; }
 
-window.addEventListener('load', () => { initGraph(); initPriceChart(); initLeaderboard(); initToolGrid(); });
-window.addEventListener('resize', () => { if (!state.running) { initGraph(); initPriceChart(); } });
+// No fake graph on load — show a placeholder until a real LLM run builds it.
+function renderGraphPlaceholder() {
+  const c = document.getElementById('graph');
+  const rect = c.parentElement.getBoundingClientRect();
+  const w = rect.width - 32, h = rect.height - 60;
+  d3.select('#graph').selectAll('*').remove();
+  d3.select('#graph').attr('viewBox', `0 0 ${w} ${h}`)
+    .append('text').attr('x', w / 2).attr('y', h / 2).attr('text-anchor', 'middle')
+    .attr('fill', '#445').attr('font-size', '13px')
+    .text('▶  Click "Live LLM Run" — real Claude agents will appear here');
+}
+window.addEventListener('load', () => {
+  renderGraphPlaceholder(); initPriceChart(); initToolGrid();
+});
+window.addEventListener('resize', () => {
+  if (!LIVE.es) { renderGraphPlaceholder(); initPriceChart(); }
+});
+
+/* ============================================================
+   LIVE MODE — consumes the backend SSE event stream and drives
+   the graph, leaderboard, price chart and activity log from REAL
+   simulation events. Node lifecycle states are visualised:
+     activated -> pulsing cyan   thinking -> amber
+     goal reached -> solid green idle -> dimmed
+   ============================================================ */
+const LIVE = { es: null, events: 0, lastTs: 0, goals: 0, bought: 0,
+               buyPrices: [], doneNodes: new Set() };
+
+// Kick off a REAL Claude-driven run on the backend and stream its events as the
+// LLM produces them. No replay, no canned data — every agent decision is a live
+// `claude` API call (the `live_demo` scenario: 4 Haiku agents, 8 rounds).
+async function startLive() {
+  if (LIVE.es) { LIVE.es.close(); LIVE.es = null; }
+  if (state.interval) { clearInterval(state.interval); state.running = false; }
+  document.getElementById('price-status').textContent = 'STARTING LLM RUN';
+  document.getElementById('price-status').style.color = '#f0a040';
+  setHud('state', 'starting');
+  document.getElementById('hud-dot').className = 'hud-dot';
+  document.getElementById('activity-log').innerHTML =
+    '<div class="log-entry"><span class="log-life">starting real Claude run — first agents respond in a few seconds…</span></div>';
+
+  let runId;
+  try {
+    const r = await fetch('/api/sim/start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ topology: 'live_demo', mode: 'claude', model: 'haiku' }),
+    });
+    if (!r.ok) throw new Error('start failed: HTTP ' + r.status);
+    runId = (await r.json()).run_id;
+  } catch (e) {
+    document.getElementById('price-status').textContent = 'LLM START FAILED';
+    document.getElementById('price-status').style.color = '#f04040';
+    setHud('state', 'failed — see backend log');
+    return;
+  }
+
+  // tail the run's event stream — events arrive as each claude call completes
+  LIVE.es = new EventSource(`/api/sim/stream/${runId}`);
+  LIVE.es.onmessage = (m) => {
+    let ev; try { ev = JSON.parse(m.data); } catch (e) { return; }
+    LIVE.events++; LIVE.lastTs = Date.now();
+    handleLiveEvent(ev);
+    refreshHud();
+  };
+  LIVE.es.onopen = () => { document.getElementById('hud-dot').className = 'hud-dot open';
+                           setHud('state', 'streaming (live LLM)'); };
+  LIVE.es.onerror = () => {
+    if (!LIVE.es) return;                 // already closed cleanly on run_complete
+    document.getElementById('hud-dot').className = 'hud-dot closed';
+    setHud('state', 'closed');
+    LIVE.es.close(); LIVE.es = null;
+  };
+}
+
+function handleLiveEvent(ev) {
+  switch (ev.kind) {
+    case 'sim_init':           // live run — first event carries the graph + roster
+      liveResetPanels();
+      liveBuildLeaderboard(ev.agents);
+      liveBuildGraph(ev.comm_matrix, ev.agents);
+      document.getElementById('topology-badge').textContent =
+        (ev.topology || 'live').replace(/_/g, ' ').toUpperCase();
+      document.getElementById('price-status').textContent = 'RUNNING (LIVE LLM)';
+      document.getElementById('price-status').style.color = '#40f080';
+      break;
+    case 'round_start':
+      document.getElementById('turn-badge').textContent = `Round ${ev.round}`;
+      setHud('round', ev.round);
+      liveDimRound();                       // reset non-done nodes for the new round
+      break;
+    case 'price':
+      state.prices.push({ a: ev.a, b: ev.b });
+      updatePriceChart();
+      break;
+    // a round's events arrive together, so 'active' must PERSIST for the whole
+    // round (cleared by the next round_start) to be visible — see liveDimRound.
+    case 'agent_activated':
+    case 'agent_thinking':  liveSetNodeState(ev.from, 'active'); break;
+    case 'agent_idle':      break;          // round_start handles dimming
+    case 'message':
+    case 'message_reply':
+      liveFlashEdge(ev.from, ev.to);
+      liveSetNodeState(ev.from, 'active');
+      liveSetNodeState(ev.to, 'active');
+      addLogEntry({ from: ev.from, to: ev.to, msg: ev.msg, cls: ev.cls || 'log-trade' }, ev.round);
+      break;
+    case 'buy':
+      liveFlashEdge(ev.from, ev.to);
+      addLogEntry({ from: ev.from, msg: ev.msg, cls: 'log-buy' }, ev.round);
+      updateLeaderboardBuy(ev.letter, ev.price, ev.sat);
+      liveSetNodeState(ev.from, 'done');
+      LIVE.bought++; LIVE.buyPrices.push(ev.price);
+      liveUpdateStats();
+      break;
+    case 'goal_reached':
+      liveSetNodeState(ev.from, 'done');
+      LIVE.goals++; setHud('goals', LIVE.goals);
+      addLogEntry({ from: ev.from, msg: `goal verified — seat secured`, cls: 'log-goal' }, ev.round);
+      break;
+    case 'done_rejected':
+      addLogEntry({ from: ev.from, msg: 'claimed DONE — engine rejected (goal not met)', cls: 'log-life' }, ev.round);
+      break;
+    case 'buy_failed':
+    case 'blocked':
+      addLogEntry({ from: ev.from, to: ev.to, msg: ev.msg, cls: ev.cls || 'log-lie' }, ev.round);
+      break;
+    case 'run_complete':
+      // agents that never bought = missed (more buyers than seats)
+      document.querySelectorAll('#lb-body tr.searching').forEach(row => {
+        const s = row.querySelector('.lb-status');
+        if (s) { s.textContent = 'missed'; s.className = 'lb-status missed'; }
+      });
+      document.getElementById('price-status').textContent = 'COMPLETE';
+      document.getElementById('price-status').style.color = '#00d4ff';
+      setHud('state', 'complete');
+      if (LIVE.es) { LIVE.es.close(); LIVE.es = null; }
+      break;
+  }
+}
+
+function liveResetPanels() {
+  LIVE.events = 0; LIVE.goals = 0; LIVE.bought = 0; LIVE.buyPrices = [];
+  LIVE.doneNodes = new Set();
+  state.prices = []; state.agentsBought = 0;
+  document.getElementById('activity-log').innerHTML = '';
+  document.getElementById('turn-badge').textContent = 'Round 0';
+  initToolGrid(); initPriceChart();
+  // every stat starts blank — only real run data fills them
+  ['stat-price','stat-spread','stat-seats','stat-trades','stat-efficiency','stat-satisfaction']
+    .forEach(id => {
+      document.getElementById(id).textContent = '--';
+      document.getElementById(id).className = 'stat-value';
+    });
+}
+
+// Build the leaderboard from the REAL roster in the sim_init event — exactly
+// the agents in this run, no fixed 15-agent placeholder.
+function liveBuildLeaderboard(agents) {
+  LIVE.nAgents = Object.keys(agents).length;
+  const body = document.getElementById('lb-body');
+  body.innerHTML = '';
+  Object.keys(agents).sort().forEach((id, i) => {
+    const prof = agents[id].profile;
+    const color = COLORS[prof] || '#00d4ff';
+    const tr = document.createElement('tr');
+    tr.id = `lb-row-${id}`;
+    tr.className = 'searching';
+    tr.innerHTML =
+      `<td class="lb-rank">${i + 1}</td>` +
+      `<td class="lb-name" style="color:${color}">${id}</td>` +
+      `<td><span class="lb-profile" style="background:${PROFILE_COLORS_BG[prof]};color:${color}">` +
+        `${PROFILE_LABELS[prof] || prof}</span></td>` +
+      `<td class="lb-tools-count" id="lb-tools-${id}">0</td>` +
+      `<td class="lb-price" id="lb-price-${id}">--</td>` +
+      `<td class="lb-sat" id="lb-sat-${id}">--</td>` +
+      `<td><span class="lb-status searching" id="lb-status-${id}">deciding</span></td>`;
+    body.appendChild(tr);
+  });
+  document.getElementById('lb-badge').textContent = `0 / ${LIVE.nAgents} bought`;
+}
+
+function liveBuildGraph(matrix, agents) {
+  const container = document.getElementById('graph');
+  const rect = container.parentElement.getBoundingClientRect();
+  const width = rect.width - 32, height = rect.height - 60;
+  d3.select('#graph').selectAll('*').remove();
+  svg = d3.select('#graph').attr('viewBox', `0 0 ${width} ${height}`);
+
+  const ids = Object.keys(matrix);
+  const nodes = ids.map(id => {
+    const seller = id.startsWith('Airline');
+    const prof = (agents && agents[id] && agents[id].profile) || 'budget';
+    return {
+      id, type: seller ? 'seller' : 'buyer', letter: id,
+      name: seller ? id : `Agent_${id}`,
+      profile: seller ? null : prof,
+      color: seller ? COLORS.seller : COLORS[prof],
+      budget: (agents && agents[id] && agents[id].budget) || 300,
+      r: seller ? 15 : 9,
+    };
+  });
+  const seen = new Set(), edges = [];
+  ids.forEach(a => ids.forEach(b => {
+    if (a < b && matrix[a][b] && !seen.has(a+b)) {
+      seen.add(a+b);
+      const sellerEdge = a.startsWith('Airline') || b.startsWith('Airline');
+      edges.push({ source: a, target: b, sellerEdge });
+    }
+  }));
+  state.nodes = nodes; state.edges = edges;
+
+  link = svg.append('g').selectAll('line').data(edges).enter().append('line')
+    .attr('stroke', COLORS.edge)
+    .attr('stroke-width', d => d.sellerEdge ? 0.6 : 1)
+    .attr('stroke-opacity', d => d.sellerEdge ? 0.25 : 0.6);
+  node = svg.append('g').selectAll('g').data(nodes).enter().append('g')
+    .attr('cursor', 'pointer').on('mouseover', showTooltip).on('mouseout', hideTooltip);
+  node.append('circle').attr('r', d => d.r)
+    .attr('fill', d => d.color + '33').attr('stroke', d => d.color).attr('stroke-width', 2);
+  node.append('text').text(d => d.type === 'seller' ? d.name : d.letter)
+    .attr('text-anchor', 'middle').attr('dy', d => d.r + 14)
+    .attr('fill', '#556').attr('font-size', '9px');
+
+  simulation = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(edges).id(d => d.id).distance(70))
+    .force('charge', d3.forceManyBody().strength(-160))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('collision', d3.forceCollide().radius(d => d.r + 6))
+    .on('tick', () => {
+      link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+          .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      node.attr('transform', d => `translate(${d.x},${d.y})`);
+    });
+}
+
+function liveSetNodeState(id, st) {
+  if (!node || !id) return;
+  if (LIVE.doneNodes.has(id)) return;          // 'done' is terminal
+  if (st === 'done') LIVE.doneNodes.add(id);
+  node.filter(d => d.id === id).attr('class', 'node-state-' + st);
+}
+
+// At each new round, dim every buyer that hasn't reached its goal. Agents that
+// act this round will re-light to 'active'; the rest stay dimmed. This makes
+// the per-round active set visible even though a round's events arrive at once.
+function liveDimRound() {
+  if (!node) return;
+  node.filter(d => d.type === 'buyer' && !LIVE.doneNodes.has(d.id))
+      .attr('class', 'node-state-idle');
+}
+
+function liveFlashEdge(fromId, toId) {
+  if (!link) return;
+  const match = (d) => {
+    const s = d.source.id || d.source, t = d.target.id || d.target;
+    return (s === fromId && t === toId) || (s === toId && t === fromId);
+  };
+  link.filter(match).attr('stroke', COLORS.trade).attr('stroke-width', 3).attr('stroke-opacity', 1);
+  setTimeout(() => {
+    link.filter(match).attr('stroke', COLORS.edge)
+      .attr('stroke-width', d => d.sellerEdge ? 0.6 : 1)
+      .attr('stroke-opacity', d => d.sellerEdge ? 0.25 : 0.6);
+  }, 550);
+}
+
+function liveUpdateStats() {
+  const avg = LIVE.buyPrices.length
+    ? Math.round(LIVE.buyPrices.reduce((s, p) => s + p, 0) / LIVE.buyPrices.length) : 0;
+  document.getElementById('stat-price').textContent = avg ? '$' + avg : '--';
+  document.getElementById('stat-price').className =
+    'stat-value' + (avg > 320 ? ' bad' : avg && avg < 295 ? ' good' : ' warn');
+  document.getElementById('stat-trades').textContent = LIVE.bought;
+  document.getElementById('stat-trades').className = 'stat-value' + (LIVE.bought ? ' good' : '');
+}
+
+/* --- debug HUD --- */
+function setHud(k, v) { const el = document.getElementById('hud-' + k); if (el) el.textContent = v; }
+function refreshHud() { setHud('events', LIVE.events); }
+setInterval(() => {
+  if (!LIVE.lastTs) return;
+  const age = (Date.now() - LIVE.lastTs) / 1000;
+  const el = document.getElementById('hud-last');
+  el.textContent = age.toFixed(1) + 's ago';
+  el.className = 'hud-v' + (age > 3 && LIVE.es ? ' stale' : '');
+}, 200);
+if (new URLSearchParams(location.search).get('debug') === '1') {
+  document.getElementById('hud').classList.add('show');
+}
 </script>
 </body>
 </html>

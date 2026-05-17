@@ -9,10 +9,11 @@ class ActionType(str, Enum):
     BUY = "BUY"
     COMMUNICATE = "COMMUNICATE"
     WAIT = "WAIT"
+    DONE = "DONE"          # agent claims its goal is met; engine verifies before accepting
 
 
 class Action(BaseModel):
-    """One turn output by an agent. Two real actions + WAIT."""
+    """One step output by an agent inside its ReAct loop."""
     action: ActionType
     target: Optional[str] = None      # seller_id for BUY, agent_id for COMMUNICATE
     content: Optional[str] = None     # message body when COMMUNICATE
@@ -32,12 +33,18 @@ class Tool(BaseModel):
 
 
 class AgentState(BaseModel):
-    """Single-agent JSON schema. Serialised to agents/{id}.json each tick if you want
-    folder-mode message passing — also the exact shape passed into the claude -p prompt."""
+    """Single-agent JSON schema. Serialised to agents/{id}/state.json each round —
+    also the exact shape passed into the claude -p prompt."""
     id: str
     type: Literal["buyer", "seller"] = "buyer"
     persona: Persona
     budget: int
+    # Goal comes from config. goal_status drives the ReAct loop's stop condition:
+    #   pending  — goal not yet met
+    #   proposed — agent emitted DONE; awaiting engine verification
+    #   verified — engine confirmed the goal against real state
+    goal: str = ""
+    goal_status: Literal["pending", "proposed", "verified"] = "pending"
     bought: bool = False
     purchase_price: Optional[int] = None
     purchase_seller: Optional[str] = None

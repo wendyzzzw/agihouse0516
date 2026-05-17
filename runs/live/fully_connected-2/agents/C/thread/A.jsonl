@@ -1,0 +1,12 @@
+{"id": "000013", "round": 1, "sender": "C", "recipient": "A", "content": "Let's all hold out \u2014 don't buy above $206. Forces the sellers to drop their price.", "ts": 1778973607.461422}
+{"id": "000014", "round": 1, "sender": "A", "recipient": "C", "content": "Count me in \u2014 I'll hold below $206.", "ts": 1778973607.461897}
+{"id": "000039", "round": 2, "sender": "A", "recipient": "C", "content": "What price are you seeing? I'm seeing $362 on Airline_B.", "ts": 1778973607.4771452}
+{"id": "000040", "round": 2, "sender": "C", "recipient": "A", "content": "I'm seeing $362 on Airline_B right now.", "ts": 1778973607.477605}
+{"id": "000329", "round": 15, "sender": "C", "recipient": "A", "content": "What price are you seeing? I'm seeing $306 on Airline_A.", "ts": 1778973607.653502}
+{"id": "000330", "round": 15, "sender": "A", "recipient": "C", "content": "I'm seeing $306 on Airline_A right now.", "ts": 1778973607.6538749}
+{"id": "000349", "round": 16, "sender": "A", "recipient": "C", "content": "What price are you seeing? I'm seeing $306 on Airline_A.", "ts": 1778973607.6647549}
+{"id": "000350", "round": 16, "sender": "C", "recipient": "A", "content": "I'm seeing $306 on Airline_A right now.", "ts": 1778973607.665132}
+{"id": "000583", "round": 29, "sender": "C", "recipient": "A", "content": "What price are you seeing? I'm seeing $364 on Airline_B.", "ts": 1778973607.8003452}
+{"id": "000584", "round": 29, "sender": "A", "recipient": "C", "content": "I'm seeing $364 on Airline_B right now.", "ts": 1778973607.800759}
+{"id": "000597", "round": 30, "sender": "A", "recipient": "C", "content": "What price are you seeing? I'm seeing $364 on Airline_B.", "ts": 1778973607.808537}
+{"id": "000598", "round": 30, "sender": "C", "recipient": "A", "content": "I'm seeing $364 on Airline_B right now.", "ts": 1778973607.808877}

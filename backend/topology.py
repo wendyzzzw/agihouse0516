@@ -62,3 +62,21 @@ def graph_to_matrix(G: nx.Graph) -> dict:
         matrix[a][b] = True
         matrix[b][a] = True
     return matrix
+
+
+def matrix_from_explicit(buyer_ids: List[str], seller_ids: List[str],
+                         buyer_edges: List[List[str]]) -> dict:
+    """Build a comm matrix from an explicit buyer-buyer edge list.
+
+    Buyer<->seller edges are always added (sellers are reachable by everyone),
+    matching the named-topology generators. Used by config.py for the
+    `buyer_buyer: explicit` mode.
+    """
+    G = nx.Graph()
+    G.add_nodes_from(buyer_ids + seller_ids)
+    for b in buyer_ids:
+        for s in seller_ids:
+            G.add_edge(b, s)
+    for a, b in buyer_edges:
+        G.add_edge(a, b)
+    return graph_to_matrix(G)

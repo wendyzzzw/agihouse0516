@@ -1,0 +1,4 @@
+{"id": "000249", "round": 12, "sender": "L", "recipient": "M", "content": "What price are you seeing? I'm seeing $309 on Airline_A.", "ts": 1778973607.605319}
+{"id": "000250", "round": 12, "sender": "M", "recipient": "L", "content": "I'm seeing $309 on Airline_A right now.", "ts": 1778973607.605815}
+{"id": "000257", "round": 12, "sender": "M", "recipient": "L", "content": "What price are you seeing? I'm seeing $309 on Airline_A.", "ts": 1778973607.610496}
+{"id": "000258", "round": 12, "sender": "L", "recipient": "M", "content": "I'm seeing $309 on Airline_A right now.", "ts": 1778973607.6109078}

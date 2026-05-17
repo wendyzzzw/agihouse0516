@@ -1,0 +1,14 @@
+{"id": "000039", "round": 2, "sender": "D", "recipient": "B", "content": "What price are you seeing? I'm seeing $338 on Airline_B.", "ts": 1778973608.545685}
+{"id": "000040", "round": 2, "sender": "B", "recipient": "D", "content": "I'm seeing $338 on Airline_B right now.", "ts": 1778973608.5461388}
+{"id": "000059", "round": 3, "sender": "B", "recipient": "D", "content": "What price are you seeing? I'm seeing $338 on Airline_B.", "ts": 1778973608.55819}
+{"id": "000060", "round": 3, "sender": "D", "recipient": "B", "content": "I'm seeing $338 on Airline_B right now.", "ts": 1778973608.558635}
+{"id": "000343", "round": 16, "sender": "D", "recipient": "B", "content": "What price are you seeing? I'm seeing $282 on Airline_A.", "ts": 1778973608.740768}
+{"id": "000344", "round": 16, "sender": "B", "recipient": "D", "content": "I'm seeing $282 on Airline_A right now.", "ts": 1778973608.741096}
+{"id": "000363", "round": 17, "sender": "B", "recipient": "D", "content": "What price are you seeing? I'm seeing $282 on Airline_A.", "ts": 1778973608.751866}
+{"id": "000364", "round": 17, "sender": "D", "recipient": "B", "content": "I'm seeing $282 on Airline_A right now.", "ts": 1778973608.7523189}
+{"id": "000603", "round": 30, "sender": "D", "recipient": "B", "content": "What price are you seeing? I'm seeing $274 on Airline_A.", "ts": 1778973608.891424}
+{"id": "000604", "round": 30, "sender": "B", "recipient": "D", "content": "I'm seeing $274 on Airline_A right now.", "ts": 1778973608.8917692}
+{"id": "000611", "round": 31, "sender": "B", "recipient": "D", "content": "What price are you seeing? I'm seeing $285 on Airline_A.", "ts": 1778973608.8956978}
+{"id": "000612", "round": 31, "sender": "D", "recipient": "B", "content": "I'm seeing $285 on Airline_A right now.", "ts": 1778973608.896041}
+{"id": "000781", "round": 45, "sender": "B", "recipient": "D", "content": "What price are you seeing? I'm seeing $364 on Airline_B.", "ts": 1778973609.010932}
+{"id": "000782", "round": 45, "sender": "D", "recipient": "B", "content": "Already bought \u2014 paid $297.", "ts": 1778973609.011308}

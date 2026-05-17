@@ -2,8 +2,9 @@
 # Run all 5 topologies with N seeds each, print spread table.
 set -euo pipefail
 cd "$(dirname "$0")/../backend"
+PY="python3"; [[ -x .venv/bin/python3 ]] && PY=".venv/bin/python3"
 SEEDS="${1:-10}"
-python3 - <<EOF
+"$PY" - <<EOF
 from app import compare
 import json
 r = compare(seeds=${SEEDS}, ticks=55)

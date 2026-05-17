@@ -1,0 +1,18 @@
+{"round": 1, "turn": 1, "kind": "round_start", "from": ""}
+{"round": 1, "turn": 1, "kind": "agent_activated", "from": "A", "goal": "Secure one flight seat before the booking window closes, paying as little as possible."}
+{"round": 1, "turn": 1, "kind": "agent_thinking", "from": "A", "step": 1}
+{"round": 1, "turn": 1, "kind": "buy", "from": "A", "to": null, "cls": "log-buy", "letter": "A", "price": 324, "sat": 60, "msg": "BOUGHT from Airline_B at $324 (budget, 60% sat)"}
+{"round": 1, "turn": 1, "kind": "agent_thinking", "from": "A", "step": 2}
+{"round": 1, "turn": 1, "kind": "goal_reached", "from": "A", "step": 2}
+{"round": 1, "turn": 1, "kind": "agent_activated", "from": "B", "goal": "Secure one flight seat before the booking window closes, paying as little as possible."}
+{"round": 1, "turn": 1, "kind": "agent_thinking", "from": "B", "step": 1}
+{"round": 1, "turn": 1, "kind": "buy", "from": "B", "to": null, "cls": "log-buy", "letter": "B", "price": 349, "sat": 50, "msg": "BOUGHT from Airline_A at $349 (investor, 50% sat)"}
+{"round": 1, "turn": 1, "kind": "agent_thinking", "from": "B", "step": 2}
+{"round": 1, "turn": 1, "kind": "goal_reached", "from": "B", "step": 2}
+{"round": 1, "turn": 1, "kind": "agent_activated", "from": "C", "goal": "Secure one flight seat before the booking window closes, paying as little as possible."}
+{"round": 1, "turn": 1, "kind": "agent_thinking", "from": "C", "step": 1}
+{"round": 1, "turn": 1, "kind": "buy", "from": "C", "to": null, "cls": "log-buy", "letter": "C", "price": 349, "sat": 50, "msg": "BOUGHT from Airline_A at $349 (flexible, 50% sat)"}
+{"round": 1, "turn": 1, "kind": "agent_thinking", "from": "C", "step": 2}
+{"round": 1, "turn": 1, "kind": "goal_reached", "from": "C", "step": 2}
+{"round": 1, "turn": 1, "kind": "price", "from": "", "a": 349, "b": 324, "inv_a": 0, "inv_b": 0}
+{"round": 1, "turn": 1, "kind": "run_complete", "from": "", "rounds_run": 1, "n_verified": 3}

@@ -1,0 +1,32 @@
+# Scenario config — the single source of truth for a simulation run.
+# Loaded by backend/config.py. Edit this file to reshape the market.
+scenario:
+  name: small_world
+  seed: 42
+  rounds: 55              # outer scheduler rounds (sellers reprice once per round)
+
+market:
+  sellers:
+    - {id: Airline_A, inventory: 6, base_price: 280}
+    - {id: Airline_B, inventory: 4, base_price: 260}
+
+topology:
+  # buyer<->seller edges are implicit (every buyer can reach every seller).
+  # buyer_buyer controls who can talk to whom. One of:
+  #   isolated | clustered | small_world | hub_spoke | fully_connected | explicit
+  buyer_buyer: small_world
+  # When buyer_buyer is `explicit`, list the edges here instead:
+  # edges: [[A, B], [B, C], ...]
+
+agents:
+  # defaults apply to every roster entry unless the entry overrides them.
+  defaults:
+    goal: "Secure one flight seat before the booking window closes, paying as little as possible."
+    tools: [observe_prices, send_message, buy]
+  # roster expands in order to agent ids A, B, C, ... Each entry may also set
+  # `goal`, `tools`, or `budget` to override the defaults.
+  roster:
+    - {persona: budget,   count: 6}
+    - {persona: family,   count: 4}
+    - {persona: investor, count: 3}
+    - {persona: flexible, count: 2}

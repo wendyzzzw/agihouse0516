@@ -1,21 +1,36 @@
 #!/bin/bash
-# Full smoke test: quick run + validate JSON + compare + (optional) claude check.
+# Full smoke test: unit tests + regen + validate + compare + (optional) claude check.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
+BACKEND="$HERE/../backend"
+PY="python3"
+[[ -x "$BACKEND/.venv/bin/python3" ]] && PY="$BACKEND/.venv/bin/python3"
 
-echo "=== [1/4] regen all 5 topology JSONs (rule mode) ==="
+echo "=== [1/6] config layer ==="
+"$HERE/validate_config.sh"
+
+echo ""
+echo "=== [2/6] mailbox unit tests ==="
+( cd "$BACKEND" && "$PY" test_mailbox.py )
+
+echo ""
+echo "=== [3/6] ReAct loop unit tests ==="
+( cd "$BACKEND" && "$PY" test_react.py )
+
+echo ""
+echo "=== [4/6] regen all 5 topology JSONs (rule mode) ==="
 "$HERE/regen_all.sh" rule
 
 echo ""
-echo "=== [2/4] validate JSON schema ==="
+echo "=== [5/6] validate JSON schema ==="
 "$HERE/validate_json.sh"
 
 echo ""
-echo "=== [3/4] compare across topologies (5 seeds) ==="
+echo "=== [6/6] compare across topologies (5 seeds) ==="
 "$HERE/compare.sh" 5
 
 echo ""
-echo "=== [4/4] claude -p sanity (1 call, ~25s) ==="
+echo "=== claude -p sanity (optional, 1 call ~25s) ==="
 if [[ "${SKIP_CLAUDE:-}" == "1" ]]; then
   echo "  (skipped, SKIP_CLAUDE=1)"
 else

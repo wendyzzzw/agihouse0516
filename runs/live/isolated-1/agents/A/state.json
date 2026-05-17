@@ -1,0 +1,18 @@
+{
+  "id": "A",
+  "profile": "budget",
+  "budget": 297,
+  "goal": "Secure one flight seat before the booking window closes, paying as little as possible.",
+  "goal_status": "pending",
+  "bought": false,
+  "purchase_price": null,
+  "purchase_seller": null,
+  "satisfaction": null,
+  "ticks_waited": 54,
+  "tools": [
+    "observe_prices",
+    "send_message",
+    "buy"
+  ],
+  "hold_target": null
+}

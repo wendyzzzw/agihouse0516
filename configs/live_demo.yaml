@@ -1,0 +1,31 @@
+# live_demo — sized for a WATCHABLE real-LLM run driven from the browser.
+# 4 Claude (Haiku) agents, 8 rounds, fully connected.
+# Seats OUTNUMBER buyers (6 vs 4) on purpose: with no fear of missing out, a
+# rational agent can afford to wait for prices to fall and coordinate with
+# neighbours — that is what produces visible agentic interaction.
+#   ~40-90 claude calls, roughly 1-3 minutes end to end.
+scenario:
+  name: live_demo
+  seed: 42
+  rounds: 8
+
+market:
+  # BUY is rejected until round 4 — rounds 1-3 are a forced negotiation window
+  # where agents can only observe prices and message each other.
+  booking_opens_round: 4
+  sellers:
+    - {id: Airline_A, inventory: 4, base_price: 280}
+    - {id: Airline_B, inventory: 2, base_price: 260}   # 6 seats, 4 buyers
+
+topology:
+  buyer_buyer: fully_connected      # everyone can message everyone
+
+agents:
+  defaults:
+    goal: "Secure one of the scarce flight seats before the booking window closes,
+           paying as little as you can. You may coordinate with neighbours."
+    tools: [observe_prices, send_message, buy]
+  roster:
+    - {persona: budget,   count: 2}   # patient, propose coordinated holds
+    - {persona: investor, count: 1}   # info-hungry, probes neighbours
+    - {persona: flexible, count: 1}   # very patient, opportunistic

@@ -2,10 +2,11 @@
 # Fast rule-mode sanity: one topology, < 1 second.
 set -euo pipefail
 cd "$(dirname "$0")/../backend"
+PY="python3"; [[ -x .venv/bin/python3 ]] && PY=".venv/bin/python3"
 TOPO="${1:-small_world}"
-python3 run.py --topology "$TOPO" --mode rule --seed "${2:-42}"
+"$PY" run.py --topology "$TOPO" --mode rule --seed "${2:-42}"
 echo ""
-python3 - <<EOF
+"$PY" - <<EOF
 import json
 with open("../runs/${TOPO}.json") as f: d = json.load(f)
 s = d["summary"]
