@@ -442,6 +442,20 @@ code {
   margin-top: 12px;
 }
 
+.pairwise-box {
+  margin-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 14px;
+}
+
+.pairwise-controls {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr) auto auto;
+  gap: 10px;
+  align-items: end;
+  margin: 10px 0;
+}
+
 .replay-controls {
   display: grid;
   grid-template-columns: auto auto minmax(220px, 1fr) auto;
@@ -825,6 +839,7 @@ code {
   .comparison-grid,
   .recap-grid,
   .grid-metrics,
+  .pairwise-controls,
   .replay-controls,
   .run-row {
     grid-template-columns: 1fr;

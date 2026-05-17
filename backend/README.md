@@ -91,9 +91,14 @@ uvicorn app:app --port 8000 --reload
 - `GET  /api/runs/{run_id}/debug/agents/{agent_id}/turns/{turn}` — full private trace
 - `GET  /api/analysis/compare?scenario_id=...` — compare runs by setup, topology,
   archetype, buyer/seller power, and communication.
+- `GET  /api/analysis/compare?refresh=true` — bypass cached per-run analysis.
+- `GET  /api/analysis/pairwise?left_run_id=...&right_run_id=...` — compare two
+  runs directly and cache the pairwise result.
+- `GET  /api/analysis/pairwise?...&refresh=true` — recompute a pairwise comparison.
 
 Live runs write local files only, under `runs/live/{run_id}`. No database is used.
-Recaps are persisted as `runs/live/{run_id}/analysis.json`.
+Recaps are persisted as `runs/live/{run_id}/analysis.json`. Pairwise comparison
+files are persisted under `runs/live/_comparisons/`.
 
 ## Action JSON schema
 

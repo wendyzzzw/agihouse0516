@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from analysis_runtime import compare_runs, load_or_analyze_run
+from analysis_runtime import compare_pairwise, compare_runs, load_or_analyze_run
 from engine import Engine
 from live_runtime import (
     RunStore,
@@ -124,8 +124,23 @@ def list_runs():
 
 
 @app.get("/api/analysis/compare")
-def get_analysis_compare(scenario_id: Optional[str] = None):
-    return compare_runs(LIVE_STORE, scenario_id=scenario_id)
+def get_analysis_compare(scenario_id: Optional[str] = None, refresh: bool = False):
+    return compare_runs(LIVE_STORE, scenario_id=scenario_id, refresh=refresh)
+
+
+@app.get("/api/analysis/pairwise")
+def get_pairwise_analysis(left_run_id: str, right_run_id: str, refresh: bool = False):
+    try:
+        return compare_pairwise(
+            LIVE_STORE,
+            left_run_id=left_run_id,
+            right_run_id=right_run_id,
+            refresh=refresh,
+        )
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(404, "unknown run_id") from exc
 
 
 @app.post("/api/runs")
@@ -187,9 +202,9 @@ def get_run_snapshot(run_id: str, turn: Optional[int] = None):
 
 
 @app.get("/api/runs/{run_id}/analysis")
-def get_run_analysis(run_id: str):
+def get_run_analysis(run_id: str, refresh: bool = False):
     try:
-        return load_or_analyze_run(LIVE_STORE, run_id)
+        return load_or_analyze_run(LIVE_STORE, run_id, force=refresh)
     except FileNotFoundError as exc:
         raise HTTPException(404, f"unknown run_id: {run_id}") from exc
 

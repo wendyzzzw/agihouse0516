@@ -98,14 +98,16 @@
     renderNav("runs");
     const list = $("#run-list");
     const status = $("#runs-status");
+    $("#comparison-refresh")?.addEventListener("click", () => loadComparison(true));
     try {
       const [payload, comparison] = await Promise.all([
         api("/api/runs"),
         api("/api/analysis/compare").catch(error => ({ error })),
       ]);
       const runs = payload.runs || [];
+      window.__runsPageRuns = runs;
       status.textContent = runs.length ? `${runs.length} file-backed run${runs.length === 1 ? "" : "s"}` : "No live runs yet";
-      renderComparison(comparison);
+      renderComparison(comparison, runs);
       if (!runs.length) {
         list.innerHTML = `<div class="empty">No past live runs yet. Create a simulation to write the first run under runs/live.</div>`;
         return;
@@ -117,7 +119,17 @@
     }
   }
 
-  function renderComparison(comparison) {
+  async function loadComparison(refresh = false) {
+    $("#comparison-status").textContent = refresh ? "Refreshing analysis cache..." : "Loading comparison...";
+    try {
+      const comparison = await api(`/api/analysis/compare${refresh ? "?refresh=true" : ""}`);
+      renderComparison(comparison, window.__runsPageRuns || []);
+    } catch (error) {
+      renderComparison({ error }, window.__runsPageRuns || []);
+    }
+  }
+
+  function renderComparison(comparison, runs = []) {
     const root = $("#comparison");
     if (!root) return;
     if (comparison?.error) {
@@ -174,7 +186,134 @@
         </table>
       </div>
       ${renderArchetypeComparison(comparison.archetype_comparison || [])}
+      ${renderPairwiseControls(runs)}
     `;
+    bindPairwiseControls(runs);
+  }
+
+  function renderPairwiseControls(runs) {
+    if (!runs.length) return "";
+    const options = runs.map(run => `
+      <option value="${escapeHtml(run.run_id)}">${escapeHtml(labelize(run.scenario_id))} / ${escapeHtml(run.run_id)}</option>
+    `).join("");
+    return `
+      <div class="pairwise-box">
+        <div class="panel-title">Pairwise Comparison</div>
+        <div class="pairwise-controls">
+          <label>
+            Left run
+            <select id="pair-left">${options}</select>
+          </label>
+          <label>
+            Right run
+            <select id="pair-right">${options}</select>
+          </label>
+          <button id="pair-compare" type="button">Compare Pair</button>
+          <button id="pair-refresh" type="button">Bypass Cache</button>
+        </div>
+        <div id="pair-status" class="status-line">Pick two runs to compare directly.</div>
+        <div id="pairwise-result"></div>
+      </div>
+    `;
+  }
+
+  function bindPairwiseControls(runs) {
+    const left = $("#pair-left");
+    const right = $("#pair-right");
+    if (!left || !right) return;
+    const distinctIndex = runs.findIndex(run => run.scenario_id !== runs[0]?.scenario_id);
+    if (runs.length > 1) right.selectedIndex = distinctIndex > 0 ? distinctIndex : 1;
+    $("#pair-compare")?.addEventListener("click", () => loadPairwise(false));
+    $("#pair-refresh")?.addEventListener("click", () => loadPairwise(true));
+  }
+
+  async function loadPairwise(refresh = false) {
+    const left = $("#pair-left")?.value;
+    const right = $("#pair-right")?.value;
+    const status = $("#pair-status");
+    const root = $("#pairwise-result");
+    if (!left || !right || !root) return;
+    if (left === right) {
+      status.textContent = "Choose two different runs.";
+      root.innerHTML = "";
+      return;
+    }
+    status.textContent = refresh ? "Recomputing pairwise comparison..." : "Loading cached pairwise comparison...";
+    try {
+      const payload = await api(`/api/analysis/pairwise?left_run_id=${encodeURIComponent(left)}&right_run_id=${encodeURIComponent(right)}${refresh ? "&refresh=true" : ""}`);
+      renderPairwiseResult(payload);
+    } catch (error) {
+      status.textContent = `Pairwise comparison failed: ${error.message || error}`;
+      root.innerHTML = `<div class="empty">No pairwise comparison available.</div>`;
+    }
+  }
+
+  function renderPairwiseResult(payload) {
+    $("#pair-status").textContent = payload.cache?.hit ? "Loaded cached pairwise comparison." : "Computed and cached pairwise comparison.";
+    const root = $("#pairwise-result");
+    root.innerHTML = `
+      <div class="comparison-grid" style="margin-top: 12px;">
+        <div class="comparison-card">
+          <strong>Left</strong>
+          <p>${escapeHtml(payload.left.scenario_name)}<br>${escapeHtml(payload.left.run_id)}<br>${escapeHtml(labelize(payload.left.advantage))}</p>
+        </div>
+        <div class="comparison-card">
+          <strong>Right</strong>
+          <p>${escapeHtml(payload.right.scenario_name)}<br>${escapeHtml(payload.right.run_id)}<br>${escapeHtml(labelize(payload.right.advantage))}</p>
+        </div>
+        <div class="comparison-card">
+          <strong>Summary</strong>
+          <p>${escapeHtml(payload.summary)}</p>
+        </div>
+      </div>
+      <div class="heatmap-wrap comparison-table">
+        <table class="table">
+          <thead>
+            <tr><th>Metric</th><th>Left</th><th>Right</th><th>Delta</th><th>Signal</th></tr>
+          </thead>
+          <tbody>
+            ${(payload.metric_deltas || []).map(row => `
+              <tr>
+                <td>${escapeHtml(row.label)}</td>
+                <td>${formatMetric(row.left, row.unit)}</td>
+                <td>${formatMetric(row.right, row.unit)}</td>
+                <td>${formatDelta(row.delta, row.unit)}</td>
+                <td>${escapeHtml(labelize(row.direction))}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+      <div class="comparison-grid" style="margin-top: 12px;">
+        <div class="comparison-card">
+          <strong>Takeaways</strong>
+          <p>${(payload.takeaways || []).map(item => escapeHtml(item)).join("<br>")}</p>
+        </div>
+        <div class="comparison-card">
+          <strong>Setup Differences</strong>
+          <p>${(payload.setup_differences || []).map(row => `${escapeHtml(row.label)}: ${escapeHtml(row.left)} -> ${escapeHtml(row.right)}`).join("<br>") || "Same setup fields."}</p>
+        </div>
+        <div class="comparison-card">
+          <strong>Cache</strong>
+          <p>${payload.cache?.hit ? "Read from cached pairwise file." : "Recomputed and saved for later."}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  function formatMetric(value, unit) {
+    if (unit === "money") return fmtSignedMoney(value);
+    if (unit === "pct") return fmtPct(value);
+    return fmtNumber(value);
+  }
+
+  function formatDelta(value, unit) {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return "-";
+    const sign = n > 0 ? "+" : "";
+    if (unit === "money") return `${sign}${fmtSignedMoney(n)}`;
+    if (unit === "pct") return `${sign}${n.toFixed(1)} pts`;
+    return `${sign}${n}`;
   }
 
   function renderArchetypeComparison(rows) {

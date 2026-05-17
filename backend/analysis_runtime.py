@@ -101,13 +101,13 @@ def analyze_run(store: RunStore, run_id: str, persist: bool = True) -> Dict[str,
     return analysis
 
 
-def compare_runs(store: RunStore, scenario_id: Optional[str] = None) -> Dict[str, Any]:
+def compare_runs(store: RunStore, scenario_id: Optional[str] = None, refresh: bool = False) -> Dict[str, Any]:
     analyses = []
     for row in store.list_runs():
         if scenario_id and row.get("scenario_id") != scenario_id:
             continue
         try:
-            analyses.append(load_or_analyze_run(store, row["run_id"]))
+            analyses.append(load_or_analyze_run(store, row["run_id"], force=refresh))
         except Exception:
             continue
 
@@ -142,6 +142,175 @@ def compare_runs(store: RunStore, scenario_id: Optional[str] = None) -> Dict[str
             for a in analyses
         ],
     }
+
+
+def pairwise_comparison_path(store: RunStore, left_run_id: str, right_run_id: str) -> Path:
+    safe_left = re_safe(left_run_id)
+    safe_right = re_safe(right_run_id)
+    return store.root / "_comparisons" / f"{safe_left}__vs__{safe_right}.json"
+
+
+def re_safe(value: str) -> str:
+    return "".join(ch if ch.isalnum() or ch in ("-", "_") else "_" for ch in value)
+
+
+def compare_pairwise(
+    store: RunStore,
+    left_run_id: str,
+    right_run_id: str,
+    refresh: bool = False,
+) -> Dict[str, Any]:
+    if left_run_id == right_run_id:
+        raise ValueError("left_run_id and right_run_id must be different")
+
+    left = load_or_analyze_run(store, left_run_id, force=refresh)
+    right = load_or_analyze_run(store, right_run_id, force=refresh)
+    path = pairwise_comparison_path(store, left_run_id, right_run_id)
+
+    if not refresh and path.exists():
+        try:
+            cached = read_json(path)
+            if (
+                cached.get("analysis_version") == ANALYSIS_VERSION
+                and cached.get("left", {}).get("current_turn") == left.get("current_turn")
+                and cached.get("right", {}).get("current_turn") == right.get("current_turn")
+                and cached.get("left", {}).get("run_id") == left_run_id
+                and cached.get("right", {}).get("run_id") == right_run_id
+            ):
+                cached["cache"] = {"hit": True, "path": str(path)}
+                return cached
+        except Exception:
+            pass
+
+    comparison = build_pairwise_comparison(left, right)
+    comparison["cache"] = {"hit": False, "path": str(path)}
+    atomic_write_json(path, comparison)
+    return comparison
+
+
+def build_pairwise_comparison(left: Dict[str, Any], right: Dict[str, Any]) -> Dict[str, Any]:
+    metrics = [
+        metric_delta("Avg price", left["outcomes"]["avg_price"], right["outcomes"]["avg_price"], "money", lower_is_better=True),
+        metric_delta("Price spread", left["outcomes"]["price_spread"], right["outcomes"]["price_spread"], "money", lower_is_better=True),
+        metric_delta("Purchase rate", left["outcomes"]["purchase_rate_pct"], right["outcomes"]["purchase_rate_pct"], "pct", higher_is_better=True),
+        metric_delta("Goal completion", left["outcomes"]["full_goal_completion_pct"], right["outcomes"]["full_goal_completion_pct"], "pct", higher_is_better=True),
+        metric_delta("Seller revenue", left["outcomes"]["seller_revenue"], right["outcomes"]["seller_revenue"], "money", higher_is_better=True, seller_favorable=True),
+        metric_delta("Buyer surplus", left["buyer_seller_power"]["avg_buyer_surplus"], right["buyer_seller_power"]["avg_buyer_surplus"], "money", higher_is_better=True),
+        metric_delta("Total messages", left["communication"]["total_messages"], right["communication"]["total_messages"], "count"),
+        metric_delta("Messages / transaction", left["communication"]["messages_per_transaction"], right["communication"]["messages_per_transaction"], "count", lower_is_better=True),
+    ]
+    left_label = run_label(left)
+    right_label = run_label(right)
+    takeaways = pairwise_takeaways(left, right, metrics)
+    return {
+        "analysis_version": ANALYSIS_VERSION,
+        "generated_at": time.time(),
+        "left": pair_side(left),
+        "right": pair_side(right),
+        "summary": (
+            f"{right_label} compared with {left_label}: "
+            f"price delta ${right['outcomes']['avg_price'] - left['outcomes']['avg_price']:.1f}, "
+            f"purchase-rate delta {right['outcomes']['purchase_rate_pct'] - left['outcomes']['purchase_rate_pct']:.1f} points, "
+            f"seller-revenue delta ${right['outcomes']['seller_revenue'] - left['outcomes']['seller_revenue']:.1f}."
+        ),
+        "metric_deltas": metrics,
+        "setup_differences": setup_differences(left, right),
+        "takeaways": takeaways,
+    }
+
+
+def run_label(analysis: Dict[str, Any]) -> str:
+    return f"{labelize(analysis.get('scenario_id'))} ({analysis.get('run_id')})"
+
+
+def pair_side(analysis: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "run_id": analysis["run_id"],
+        "scenario_id": analysis["scenario_id"],
+        "scenario_name": labelize(analysis["scenario_id"]),
+        "setup_type": analysis["setup"]["setup_type"],
+        "current_turn": analysis["current_turn"],
+        "headline": analysis["recap"]["headline"],
+        "advantage": analysis["buyer_seller_power"]["advantage"],
+    }
+
+
+def metric_delta(
+    label: str,
+    left_value: float,
+    right_value: float,
+    unit: str,
+    higher_is_better: bool = False,
+    lower_is_better: bool = False,
+    seller_favorable: bool = False,
+) -> Dict[str, Any]:
+    delta = round(right_value - left_value, 2)
+    if higher_is_better and delta > 0:
+        direction = "right_better"
+    elif higher_is_better and delta < 0:
+        direction = "left_better"
+    elif lower_is_better and delta < 0:
+        direction = "right_better"
+    elif lower_is_better and delta > 0:
+        direction = "left_better"
+    else:
+        direction = "neutral"
+    return {
+        "label": label,
+        "left": left_value,
+        "right": right_value,
+        "delta": delta,
+        "unit": unit,
+        "direction": direction,
+        "seller_favorable": seller_favorable,
+    }
+
+
+def setup_differences(left: Dict[str, Any], right: Dict[str, Any]) -> List[Dict[str, Any]]:
+    fields = [
+        ("Scenario", left["scenario_id"], right["scenario_id"]),
+        ("Setup type", left["setup"]["setup_type"], right["setup"]["setup_type"]),
+        ("Buyer-buyer edges", left["topology"]["buyer_buyer_edges"], right["topology"]["buyer_buyer_edges"]),
+        ("Seller-seller edges", left["topology"]["seller_seller_edges"], right["topology"]["seller_seller_edges"]),
+        ("Buyer-seller reach", left["topology"]["buyer_seller_reach_pct"], right["topology"]["buyer_seller_reach_pct"]),
+        ("Provider", left["setup"]["provider"], right["setup"]["provider"]),
+        ("Model", left["setup"]["model"], right["setup"]["model"]),
+    ]
+    return [
+        {"label": label, "left": left_value, "right": right_value}
+        for label, left_value, right_value in fields
+        if left_value != right_value
+    ]
+
+
+def pairwise_takeaways(left: Dict[str, Any], right: Dict[str, Any], metrics: List[Dict[str, Any]]) -> List[str]:
+    takeaways = []
+    price_delta = right["outcomes"]["avg_price"] - left["outcomes"]["avg_price"]
+    purchase_delta = right["outcomes"]["purchase_rate_pct"] - left["outcomes"]["purchase_rate_pct"]
+    revenue_delta = right["outcomes"]["seller_revenue"] - left["outcomes"]["seller_revenue"]
+    if price_delta < 0:
+        takeaways.append(f"Right run produced lower average prices by ${abs(price_delta):.1f}.")
+    elif price_delta > 0:
+        takeaways.append(f"Left run produced lower average prices by ${abs(price_delta):.1f}.")
+    else:
+        takeaways.append("Both runs had the same average transaction price.")
+
+    if purchase_delta > 0:
+        takeaways.append(f"Right run allocated to {purchase_delta:.1f} more percentage points of buyers.")
+    elif purchase_delta < 0:
+        takeaways.append(f"Left run allocated to {abs(purchase_delta):.1f} more percentage points of buyers.")
+
+    if revenue_delta > 0:
+        takeaways.append(f"Right run generated ${revenue_delta:.1f} more seller revenue.")
+    elif revenue_delta < 0:
+        takeaways.append(f"Left run generated ${abs(revenue_delta):.1f} more seller revenue.")
+
+    if left["setup"]["setup_type"] != right["setup"]["setup_type"]:
+        takeaways.append(
+            f"Setup changed from {labelize(left['setup']['setup_type'])} to {labelize(right['setup']['setup_type'])}, "
+            "so read deltas as market-structure effects, not just run noise."
+        )
+    return takeaways[:4]
 
 
 def _safe_config_snapshot(store: RunStore, run_id: str) -> Dict[str, Any]:
