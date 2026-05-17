@@ -258,7 +258,10 @@ class Engine:
             }
             self.pending_messages.append(msg)
             agent["outbox"].append(msg)
-            cls = "log-probe" if "?" in content else "log-trade"
+            # Prefer the action's _cls hint (set by the rule fallback when it
+            # picks a non-probe behaviour like coordinate / bluff / defect),
+            # else auto-classify by the presence of a question mark.
+            cls = action.get("_cls") or ("log-probe" if "?" in content else "log-trade")
             self._emit(**{
                 "from": agent["id"], "letter": agent["letter"],
                 "to": to, "to_letter": self.id_to_letter.get(to),
