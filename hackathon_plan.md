@@ -182,21 +182,6 @@ Hours 10-12: Polish demo, rehearse script, stress test
 
 ---
 
-## Idea Origins
-
-This plan synthesizes the best ideas from multiple perspectives:
-
-| Component | Inspired by | Why it's here |
-|---|---|---|
-| Topology simulation | AgentArena brainstorm | Core innovation — topology determines outcomes |
-| Autonomous agents (tools, probing, local knowledge) | AgentArena v2 | Realism — agents on the real internet will be autonomous |
-| Multi-objective goals | Agent goals discussion | Diverse goals create richer, more realistic dynamics |
-| DevTools / observability | Boris Cherny's thinking | Senior engineers need to debug agent systems |
-| Closed-loop learning | Boz's ATA manifesto | Measurable improvement — not just a demo, agents get better |
-| Agent discovery + protocols | Anton's GibberLink / AgentHandshake | Agents need to discover and negotiate with each other |
-| Commerce framing | Zuck's "every business has an agent" | Grounds it in a real, valuable use case |
-| Performance review / calibration | AgentReorg brainstorm | Trust and deception detection in agent networks |
-
 ## Key Files
 
 - `CLAUDE.md` — Full technical design and brainstorm documentation

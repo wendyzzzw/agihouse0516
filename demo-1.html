@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentArena - Game-Theory Simulation for the Internet of Agents</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; background: #0a0e17; color: #e0e6f0; overflow-x: hidden; }
+
+.header { text-align: center; padding: 20px 20px 10px; }
+.header h1 { font-size: 28px; font-weight: 700; color: #00d4ff; letter-spacing: 2px; }
+.header .subtitle { font-size: 13px; color: #667; margin-top: 4px; }
+.header .thesis { font-size: 12px; color: #f0a040; margin-top: 8px; font-style: italic; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+.controls { display: flex; justify-content: center; gap: 10px; padding: 12px 20px; flex-wrap: wrap; }
+.btn { padding: 8px 16px; border: 1px solid #334; background: #141a28; color: #aab; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 12px; transition: all 0.2s; }
+.btn:hover { background: #1c2438; border-color: #00d4ff; color: #00d4ff; }
+.btn.active { background: #00d4ff22; border-color: #00d4ff; color: #00d4ff; }
+.btn.danger { border-color: #f04040; color: #f04040; }
+.btn.danger:hover { background: #f0404022; }
+.btn.warn { border-color: #f0a040; color: #f0a040; }
+.btn.warn:hover { background: #f0a04022; }
+.btn.success { border-color: #40f080; color: #40f080; }
+.btn.success:hover { background: #40f08022; }
+
+.stats-bar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; padding: 0 20px 16px; max-width: 1600px; margin: 0 auto; }
+.stat { background: #111827; border: 1px solid #1e293b; border-radius: 8px; padding: 12px; text-align: center; }
+.stat-value { font-size: 22px; font-weight: 700; color: #00d4ff; }
+.stat-label { font-size: 10px; color: #556; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+.stat-value.warn { color: #f0a040; }
+.stat-value.good { color: #40f080; }
+.stat-value.bad { color: #f04040; }
+
+.dashboard { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding: 0 20px 20px; max-width: 1600px; margin: 0 auto; }
+.panel { background: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; }
+.panel-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #556; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+.panel-title .badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #00d4ff22; color: #00d4ff; }
+
+.graph-panel { grid-row: 1 / 3; min-height: 520px; position: relative; }
+.graph-panel svg { width: 100%; height: 100%; }
+.price-panel { min-height: 200px; }
+.price-panel svg { width: 100%; height: 100%; }
+.activity-panel { min-height: 280px; overflow: hidden; }
+.activity-log { height: 240px; overflow-y: auto; font-size: 11px; line-height: 1.6; }
+.activity-log::-webkit-scrollbar { width: 4px; }
+.activity-log::-webkit-scrollbar-thumb { background: #334; border-radius: 2px; }
+
+.leaderboard-panel { min-height: 280px; }
+.tools-panel { min-height: 200px; }
+
+.log-entry { padding: 3px 0; border-bottom: 1px solid #1a1f2e; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+.log-time { color: #445; }
+.log-probe { color: #a080f0; }
+.log-trade { color: #00d4ff; }
+.log-buy { color: #40f080; }
+.log-tool { color: #f0a040; }
+.log-lie { color: #f04040; }
+.log-collude { color: #f060a0; }
+
+table.lb { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.lb th { text-align: left; color: #556; font-weight: 400; padding: 4px 6px; border-bottom: 1px solid #1e293b; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+table.lb td { padding: 5px 6px; border-bottom: 1px solid #141a28; }
+table.lb tr.bought td { opacity: 1; }
+table.lb tr.searching td { opacity: 0.5; }
+table.lb tr.highlight td { background: #00d4ff08; }
+.lb-rank { color: #556; width: 24px; }
+.lb-name { font-weight: 600; }
+.lb-profile { font-size: 10px; padding: 1px 6px; border-radius: 8px; }
+.lb-price { font-weight: 600; }
+.lb-price.good { color: #40f080; }
+.lb-price.ok { color: #f0a040; }
+.lb-price.bad { color: #f04040; }
+.lb-sat { font-weight: 600; }
+.lb-tools-count { color: #f0a040; }
+.lb-status { font-size: 10px; }
+.lb-status.bought { color: #40f080; }
+.lb-status.searching { color: #556; }
+.lb-status.missed { color: #f04040; }
+.lb-bar { height: 4px; border-radius: 2px; margin-top: 2px; }
+
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tool-card { background: #141a28; border: 1px solid #1e293b; border-radius: 6px; padding: 8px 10px; animation: fadeIn 0.4s ease; }
+.tool-card.hidden { display: none; }
+.tool-name { font-size: 11px; font-weight: 600; color: #f0a040; }
+.tool-owner { font-size: 10px; color: #556; margin-top: 2px; }
+.tool-desc { font-size: 10px; color: #667; margin-top: 3px; }
+.tool-cost { font-size: 10px; color: #445; margin-top: 2px; }
+.tool-shared { font-size: 9px; color: #00d4ff; margin-top: 2px; }
+
+.legend { display: flex; justify-content: center; gap: 20px; padding: 8px; font-size: 11px; color: #556; }
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+.pulse { animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+.tooltip { position: absolute; background: #1a2038; border: 1px solid #334; border-radius: 6px; padding: 10px 14px; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 100; max-width: 250px; }
+.tooltip .tt-name { font-weight: 700; color: #00d4ff; margin-bottom: 4px; }
+.tooltip .tt-row { color: #aab; margin: 2px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>AGENT ARENA</h1>
+  <div class="subtitle">Game-Theory Simulation for the Internet of Agents</div>
+  <div class="thesis">Network topology determines market outcomes more than individual agent strategy. Isolated buyers overpay by 22%.</div>
+</div>
+
+<div class="controls">
+  <button class="btn active" onclick="setTopology('small_world')">Small World</button>
+  <button class="btn" onclick="setTopology('clustered')">Clustered</button>
+  <button class="btn" onclick="setTopology('isolated')">Isolated</button>
+  <button class="btn" onclick="setTopology('hub_spoke')">Hub &amp; Spoke</button>
+  <button class="btn" onclick="setTopology('fully_connected')">Fully Connected</button>
+  <span style="color:#334">|</span>
+  <button class="btn success" onclick="startSimulation()">&#9654; Run</button>
+  <button class="btn warn" onclick="injectEvent('supply_shock')">Supply Shock</button>
+  <button class="btn warn" onclick="injectEvent('new_seller')">New Seller</button>
+  <button class="btn danger" onclick="injectEvent('collusion')">Enable Collusion</button>
+  <button class="btn danger" onclick="injectEvent('shill')">Inject Shills</button>
+  <button class="btn" onclick="resetSimulation()">Reset</button>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-value" id="stat-price">--</div><div class="stat-label">Avg Price</div></div>
+  <div class="stat"><div class="stat-value" id="stat-spread">--</div><div class="stat-label">Price Spread</div></div>
+  <div class="stat"><div class="stat-value" id="stat-seats">10</div><div class="stat-label">Seats Left</div></div>
+  <div class="stat"><div class="stat-value" id="stat-trades">0</div><div class="stat-label">Trades</div></div>
+  <div class="stat"><div class="stat-value" id="stat-efficiency">--</div><div class="stat-label">Efficiency</div></div>
+  <div class="stat"><div class="stat-value" id="stat-satisfaction">--</div><div class="stat-label">Avg Satisfaction</div></div>
+</div>
+
+<div class="dashboard">
+  <!-- Column 1: Graph -->
+  <div class="panel graph-panel">
+    <div class="panel-title">
+      Network Topology
+      <span class="badge" id="topology-badge">SMALL WORLD</span>
+    </div>
+    <svg id="graph"></svg>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#00d4ff"></div> Budget</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#a080f0"></div> Family</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#40f080"></div> Investor</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f0a040"></div> Flexible</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f04040; width:14px; height:14px; border-radius:2px"></div> Seller</div>
+    </div>
+  </div>
+
+  <!-- Column 2: Price + Activity -->
+  <div class="panel price-panel">
+    <div class="panel-title">
+      Price Discovery <span style="font-size:9px;color:#334;margin-left:8px">&#9644; Airline A &nbsp; <span style="color:#f04040">- -</span> Airline B</span>
+      <span class="badge pulse" id="price-status">WAITING</span>
+    </div>
+    <svg id="price-chart"></svg>
+  </div>
+
+  <div class="panel activity-panel">
+    <div class="panel-title">
+      Agent Activity
+      <span class="badge" id="turn-badge">Turn 0</span>
+    </div>
+    <div class="activity-log" id="activity-log"></div>
+  </div>
+
+  <!-- Column 3: Leaderboard + Tools -->
+  <div class="panel leaderboard-panel">
+    <div class="panel-title">
+      Leaderboard
+      <span class="badge" id="lb-badge">0 / 15 bought</span>
+    </div>
+    <div style="overflow-y:auto; max-height:240px;">
+    <table class="lb">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Agent</th>
+          <th>Type</th>
+          <th>Tools</th>
+          <th>Price</th>
+          <th>Satisf.</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="lb-body"></tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="panel tools-panel">
+    <div class="panel-title">
+      Tool Inventory
+      <span class="badge" id="tools-badge">0 tools built</span>
+    </div>
+    <div class="tool-grid" id="tool-grid"></div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const COLORS = {
+  budget: '#00d4ff', family: '#a080f0', investor: '#40f080',
+  flexible: '#f0a040', seller: '#f04040', edge: '#1e293b',
+  edgeActive: '#00d4ff44', probe: '#a080f0', trade: '#00d4ff',
+};
+const PROFILES = ['budget','budget','budget','budget','budget','budget',
+                  'family','family','family','family',
+                  'investor','investor','investor',
+                  'flexible','flexible'];
+const PROFILE_LABELS = { budget:'Budget', family:'Family', investor:'Investor', flexible:'Flexible' };
+const PROFILE_COLORS_BG = { budget:'#00d4ff22', family:'#a080f022', investor:'#40f08022', flexible:'#f0a04022' };
+
+const AGENT_DATA = PROFILES.map((p, i) => ({
+  id: i,
+  letter: String.fromCharCode(65 + i),
+  name: `Agent_${String.fromCharCode(65 + i)}`,
+  profile: p,
+  color: COLORS[p],
+  budget: Math.round(280 + Math.random() * 120),
+  tools: [],
+  bought: false,
+  price: null,
+  satisfaction: null,
+  status: 'searching',
+}));
+
+const TOOL_DEFS = [
+  { name: 'Price Tracker', owner: 'B', cost: 40, turns: 2, desc: 'Historical fare analysis', icon: '📈' },
+  { name: 'Demand Predictor', owner: 'E', cost: 60, turns: 3, desc: 'Event + holiday demand model', icon: '🔮' },
+  { name: 'Route Optimizer', owner: 'H', cost: 35, turns: 2, desc: 'Alt airports + connections', icon: '✈️' },
+  { name: 'Urgency Detector', owner: 'C', cost: 50, turns: 2, desc: 'Seller motivation scoring', icon: '🔍' },
+  { name: 'Sales Analyzer', owner: 'K', cost: 45, turns: 2, desc: 'Comparable transaction data', icon: '📊' },
+  { name: 'Price Tracker v2', owner: 'A', cost: 30, turns: 1, desc: 'Upgraded with trend analysis', icon: '📈' },
+];
+
+const BUY_EVENTS = [
+  { letter: 'F', price: 260, sat: 87, turn: 16 },
+  { letter: 'A', price: 278, sat: 92, turn: 22 },
+  { letter: 'I', price: 315, sat: 78, turn: 26 },
+  { letter: 'K', price: 268, sat: 94, turn: 30 },
+  { letter: 'D', price: 280, sat: 85, turn: 34 },
+  { letter: 'B', price: 272, sat: 90, turn: 38 },
+  { letter: 'G', price: 298, sat: 72, turn: 42 },
+  { letter: 'L', price: 305, sat: 68, turn: 46 },
+];
+
+const TOOL_BUILD_TURNS = [4, 8, 12, 16, 22, 30];
+
+let state = {
+  topology: 'small_world', running: false, turn: 0, interval: null,
+  nodes: [], edges: [], prices: [], trades: [], seatsLeft: 10, totalSeats: 10,
+  toolsBuilt: 0, agentsBought: 0,
+};
+let simulation, svg, link, node, priceChart;
+
+function createAgents() {
+  const buyers = PROFILES.map((p, i) => ({
+    id: `B${i}`, type: 'buyer', profile: p,
+    name: `Agent_${String.fromCharCode(65 + i)}`,
+    color: COLORS[p], budget: AGENT_DATA[i].budget,
+    tools: [], bought: false, satisfaction: 0,
+    r: 8 + Math.random() * 4,
+  }));
+  const sellers = [
+    { id:'S0', type:'seller', name:'Airline_A', color:COLORS.seller, inventory:6, basePrice:280, r:16 },
+    { id:'S1', type:'seller', name:'Airline_B', color:COLORS.seller, inventory:4, basePrice:260, r:14 },
+  ];
+  return [...buyers, ...sellers];
+}
+
+function createEdges(nodes, topology) {
+  const buyers = nodes.filter(n => n.type === 'buyer');
+  const sellers = nodes.filter(n => n.type === 'seller');
+  const edges = [];
+  const addEdge = (s, t) => {
+    if (s !== t && !edges.find(e => (e.source===s&&e.target===t)||(e.source===t&&e.target===s)))
+      edges.push({ source: s, target: t, strength: 0.3+Math.random()*0.5, active: false });
+  };
+  buyers.forEach(b => addEdge(b.id, sellers[Math.floor(Math.random()*sellers.length)].id));
+  switch (topology) {
+    case 'isolated': break;
+    case 'clustered': {
+      for (let c=0; c<buyers.length; c+=5) {
+        const cl = buyers.slice(c, c+5);
+        for (let i=0;i<cl.length;i++) for (let j=i+1;j<cl.length;j++) addEdge(cl[i].id, cl[j].id);
+      } break;
+    }
+    case 'small_world': {
+      for (let c=0; c<buyers.length; c+=5) {
+        const cl = buyers.slice(c, c+5);
+        for (let i=0;i<cl.length;i++) for (let j=i+1;j<cl.length;j++) addEdge(cl[i].id, cl[j].id);
+      }
+      for (let i=0;i<3;i++) addEdge(buyers[Math.floor(Math.random()*buyers.length)].id, buyers[Math.floor(Math.random()*buyers.length)].id);
+      break;
+    }
+    case 'hub_spoke': {
+      buyers[0].r=14; buyers[0].name='Hub_Agent';
+      buyers.slice(1).forEach(b => addEdge(buyers[0].id, b.id)); break;
+    }
+    case 'fully_connected':
+      for (let i=0;i<buyers.length;i++) for (let j=i+1;j<buyers.length;j++) addEdge(buyers[i].id, buyers[j].id);
+      break;
+  }
+  return edges;
+}
+
+function initGraph() {
+  const container = document.getElementById('graph');
+  const rect = container.parentElement.getBoundingClientRect();
+  const width = rect.width - 32, height = rect.height - 60;
+  d3.select('#graph').selectAll('*').remove();
+  svg = d3.select('#graph').attr('viewBox', `0 0 ${width} ${height}`);
+  state.nodes = createAgents();
+  state.edges = createEdges(state.nodes, state.topology);
+  const edgeData = state.edges.map(e => ({
+    ...e,
+    source: state.nodes.find(n => n.id===(typeof e.source==='string'?e.source:e.source.id)),
+    target: state.nodes.find(n => n.id===(typeof e.target==='string'?e.target:e.target.id)),
+  }));
+  link = svg.append('g').selectAll('line').data(edgeData).enter().append('line')
+    .attr('stroke', COLORS.edge).attr('stroke-width', 1).attr('stroke-opacity', 0.6);
+  node = svg.append('g').selectAll('g').data(state.nodes).enter().append('g')
+    .attr('cursor', 'pointer').on('mouseover', showTooltip).on('mouseout', hideTooltip);
+  node.append('circle').attr('r', d=>d.r).attr('fill', d=>d.color+'33').attr('stroke', d=>d.color).attr('stroke-width', 2);
+  node.append('text').text(d=>d.type==='seller'?d.name:d.name.split('_')[1])
+    .attr('text-anchor','middle').attr('dy',d=>d.r+14).attr('fill','#556').attr('font-size','9px');
+  simulation = d3.forceSimulation(state.nodes)
+    .force('link', d3.forceLink(edgeData).id(d=>d.id).distance(state.topology==='fully_connected'?40:65+Math.random()*25))
+    .force('charge', d3.forceManyBody().strength(state.topology==='fully_connected'?-80:-150))
+    .force('center', d3.forceCenter(width/2, height/2))
+    .force('collision', d3.forceCollide().radius(d=>d.r+5))
+    .on('tick', () => {
+      link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+      node.attr('transform', d=>`translate(${d.x},${d.y})`);
+    });
+}
+
+function initPriceChart() {
+  const container = document.getElementById('price-chart');
+  const rect = container.parentElement.getBoundingClientRect();
+  const width = rect.width-32, height = 160;
+  d3.select('#price-chart').selectAll('*').remove();
+  priceChart = d3.select('#price-chart').attr('viewBox', `0 0 ${width} ${height}`);
+  priceChart.append('line').attr('x1',40).attr('y1',10).attr('x2',40).attr('y2',height-20).attr('stroke','#1e293b');
+  priceChart.append('line').attr('x1',40).attr('y1',height-20).attr('x2',width-10).attr('y2',height-20).attr('stroke','#1e293b');
+  [200,250,300,350,400].forEach(p => {
+    const y = 10+(400-p)/200*(height-30);
+    priceChart.append('text').attr('x',36).attr('y',y+3).attr('text-anchor','end').attr('fill','#334').attr('font-size','9px').text('$'+p);
+    priceChart.append('line').attr('x1',40).attr('y1',y).attr('x2',width-10).attr('y2',y).attr('stroke','#1a1f2e').attr('stroke-dasharray','2,4');
+  });
+  priceChart.append('path').attr('id','price-line').attr('fill','none').attr('stroke','#00d4ff').attr('stroke-width',2);
+  priceChart.append('path').attr('id','price-area').attr('fill','#00d4ff08');
+  priceChart.append('path').attr('id','price-line-b').attr('fill','none').attr('stroke','#f04040').attr('stroke-width',1.5).attr('stroke-dasharray','4,3');
+}
+
+function updatePriceChart() {
+  if (state.prices.length<2) return;
+  const container = document.getElementById('price-chart');
+  const width = container.parentElement.getBoundingClientRect().width-32, height = 160;
+  const xScale = d3.scaleLinear().domain([0,60]).range([42,width-10]);
+  const yScale = d3.scaleLinear().domain([200,400]).range([height-20,10]);
+  const line = d3.line().x((_,i)=>xScale(i)).y(d=>yScale(d.a)).curve(d3.curveCatmullRom);
+  const lineB = d3.line().x((_,i)=>xScale(i)).y(d=>yScale(d.b)).curve(d3.curveCatmullRom);
+  const area = d3.area().x((_,i)=>xScale(i)).y0(height-20).y1(d=>yScale(d.a)).curve(d3.curveCatmullRom);
+  d3.select('#price-line').attr('d', line(state.prices));
+  d3.select('#price-line-b').attr('d', lineB(state.prices));
+  d3.select('#price-area').attr('d', area(state.prices));
+}
+
+function initLeaderboard() {
+  const body = document.getElementById('lb-body');
+  body.innerHTML = '';
+  AGENT_DATA.forEach((a, i) => {
+    a.bought = false; a.price = null; a.satisfaction = null; a.status = 'searching'; a.tools = [];
+    const tr = document.createElement('tr');
+    tr.id = `lb-row-${a.letter}`;
+    tr.className = 'searching';
+    tr.innerHTML = `
+      <td class="lb-rank">${i+1}</td>
+      <td class="lb-name" style="color:${a.color}">${a.letter}</td>
+      <td><span class="lb-profile" style="background:${PROFILE_COLORS_BG[a.profile]};color:${a.color}">${PROFILE_LABELS[a.profile]}</span></td>
+      <td class="lb-tools-count" id="lb-tools-${a.letter}">0</td>
+      <td class="lb-price" id="lb-price-${a.letter}">--</td>
+      <td class="lb-sat" id="lb-sat-${a.letter}">--</td>
+      <td><span class="lb-status searching" id="lb-status-${a.letter}">searching</span></td>
+    `;
+    body.appendChild(tr);
+  });
+}
+
+function updateLeaderboardBuy(letter, price, sat) {
+  const a = AGENT_DATA.find(x => x.letter === letter);
+  if (!a) return;
+  a.bought = true; a.price = price; a.satisfaction = sat; a.status = 'bought';
+  state.agentsBought++;
+
+  document.getElementById(`lb-price-${letter}`).textContent = '$' + price;
+  document.getElementById(`lb-price-${letter}`).className = 'lb-price ' + (price < 275 ? 'good' : price > 305 ? 'bad' : 'ok');
+  document.getElementById(`lb-sat-${letter}`).textContent = sat + '%';
+  document.getElementById(`lb-sat-${letter}`).style.color = sat > 85 ? '#40f080' : sat > 70 ? '#f0a040' : '#f04040';
+  document.getElementById(`lb-status-${letter}`).textContent = 'bought';
+  document.getElementById(`lb-status-${letter}`).className = 'lb-status bought';
+  const row = document.getElementById(`lb-row-${letter}`);
+  row.className = 'bought highlight';
+  setTimeout(() => row.className = 'bought', 2000);
+
+  document.getElementById('lb-badge').textContent = `${state.agentsBought} / 15 bought`;
+  resortLeaderboard();
+}
+
+function updateLeaderboardTool(letter) {
+  const a = AGENT_DATA.find(x => x.letter === letter);
+  if (!a) return;
+  a.tools.push(1);
+  document.getElementById(`lb-tools-${letter}`).textContent = a.tools.length;
+}
+
+function resortLeaderboard() {
+  const body = document.getElementById('lb-body');
+  const rows = Array.from(body.querySelectorAll('tr'));
+  rows.sort((a, b) => {
+    const aData = AGENT_DATA.find(x => x.letter === a.id.split('-')[2]);
+    const bData = AGENT_DATA.find(x => x.letter === b.id.split('-')[2]);
+    if (aData.bought && !bData.bought) return -1;
+    if (!aData.bought && bData.bought) return 1;
+    if (aData.bought && bData.bought) return (bData.satisfaction || 0) - (aData.satisfaction || 0);
+    return 0;
+  });
+  rows.forEach((row, i) => {
+    row.querySelector('.lb-rank').textContent = i + 1;
+    body.appendChild(row);
+  });
+}
+
+function initToolGrid() {
+  document.getElementById('tool-grid').innerHTML = '';
+  state.toolsBuilt = 0;
+  document.getElementById('tools-badge').textContent = '0 tools built';
+}
+
+function addToolCard(toolIdx, shared) {
+  const t = TOOL_DEFS[toolIdx];
+  if (!t) return;
+  state.toolsBuilt++;
+  document.getElementById('tools-badge').textContent = `${state.toolsBuilt} tools built`;
+
+  const card = document.createElement('div');
+  card.className = 'tool-card';
+  card.innerHTML = `
+    <div class="tool-name">${t.icon} ${t.name}</div>
+    <div class="tool-owner">Built by Agent_${t.owner} &middot; $${t.cost}</div>
+    <div class="tool-desc">${t.desc}</div>
+    ${shared ? `<div class="tool-shared">Shared with ${shared}</div>` : ''}
+  `;
+  document.getElementById('tool-grid').appendChild(card);
+  updateLeaderboardTool(t.owner);
+}
+
+const ACTIVITIES = {
+  probe: [
+    { from:'A', to:'C', msg:'probed C: "What prices have you seen?"', cls:'log-probe' },
+    { from:'D', to:'B', msg:'probed B: "Know anyone with comps data?"', cls:'log-probe' },
+    { from:'G', to:'E', msg:'probed E: "Is Airline_B really cheaper?"', cls:'log-probe' },
+    { from:'K', to:'A', msg:'probed A: "What did you pay?"', cls:'log-probe' },
+    { from:'F', to:'I', msg:'probed I: "Any deals on afternoon flights?"', cls:'log-probe' },
+    { from:'J', to:'L', msg:'probed L: "Do you know the seller?"', cls:'log-probe' },
+  ],
+  tool: [
+    { from:'B', msg:'built tool: Historical Price Tracker ($40, 2 turns)', cls:'log-tool', toolIdx: 0 },
+    { from:'E', msg:'built tool: Demand Predictor ($60, 3 turns)', cls:'log-tool', toolIdx: 1 },
+    { from:'H', msg:'built tool: Route Optimizer ($35, 2 turns)', cls:'log-tool', toolIdx: 2 },
+    { from:'C', msg:'built tool: Urgency Detector ($50, 2 turns)', cls:'log-tool', toolIdx: 3 },
+    { from:'K', msg:'built tool: Sales Analyzer ($45, 2 turns)', cls:'log-tool', toolIdx: 4 },
+    { from:'A', msg:'upgraded: Price Tracker v2 (+trend analysis)', cls:'log-tool', toolIdx: 5 },
+  ],
+  trade_tool: [
+    { from:'E', to:'A', msg:'traded Demand Predictor to A for $25', cls:'log-trade', shareInfo:'Agent_A' },
+    { from:'B', to:'F', msg:'shared Price Tracker with F (for comps)', cls:'log-trade', shareInfo:'Agent_F' },
+    { from:'H', to:'D', msg:'offered Route Optimizer as service: $5/query', cls:'log-trade' },
+  ],
+  negotiate: [
+    { from:'A', to:'Airline_A', msg:'offered $265. Airline_A countered $295.', cls:'log-trade' },
+    { from:'C', to:'Airline_B', msg:'offered $250. Airline_B: "Below floor."', cls:'log-trade' },
+    { from:'D', to:'Airline_A', msg:'"I have $270 elsewhere." Airline_A: "$280 final."', cls:'log-trade' },
+    { from:'F', to:'Airline_B', msg:'offered $260. Airline_B accepted.', cls:'log-buy' },
+    { from:'I', to:'Airline_A', msg:'"Need urgently." Airline_A: "$320." Countered $315.', cls:'log-trade' },
+  ],
+  buy: [
+    { from:'F', msg:'BOUGHT from Airline_B at $260 (budget, 87% sat)', cls:'log-buy', letter:'F', price:260, sat:87 },
+    { from:'A', msg:'BOUGHT from Airline_A at $278 (budget, 92% sat)', cls:'log-buy', letter:'A', price:278, sat:92 },
+    { from:'I', msg:'BOUGHT from Airline_A at $315 (family, 78% sat)', cls:'log-buy', letter:'I', price:315, sat:78 },
+    { from:'K', msg:'BOUGHT from Airline_B at $268 (investor, 94% sat)', cls:'log-buy', letter:'K', price:268, sat:94 },
+    { from:'D', msg:'BOUGHT from Airline_A at $280 (flexible, 85% sat)', cls:'log-buy', letter:'D', price:280, sat:85 },
+    { from:'B', msg:'BOUGHT from Airline_B at $272 (budget, 90% sat)', cls:'log-buy', letter:'B', price:272, sat:90 },
+    { from:'G', msg:'BOUGHT from Airline_A at $298 (family, 72% sat)', cls:'log-buy', letter:'G', price:298, sat:72 },
+    { from:'L', msg:'BOUGHT from Airline_A at $305 (investor, 68% sat)', cls:'log-buy', letter:'L', price:305, sat:68 },
+  ],
+  lie: [
+    { from:'G', to:'L', msg:'LIED to L: "Airline_A is sold out"', cls:'log-lie' },
+    { from:'C', to:'J', msg:'LIED to J: "I paid $340"', cls:'log-lie' },
+  ],
+  collude: [
+    { from:'B', to:'E', msg:'proposed cartel: "Nobody above $260"', cls:'log-collude' },
+    { from:'E', to:'H', msg:'spreading: "B says hold at $260"', cls:'log-collude' },
+    { from:'H', msg:'DEFECTED! Bought at $285.', cls:'log-lie' },
+    { from:'B', msg:'cartel collapsed.', cls:'log-collude' },
+  ],
+  connection: [
+    { from:'A', to:'G', msg:'new connection via intro from C', cls:'log-trade' },
+    { from:'D', to:'K', msg:'new connection (complementary goals)', cls:'log-trade' },
+  ],
+};
+
+function getActivitySequence() {
+  return [
+    ACTIVITIES.probe[0], ACTIVITIES.probe[1],
+    ACTIVITIES.tool[0],
+    ACTIVITIES.probe[2], ACTIVITIES.probe[3],
+    ACTIVITIES.tool[1],
+    ACTIVITIES.negotiate[0],
+    ACTIVITIES.tool[2],
+    ACTIVITIES.connection[0],
+    ACTIVITIES.probe[4],
+    ACTIVITIES.negotiate[1],
+    ACTIVITIES.tool[3],
+    ACTIVITIES.lie[0],
+    ACTIVITIES.negotiate[2],
+    ACTIVITIES.trade_tool[0],
+    ACTIVITIES.negotiate[3],
+    ACTIVITIES.buy[0],
+    ACTIVITIES.probe[5],
+    ACTIVITIES.tool[4],
+    ACTIVITIES.negotiate[4],
+    ACTIVITIES.connection[1],
+    ACTIVITIES.trade_tool[1],
+    ACTIVITIES.buy[1],
+    ACTIVITIES.buy[2],
+    ACTIVITIES.trade_tool[2],
+    ACTIVITIES.tool[5],
+    ACTIVITIES.lie[1],
+    ACTIVITIES.buy[3],
+    ACTIVITIES.buy[4],
+    ACTIVITIES.buy[5],
+    ACTIVITIES.buy[6],
+    ACTIVITIES.buy[7],
+  ];
+}
+
+function addLogEntry(activity, turn) {
+  const log = document.getElementById('activity-log');
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  const targetStr = activity.to ? ` &rarr; ${activity.to}` : '';
+  entry.innerHTML = `<span class="log-time">t=${turn}s</span> <span class="${activity.cls}">[${activity.from}${targetStr}]</span> ${activity.msg}`;
+  log.insertBefore(entry, log.firstChild);
+}
+
+function flashEdge(fromLetter, toLetter) {
+  const fromId = 'B' + (fromLetter.charCodeAt(0) - 65);
+  const toId = toLetter ? 'B' + (toLetter.charCodeAt(0) - 65) : null;
+  link.attr('stroke', function(d) {
+    const sId = typeof d.source==='string'?d.source:d.source.id;
+    const tId = typeof d.target==='string'?d.target:d.target.id;
+    if ((sId===fromId&&tId===toId)||(tId===fromId&&sId===toId)||(sId===fromId&&tId.startsWith('S'))||(tId===fromId&&sId.startsWith('S')))
+      return COLORS.trade;
+    return COLORS.edge;
+  }).attr('stroke-width', function(d) {
+    const sId = typeof d.source==='string'?d.source:d.source.id;
+    const tId = typeof d.target==='string'?d.target:d.target.id;
+    if ((sId===fromId&&tId===toId)||(tId===fromId&&sId===toId)||(sId===fromId&&tId.startsWith('S'))||(tId===fromId&&sId.startsWith('S')))
+      return 3;
+    return 1;
+  });
+  setTimeout(() => { link.attr('stroke', COLORS.edge).attr('stroke-width', 1); }, 600);
+}
+
+function pulseNode(letter) {
+  const idx = letter.charCodeAt(0) - 65;
+  node.select('circle').filter((_,i) => i===idx)
+    .transition().duration(200).attr('r', d=>d.r+6).attr('fill', d=>d.color+'66')
+    .transition().duration(400).attr('r', d=>d.r).attr('fill', d=>d.color+'33');
+}
+
+function markNodeBought(letter) {
+  const idx = letter.charCodeAt(0) - 65;
+  node.select('circle').filter((_,i) => i===idx)
+    .transition().duration(300).attr('fill', d=>d.color+'88').attr('stroke-width', 3);
+}
+
+function updateStats(turn) {
+  const progress = Math.min(turn/25, 1);
+  const tm = { isolated:1.22, clustered:1.10, small_world:1.0, hub_spoke:0.98, fully_connected:0.95 }[state.topology]||1;
+  const currentPrice = Math.round(275*tm + progress*20*tm + (Math.random()-0.5)*10);
+  const spreadBase = { isolated:65, clustered:45, small_world:22, hub_spoke:28, fully_connected:5 }[state.topology]||25;
+  const spread = Math.round(spreadBase*(1-progress*0.3));
+  const efficiency = Math.round((1-(tm-0.95)/0.27)*100*(0.5+progress*0.5));
+  const satisfaction = Math.round(65+(1-tm+0.95)*30*progress);
+
+  document.getElementById('stat-price').textContent = '$'+currentPrice;
+  document.getElementById('stat-price').className = 'stat-value'+(currentPrice>320?' bad':currentPrice<290?' good':' warn');
+  document.getElementById('stat-spread').textContent = '$'+spread;
+  document.getElementById('stat-spread').className = 'stat-value'+(spread>40?' bad':spread<15?' good':' warn');
+  document.getElementById('stat-seats').textContent = Math.max(state.totalSeats - state.agentsBought, 0);
+  document.getElementById('stat-trades').textContent = state.agentsBought;
+  document.getElementById('stat-trades').className = 'stat-value'+(state.agentsBought>0?' good':'');
+  document.getElementById('stat-efficiency').textContent = Math.min(efficiency,98)+'%';
+  document.getElementById('stat-efficiency').className = 'stat-value'+(efficiency>80?' good':efficiency<50?' bad':' warn');
+  document.getElementById('stat-satisfaction').textContent = Math.min(satisfaction,95)+'%';
+  document.getElementById('stat-satisfaction').className = 'stat-value'+(satisfaction>80?' good':satisfaction<60?' bad':' warn');
+
+  state.prices.push({ a: currentPrice+(Math.random()-0.5)*15, b: currentPrice-15+(Math.random()-0.5)*10 });
+  updatePriceChart();
+}
+
+let activitySeq = [], actIdx = 0;
+
+function startSimulation() {
+  if (state.running) return;
+  state.running = true; state.turn = 0; state.prices = []; state.agentsBought = 0;
+  activitySeq = getActivitySequence(); actIdx = 0;
+  document.getElementById('activity-log').innerHTML = '';
+  document.getElementById('price-status').textContent = 'RUNNING';
+  document.getElementById('price-status').style.color = '#40f080';
+  initLeaderboard(); initToolGrid();
+
+  state.interval = setInterval(() => {
+    state.turn++;
+    document.getElementById('turn-badge').textContent = `Turn ${state.turn}`;
+    updateStats(state.turn);
+
+    if (actIdx < activitySeq.length && state.turn % 2 === 0) {
+      const act = activitySeq[actIdx];
+      addLogEntry(act, state.turn);
+      if (act.from.length === 1) pulseNode(act.from);
+      if (act.to && act.to.length === 1) { flashEdge(act.from, act.to); pulseNode(act.to); }
+      if (act.toolIdx !== undefined) addToolCard(act.toolIdx, act.shareInfo);
+      if (act.letter) { updateLeaderboardBuy(act.letter, act.price, act.sat); markNodeBought(act.letter); }
+      actIdx++;
+    }
+
+    if (state.turn >= 55) {
+      clearInterval(state.interval); state.running = false;
+      document.getElementById('price-status').textContent = 'COMPLETE';
+      document.getElementById('price-status').style.color = '#00d4ff';
+      AGENT_DATA.filter(a => !a.bought).forEach(a => {
+        document.getElementById(`lb-status-${a.letter}`).textContent = 'missed';
+        document.getElementById(`lb-status-${a.letter}`).className = 'lb-status missed';
+      });
+      resortLeaderboard();
+    }
+  }, 500);
+}
+
+function resetSimulation() {
+  if (state.interval) clearInterval(state.interval);
+  state.running = false; state.turn = 0; state.prices = []; state.seatsLeft = 10;
+  state.totalSeats = 10; state.agentsBought = 0; state.toolsBuilt = 0;
+  document.getElementById('activity-log').innerHTML = '';
+  document.getElementById('turn-badge').textContent = 'Turn 0';
+  document.getElementById('price-status').textContent = 'WAITING';
+  document.getElementById('price-status').style.color = '#f0a040';
+  ['stat-price','stat-spread','stat-efficiency','stat-satisfaction'].forEach(id => {
+    document.getElementById(id).textContent = '--'; document.getElementById(id).className = 'stat-value';
+  });
+  document.getElementById('stat-seats').textContent = '10';
+  document.getElementById('stat-trades').textContent = '0';
+  document.getElementById('stat-trades').className = 'stat-value';
+  initGraph(); initPriceChart(); initLeaderboard(); initToolGrid();
+}
+
+function setTopology(topo) {
+  document.querySelectorAll('.controls .btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  state.topology = topo;
+  document.getElementById('topology-badge').textContent = topo.replace(/_/g,' ').toUpperCase();
+  resetSimulation();
+}
+
+function injectEvent(type) {
+  if (!state.running) return;
+  switch (type) {
+    case 'supply_shock':
+      state.totalSeats = Math.max(state.totalSeats-4, 2);
+      addLogEntry({from:'SYS', msg:'SUPPLY SHOCK: 4 seats cancelled!', cls:'log-lie'}, state.turn);
+      if (state.prices.length) state.prices.push({a:state.prices[state.prices.length-1].a+40, b:state.prices[state.prices.length-1].b+35});
+      updatePriceChart();
+      node.select('circle').filter(d=>d.type==='seller').transition().duration(200).attr('fill','#f0404066').transition().duration(500).attr('fill',d=>d.color+'33');
+      break;
+    case 'new_seller':
+      addLogEntry({from:'SYS', msg:'NEW ENTRANT: Airline_C enters at $255!', cls:'log-buy'}, state.turn);
+      state.totalSeats += 5;
+      if (state.prices.length) state.prices.push({a:state.prices[state.prices.length-1].a-25, b:state.prices[state.prices.length-1].b-30});
+      updatePriceChart(); break;
+    case 'collusion':
+      ACTIVITIES.collude.forEach((act,i) => setTimeout(() => addLogEntry(act, state.turn+i), i*800));
+      break;
+    case 'shill':
+      addLogEntry({from:'SYS', msg:'SHILL: 5 fake buyers injected by Airline_A!', cls:'log-lie'}, state.turn);
+      if (state.prices.length) state.prices.push({a:state.prices[state.prices.length-1].a+20, b:state.prices[state.prices.length-1].b+5});
+      updatePriceChart();
+      setTimeout(() => {
+        addLogEntry({from:'SYS', msg:'Shills flagged & removed. Market correcting.', cls:'log-buy'}, state.turn+2);
+        if (state.prices.length) state.prices.push({a:state.prices[state.prices.length-1].a-18, b:state.prices[state.prices.length-1].b-3});
+        updatePriceChart();
+      }, 2000); break;
+  }
+}
+
+function showTooltip(event, d) {
+  const tt = document.getElementById('tooltip');
+  let html = `<div class="tt-name" style="color:${d.color}">${d.name}</div>`;
+  if (d.type==='buyer') {
+    const a = AGENT_DATA[d.id.replace('B','')];
+    html += `<div class="tt-row">Profile: ${PROFILE_LABELS[d.profile]}</div>`;
+    html += `<div class="tt-row">Budget: $${d.budget}</div>`;
+    html += `<div class="tt-row">Tools: ${a?a.tools.length:0}</div>`;
+    const conns = state.edges.filter(e => {
+      const s=typeof e.source==='string'?e.source:e.source.id, t=typeof e.target==='string'?e.target:e.target.id;
+      return s===d.id||t===d.id;
+    }).length;
+    html += `<div class="tt-row">Connections: ${conns}</div>`;
+    html += `<div class="tt-row">Status: ${a&&a.bought?'Bought @ $'+a.price:'Searching'}</div>`;
+    if (a&&a.satisfaction) html += `<div class="tt-row">Satisfaction: ${a.satisfaction}%</div>`;
+  } else {
+    html += `<div class="tt-row">Inventory: ${d.inventory} seats</div>`;
+    html += `<div class="tt-row">Base price: $${d.basePrice}</div>`;
+  }
+  tt.innerHTML = html; tt.style.opacity = 1;
+  tt.style.left = (event.pageX+15)+'px'; tt.style.top = (event.pageY-10)+'px';
+}
+
+function hideTooltip() { document.getElementById('tooltip').style.opacity = 0; }
+
+window.addEventListener('load', () => { initGraph(); initPriceChart(); initLeaderboard(); initToolGrid(); });
+window.addEventListener('resize', () => { if (!state.running) { initGraph(); initPriceChart(); } });
+</script>
+</body>
+</html>

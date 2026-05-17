@@ -2,7 +2,7 @@
 
 ## The Problem
 
-The internet is about to change. Soon every human will have 100+ AI agents acting on their behalf — buying, selling, researching, negotiating. But nobody knows how agent economies actually behave at scale. Will prices converge or diverge? Will agents collude? Will well-connected agents exploit isolated ones? We can't deploy millions of agents on the real internet and hope for the best. We need a simulation sandbox to understand agent market dynamics before they happen.
+The internet is about to change. Soon every human will have 100+ AI agents acting on their behalf — buying, selling, researching, negotiating. But nobody knows how agent economies actually behave at scale. Will prices converge or diverge? Will agents collude? Will well-connected agents exploit isolated ones? We can't deploy millions of agents on the real internet and hope for the best. We need a simulation environment to understand agent market dynamics before they happen.
 
 ## The Insight
 
@@ -12,11 +12,11 @@ The internet is about to change. Soon every human will have 100+ AI agents actin
 
 AgentArena is a simulation environment where autonomous AI agents compete in realistic markets. Unlike toy game-theory models, our agents:
 
-- **Build their own tools** — valuation models, price trackers, neighborhood scorers — investing time and budget to gain analytical edges
+
 - **Actively probe each other** — requesting information, negotiating data trades, discovering new connections through introductions
 - **Operate with local knowledge only** — each agent sees only its own connections, not the full network. Must explore, infer, and decide under uncertainty
-- **Pursue diverse goals** — a budget-focused first-time buyer behaves differently from a time-pressured relocating family or a risk-averse investor
 - **Deceive and collude** — agents can lie about prices, form cartels, and sabotage competitors. The simulation tests how topology affects these dynamics
+- **Build their own tools** — valuation models, price trackers, neighborhood scorers — investing time and budget to gain analytical edges
 
 ## Key Experiments
 

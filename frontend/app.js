@@ -4,6 +4,7 @@
   const params = new URLSearchParams(window.location.search);
   let pollTimer = null;
   let replayTimer = null;
+  const __topo = { sim: null, nodes: {}, edgeKey: "", override: "actual" };
 
   async function api(path, options = {}) {
     const response = await fetch(path, options);
@@ -439,6 +440,19 @@
       window.__replayTurn = window.__replayMaxTurn || 0;
       updateRunReplay({ fetchSnapshot: true });
     });
+
+    // Topology template buttons
+    $$("#topo-template-btns .topo-tpl").forEach(btn => {
+      btn.addEventListener("click", () => {
+        $$("#topo-template-btns .topo-tpl").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        __topo.override = btn.dataset.topo || "actual";
+        // Force edge recalc by clearing cached edge key
+        __topo.edgeKey = "";
+        updateRunReplay({ fetchSnapshot: false });
+      });
+    });
+
     await loadRunPage(runId);
   }
 
@@ -461,6 +475,10 @@
     try {
       let data = window.__runPageData;
       if (fetchData || !data) {
+        // Reset topology sim state when fetching a fresh run
+        if (__topo.sim) { __topo.sim.stop(); __topo.sim = null; }
+        __topo.nodes = {};
+        __topo.edgeKey = "";
         const [meta, snapshot, messages, context, analysis] = await Promise.all([
           api(`/api/runs/${encodeURIComponent(runId)}`),
           api(`/api/runs/${encodeURIComponent(runId)}/snapshot`),
@@ -876,95 +894,214 @@
     }).join("");
   }
 
+  function generateTemplateMatrix(template, buyerIds, sellerIds) {
+    const allIds = [...buyerIds, ...sellerIds];
+    const matrix = Object.fromEntries(allIds.map(a => [a, Object.fromEntries(allIds.map(b => [b, false]))]));
+    const addEdge = (a, b) => { if (a && b && a !== b) { matrix[a][b] = true; matrix[b][a] = true; } };
+
+    // Sellers always reachable from all buyers
+    buyerIds.forEach(b => sellerIds.forEach(s => addEdge(b, s)));
+
+    const n = buyerIds.length;
+    switch (template) {
+      case "isolated":
+        break;
+      case "clustered": {
+        const sz = Math.max(3, Math.ceil(n / Math.max(1, Math.round(n / 4))));
+        for (let c = 0; c < n; c += sz) {
+          const cl = buyerIds.slice(c, c + sz);
+          cl.forEach((a, i) => cl.slice(i + 1).forEach(b => addEdge(a, b)));
+        }
+        break;
+      }
+      case "small_world": {
+        const sz = Math.max(3, Math.ceil(n / Math.max(1, Math.round(n / 4))));
+        for (let c = 0; c < n; c += sz) {
+          const cl = buyerIds.slice(c, c + sz);
+          cl.forEach((a, i) => cl.slice(i + 1).forEach(b => addEdge(a, b)));
+        }
+        // 3 long-range ties bridging clusters
+        if (n > 4) {
+          addEdge(buyerIds[0], buyerIds[Math.floor(n * 0.5)]);
+          addEdge(buyerIds[Math.floor(n * 0.25)], buyerIds[Math.floor(n * 0.75)]);
+          addEdge(buyerIds[Math.floor(n * 0.4)], buyerIds[n - 1]);
+        }
+        break;
+      }
+      case "hub_spoke":
+        buyerIds.slice(1).forEach(b => addEdge(buyerIds[0], b));
+        break;
+      case "fully_connected":
+        buyerIds.forEach((a, i) => buyerIds.slice(i + 1).forEach(b => addEdge(a, b)));
+        break;
+    }
+    return matrix;
+  }
+
   function renderTopology(snapshot, playersById, activeMessages = []) {
     const players = Object.values(snapshot.players || playersById || {});
-    const matrix = snapshot.comm_matrix || {};
-    const ids = players.map(player => player.id);
-    if (!ids.length) {
+    const buyerIds = players.filter(p => (p.role || "") !== "seller").map(p => p.id);
+    const sellerIds = players.filter(p => (p.role || "") === "seller").map(p => p.id);
+    const matrix = (__topo.override && __topo.override !== "actual")
+      ? generateTemplateMatrix(__topo.override, buyerIds, sellerIds)
+      : (snapshot.comm_matrix || {});
+
+    if (!players.length) {
       $("#topology").innerHTML = `<div class="empty">No topology available.</div>`;
       return;
     }
-    const width = 720;
-    const height = 300;
-    const cx = width / 2;
-    const cy = height / 2;
-    const radius = Math.min(width, height) * 0.36;
-    const positions = {};
-    ids.forEach((id, index) => {
-      const angle = -Math.PI / 2 + (Math.PI * 2 * index) / ids.length;
-      positions[id] = {
-        x: cx + Math.cos(angle) * radius,
-        y: cy + Math.sin(angle) * radius,
-      };
+
+    const container = $("#topology");
+    const W = Math.max(container.clientWidth || 0, 480);
+    const H = 320;
+
+    // If the SVG was cleared (e.g. page re-init), reset simulation state and rebuild
+    if (!container.querySelector("svg.topo-svg")) {
+      if (__topo.sim) { __topo.sim.stop(); __topo.sim = null; }
+      __topo.nodes = {};
+      __topo.edgeKey = "";
+      container.innerHTML = "";
+      const svgEl = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svgEl.setAttribute("class", "topo-svg");
+      svgEl.style.cssText = `width:100%;height:${H}px;display:block`;
+      container.appendChild(svgEl);
+      const s = d3.select(svgEl);
+      s.append("defs").append("marker")
+        .attr("id", "topo-arrow").attr("markerWidth", 7).attr("markerHeight", 7)
+        .attr("refX", 6).attr("refY", 2.5).attr("orient", "auto").attr("markerUnits", "userSpaceOnUse")
+        .append("path").attr("d", "M0,0 L0,5 L6,2.5 z").attr("fill", "#e5b454");
+      s.append("g").attr("class", "t-links");
+      s.append("g").attr("class", "t-nodes");
+      s.append("g").attr("class", "t-arrows");
+    }
+
+    const svg = d3.select(container.querySelector("svg.topo-svg")).attr("viewBox", `0 0 ${W} ${H}`);
+    const ids = players.map(p => p.id);
+
+    // Reuse simulation node objects across renders so positions are preserved
+    const nodeList = players.map(p => {
+      if (!__topo.nodes[p.id]) {
+        __topo.nodes[p.id] = {
+          id: p.id,
+          role: p.role || (String(p.id).startsWith("seller") ? "seller" : "buyer"),
+          archetype: p.archetype || "",
+          x: W * 0.2 + Math.random() * W * 0.6,
+          y: H * 0.2 + Math.random() * H * 0.6,
+        };
+      } else {
+        __topo.nodes[p.id].role = p.role || __topo.nodes[p.id].role;
+        __topo.nodes[p.id].archetype = p.archetype || __topo.nodes[p.id].archetype;
+      }
+      return __topo.nodes[p.id];
     });
-    const edges = [];
-    ids.forEach((a, i) => {
-      ids.slice(i + 1).forEach(b => {
-        if (matrix[a]?.[b]) edges.push([a, b]);
+    const nodeById = Object.fromEntries(nodeList.map(n => [n.id, n]));
+
+    // Build link list using node object references (required for D3 force simulation)
+    const seen = new Set();
+    const linkList = [];
+    ids.forEach(a => {
+      ids.forEach(b => {
+        if (a >= b) return;
+        if (matrix[a]?.[b] || matrix[b]?.[a]) {
+          const key = [a, b].sort().join("|");
+          if (!seen.has(key)) { seen.add(key); linkList.push({ source: nodeById[a], target: nodeById[b] }); }
+        }
       });
     });
-    const directed = activeMessages.filter(message => positions[message.sender] && positions[message.recipient]);
-    const pairCounts = {};
-    directed.forEach(message => {
-      const key = `${message.sender}->${message.recipient}`;
-      pairCounts[key] = (pairCounts[key] || 0) + 1;
-    });
-    const pairSeen = {};
-    const arrowPaths = directed.map(message => {
-      const key = `${message.sender}->${message.recipient}`;
-      const index = pairSeen[key] || 0;
-      pairSeen[key] = index + 1;
-      return arrowPath(positions[message.sender], positions[message.recipient], index, pairCounts[key]);
-    });
-    $("#topology").innerHTML = `
-      <svg class="viz" viewBox="0 0 ${width} ${height}" role="img" aria-label="Communication graph">
-        <defs>
-          <marker id="arrow-head" markerWidth="7" markerHeight="7" refX="6" refY="2.5" orient="auto" markerUnits="userSpaceOnUse">
-            <path d="M0,0 L0,5 L6,2.5 z" fill="#e5b454"></path>
-          </marker>
-        </defs>
-        ${edges.map(([a, b]) => `
-          <line x1="${positions[a].x}" y1="${positions[a].y}" x2="${positions[b].x}" y2="${positions[b].y}" stroke="#38424b" stroke-width="1.2" />
-        `).join("")}
-        ${arrowPaths.map(path => `
-          <path d="${path}" fill="none" stroke="#e5b454" stroke-width="1.6" stroke-linecap="round" marker-end="url(#arrow-head)" opacity="0.78" />
-        `).join("")}
-        ${ids.map(id => {
-          const p = positions[id];
-          const role = roleFor(id, playersById);
-          const color = role === "seller" ? "#f08a68" : "#6aa7ff";
-          return `
-            <circle cx="${p.x}" cy="${p.y}" r="12" fill="${color}" stroke="#0d1012" stroke-width="3" />
-            <text x="${p.x}" y="${p.y + 29}" text-anchor="middle" fill="#dce3e7" font-size="11">${escapeHtml(id)}</text>
-          `;
-        }).join("")}
-      </svg>
-    `;
-  }
 
-  function arrowPath(from, to, index, count) {
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
-    const len = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-    const ux = dx / len;
-    const uy = dy / len;
-    const nx = -uy;
-    const ny = ux;
-    const offset = (index - (count - 1) / 2) * 6;
-    const start = {
-      x: from.x + ux * 15 + nx * offset,
-      y: from.y + uy * 15 + ny * offset,
+    const edgeKey = [...seen].sort().join(",");
+    const needsSimReset = edgeKey !== __topo.edgeKey;
+    __topo.edgeKey = edgeKey;
+
+    const archetypeColors = { budget: "#00d4ff", family: "#a080f0", investor: "#40f080", flexible: "#f0a040" };
+    const nodeColor = n => n.role === "seller" ? "#f08a68" : (archetypeColors[n.archetype] || "#6aa7ff");
+    const nodeR = n => n.role === "seller" ? 15 : 10;
+
+    const activeEdgeSet = new Set();
+    const activeNodeSet = new Set();
+    activeMessages.forEach(m => {
+      if (m.sender && m.recipient) {
+        activeEdgeSet.add([m.sender, m.recipient].sort().join("|"));
+        activeNodeSet.add(m.sender);
+        activeNodeSet.add(m.recipient);
+      }
+    });
+
+    // Links
+    const linkSel = svg.select(".t-links").selectAll("line")
+      .data(linkList, d => `${d.source.id}|${d.target.id}`);
+    linkSel.enter().append("line").merge(linkSel)
+      .attr("stroke-opacity", 0.85)
+      .attr("stroke", d => activeEdgeSet.has([d.source.id, d.target.id].sort().join("|")) ? "#e5b454" : "#38424b")
+      .attr("stroke-width", d => activeEdgeSet.has([d.source.id, d.target.id].sort().join("|")) ? 2.5 : 1.2)
+      .attr("x1", d => d.source.x ?? 0).attr("y1", d => d.source.y ?? 0)
+      .attr("x2", d => d.target.x ?? 0).attr("y2", d => d.target.y ?? 0);
+    linkSel.exit().remove();
+
+    // Nodes
+    const nodeSel = svg.select(".t-nodes").selectAll("g").data(nodeList, d => d.id);
+    const nodeEnter = nodeSel.enter().append("g").attr("cursor", "default");
+    nodeEnter.append("circle");
+    nodeEnter.append("text");
+    nodeEnter.append("title");
+    const nodeMerge = nodeEnter.merge(nodeSel);
+    nodeMerge.select("circle")
+      .attr("r", nodeR)
+      .attr("fill", d => nodeColor(d) + (activeNodeSet.has(d.id) ? "88" : "33"))
+      .attr("stroke", nodeColor)
+      .attr("stroke-width", d => activeNodeSet.has(d.id) ? 3 : 2);
+    nodeMerge.select("text")
+      .text(d => d.role === "seller" ? d.id : d.id.replace(/^(buyer|agent)[_\-]?/i, "").substring(0, 8))
+      .attr("text-anchor", "middle")
+      .attr("dy", d => nodeR(d) + 13)
+      .attr("fill", "#8f9aa3")
+      .attr("font-size", "10px");
+    nodeMerge.select("title").text(d => {
+      const p = playersById[d.id] || {};
+      const lines = [d.id, `role: ${d.role}`];
+      if (d.archetype) lines.push(`archetype: ${d.archetype}`);
+      const budget = (p.status || p).budget;
+      if (budget != null) lines.push(`budget: $${Math.round(budget).toLocaleString()}`);
+      return lines.join("\n");
+    });
+    nodeMerge.attr("transform", d => `translate(${d.x ?? 0},${d.y ?? 0})`);
+    nodeSel.exit().remove();
+
+    // Active message arrows
+    const arrowData = activeMessages.filter(m => nodeById[m.sender] && nodeById[m.recipient]);
+    const arrowSel = svg.select(".t-arrows").selectAll("line")
+      .data(arrowData, d => `${d.sender}->${d.recipient}`);
+    arrowSel.enter().append("line").merge(arrowSel)
+      .attr("stroke", "#e5b454").attr("stroke-width", 1.8).attr("stroke-opacity", 0.85)
+      .attr("marker-end", "url(#topo-arrow)")
+      .attr("x1", d => nodeById[d.sender].x ?? 0).attr("y1", d => nodeById[d.sender].y ?? 0)
+      .attr("x2", d => nodeById[d.recipient].x ?? 0).attr("y2", d => nodeById[d.recipient].y ?? 0);
+    arrowSel.exit().remove();
+
+    // Simulation tick — updates all element positions
+    const tick = () => {
+      nodeList.forEach(n => {
+        n.x = Math.max(25, Math.min(W - 25, n.x ?? W / 2));
+        n.y = Math.max(25, Math.min(H - 25, n.y ?? H / 2));
+      });
+      svg.select(".t-links").selectAll("line")
+        .attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+      svg.select(".t-nodes").selectAll("g").attr("transform", d => `translate(${d.x},${d.y})`);
+      svg.select(".t-arrows").selectAll("line")
+        .attr("x1", d => nodeById[d.sender]?.x ?? 0).attr("y1", d => nodeById[d.sender]?.y ?? 0)
+        .attr("x2", d => nodeById[d.recipient]?.x ?? 0).attr("y2", d => nodeById[d.recipient]?.y ?? 0);
     };
-    const end = {
-      x: to.x - ux * 16 + nx * offset,
-      y: to.y - uy * 16 + ny * offset,
-    };
-    const curve = Math.min(22, len * 0.10) + Math.abs(offset);
-    const mid = {
-      x: (start.x + end.x) / 2 + nx * curve,
-      y: (start.y + end.y) / 2 + ny * curve,
-    };
-    return `M${start.x.toFixed(1)},${start.y.toFixed(1)} Q${mid.x.toFixed(1)},${mid.y.toFixed(1)} ${end.x.toFixed(1)},${end.y.toFixed(1)}`;
+
+    if (needsSimReset || !__topo.sim) {
+      if (__topo.sim) __topo.sim.stop();
+      __topo.sim = d3.forceSimulation(nodeList)
+        .force("link", d3.forceLink(linkList).id(d => d.id).distance(70).strength(0.5))
+        .force("charge", d3.forceManyBody().strength(-180))
+        .force("center", d3.forceCenter(W / 2, H / 2))
+        .force("collision", d3.forceCollide().radius(24))
+        .on("tick", tick);
+    }
   }
 
   function renderHeatmap(messages, players) {

@@ -410,109 +410,373 @@ class RuleAdapter(DecisionAdapter):
             return self._seller(agent, local_view)
         return self._buyer(agent, local_view)
 
+    # ── helpers ───────────────────────────────────────────────────────────────
+
+    @staticmethod
+    def _pick(items: list, index: int) -> str:
+        return items[index % len(items)]
+
+    @staticmethod
+    def _has(*tokens: str, archetype: str) -> bool:
+        return any(t in archetype for t in tokens)
+
+    # ── buyer ─────────────────────────────────────────────────────────────────
+
     def _buyer(self, agent: Dict[str, Any], local_view: Dict[str, Any]) -> Dict[str, Any]:
         if agent.get("bought") or agent.get("exited"):
             return {"action": "WAIT", "reasoning": "already done"}
 
-        offers = [o for o in local_view.get("offers", []) if o.get("to") == agent["id"] and o.get("status") == "open"]
-        acceptable_offer = next((o for o in offers if int(o.get("price", 10**9)) <= max_price(agent)), None)
-        if acceptable_offer:
+        arch = agent.get("archetype", "")
+        ticks = int(agent.get("ticks_waited", 0))
+        ceiling = max_price(agent)
+        budget = int(agent.get("budget", 0))
+
+        # Accept any open offer within ceiling
+        offers = [o for o in local_view.get("offers", [])
+                  if o.get("to") == agent["id"] and o.get("status") == "open"]
+        acceptable = next((o for o in offers if int(o.get("price", 10**9)) <= ceiling), None)
+        if acceptable:
             return {
                 "action": "ACCEPT_OFFER",
-                "target": acceptable_offer["from"],
-                "content": f"I accept your offer at ${acceptable_offer['price']}.",
-                "reasoning": "seller offer is within max price",
+                "target": acceptable["from"],
+                "content": self._buyer_accept(arch, int(acceptable["price"])),
+                "reasoning": "seller offer within ceiling — taking it",
             }
 
         sellers = [
-            (sid, info)
-            for sid, info in local_view.get("sellers", {}).items()
+            (sid, info) for sid, info in local_view.get("sellers", {}).items()
             if info.get("inventory", 0) > 0 and sid in local_view.get("neighbors", [])
         ]
+        buyer_nbrs = [n for n in local_view.get("neighbors", []) if n.startswith("buyer_")]
+
         if not sellers:
+            # No seller reachable — probe a neighbor for leads
+            if buyer_nbrs:
+                target = self._pick(buyer_nbrs, ticks)
+                return {
+                    "action": "PROBE", "target": target,
+                    "content": self._pick([
+                        "Anyone have a seller with inventory? I can't reach one from here.",
+                        "I'm cut off from sellers right now — who do you have access to?",
+                        "Any sellers still active near you? I'm stuck.",
+                    ], ticks),
+                    "reasoning": "no reachable sellers — probing neighbors for leads",
+                }
             return {"action": "WAIT", "reasoning": "no connected seller with inventory"}
-        seller_id, seller = min(sellers, key=lambda item: item[1]["price"])
-        price = int(seller["price"])
-        target_price = max_price(agent)
-        if price <= target_price and agent.get("budget", 0) >= price:
+
+        seller_id, seller_info = min(sellers, key=lambda x: x[1]["price"])
+        price = int(seller_info["price"])
+
+        # Urgent buyers lock in immediately if affordable
+        if self._has("must_have", "early_lock", "anxious", "impulsive", "deadline", archetype=arch):
+            if price <= ceiling and budget >= price:
+                return {
+                    "action": "ACCEPT_OFFER", "target": seller_id,
+                    "content": self._buyer_accept_urgent(arch, price),
+                    "reasoning": "time-pressured — locking in at ceiling price",
+                }
+
+        # Standard buyers buy once they've waited a bit and price is within ceiling
+        if price <= ceiling and budget >= price and ticks >= 2:
             return {
-                "action": "ACCEPT_OFFER",
-                "target": seller_id,
-                "content": f"I accept the listed price of ${price}.",
-                "reasoning": "listed price satisfies buyer goal",
+                "action": "ACCEPT_OFFER", "target": seller_id,
+                "content": self._buyer_accept(arch, price),
+                "reasoning": "price within ceiling after waiting",
             }
 
-        ticks_waited = int(agent.get("ticks_waited", 0))
-        bid_price = min(target_price, max(1, int(price * 0.86)))
-        if ticks_waited % 3 == 0:
-            return {
-                "action": "BID",
-                "target": seller_id,
-                "content": f"I can offer ${bid_price} for one item today.",
-                "reasoning": "testing seller willingness to discount",
-            }
+        # Action cycle: bid → probe → social move → wait
+        phase = ticks % 4
 
-        buyer_neighbors = [n for n in local_view.get("neighbors", []) if n.startswith("buyer_")]
-        if buyer_neighbors and ticks_waited % 3 == 1:
-            return {
-                "action": "PROBE",
-                "target": buyer_neighbors[0],
-                "content": f"What price are you seeing? I see {seller_id} at ${price}.",
-                "reasoning": "gather local price intelligence",
-            }
+        if phase == 0:
+            return self._buyer_bid(arch, ticks, seller_id, price, ceiling)
 
-        return {"action": "WAIT", "reasoning": "waiting for a better price or response"}
+        if phase == 1 and buyer_nbrs:
+            return self._buyer_probe(arch, ticks, buyer_nbrs, seller_id, price)
+
+        if phase == 2 and buyer_nbrs:
+            # Manipulative / coalition players do something adversarial or social
+            if self._has("manipulative", "spiteful", archetype=arch):
+                return self._buyer_lie(arch, ticks, buyer_nbrs, sellers)
+            if self._has("coalition", "cooperative", "information_broker", "free_rider", archetype=arch):
+                return self._buyer_coordinate(arch, ticks, buyer_nbrs, seller_id, price, ceiling)
+            return self._buyer_share(arch, ticks, buyer_nbrs, seller_id, price)
+
+        if phase == 3 and buyer_nbrs and self._has(
+            "researcher", "silent_sniper", "contrarian", "social_proof", archetype=arch
+        ):
+            return self._buyer_share(arch, ticks, buyer_nbrs, seller_id, price)
+
+        return {"action": "WAIT", "reasoning": "holding for better price or response"}
+
+    def _buyer_bid(self, arch: str, ticks: int, seller_id: str, price: int, ceiling: int) -> dict:
+        if self._has("aggressive", "bargain", archetype=arch):
+            bid = min(ceiling, max(1, int(price * 0.80)))
+            msgs = [
+                f"${bid}. That's my opening and it's firm — take it or I walk.",
+                f"You're asking ${price}. I'll do ${bid}, not a cent more.",
+                f"Market says ${bid}. I have alternatives. Your move.",
+            ]
+        elif self._has("whale", "bulk", archetype=arch):
+            bid = min(ceiling, max(1, int(price * 0.87)))
+            msgs = [
+                f"I'm a volume buyer. ${bid} per unit for a multi-unit deal — interested?",
+                f"Willing to take multiple units at ${bid} each. That's real volume for you.",
+                f"${bid} and I'll clear more than one item. Think about it.",
+            ]
+        elif self._has("cooperative", "fair", archetype=arch):
+            bid = min(ceiling, max(1, int(price * 0.90)))
+            msgs = [
+                f"I'd like to offer ${bid} — I think that's fair for both of us.",
+                f"${bid} is my honest offer. I'm not trying to lowball you.",
+                f"How does ${bid} sound? I want this to work for both sides.",
+            ]
+        elif self._has("skeptical", archetype=arch):
+            bid = min(ceiling, max(1, int(price * 0.85)))
+            msgs = [
+                f"${price} is hard to justify. What makes this worth more than ${bid}?",
+                f"I'd need a reason to pay ${price}. I'm at ${bid} until you convince me.",
+                f"${bid}. And I want to know why the list price is ${price}.",
+            ]
+        else:
+            bid = min(ceiling, max(1, int(price * 0.87)))
+            msgs = [
+                f"I can do ${bid} for one unit — can we close this?",
+                f"${bid} is where my budget is. Any flexibility on your end?",
+                f"Offering ${bid}. That's genuine, not an anchor.",
+            ]
+        return {
+            "action": "BID", "target": seller_id,
+            "content": self._pick(msgs, ticks),
+            "reasoning": f"bidding ${bid} against listed ${price}",
+        }
+
+    def _buyer_probe(self, arch: str, ticks: int, nbrs: list, seller_id: str, price: int) -> dict:
+        target = self._pick(nbrs, ticks)
+        msgs = [
+            f"What price are you seeing? I'm getting {seller_id} at ${price} — feels high.",
+            f"Have you managed to negotiate anything down? {seller_id} won't move for me.",
+            f"Any intel on {seller_id}'s real floor? They're quoting ${price} but I doubt that's bottom.",
+            f"Are you holding out or buying? I'm at {seller_id} at ${price} and debating.",
+            f"Who are you connected to? I want to know if there's a better deal somewhere else.",
+        ]
+        return {
+            "action": "PROBE", "target": target,
+            "content": self._pick(msgs, ticks),
+            "reasoning": "gathering local price intelligence",
+        }
+
+    def _buyer_coordinate(self, arch: str, ticks: int, nbrs: list, seller_id: str, price: int, ceiling: int) -> dict:
+        target = self._pick(nbrs, ticks)
+        hold = int(ceiling * 0.82)
+        msgs = [
+            f"If we hold out, {seller_id} will drop. Don't buy above ${hold} — pass it on.",
+            f"I'm not moving above ${hold}. If you do the same we have leverage. Spread the word.",
+            f"Let's coordinate — refuse their offers this round. They need us more than we need them.",
+            f"Hold the line at ${hold}. Make them come to us.",
+            f"I've been talking to a few people — there's quiet agreement not to pay above ${hold}. Join us.",
+        ]
+        return {
+            "action": "COORDINATE", "target": target,
+            "content": self._pick(msgs, ticks),
+            "reasoning": "coordinating a price ceiling with buyers",
+        }
+
+    def _buyer_share(self, arch: str, ticks: int, nbrs: list, seller_id: str, price: int) -> dict:
+        target = self._pick(nbrs, ticks)
+        floor_est = int(price * 0.87)
+        msgs = [
+            f"FYI: {seller_id} is at ${price} but I think they'll go to ${floor_est}. Worth pushing.",
+            f"Passing this on — I got {seller_id} to move a bit. Keep bidding low, don't accept list price.",
+            f"Intel: {seller_id} has inventory pressure. Their floor is probably around ${floor_est}.",
+            f"Heads up: {seller_id} quoted me ${price}. Don't pay that — counter hard.",
+        ]
+        return {
+            "action": "SHARE_INFO", "target": target,
+            "content": self._pick(msgs, ticks),
+            "reasoning": "sharing market intel with neighbor",
+        }
+
+    def _buyer_lie(self, arch: str, ticks: int, nbrs: list, sellers: list) -> dict:
+        target = self._pick(nbrs, ticks)
+        sid = sellers[0][0] if sellers else "the main seller"
+        msgs = [
+            f"Between us: {sid} just told me they're almost out — I'd move fast if I were you. I already locked in.",
+            f"{sid} said prices are going up next round. Might want to wait for a new entrant instead.",
+            f"I heard someone from another group already bought {sid}'s last good units. What I'm seeing looks like scraps.",
+            f"Don't bother with {sid} — I probed them, floor is basically list price. Try your other contacts.",
+        ]
+        return {
+            "action": "LIE", "target": target,
+            "content": self._pick(msgs, ticks),
+            "reasoning": "misdirecting competitor to reduce bidding pressure",
+        }
+
+    def _buyer_accept(self, arch: str, price: int) -> str:
+        if self._has("skeptical", archetype=arch):
+            return f"Fine. ${price}. I'm not thrilled but I'll take it."
+        if self._has("cooperative", "fair", archetype=arch):
+            return f"Deal at ${price}. Pleasure doing business."
+        if self._has("aggressive", "bargain", archetype=arch):
+            return f"Accepted at ${price}. Took long enough."
+        if self._has("whale", "bulk", archetype=arch):
+            return f"Taking it at ${price}. If you have more units, let's talk volume."
+        return f"I'll take it at ${price}."
+
+    def _buyer_accept_urgent(self, arch: str, price: int) -> str:
+        if self._has("anxious", archetype=arch):
+            return f"Yes — ${price}, locking in now before this disappears."
+        if self._has("early_lock", archetype=arch):
+            return f"Locking in at ${price}. Certainty matters more than squeezing you."
+        if self._has("deadline", archetype=arch):
+            return f"I'm on a deadline — ${price} works, let's close this."
+        if self._has("impulsive", archetype=arch):
+            return f"Done. ${price}. Let's go."
+        return f"Accepted at ${price}. Need to close this now."
+
+    # ── seller ────────────────────────────────────────────────────────────────
 
     def _seller(self, agent: Dict[str, Any], local_view: Dict[str, Any]) -> Dict[str, Any]:
         if int(agent.get("inventory", 0)) <= 0:
             return {"action": "WAIT", "reasoning": "sold out"}
 
+        arch = agent.get("archetype", "")
+        floor = int(agent.get("min_price", 0))
+        current = int(agent.get("current_price", floor))
+        ticks = int(agent.get("ticks_waited", 0))
+
+        # Respond to incoming buyer offers first
         open_offers = [
             o for o in local_view.get("offers", [])
             if o.get("to") == agent["id"] and o.get("status") == "open"
         ]
         if open_offers:
             best = max(open_offers, key=lambda o: int(o.get("price", 0)))
-            price = int(best.get("price", 0))
-            floor = int(agent.get("min_price", 0))
-            current = int(agent.get("current_price", floor))
-            if price >= floor and (price >= current * 0.88 or agent.get("goal", {}).get("type") == "sell_all"):
+            offered = int(best.get("price", 0))
+            goal_type = agent.get("goal", {}).get("type", "")
+
+            if self._has("desperate", "clearance", "market_maker", "impatient", archetype=arch):
+                accept_threshold = floor
+            elif "sell_all" in goal_type:
+                accept_threshold = floor
+            else:
+                accept_threshold = max(floor, int(current * 0.88))
+
+            if offered >= accept_threshold:
                 return {
-                    "action": "ACCEPT_OFFER",
-                    "target": best["from"],
-                    "content": f"Accepted at ${price}.",
-                    "reasoning": "offer clears floor and advances seller goal",
+                    "action": "ACCEPT_OFFER", "target": best["from"],
+                    "content": self._seller_accept(arch, offered),
+                    "reasoning": "offer clears floor — accepting",
                 }
-            counter = max(floor, min(current, int(price * 1.10)))
+            counter = max(floor, min(current, int(offered * 1.12)))
             return {
-                "action": "COUNTER_OFFER",
-                "target": best["from"],
-                "content": f"I cannot do ${price}. I can do ${counter}.",
-                "reasoning": "countering above floor",
+                "action": "COUNTER_OFFER", "target": best["from"],
+                "content": self._seller_counter(arch, offered, counter),
+                "reasoning": f"countering at ${counter}",
             }
 
-        ticks_waited = int(agent.get("ticks_waited", 0))
-        if ticks_waited and ticks_waited % 4 == 0:
-            floor = int(agent.get("min_price", 0))
-            new_price = max(floor, int(agent.get("current_price", floor) * 0.96))
-            return {
-                "action": "SET_PRICE",
-                "target": agent["id"],
-                "content": f"New listed price: ${new_price}.",
-                "reasoning": "lowering price after limited demand",
-            }
-
+        # Proactive strategy rotation
+        phase = ticks % 3
         neighbors = local_view.get("neighbors", [])
         buyer = next((n for n in neighbors if n.startswith("buyer_")), None)
-        if buyer and ticks_waited % 3 == 1:
+
+        if phase == 0 and buyer:
             return {
-                "action": "BROADCAST",
-                "target": buyer,
-                "content": f"{agent['id']} has {agent['inventory']} units listed at ${agent['current_price']}.",
-                "reasoning": "advertise current listing to a connected buyer",
+                "action": "BROADCAST", "target": buyer,
+                "content": self._seller_broadcast(arch, agent),
+                "reasoning": "advertising to connected buyers",
             }
 
-        return {"action": "WAIT", "reasoning": "holding current price"}
+        if phase == 1 and ticks >= 2:
+            # Archetype-driven price adjustment
+            if self._has("desperate", "clearance", archetype=arch):
+                new_price = max(floor, int(current * 0.93))
+            elif self._has("premium", "prestige", "hardliner", archetype=arch):
+                new_price = max(floor, int(current * 0.995))
+            elif self._has("experimental", "opportunistic", archetype=arch):
+                new_price = max(floor, int(current * 0.94))
+            else:
+                new_price = max(floor, int(current * 0.96))
+
+            if new_price < current:
+                return {
+                    "action": "SET_PRICE", "target": agent["id"],
+                    "content": self._seller_price_drop(arch, current, new_price),
+                    "reasoning": f"adjusting price to ${new_price} to stimulate demand",
+                }
+
+        return {"action": "WAIT", "reasoning": "holding position"}
+
+    def _seller_broadcast(self, arch: str, agent: Dict) -> str:
+        inv = int(agent.get("inventory", 0))
+        price = int(agent.get("current_price", 0))
+        units = f"{inv} unit{'s' if inv != 1 else ''}"
+
+        if self._has("scarcity", archetype=arch):
+            if inv <= 2:
+                return f"Last {units} at ${price}. I can't hold these — first serious buyer gets them."
+            return f"Only {units} left at ${price}. Multiple buyers are already in talks with me."
+        if self._has("auctioneer", archetype=arch):
+            return f"Open for bids: {units} at ${price} ask. I'm entertaining multiple offers — make yours count."
+        if self._has("desperate", "clearance", archetype=arch):
+            return f"I need to move these fast. {units} at ${price} — I'm flexible, let's talk."
+        if self._has("premium", "prestige", archetype=arch):
+            return f"Premium listing: {units} at ${price}. Not discounting, but serious buyers are welcome."
+        if self._has("volume", "bundler", archetype=arch):
+            return f"{units} at ${price} each. Buying 2 or more? We can discuss a package rate."
+        if self._has("relationship", "loyalist", archetype=arch):
+            return f"Fair deal available: {units} at ${price}. Message me — I reward serious buyers."
+        if self._has("manipulative", archetype=arch):
+            return f"High interest today. {units} at ${price} — I've had three inquiries this round already."
+        if self._has("anchoring", archetype=arch):
+            return f"Listed at ${price}, well under market. {units} available for the right buyer."
+        if self._has("market_maker", archetype=arch):
+            return f"Active and ready: {units} at ${price}. Counters welcome — let's find a price that works."
+        if self._has("hardliner", archetype=arch):
+            return f"{units} at ${price}. That's the price. Not negotiating, but you're welcome to transact."
+        if self._has("experimental", archetype=arch):
+            return f"Testing a new ask: {units} at ${price}. React and let me know what you think is fair."
+        return f"{units} available at ${price}. Serious buyers, reach out."
+
+    def _seller_counter(self, arch: str, offered: int, counter: int) -> str:
+        if self._has("hardliner", archetype=arch):
+            return f"${offered} doesn't work. ${counter} is my floor — that's final."
+        if self._has("anchoring", archetype=arch):
+            return f"Appreciate the offer but ${offered} doesn't cover my costs. ${counter} — that's already a real concession."
+        if self._has("relationship", archetype=arch):
+            return f"I want to make this work. ${offered} is too low for me, but I'll do ${counter}. Fair?"
+        if self._has("manipulative", archetype=arch):
+            return f"I have another offer above yours right now. ${counter} to beat it."
+        if self._has("volume", "bundler", archetype=arch):
+            return f"${offered} per unit doesn't work. ${counter} — or buy more units and I'll sharpen the price."
+        if self._has("desperate", "clearance", archetype=arch):
+            return f"Wish I could do ${offered}, I really do. ${counter} is the lowest I can go."
+        if self._has("auctioneer", archetype=arch):
+            return f"I've got interest from others at ${counter}. Match it and it's yours."
+        return f"Can't do ${offered}. Best I can offer is ${counter}."
+
+    def _seller_accept(self, arch: str, price: int) -> str:
+        if self._has("desperate", "clearance", "impatient", archetype=arch):
+            return f"Done at ${price}. Glad to close this."
+        if self._has("relationship", "loyalist", archetype=arch):
+            return f"Pleasure doing business at ${price}. Come back if you need more."
+        if self._has("premium", "prestige", archetype=arch):
+            return f"Accepted at ${price}. You're getting quality here."
+        if self._has("auctioneer", archetype=arch):
+            return f"Sold at ${price}. You beat the competition."
+        return f"Accepted at ${price}. Transaction confirmed."
+
+    def _seller_price_drop(self, arch: str, old: int, new: int) -> str:
+        if self._has("clearance", "desperate", archetype=arch):
+            return f"Dropping to ${new} — I need to clear this inventory."
+        if self._has("experimental", archetype=arch):
+            return f"New price point: ${new}. Testing what the market will bear."
+        if self._has("market_maker", archetype=arch):
+            return f"Adjusting to ${new} to keep things moving. Come talk to me."
+        if self._has("opportunistic", archetype=arch):
+            return f"Demand is lighter than I expected. Moving to ${new} for now."
+        if self._has("relationship", archetype=arch):
+            return f"Adjusting down to ${new}. I want serious buyers to find this worthwhile."
+        return f"Lowering to ${new}. Reach out if you're interested."
 
 
 class ClaudeCliAdapter(DecisionAdapter):

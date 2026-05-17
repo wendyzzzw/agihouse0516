@@ -93,6 +93,14 @@
           <section class="panel">
             <div class="panel-head">
               <div class="panel-title">Communication Topology</div>
+              <div class="actions topo-template-btns" id="topo-template-btns">
+                <button type="button" class="topo-tpl active" data-topo="actual">Actual</button>
+                <button type="button" class="topo-tpl" data-topo="isolated">Isolated</button>
+                <button type="button" class="topo-tpl" data-topo="clustered">Clustered</button>
+                <button type="button" class="topo-tpl" data-topo="small_world">Small World</button>
+                <button type="button" class="topo-tpl" data-topo="hub_spoke">Hub &amp; Spoke</button>
+                <button type="button" class="topo-tpl" data-topo="fully_connected">Full</button>
+              </div>
             </div>
             <div class="panel-body">
               <div id="topology"></div>
@@ -148,6 +156,7 @@
       </section>
     </main>
   </div>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
